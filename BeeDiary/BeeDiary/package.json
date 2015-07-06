@@ -1,0 +1,10 @@
+{
+  "name": "BeeDiary",
+  "version": "0.0.0",
+  "description": "BeeDiary",
+  "main": "app.js",
+  "author": {
+    "name": "Valentin",
+    "email": ""
+  }
+}
