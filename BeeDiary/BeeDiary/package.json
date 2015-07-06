@@ -6,5 +6,11 @@
   "author": {
     "name": "Valentin",
     "email": ""
+  },
+  "dependencies": {
+    "angular2": "^2.0.0-alpha.29",
+    "bower": "^1.4.1",
+    "gulp": "^3.9.0",
+    "jasmine": "^2.3.1"
   }
 }
