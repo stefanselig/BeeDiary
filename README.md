@@ -1,2 +1,2 @@
 # BeefinderDiplomaThesis
-By Stefan Selig and Valentin Hengstschläger
+By Stefan Selig and Valentin Hengstschläger dsfasdf
