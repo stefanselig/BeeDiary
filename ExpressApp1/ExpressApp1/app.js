@@ -1,5 +1,6 @@
 /// <reference path="Scripts/typings/node/node.d.ts" />
 /// <reference path="Scripts/typings/stylus/stylus.d.ts" />
+/// <reference path="Scripts/typings/express/express.d.ts" />
 var express = require('express');
 var routes = require('./routes/index');
 var user = require('./routes/user');

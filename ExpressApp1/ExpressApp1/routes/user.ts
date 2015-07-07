@@ -1,4 +1,5 @@
-﻿/*
+﻿/// <reference path="../Scripts/typings/express/express.d.ts" />
+/*
  * GET users listing.
  */
 import express = require('express');

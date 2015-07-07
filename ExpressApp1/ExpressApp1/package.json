@@ -1,15 +1,19 @@
 {
-  "name": "ExpressApp1",
-  "version": "0.0.0",
-  "description": "ExpressApp1",
+  "name": "BeeDiary",
+  "version": "0.0.1",
+  "description": "BeeDiary",
   "main": "app.js",
   "author": {
-    "name": "Valentin",
+    "name": "Hengstschlaeger & Selig",
     "email": ""
   },
   "dependencies": {
     "express": "3.4.4",
     "jade": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "gulp": "latest",
+    "jasmine": "latest",
+    "angular2": "latest",
+    "bower": "latest"
   }
 }
