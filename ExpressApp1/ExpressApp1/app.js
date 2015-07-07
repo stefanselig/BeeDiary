@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 /// <reference path="Scripts/typings/node/node.d.ts" />
 /// <reference path="Scripts/typings/stylus/stylus.d.ts" />
+=======
+>>>>>>> cb3f1493be49ba097658ab160fb8b35e484e7064
 var express = require('express');
 var routes = require('./routes/index');
 var user = require('./routes/user');
@@ -28,3 +31,7 @@ app.get('/users', user.list);
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+<<<<<<< HEAD
+=======
+//# sourceMappingURL=app.js.map
+>>>>>>> cb3f1493be49ba097658ab160fb8b35e484e7064
