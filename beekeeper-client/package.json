@@ -1,0 +1,19 @@
+{
+  "name": "beekeeper",
+  "version": "1.0.0",
+  "description": "Diploma thesis, 5BHIF",
+  "scripts": {
+		"tsc": "tsc -p src -w",
+		"start": "live-server --open=src"
+  },
+  "author": "Stefan Selig and Valentin Hengstschläger",
+	"dependencies": {
+		"angular2": "2.0.0-alpha.44",
+		"systemjs": "0.19.2"
+	},
+	"devDependencies": {
+		"typescript": "^1.6.2",
+		"live-server": "^0.8.1",
+		"gulp": "latest"
+	}
+}
