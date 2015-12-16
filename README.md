@@ -1,14 +1,14 @@
 # Diploma Thesis
 ## by Stefan Selig & Valentin Hengstschläger
 
-**Note: Everything here is parted into server and client, because each part is graded individually. ** 
+**Note: Everything here is parted into server and client, because each part is graded individually.** 
 
 ## Installation & Deployment:
 
 ### For Client:
 
 ```shell
-> git clone <Repository Clone Adress>
+> git clone https://github.com/stefanselig/BeefinderDiplomaThesis.git>
 > cd beekeeper-client
 > npm install
 ```
@@ -20,7 +20,7 @@
 ### 16.12.15 - Client
 
 Angular version 2 beta 1 was released today. Updated files to meet setup recommendation of Angular 2 team.
-There are some errors when compiling
+There are some errors when compiling the typescript files. The typescript transpiler somehow can't find the Angular modules.
 
 ```shell
 > tsc -p app -w
@@ -89,3 +89,7 @@ recommended live-server, but since beta 1 they recommend lite-server. We have no
 #### Client
 
 ** TODO: Add used technologies and description. **
+
+typescript (incl. ts-config), angular2, systemjs, es6-promise, es6-shim, reflect-metadata, rxjs, zone.js, live-server, lite-server, gulp, angular2-router, angular2-polyfills
+
+#### Server
