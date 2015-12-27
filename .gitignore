@@ -1,4 +1,5 @@
 beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
 
+beekeeper-server/routes/config.js
 beekeeper-server/node_modules
