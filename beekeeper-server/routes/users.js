@@ -38,5 +38,22 @@ router.route('/users').post(function(req, res) {
 router.route('/users').get(function(req, res) {
         users.find({}).then(console.log);
     });
+    
+// get exactly one user by id(accesed at GET http://localhost:8080/api/users/:user_id)
+router.route('/users/:user_id').get(function(req, res) {        
+        users.findById(req.params.user_id).then(console.log);
+    });
+    
+// update a single users info by id (accesed at PUT http://localhost:8080/api/users/:user_id)
+router.route('/users/:user_id').put(function(req, res) {
+        //JUST A SCAFFHOLDER!!
+        users.update({ name: req.params.user_id, admin: true }, { admin: false }).then(console.log); 
+    });
+    
+// delete a single users info by id (accesed at DELETE http://localhost:8080/api/users/:user_id)
+router.route('/users/:user_id').delete(function(req, res) {
+        //JUST A SCAFFHOLDER!!
+        users.findAndRemove({ name: req.params.user_id }).then(console.log);
+    });
  
 module.exports = router;
