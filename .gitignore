@@ -2,3 +2,4 @@ beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
 
 beekeeper-server/node_modules
+beekeeper-server/routes/config.js
