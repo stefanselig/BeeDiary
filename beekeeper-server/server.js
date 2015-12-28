@@ -17,16 +17,8 @@ var port = process.env.PORT || 8080;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-              // get an instance of the express Router
 var users = require('./routes/users');
-
-// test route to make sure everything is working (accessed at GET http://localhost:8080/users)
-/*router.get('/', function(req, res) {
-    res.json({ message: 'REST is working and ready to handle requests.' });   
-});*/
-
-// more routes for our API will happen here
-
+ 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api/', users);

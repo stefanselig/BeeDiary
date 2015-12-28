@@ -4,13 +4,11 @@ var express = require('express');
 var router = express.Router();
 var config = require('./config');
 
-//Database handeling (DocumentDB)
-var DoQmentDB  = require('doqmentdb');          
-var User = require('../models/user');            // Get model/schema
-var connection = new (require('documentdb').DocumentClient)(config.db.host, {masterKey: config.db.masterKey}); // Create DocumentDB connection 
-var db = new DoQmentDB(connection, 'user');  // Create DBManager 'test' 
-var users = db.use('users');                    // Create CollectionManager 'users' 
-users.schema(User);
+//Database handeling (MongoDB)
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://bees:Bees123@ds037005.mongolab.com:37005/beesaver-db'); //connect to our database
+
+var User = require('../models/user');
 
 
 // middleware to use for all requests
@@ -29,31 +27,86 @@ router.get('/', function(req, res) {
 // create a user (accessed at POST http://localhost:8080/api/users)
 router.route('/users').post(function(req, res) {
         // save the user and check for errors
-        users.create({ name: req.body.name, email: req.body.email, password: req.body.password})
-        .then(console.log)
-        .catch(console.log);
+        var user = new User(); //create a new instance of the user-model
+        user.name = req.body.name; // set the user name (comes from the request)
+        user.email = req.body.email;
+        user.password = req.body.password;
+        
+        user.save(function(err) {
+            if(err){
+                console.log('Error at creating a new User.');
+                res.send(err);
+            } else {
+                console.log('New User succesfully created.');
+                res.json({message: 'User created!' });
+            }
+        });
     });
     
 // gets all users (accessed at GET http://localhost:8080/api/users)    
 router.route('/users').get(function(req, res) {
-        users.find({}).then(console.log);
+        User.find(function(err, users) {
+            if(err) {
+                res.send(err);
+                console.log('Error at getting all Users.');
+            } else {
+                res.json(users);
+                console.log('All Users succesfully returned.');
+            }
+        })
     });
     
 // get exactly one user by id(accesed at GET http://localhost:8080/api/users/:user_id)
-router.route('/users/:user_id').get(function(req, res) {        
-        users.findById(req.params.user_id).then(console.log);
+router.route('/users/:user_id').get(function(req, res) {     
+        User.findById(req.params.user_id, function(err, user) {
+            if(err) {
+                res.send(err);
+                console.log('Error at getting one specific User by Id.');
+            } else {
+                res.json(user);
+                console.log('One specific User by Id succesfully returned.')
+            }
+        })
     });
     
 // update a single users info by id (accesed at PUT http://localhost:8080/api/users/:user_id)
 router.route('/users/:user_id').put(function(req, res) {
-        //JUST A SCAFFHOLDER!!
-        users.update({ name: req.params.user_id, admin: true }, { admin: false }).then(console.log); 
+        // use our user-model to find the user we want
+        User.findById(req.params.user_id, function(err, user) {
+
+            if (err) {
+                res.send(err);
+                console.log('Error at updating one specific User.');
+            } else {
+                //Update the users info
+                user.name = req.body.name;
+                user.email = req.body.email;
+                user.password = req.body.password;
+                //save the user
+                user.save(function(err) {
+                   if(err) {
+                       res.send(err);
+                   } else {
+                       res.json({message: 'User updated!' });
+                   }
+                });
+                console.log('One specific User by Id succesfully updated.')
+            }
+        });
     });
     
 // delete a single users info by id (accesed at DELETE http://localhost:8080/api/users/:user_id)
 router.route('/users/:user_id').delete(function(req, res) {
-        //JUST A SCAFFHOLDER!!
-        users.findAndRemove({ name: req.params.user_id }).then(console.log);
+        User.remove( {
+            _id: req.params.user_id
+        },function(err, user) {
+            if(err) {
+                res.send(err);
+                console.log('Error at deleting one single User by id.')
+            } else {
+                res.json({message: 'User succesfully deleted.'});
+            }
+        });
     });
  
 module.exports = router;
