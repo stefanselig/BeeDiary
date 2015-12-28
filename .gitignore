@@ -1,10 +1,6 @@
 beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
 
-<<<<<<< HEAD
 beekeeper-server/routes/config.js
 beekeeper-server/node_modules
-=======
-beekeeper-server/node_modules
-beekeeper-server/routes/config.js
->>>>>>> 6917780fae98b484401c8034db030b0253d7ebb7
+.vscode/launch.json

@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', '../user/user', './userService'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,22 +8,42 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, user_1, userService_1;
     var SignUpComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
+            },
+            function (userService_1_1) {
+                userService_1 = userService_1_1;
             }],
         execute: function() {
             SignUpComponent = (function () {
-                function SignUpComponent() {
+                function SignUpComponent(userService) {
+                    var _this = this;
+                    this.user = new user_1.User();
+                    var instance = this;
+                    userService.people.subscribe(function (people) {
+                        console.log(people);
+                        console.log(people.message);
+                        _this.user.setEmail(people.message);
+                        //this.abc = people.message;
+                        //console.log(this.abc);
+                        console.log(_this.user.getEmail());
+                    }, function (error) { return console.error("Error" + err); }, function () { return console.log("Completed"); });
                 }
+                SignUpComponent.prototype.onSubmit = function () {
+                };
                 SignUpComponent = __decorate([
                     core_1.Component({
-                        templateUrl: 'app/signup/Templates/signup.template.html'
+                        templateUrl: 'app/signup/Templates/signup.template.html',
+                        providers: [userService_1.UserService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [userService_1.UserService])
                 ], SignUpComponent);
                 return SignUpComponent;
             })();
