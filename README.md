@@ -14,6 +14,12 @@
 ```
 ### For Server:
 
+```shell
+> git clone https://github.com/stefanselig/BeefinderDiplomaThesis.git>
+> cd beekeeper-server
+> npm install
+```
+
 
 ## Issues/Problems and new Insights:
 
