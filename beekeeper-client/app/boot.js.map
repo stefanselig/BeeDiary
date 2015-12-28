@@ -1,1 +1,1 @@
-{"version":3,"file":"boot.js","sourceRoot":"","sources":["boot.ts"],"names":["RouterComponent","RouterComponent.constructor"],"mappings":";;;;;;;;;;;;;;;YAIA;gBAAAA;gBAAuBC,CAACA;gBAADD,sBAACA;YAADA,CAACA,AAAxB,IAAwB;YAExB,mBAAS,CAAC,4BAAY,EAAE;gBACtB,yBAAgB;aACjB,CAAC,CAAC"}
+{"version":3,"file":"boot.js","sourceRoot":"","sources":["boot.ts"],"names":["RouterComponent","RouterComponent.constructor"],"mappings":";;;;;;;;;;;;;;;;;;YAKA;gBAAAA;gBAAuBC,CAACA;gBAADD,sBAACA;YAADA,CAACA,AAAxB,IAAwB;YAExB,mBAAS,CAAC,4BAAY,EAAE;gBACtB,yBAAgB;gBAChB,oBAAa;aACd,CAAC,CAAC"}
