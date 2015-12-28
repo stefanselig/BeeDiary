@@ -41,7 +41,7 @@ app/signup/signup.component.ts(1,25): error TS2307: Cannot find module 'angular2
 
 But even with the errors, the program works fine. So the typescript transpile can't find those files even though they are existent.
 
-### 16.12.15 - Server
+### 20.12.15 - Server
 Points issue - still to add
 
 ### 27.12.15 - Server
