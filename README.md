@@ -47,6 +47,10 @@ Points issue - still to add
 ### 27.12.15 - Server
 DocumentDB issue - still to add
 
+## 31.12.15 - Client
+
+Angular 2 can't handle input type="date" yet. Model date value is not displayed in the view.
+
 ## Other Documentation:
 
 ### Skripts: 
