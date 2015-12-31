@@ -75,4 +75,4 @@ System.register([], function(exports_1) {
         }
     }
 });
-//# sourceMappingURL=model.js.map
+//# sourceMappingURL=DiaryEntry.js.map

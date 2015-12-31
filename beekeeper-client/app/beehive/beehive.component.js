@@ -18,6 +18,7 @@ System.register(['angular2/core'], function(exports_1) {
         execute: function() {
             BeeHiveComponent = (function () {
                 function BeeHiveComponent() {
+                    this.beehives = [];
                 }
                 BeeHiveComponent = __decorate([
                     core_1.Component({

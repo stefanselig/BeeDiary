@@ -66,4 +66,4 @@ var BeeHive = (function () {
     }
     return BeeHive;
 })();
-//# sourceMappingURL=model.js.map
+//# sourceMappingURL=BeeHive.js.map
