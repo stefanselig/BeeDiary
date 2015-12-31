@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1;
+    var core_1, http_1, http_2;
     var UserService;
     return {
         setters:[
@@ -17,13 +17,31 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
             },
             function (http_1_1) {
                 http_1 = http_1_1;
+                http_2 = http_1_1;
             },
             function (_1) {}],
         execute: function() {
             UserService = (function () {
                 function UserService(http) {
+                    this.http = http;
                     this.people = http.get('http://localhost:8080/api').map(function (response) { return response.json(); });
                 }
+                UserService.prototype.createUser = function (user) {
+                    var _this = this;
+                    console.log(JSON.stringify(user));
+                    console.log(user);
+                    var headers = new http_2.Headers();
+                    //headers.append('Content-Type', 'application/x-www-form-urlencoded');
+                    headers.append('Content-Type', 'application/json');
+                    //var data = "name=" + user.username + "&email=" + user.email + "&password=" + user.password;
+                    var data = JSON.stringify(user);
+                    this.http.post('http://localhost:8080/api/users', data, {
+                        headers: headers
+                    }).subscribe(function (res) {
+                        _this.test = res.json();
+                        console.log(_this.test);
+                    });
+                };
                 UserService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])

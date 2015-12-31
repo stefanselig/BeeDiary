@@ -24,19 +24,36 @@ System.register(['angular2/core', '../user/user', './userService'], function(exp
         execute: function() {
             SignUpComponent = (function () {
                 function SignUpComponent(userService) {
-                    var _this = this;
                     this.user = new user_1.User();
+                    this.userService = userService;
                     var instance = this;
-                    userService.people.subscribe(function (people) {
-                        console.log(people);
-                        console.log(people.message);
-                        _this.user.setEmail(people.message);
-                        //this.abc = people.message;
-                        //console.log(this.abc);
-                        console.log(_this.user.getEmail());
-                    }, function (error) { return console.error("Error" + err); }, function () { return console.log("Completed"); });
+                    // name, email, password
+                    /*userService.people.subscribe(
+                        people => {
+                            console.log(people);
+                            console.log(people.message);
+                            this.user.setEmail(people.message);
+                            //this.abc = people.message;
+                            //console.log(this.abc);
+                            console.log(this.user.getEmail());
+                        },
+                        error => console.error("Error" + err),
+                        () => console.log("Completed")
+                    );*/
                 }
                 SignUpComponent.prototype.onSubmit = function () {
+                    console.log(this.user);
+                    console.log(this.user._name);
+                    console.log({
+                        name: this.user._name,
+                        email: this.user._email,
+                        password: this.user._password
+                    });
+                    this.userService.createUser({
+                        name: this.user._name,
+                        email: this.user._email,
+                        password: this.user._password
+                    });
                 };
                 SignUpComponent = __decorate([
                     core_1.Component({

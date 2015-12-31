@@ -10,6 +10,12 @@ System.register([], function(exports_1) {
                     if (password != undefined)
                         this._password = password;
                 }
+                User.prototype.getName = function () {
+                    return this._name;
+                };
+                User.prototype.setName = function (name) {
+                    this._name = name;
+                };
                 User.prototype.getEmail = function () {
                     return this._email;
                 };

@@ -8,13 +8,19 @@ import {UserService}	from './userService';
 	providers: [UserService]
 })
 export class SignUpComponent {
-	user: User;
+	public user: User;
 	abc: any;
+	userService: UserService;
 	
 	constructor(userService: UserService) {
 		this.user = new User();
+		this.userService = userService;
 		var instance = this;
-		userService.people.subscribe(
+		// name, email, password
+		
+
+		
+		/*userService.people.subscribe(
 			people => {
 				console.log(people);
 				console.log(people.message);
@@ -25,10 +31,22 @@ export class SignUpComponent {
 			},
 			error => console.error("Error" + err),
 			() => console.log("Completed")
-		);
+		);*/
 		
 	}
 	
 	onSubmit(): void {
+		console.log(this.user);
+		console.log(this.user._name);
+		console.log({
+			name: this.user._name,
+			email: this.user._email,
+			password: this.user._password
+		});
+		this.userService.createUser({
+			name: this.user._name,
+			email: this.user._email,
+			password: this.user._password
+		});
 	}
 }

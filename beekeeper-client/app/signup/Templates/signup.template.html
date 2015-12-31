@@ -1,7 +1,9 @@
 <form (ngSubmit)="onSubmit()" #userForm="ngForm">
 	<label for="email">Email</label>
-	<input [(ngModel)]="user.email" type="text" placeholder="Enter username"/>
+	<input [(ngModel)]="user._email" type="text" placeholder="Enter email"/>
 	<label for="password">Password</label>
-	<input [(ngModel)]="user.password" type="password" placeholder="Enter password"/>
-	<button type="submit"></button>
+	<input [(ngModel)]="user._password" type="password" placeholder="Enter password"/>
+	<label for="name">Name</label>
+	<input [(ngModel)]="user._name" type="name" placeholder="Enter name"/>
+	<button type="submit">Sign Up</button>
 </form>

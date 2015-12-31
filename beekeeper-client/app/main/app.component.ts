@@ -3,6 +3,8 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {SignUpComponent} from './../signup/signup.component';
 import {LogInComponent} from './../login/login.component';
+import {BeeHiveComponent} from './../beehive/beehive.component';
+import {DiaryEntryComponent} from './../diaryentry/diaryentry.component';
 
 @Component({
 	selector: 'beekeeper',
@@ -11,7 +13,9 @@ import {LogInComponent} from './../login/login.component';
 })
 @RouteConfig([
 	{path: '/signup', name: 'SignUp', component: SignUpComponent},
-	{path: '/login', name: 'LogIn', component: LogInComponent}
+	{path: '/login', name: 'LogIn', component: LogInComponent},
+	{path: '/beehive', name: 'BeeHive', component: BeeHiveComponent},
+	{path: '/diaryentry', name: 'DiaryEntry', component: DiaryEntryComponent}
 ])
 
 export class AppComponent {}

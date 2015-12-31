@@ -1,0 +1,12 @@
+<div>
+	Type:
+	Date:
+	Description:
+	Photos:
+</div>
+<div *ngFor="#diaryentry of diaryEntries">
+	<p>{{diaryentry.type}}</p> <!-- Dropdown + more data -->
+	<input type="date" [(ngModel)]="diaryentry._date" />
+	<input type="description" [(ngModel)]="diaryentry._description" /> <!-- markdown -->
+	<p>{{diaryentry.photos}}</p> <!-- Photo + upload -->
+</div>
