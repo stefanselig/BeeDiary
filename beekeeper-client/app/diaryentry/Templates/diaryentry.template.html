@@ -1,4 +1,8 @@
 <div>
+	<input type="search" placeholder="Search for DiaryEntry" />
+	<input type="submit" />
+</div>
+<div>
 	Type:
 	Date:
 	Description:
@@ -6,7 +10,52 @@
 </div>
 <div *ngFor="#diaryentry of diaryEntries">
 	<p>{{diaryentry.type}}</p> <!-- Dropdown + more data -->
+	<select>
+		<option *ngFor="#type of typeEnum"></option>
+	</select>
+	<!-- Case AcarianControl: -->
+	<div *ngIf="type == 'AcarianControl'">
+		<input type="number" [(ngModel)]="diaryentry.type.acariancontrol._countDays" />
+		<input type="number" [(ngModel)]="_acariansCaseOfDeath" />
+		<input type="number" [(ngModel)]="_countDays" readonly />
+		<input type="text"   [(ngModel)]="_description" />
+	</div>
+	<!-- Case Construction: -->
+	<div *ngIf="type == 'Construction'"></div>
+	<!-- Case Treatment: -->
+	<div *ngIf="type == 'Treatment'">
+		<select>
+			<option *ngFor="#treatmentType of treatmentTypes"></option>
+		</select>
+		<input type="text" [(ngModel)]="diaryentry.type.means" />
+		<input type="date" [(ngModel)]="diaryentry.type.startdate" />
+		<input type="date" [(ngModel)]="diaryentry.type.enddate" />
+	</div>
+	<!-- Case Feeding: -->
+	<div *ngIf="type == 'Feeding'">
+		<select>
+			<option *ngFor="#feedingType of feedingTypes"></option>
+		</select>
+		<input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" />
+		<input type="text" [(ngModel)]="diaryentry.type.ratio" />
+	</div>
+	<!-- Case HoneyRemoval: -->
+	<div *ngIf="type == 'HoneyRemoval'">
+		<input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" />
+	</div>
+	<!-- Case Loss: -->
+	<div *ngIf="type == 'Loss'">
+		<input type="text" [(ngModel)]="diaryentry.type.reason" />
+	</div>
+	<!-- Case CutDroneBreed: -->
+	<div *ngIf="type == 'CutDroneBreed'"></div>
+	<!-- Case Other: -->
+	<div *ngIf="type == 'Other'"></div>
+	
 	<input type="date" [(ngModel)]="diaryentry._date" />
 	<input type="description" [(ngModel)]="diaryentry._description" /> <!-- markdown -->
 	<p>{{diaryentry.photos}}</p> <!-- Photo + upload -->
+	<div *ngFor="#photo of diaryentry.photos">
+		<img src="photo.data" />
+	</div>
 </div>

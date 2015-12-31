@@ -8,4 +8,12 @@ export class BeeHiveComponent {
 	constructor() {
 		this.beehives = [];
 	}
+	
+	public getCoordinates(index: number): void {
+		var instance = this;
+		navigator.geolocation.getCurrentPosition(position => {
+			instance.beehives[index].location.lat = position.coords.latitude;
+			instance.beehives[index].location.long = position.coords.longitude;
+		});
+	}
 }

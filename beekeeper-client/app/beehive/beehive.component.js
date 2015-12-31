@@ -20,6 +20,13 @@ System.register(['angular2/core'], function(exports_1) {
                 function BeeHiveComponent() {
                     this.beehives = [];
                 }
+                BeeHiveComponent.prototype.getCoordinates = function (index) {
+                    var instance = this;
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        instance.beehives[index].location.lat = position.coords.latitude;
+                        instance.beehives[index].location.long = position.coords.longitude;
+                    });
+                };
                 BeeHiveComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/beehive/Templates/beehive.template.html'
