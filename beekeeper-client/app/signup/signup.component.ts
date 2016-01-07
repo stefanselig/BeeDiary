@@ -20,7 +20,7 @@ export class SignUpComponent {
 		
 
 		
-		/*userService.people.subscribe(
+		userService.people.subscribe(
 			people => {
 				console.log(people);
 				console.log(people.message);
@@ -31,7 +31,7 @@ export class SignUpComponent {
 			},
 			error => console.error("Error" + err),
 			() => console.log("Completed")
-		);*/
+		);
 		
 	}
 	

@@ -1,0 +1,14 @@
+html {
+	height:100%;
+	margin: 0; 
+	padding: 0;
+}
+#map {
+	height: 300px;
+	width: 500px;
+	float: right;
+}
+#beeHiveContent {
+	display: inline;
+	float: left;
+}

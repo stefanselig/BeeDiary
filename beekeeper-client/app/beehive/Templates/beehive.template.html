@@ -1,62 +1,65 @@
-<div>
-	<input type="search" placeholder="Search for beehive" />
-	<input type="submit" />
-</div>
-<div>
-	Number:
-	Location:
-	Description:
-	Source:
-	StartDate:
-	Lost:
-	Beutenform:
-	Beutenmaterial:
-	Wabenbau
-</div>
-<div *ngFor="#beehive of beehives">
-	<input type="number" [(ngModel)]="beehive.number">
+<div id="beeHiveContent">	
+	<div>
+		<input type="search" placeholder="Search for beehive" />
+		<input type="submit" />
+	</div>
+	<div>
+		Number:
+		Location:
+		Description:
+		Source:
+		StartDate:
+		Lost:
+		Beutenform:
+		Beutenmaterial:
+		Wabenbau
+	</div>
+	<div *ngFor="#beehive of beehives" style="float:right">
+		<input type="number" [(ngModel)]="beehive.number">
 
-	<input type="text" [(ngModel)]="beehive.location.address" />
-	<input type="text" [(ngModel)]="beehive.location.name" />
-	<input type="text" [(ngModel)]="beehive.location.lat" />
-	<input type="text" [(ngModel)]="beehive.location.long" />
-	<button (click)="getCoordinates($index)">Get GPS Position</button>
-	
-	<input type="text" [(ngModel)]="beehive.description">
-	<!-- Beim Select: Ausgewählter value muss ins model übertragen werden! -->
-	
-	<p>{{beehive.source}}</p> <!-- dropdown -->
-	<select>
-		<option *ngFor="#sourceType of sourceTypes">
-			{{sourceType}}
-		</option>
-	</select>
-	<input *ngIf="beehive.source.type == 'other'" type="text" /> <!-- case: free text -->
-	<input *ngIf="beehive.source.origin != 'undefined'" type="number" />
-	
-	<input type="date" [(ngModel)]="beehive.startdate" />
-	
-	<input type="checkbox" [(ngModel)]="beehive.lost.isLost" />
-	<input *ngIf="beehive.lost.isLost" [(ngModel)]="beehive.lost.reason">
-	
-	<p>{{beehive.beutenform}}</p> <!-- dropdown -->
-	<select>
-		<option *ngFor="#frameSize of frameSizes">
-			{{frameSize}}
-		</option>
-	</select>
-	
-	<p>{{beehive.frameMaterial}}</p> <!-- dropdown -->
-	<select>
-		<option *ngFor="#frameMaterial of frameMaterialEnum">
-			{{frameMaterial}}
-		</option>
-	</select>
-	
-	<p>{{beehive.combConstruction}}</p> <!-- dropdown -->
-	<select>
-		<option *ngFor="#combConstruction of combConstrunctionEnum">
-			{{combConstruction}}
-		</option>
-	</select>
+		<input type="text" [(ngModel)]="beehive.location.address" />
+		<input type="text" [(ngModel)]="beehive.location.name" />
+		<input type="text" [(ngModel)]="beehive.location.lat" />
+		<input type="text" [(ngModel)]="beehive.location.long" />
+		<button (click)="getCoordinates($index)">Get GPS Position</button>
+		
+		<input type="text" [(ngModel)]="beehive.description">
+		<!-- Beim Select: Ausgewählter value muss ins model übertragen werden! -->
+		
+		<p>{{beehive.source}}</p> <!-- dropdown -->
+		<select>
+			<option *ngFor="#sourceType of sourceTypes">
+				{{sourceType}}
+			</option>
+		</select>
+		<input *ngIf="beehive.source.type == 'other'" type="text" /> <!-- case: free text -->
+		<input *ngIf="beehive.source.origin != 'undefined'" type="number" />
+		
+		<input type="date" [(ngModel)]="beehive.startdate" />
+		
+		<input type="checkbox" [(ngModel)]="beehive.lost.isLost" />
+		<input *ngIf="beehive.lost.isLost" [(ngModel)]="beehive.lost.reason">
+		
+		<p>{{beehive.beutenform}}</p> <!-- dropdown -->
+		<select>
+			<option *ngFor="#frameSize of frameSizes">
+				{{frameSize}}
+			</option>
+		</select>
+		
+		<p>{{beehive.frameMaterial}}</p> <!-- dropdown -->
+		<select>
+			<option *ngFor="#frameMaterial of frameMaterialEnum">
+				{{frameMaterial}}
+			</option>
+		</select>
+		
+		<p>{{beehive.combConstruction}}</p> <!-- dropdown -->
+		<select>
+			<option *ngFor="#combConstruction of combConstrunctionEnum">
+				{{combConstruction}}
+			</option>
+		</select>
+	</div>
 </div>
+<div id="map"></div>

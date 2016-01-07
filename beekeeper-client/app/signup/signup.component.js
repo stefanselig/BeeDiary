@@ -24,22 +24,19 @@ System.register(['angular2/core', '../user/user', './userService'], function(exp
         execute: function() {
             SignUpComponent = (function () {
                 function SignUpComponent(userService) {
+                    var _this = this;
                     this.user = new user_1.User();
                     this.userService = userService;
                     var instance = this;
                     // name, email, password
-                    /*userService.people.subscribe(
-                        people => {
-                            console.log(people);
-                            console.log(people.message);
-                            this.user.setEmail(people.message);
-                            //this.abc = people.message;
-                            //console.log(this.abc);
-                            console.log(this.user.getEmail());
-                        },
-                        error => console.error("Error" + err),
-                        () => console.log("Completed")
-                    );*/
+                    userService.people.subscribe(function (people) {
+                        console.log(people);
+                        console.log(people.message);
+                        _this.user.setEmail(people.message);
+                        //this.abc = people.message;
+                        //console.log(this.abc);
+                        console.log(_this.user.getEmail());
+                    }, function (error) { return console.error("Error" + err); }, function () { return console.log("Completed"); });
                 }
                 SignUpComponent.prototype.onSubmit = function () {
                     console.log(this.user);
