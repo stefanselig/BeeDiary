@@ -6,7 +6,8 @@ var config = require('./config');
 
 //Database handeling (MongoDB)
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://bees:Bees123@ds037005.mongolab.com:37005/beesaver-db'); //connect to our database
+var mongoDB = mongoose.connect('mongodb://localhost:27017/beesaver-db');
+//var mongoDB = mongoose.connect('mongodb://bees:Bees123@ds037005.mongolab.com:37005/beesaver-db').connection; //connect to our database
 
 var User = require('../models/user');
 

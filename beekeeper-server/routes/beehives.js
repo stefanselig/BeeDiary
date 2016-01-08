@@ -6,7 +6,6 @@ var config = require('./config');
 
 //Database handeling (MongoDB)
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://bees:Bees123@ds037005.mongolab.com:37005/beesaver-db'); //connect to our database
 
 var BeeHive = require('../models/BeeHive');
 
