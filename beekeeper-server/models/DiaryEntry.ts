@@ -34,14 +34,14 @@ class Other {}
 
 class Photo {}
 
-export var beeHiveSchema = new mongoose.Schema({
+export var diaryEntrySchema = new mongoose.Schema({
     _type: Type,
 	_date: Date,
 	_description: String,
 	_photos: Photo[]
 });
  
-export interface IBeeHive extends mongoose.Document {
+export interface IDiaryEntry extends mongoose.Document {
     _type: Type;
 	_date: Date;
 	_description: string;

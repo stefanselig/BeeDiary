@@ -1,36 +1,33 @@
-import mongoose = require("mongoose");
+/// <reference path="../../../typings/mongoose/mongoose.maps.d.ts" />
+//import mongoose = require("mongoose");
 
 class HiveLocation {
-	_lat: number;
-	_long: number;
-	_address: string;
-	_name: string;
+	lat: number;
+	long: number;
+	address: string;
+	name: string;
 }
 
 class Source {
-	_type: sourceEnum;
-	_value: string;
-	_origin: number;
+	type: sourceEnum;
+	origin: number;
 }
 
 class Lost {
-	_isLost: boolean;
-	_reason: string;
+	isLost: boolean;
+	reason: string;
 }
 
 class FrameSize {
-	_type: frameSizeEnum;
-	_value: string;
+	type: frameSizeEnum;
 }
 
 class FrameMaterial {
-	_type: frameMaterialEnum;
-	_value: string;
+	type: frameMaterialEnum;
 }
 
 class CombConstruction {
-	_type: combConstructionEnum;
-	_value: string;
+	type: combConstructionEnum;
 }
 
 enum sourceEnum {
@@ -51,29 +48,27 @@ enum combConstructionEnum {
 }
  
 export var beeHiveSchema = new mongoose.Schema({
-    _id: Number,
-	_number: Number,
-	_location: HiveLocation,
-	_description: String,
-	_source: Source,
-	_startDate: Date,
-	_lost: Lost,
-	_frameSize: FrameSize,
-	_frameMaterial: FrameMaterial,
-	_combConstruction: CombConstruction
+    hiveNumber: Number,
+	location: HiveLocation,
+	description: String,
+	source: Source,
+	startDate: Date,
+	lost: Lost,
+	frameSize: FrameSize,
+	frameMaterial: FrameMaterial,
+	combConstruction: CombConstruction
 });
  
 export interface IBeeHive extends mongoose.Document {
-    _id: number;
-	_number: number;
-	_location: HiveLocation;
-	_description: string;
-	_source: Source;
-	_startDate: Date;
-	_lost: Lost;
-	_frameSize: FrameSize;
-	_frameMaterial: FrameMaterial;
-	_combConstruction: CombConstruction;
+    hiveNumber: number;
+	location: HiveLocation;
+	description: string;
+	source: Source;
+	startDate: Date;
+	lost: Lost;
+	frameSize: FrameSize;
+	frameMaterial: FrameMaterial;
+	combConstruction: CombConstruction;
 }
  
 export var beeHiveRepository = mongoose.model<IBeeHive>("BeeHiveModel");
