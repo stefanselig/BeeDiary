@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {NgForm}		from 'angular2/common';
-import {User}		from '../user/user';
-import {UserService}	from './userService';
+import {User}		from '../../user/user';
+import {UserService}	from '../services/userService';
 
 @Component({
 	templateUrl: 'app/signup/Templates/signup.template.html',

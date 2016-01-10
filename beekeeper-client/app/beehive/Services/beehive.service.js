@@ -23,14 +23,21 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
         execute: function() {
             BeeHiveService = (function () {
                 function BeeHiveService(http) {
-                    //this.getBeeHives();
+                    this.http = http;
+                    this.getBeeHives();
                 }
                 BeeHiveService.prototype.getBeeHives = function () {
                     this.beeHives = this.http
                         .get('http://localhost:8080/api/BeeHives/beeHives')
                         .map(function (response) { return response.json(); });
                 };
-                BeeHiveService.prototype.updateDiaryEntry = function (beeHive) {
+                BeeHiveService.prototype.getBeeHiveById = function (id) {
+                    // Somehow pass ID
+                    return this.http
+                        .get()
+                        .map(function (response) { return response.json(); });
+                };
+                BeeHiveService.prototype.updateBeeHive = function (beeHive) {
                     var headers = new http_2.Headers();
                     headers.append('Content-Type', 'application/json');
                     // Somehow pass ID
@@ -39,7 +46,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
                         headers: headers
                     }).subscribe(function (res) { return window.alert(res.json()); });
                 };
-                BeeHiveService.prototype.createDiaryEntry = function (beeHive) {
+                BeeHiveService.prototype.createBeeHive = function (beeHive) {
                     var headers = new http_2.Headers();
                     headers.append('Content-Type', 'application/json');
                     this.http

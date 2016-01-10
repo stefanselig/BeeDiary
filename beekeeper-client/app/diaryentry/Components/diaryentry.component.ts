@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {DiaryEntryService}	from './diaryentry.service';
+import {DiaryEntryService}	from '../services/diaryentry.service';
 
 @Component({
 	selector: 'DiaryEntry',

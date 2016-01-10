@@ -12,3 +12,7 @@ html {
 	display: inline;
 	float: left;
 }
+#createBeeHiveContent {
+	width: 600px;
+	float: left;
+}

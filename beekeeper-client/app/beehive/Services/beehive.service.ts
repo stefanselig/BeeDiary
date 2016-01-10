@@ -5,22 +5,31 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class BeeHiveService {
 	http: Http;
-	beeHives: any[];
+	beeHives: any;
 	
 	constructor(http:Http) {
-		//this.getBeeHives();
+		this.http = http;
+		this.getBeeHives();
 	}
 	
 	getBeeHives(): void {
 		this.beeHives = this.http
 		.get('http://localhost:8080/api/BeeHives/beeHives')
-		.map
-		(
+		.map(
 			response => response.json()
 		);
 	}
 	
-	updateDiaryEntry(beeHive: any): void {
+	getBeeHiveById(id: number): any {
+		// Somehow pass ID
+		return this.http
+		.get()
+		.map(
+			response => response.json()	
+		);
+	}
+	
+	updateBeeHive(beeHive: any): void {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		
@@ -37,7 +46,7 @@ export class BeeHiveService {
 		);
 	}
 	
-	createDiaryEntry(beeHive: any): void {
+	createBeeHive(beeHive: any): void {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		

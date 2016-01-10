@@ -1,65 +1,60 @@
-<div id="beeHiveContent">	
+<div id="beeHiveContent">
 	<div>
-		<input type="search" placeholder="Search for beehive" />
-		<input type="submit" />
-	</div>
-	<div>
-		Number:
-		Location:
-		Description:
-		Source:
-		StartDate:
-		Lost:
-		Beutenform:
-		Beutenmaterial:
-		Wabenbau
-	</div>
-	<div *ngFor="#beehive of beehives" style="float:right">
-		<input type="number" [(ngModel)]="beehive.number">
-
-		<input type="text" [(ngModel)]="beehive.location.address" />
-		<input type="text" [(ngModel)]="beehive.location.name" />
-		<input type="text" [(ngModel)]="beehive.location.lat" />
-		<input type="text" [(ngModel)]="beehive.location.long" />
-		<button (click)="getCoordinates($index)">Get GPS Position</button>
-		
-		<input type="text" [(ngModel)]="beehive.description">
-		<!-- Beim Select: Ausgewählter value muss ins model übertragen werden! -->
-		
-		<p>{{beehive.source}}</p> <!-- dropdown -->
-		<select>
-			<option *ngFor="#sourceType of sourceTypes">
-				{{sourceType}}
-			</option>
-		</select>
-		<input *ngIf="beehive.source.type == 'other'" type="text" /> <!-- case: free text -->
-		<input *ngIf="beehive.source.origin != 'undefined'" type="number" />
-		
-		<input type="date" [(ngModel)]="beehive.startdate" />
-		
-		<input type="checkbox" [(ngModel)]="beehive.lost.isLost" />
-		<input *ngIf="beehive.lost.isLost" [(ngModel)]="beehive.lost.reason">
-		
-		<p>{{beehive.beutenform}}</p> <!-- dropdown -->
-		<select>
-			<option *ngFor="#frameSize of frameSizes">
-				{{frameSize}}
-			</option>
-		</select>
-		
-		<p>{{beehive.frameMaterial}}</p> <!-- dropdown -->
-		<select>
-			<option *ngFor="#frameMaterial of frameMaterialEnum">
-				{{frameMaterial}}
-			</option>
-		</select>
-		
-		<p>{{beehive.combConstruction}}</p> <!-- dropdown -->
-		<select>
-			<option *ngFor="#combConstruction of combConstrunctionEnum">
-				{{combConstruction}}
-			</option>
-		</select>
+		<div>
+			<input type="search" placeholder="Search for beehive" />
+			<input type="submit" />
+			<button (click)="createBeeHive()">Create New BeeHive</button>
+		</div>
+		<div *ngFor="#beehive of beehives">
+			BeeHive <input type="number" [(ngModel)]="beehive.number" readonly>:
+			Name: <input type="text" [(ngModel)]="beehive.location.name" readonly />
+			
+			<button (click)="editBeeHive(beehive.id)">Edit BeeHive</button>
+			
+			<label>Location:</label>
+			Address: <input type="text" [(ngModel)]="beehive.location.address" readonly />
+			Lat: <input type="text" [(ngModel)]="beehive.location.lat" readonly />
+			Long: <input type="text" [(ngModel)]="beehive.location.long" readonly />
+			
+			Description: <input type="text" [(ngModel)]="beehive.description" readonly>
+			
+			Source:
+			<select [(ngModel)]="beehive.source.type" disabled>
+				<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
+					{{sourceType}}
+				</option>
+			</select>
+			<input *ngIf="beehive.source.type == 'Other'" type="text" [(ngModel)]="beehive.source.type" readonly />
+			<input *ngIf="beehive.source.origin != 'undefined'" type="number" [(ngModel)]="beehive.source.origin" readonly />
+			
+			<input type="date" [(ngModel)]="beehive.startdate" readonly />
+			
+			Lost? <input type="checkbox" [(ngModel)]="beehive.lost.isLost" readonly />
+			<div *ngIf="beehive.lost.isLost">
+				<input type="text" [(ngModel)]="beehive.lost.reason" readonly>
+			</div>
+			
+			Beutenform:
+			<select [(ngModel)]="beehive.frameSize" disabled>
+				<option *ngFor="#frameSize of frameSizes" [value]="frameSize">
+					{{frameSize}}
+				</option>
+			</select>
+			
+			Beutenmaterial:
+			<select [(ngModel)]="beehive.frameMaterial" disabled>
+				<option *ngFor="#frameMaterial of frameMaterialEnum" [value]="frameMaterial">
+					{{frameMaterial}}
+				</option>
+			</select>
+			
+			Wabenbau:
+			<select  [(ngModel)]="beehive.combConstruction" disabled>
+				<option *ngFor="#combConstruction of combConstrunctionEnum" [value]="combConstruction">
+					{{combConstruction}}
+				</option>
+			</select>
+		</div>
 	</div>
 </div>
 <div id="map"></div>

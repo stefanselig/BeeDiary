@@ -1,0 +1,60 @@
+<div id="editBeeHiveContent">
+	<div>
+		<div>
+			<input type="search" placeholder="Search for beehive" />
+			<input type="submit" />
+			<button (click)="createBeeHive()">Create New BeeHive</button>
+		</div>
+		<div *ngFor="#beehive of beehives" style="float:right">
+			BeeHive <input type="number" [(ngModel)]="beehive.number">:
+			Name: <input type="text" [(ngModel)]="beehive.location.name" />
+			Location: 
+			<input type="text" [(ngModel)]="beehive.location.address" />
+			
+			Lat: <input type="text" [(ngModel)]="beehive.location.lat" />
+			Long: <input type="text" [(ngModel)]="beehive.location.long" />
+			<button (click)="callGetCoordinates($index)">Get GPS Position</button>
+			
+			Description: <input type="text" [(ngModel)]="beehive.description">
+			<!-- Beim Select: Ausgewählter value muss ins model übertragen werden! -->
+			
+			Source: <p>{{beehive.source}}</p> <!-- dropdown -->
+			<select>
+				<option *ngFor="#sourceType of sourceTypes">
+					{{sourceType}}
+				</option>
+			</select>
+			<input *ngIf="beehive.source.type == 'other'" type="text" /> <!-- case: free text -->
+			<input *ngIf="beehive.source.origin != 'undefined'" type="number" />
+			
+			<input type="date" [(ngModel)]="beehive.startdate" />
+			
+			Lost? <input type="checkbox" [(ngModel)]="beehive.lost.isLost" />
+			<div *ngIf="beehive.lost.isLost">
+				<input [(ngModel)]="beehive.lost.reason">
+			</div>
+			
+			Beutenform: <p>{{beehive.beutenform}}</p> <!-- dropdown -->
+			<select>
+				<option *ngFor="#frameSize of frameSizes">
+					{{frameSize}}
+				</option>
+			</select>
+			
+			Beutenmaterial: <p>{{beehive.frameMaterial}}</p> <!-- dropdown -->
+			<select>
+				<option *ngFor="#frameMaterial of frameMaterialEnum">
+					{{frameMaterial}}
+				</option>
+			</select>
+			
+			Wabenbau: <p>{{beehive.combConstruction}}</p> <!-- dropdown -->
+			<select>
+				<option *ngFor="#combConstruction of combConstrunctionEnum">
+					{{combConstruction}}
+				</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div id="map"></div>
