@@ -1,3 +1,5 @@
+import mongoose = require("mongoose");
+
 class HiveLocation {
 	_lat: number;
 	_long: number;
@@ -47,9 +49,22 @@ enum frameMaterialEnum {
 enum combConstructionEnum {
 	naturbau, mittelwaende, other
 }
-
-class BeeHive {
-	_id: number;
+ 
+export var beeHiveSchema = new mongoose.Schema({
+    _id: Number,
+	_number: Number,
+	_location: HiveLocation,
+	_description: String,
+	_source: Source,
+	_startDate: Date,
+	_lost: Lost,
+	_frameSize: FrameSize,
+	_frameMaterial: FrameMaterial,
+	_combConstruction: CombConstruction
+});
+ 
+export interface IBeeHive extends mongoose.Document {
+    _id: number;
 	_number: number;
 	_location: HiveLocation;
 	_description: string;
@@ -60,3 +75,5 @@ class BeeHive {
 	_frameMaterial: FrameMaterial;
 	_combConstruction: CombConstruction;
 }
+ 
+export var beeHiveRepository = mongoose.model<IBeeHive>("BeeHiveModel");

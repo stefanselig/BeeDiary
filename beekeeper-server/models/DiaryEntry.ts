@@ -1,9 +1,4 @@
-export class DiaryEntry {
-	_type: Type;
-	_date: Date;
-	_description: string;
-	_photos: Photo[];
-}
+import mongoose = require("mongoose");
 
 class Type {
 	_type: typeEnum;
@@ -38,3 +33,17 @@ class CutDroneBrood {}
 class Other {}
 
 class Photo {}
+
+export var beeHiveSchema = new mongoose.Schema({
+    _type: Type,
+	_date: Date,
+	_description: String,
+	_photos: Photo[]
+});
+ 
+export interface IBeeHive extends mongoose.Document {
+    _type: Type;
+	_date: Date;
+	_description: string;
+	_photos: Photo[];
+}
