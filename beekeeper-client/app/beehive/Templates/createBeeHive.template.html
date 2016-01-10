@@ -1,0 +1,86 @@
+<div id="createBeeHiveContent">
+		<button (click)="cancel()">Cancel</button>
+		<form (ngSubmit)="createNewBeeHive(createBeeHiveForm)" #createBeeHiveForm="ngForm">
+			<div class="form-group">
+				<label> BeeHive </label>
+				<input type="number" class="form-control" ngControl="hiveNumber">:
+			</div>
+			
+			<div class="form-group">
+				<label>Name:</label>
+				<input type="text" ngControl="name" class="form-control" />
+			</div>
+			
+			<div class="form-group">
+				<label>Location: </label>
+				Address: <input type="text" ngControl="locationAddress" class="form-control" />
+				Lat: <input type="text" ngControl="locationLat" class="form-control" [(ngModel)]="location.lat"/>
+				Long: <input type="text" ngControl="locationLong" class="form-control" [(ngModel)]="location.long"/>
+				<button (click)="callGetCoordinates()" class="btn btn-default">Get GPS Position</button>
+			</div>
+			
+			<div class="form-group">
+				<label>Description: </label>
+				<input type="text" ngControl="description" class="form-control">
+			</div>
+			
+			<!-- Beim Select: Ausgewählter value muss ins model übertragen werden! -->
+			
+			<div class="form-group">
+				<label> Source: </label> <!--<p>{{newBeehive.source}}</p> --><!-- dropdown -->
+				<select class="form-control" ngControl="sourceTypeValue" [(ngModel)]="sourceTypeValue">
+					<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
+						{{sourceType}}
+					</option>
+				</select>
+				<div *ngIf="sourceTypeValue == 'Other'">
+					Alternate source type: <input type="text" ngControl="sourceTypeOtherText" class="form-control"/><!-- case: free text -->
+				</div>
+				Source origin: (Not required): <input type="number" class="form-control" ngControl="sourceOrigin" />
+			</div>
+			
+			<div class="form-group">
+				<label>Startdate: </label>
+				<input type="date" ngControl="startDate" class="form-control" />
+			</div>
+			
+			<div class="form-group">
+				<label>Lost? </label>
+				<input type="checkbox" ngControl="isLost" [(ngModel)]="isLost" />
+				<div *ngIf="isLost">
+					<label>Reason: </label>
+					<input type="text" ngControl="isLostReason" class="form-control" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label>Beutenform: </label>	<!--<p>{{newBeehive.beutenform}}</p>--> <!-- dropdown -->
+				<select class="form-control" ngControl="frameSizeValue">
+					<option *ngFor="#frameSize of frameSizes" [value]="frameSize">
+						{{frameSize}}
+					</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label>Beutenmaterial: </label>	<!--<p>{{newBeehive.frameMaterial}}</p>--> <!-- dropdown -->
+				<select class="form-control" ngControl="frameMaterialValue">
+					<option *ngFor="#frameMaterial of frameMaterials" [value]="frameMaterial">
+						{{frameMaterial}}
+					</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label>Wabenbau: </label> <!--<p>{{newBeehive.combConstruction}}</p>--> <!-- dropdown -->
+				<select class="form-control" ngControl="combConstructionValue">
+					<option *ngFor="#combConstruction of combConstructions" [value]="combConstruction">
+						{{combConstruction}}
+					</option>
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-default">Create new BeeHive</button>
+		</form>
+</div>
+<div id="map"></div>
