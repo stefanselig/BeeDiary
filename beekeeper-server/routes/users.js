@@ -100,7 +100,7 @@ router.route('/users/:user_id').put(function(req, res) {
 router.route('/users/:user_id').delete(function(req, res) {
         User.remove( {
             _id: req.params.user_id
-        },function(err, user) {
+        }, function(err) {
             if(err) {
                 res.send(err);
                 console.log('Error at deleting one single User by id.')

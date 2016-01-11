@@ -7,7 +7,7 @@ var config = require('./config');
 //Database handeling (MongoDB)
 var mongoose = require('mongoose');
 
-var BeeHive = require('../models/BeeHive');
+var BeeHive = require('../models/BeeHive.ts');
 
 
 // middleware to use for all requests
@@ -28,19 +28,20 @@ router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
         var newHive = new BeeHive(); //create a new instance of the BeeHive-model
         newHive.hiveNumber = req.body.hiveNumber; // set the BeeHive's number (comes from the request)
-        newHive.hiveLocationName = req.body.hiveLocationName;
         newHive.description = req.body.description;
-        
-     /* Still to implement:
-    hiveLocationAddress: String,
-    hiveLocationGPS: Number,
-    source: String,
-    startDate: Date,
-    frameSize: String,
-    frameMaterial: String,
-    combConstruction: String,
-    lost: Boolean*/
-        
+        newHive.startDate = req.body.startDate;
+        newHive.location.lat = req.body.location.lat;
+        newHive.location.long = req.body.location.long;
+        newHive.location.address = req.body.location.address;
+        newHive.location.name = req.body.location.name;
+        newHive.source.type = req.body.source.type;
+        newHive.source.origin = req.body.source.origin;
+        newHive.lost.isLost = req.body.lost.isLost;
+        newHive.lost.reason = req.body.lost.reason;
+        newHive.frameSize = req.body.frameSize;
+        newHive.frameMaterial = req.body.frameMaterial;
+        newHive.combConstruction = req.body.combConstruction;
+    
         newHive.save(function(err) {
             if(err){
                 console.log('Error at creating a new BeeHive.');

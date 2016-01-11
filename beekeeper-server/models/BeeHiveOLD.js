@@ -5,9 +5,6 @@ var Schema       = mongoose.Schema;
 
 var BeeHiveSchema   = new Schema({
     hiveNumber: Number,
-    hiveLocationName: String,
-    hiveLocationAddress: String,
-    hiveLocationGPS: Number,
     source: String,
     description: String,
     startDate: Date,
