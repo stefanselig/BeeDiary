@@ -9,10 +9,11 @@ export class DiaryEntryService {
 	diaryEntries: any[];
 	
 	constructor(http:Http) {
-		this.getDiaryEntries();
+		this.http = http;
+		//this.getDiaryEntries();
 	}
 	
-	getDiaryEntries(): void {
+	public getDiaryEntries(): void {
 		this.diaryEntries = this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries')
 		.map
@@ -21,7 +22,16 @@ export class DiaryEntryService {
 		);
 	}
 	
-	updateDiaryEntry(diaryEntry: any): void {
+	public getDiaryEntryById(id: number): any {
+		// Somehow pass ID
+		return this.http
+		.get()
+		.map(
+			response => response.json()	
+		);
+	}
+	
+	public updateDiaryEntry(diaryEntry: any): void {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		
@@ -38,7 +48,7 @@ export class DiaryEntryService {
 		);
 	}
 	
-	createDiaryEntry(diaryEntry: any): void {
+	public createDiaryEntry(diaryEntry: any): void {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		

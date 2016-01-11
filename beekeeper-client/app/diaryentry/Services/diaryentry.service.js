@@ -23,11 +23,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
         execute: function() {
             DiaryEntryService = (function () {
                 function DiaryEntryService(http) {
-                    this.getDiaryEntries();
+                    this.http = http;
+                    //this.getDiaryEntries();
                 }
                 DiaryEntryService.prototype.getDiaryEntries = function () {
                     this.diaryEntries = this.http
                         .get('http://localhost:8080/api/DiaryEntries/diaryEntries')
+                        .map(function (response) { return response.json(); });
+                };
+                DiaryEntryService.prototype.getDiaryEntryById = function (id) {
+                    // Somehow pass ID
+                    return this.http
+                        .get()
                         .map(function (response) { return response.json(); });
                 };
                 DiaryEntryService.prototype.updateDiaryEntry = function (diaryEntry) {

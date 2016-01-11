@@ -9,7 +9,7 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, diaryentry_service_1;
-    var DiaryEntryComponent;
+    var CreateDiaryEntryComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -22,32 +22,32 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                 diaryentry_service_1 = diaryentry_service_1_1;
             }],
         execute: function() {
-            DiaryEntryComponent = (function () {
-                function DiaryEntryComponent(diaryEntryService, router) {
-                    this.diaryEntries = [];
+            CreateDiaryEntryComponent = (function () {
+                function CreateDiaryEntryComponent(diaryEntryService, router) {
                     this.diaryEntryService = diaryEntryService;
                     this.router = router;
-                    //this.diaryEntries = this.diaryEntryService.diaryEntries.slice();
                 }
-                DiaryEntryComponent.prototype.createDiaryEntry = function () {
-                    this.router.navigate(['CreateBeeHive']);
+                CreateDiaryEntryComponent.prototype.createNewDiaryEntry = function (createDiaryEntryForm) {
+                    //this.diaryEntryService.createDiaryEntry(this.newDiaryEntry);
+                    console.log(createDiaryEntryForm.value);
+                    this.router.navigate(['DiaryEntry']);
                 };
-                DiaryEntryComponent.prototype.editDiaryEntry = function (id) {
-                    this.router.navigate(['EditBeeHive'], { id: id });
+                CreateDiaryEntryComponent.prototype.cancel = function () {
+                    this.router.navigate(['DiaryEntry']);
                 };
-                DiaryEntryComponent = __decorate([
+                CreateDiaryEntryComponent = __decorate([
                     core_1.Component({
-                        selector: 'DiaryEntry',
-                        templateUrl: 'app/diaryentry/Templates/diaryentry.template.html',
+                        selector: 'CreateDiaryEntry',
+                        templateUrl: 'app/diaryentry/Templates/createDiaryEntry.template.html',
                         providers: [diaryentry_service_1.DiaryEntryService]
                     }), 
                     __metadata('design:paramtypes', [diaryentry_service_1.DiaryEntryService, (typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object])
-                ], DiaryEntryComponent);
-                return DiaryEntryComponent;
+                ], CreateDiaryEntryComponent);
+                return CreateDiaryEntryComponent;
                 var _a;
             })();
-            exports_1("DiaryEntryComponent", DiaryEntryComponent);
+            exports_1("CreateDiaryEntryComponent", CreateDiaryEntryComponent);
         }
     }
 });
-//# sourceMappingURL=diaryentry.component.js.map
+//# sourceMappingURL=createDiaryEntry.component.js.map
