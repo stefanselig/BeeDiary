@@ -7,6 +7,8 @@ import {BeeHiveComponent} from './../beehive/Components/beehive.component';
 import {CreateBeeHiveComponent} from './../beehive/Components/createBeeHive.component';
 import {EditBeeHiveComponent} from './../beehive/Components/editBeeHive.component';
 import {DiaryEntryComponent} from './../diaryentry/Components/diaryentry.component';
+import {CreateDiaryEntryComponent} from './../diaryentry/Components/createDiaryEntry.component';
+import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry.component';
 
 @Component({
 	selector: 'beekeeper',
@@ -19,7 +21,9 @@ import {DiaryEntryComponent} from './../diaryentry/Components/diaryentry.compone
 	{path: '/beehive', name: 'BeeHive', component: BeeHiveComponent},
 	{path: '/createbeehive', name: 'CreateBeeHive', component: CreateBeeHiveComponent},
 	{path: '/editbeehive:id', name: 'EditBeeHive', component: EditBeeHiveComponent},
-	{path: '/diaryentry', name: 'DiaryEntry', component: DiaryEntryComponent}
+	{path: '/diaryentry', name: 'DiaryEntry', component: DiaryEntryComponent},
+	{path: '/creatediaryentry', name: 'CreateDiaryEntry', component: CreateDiaryEntryComponent},
+	{path: '/editdiaryentry:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent}
 ])
 
 export class AppComponent {}
