@@ -1,5 +1,5 @@
 <div id="createBeeHiveContent">
-		<button (click)="cancel()">Cancel</button>
+		<input type="button" (click)="cancel()" value="Cancel" />
 		<form (ngSubmit)="createNewBeeHive(createBeeHiveForm)" #createBeeHiveForm="ngForm">
 			<div class="form-group">
 				<label> BeeHive </label>
@@ -16,7 +16,7 @@
 				Address: <input type="text" ngControl="locationAddress" class="form-control" />
 				Lat: <input type="text" ngControl="locationLat" class="form-control" [(ngModel)]="location.lat"/>
 				Long: <input type="text" ngControl="locationLong" class="form-control" [(ngModel)]="location.long"/>
-				<button (click)="callGetCoordinates()" class="btn btn-default">Get GPS Position</button>
+				<input type="button" (click)="callGetCoordinates()" class="btn btn-default" value="Get GPS Position">
 			</div>
 			
 			<div class="form-group">
@@ -80,7 +80,7 @@
 				</select>
 			</div>
 			
-			<button type="submit" class="btn btn-default">Create new BeeHive</button>
+			<input type="submit" class="btn btn-default" value="Create new BeeHive">
 		</form>
 </div>
 <div id="map"></div>

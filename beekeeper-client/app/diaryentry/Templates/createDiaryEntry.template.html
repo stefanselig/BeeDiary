@@ -1,0 +1,67 @@
+<input type="button" (click)="cancel()" value="Cancel" />
+<form (ngSubmit)="createNewDiaryEntry(createDiaryEntryForm)" #createDiaryEntryForm="ngForm">
+	Types:
+	<select ngControl="typeValue">
+		<option *ngFor="#type of typeEnum" [value]="type"></option>
+	</select>
+	
+	<!-- Case AcarianControl: -->
+	<div *ngIf="typeValue == 'AcarianControl'">
+		CountDays: <input type="number" ngControl="countDays" />
+		AcariansCaseOfDeath: <input type="number" ngControl="acariansCaseOfDeath" />
+		CountDays: <input type="number" ngControl="coundDays" />
+		Description: <input type="text"   ngControl="description" />
+	</div>
+	
+	<!-- Case Construction: -->
+	<div *ngIf="typeValue == 'Construction'"></div>
+	
+	<!-- Case Treatment: -->
+	<div *ngIf="typeValue == 'Treatment'">
+		TreatmentTypes:
+		<select ngControl="treatmentTypeValue">
+			<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
+		</select>
+		Means: <input type="text" ngControl="means" />
+		Startdate: <input type="date" ngControl="startdate" />
+		Enddate: <input type="date" ngControl="enddate" />
+	</div>
+	
+	<!-- Case Feeding: -->
+	<div *ngIf="typeValue == 'Feeding'">
+		FeedingTypes:
+		<select ngControl="feedingTypeValue">
+			<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
+		</select>
+		Amount: <input type="number" ngControl="amount" placeholder="[kg]" />
+		Ratio: <input type="text" ngControl="ratio" />
+	</div>
+	
+	<!-- Case HoneyRemoval: -->
+	<div *ngIf="typeValue == 'HoneyRemoval'">
+		Amount: <input type="number" ngControl="amount" placeholder="[kg]" />
+	</div>
+	
+	<!-- Case Loss: -->
+	<div *ngIf="typeValue == 'Loss'">
+		Reason: <input type="text" ngControl="reason" />
+	</div>
+	
+	<!-- Case CutDroneBreed: -->
+	<div *ngIf="typeValue == 'CutDroneBreed'"></div>
+	
+	<!-- Case Other: -->
+	<div *ngIf="typeValue == 'Other'"></div>
+	
+	Date: <input type="date" ngControl="date" />
+	Description: <input type="description" ngControl="description" /> <!-- markdown -->
+	
+	<!-- Figure out photo upload -->
+	Photos:
+	<div *ngFor="#photo of photos"> <!-- No ngControl for this one -->
+		<img src="photo.data" />
+	</div>
+	Upload Photo: <input type="file" />
+	
+	<input type="submit" value="Create new DiaryEntry"/>
+</form>
