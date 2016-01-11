@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/router', '../services/beehive.servic
                     this.beehiveService = beeHiveService;
                     this.mapsService = mapsService;
                     this.router = router;
-                    this.loadInitialDataFromWebService();
+                    //this.loadInitialDataFromWebService();	
                 }
                 BeeHiveComponent.prototype.loadInitialDataFromWebService = function () {
                     var _this = this;

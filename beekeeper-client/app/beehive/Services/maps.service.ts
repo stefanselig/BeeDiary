@@ -19,7 +19,7 @@ export class MapsService {
 		this.initMap();
 	}
 	
- 	initMap() {
+ 	public initMap() {
 		var coordinates = new google.maps.LatLng(48, 13);
 		var mapOptions = {
 			center: coordinates,

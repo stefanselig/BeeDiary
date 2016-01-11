@@ -43,16 +43,17 @@ export class CreateBeeHiveComponent {
 			long: 0
 		};
 	}
-	public callGetCoordinates(index: number) {
+	
+	public callGetCoordinates() {
 		this.mapsService.getCoordinates(locParam => {
 			this.location.lat = locParam.lat;
 			this.location.long = locParam.long;
 		});
 	}
+	
 	public createNewBeeHive(createBeeHiveForm: any): void {
 		//this.beehiveService.createBeeHive(this.newBeeHive);
 		
-		//console.log(this.newBeeHive);
 		console.log(createBeeHiveForm.value);
 		
 		this.newBeeHive = {};

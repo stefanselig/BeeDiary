@@ -44,7 +44,7 @@ System.register(['angular2/core', 'angular2/router', '../services/beehive.servic
                         long: 0
                     };
                 }
-                CreateBeeHiveComponent.prototype.callGetCoordinates = function (index) {
+                CreateBeeHiveComponent.prototype.callGetCoordinates = function () {
                     var _this = this;
                     this.mapsService.getCoordinates(function (locParam) {
                         _this.location.lat = locParam.lat;
@@ -53,7 +53,6 @@ System.register(['angular2/core', 'angular2/router', '../services/beehive.servic
                 };
                 CreateBeeHiveComponent.prototype.createNewBeeHive = function (createBeeHiveForm) {
                     //this.beehiveService.createBeeHive(this.newBeeHive);
-                    //console.log(this.newBeeHive);
                     console.log(createBeeHiveForm.value);
                     this.newBeeHive = {};
                     this.router.navigate(['BeeHive']);

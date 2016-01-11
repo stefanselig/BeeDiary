@@ -1,6 +1,5 @@
 import {Component} 		from 'angular2/core';
 import {Router} 		from 'angular2/router';
-import {RouteParams}	from 'angular2/router';
 import {BeeHiveService}	from '../services/beehive.service';
 import {MapsService}	from '../services/maps.service';
 import {CreateBeeHiveComponent} from './createBeeHive.component';
@@ -25,7 +24,7 @@ export class BeeHiveComponent {
 		this.mapsService = mapsService;
 		this.router = router;
 		
-		this.loadInitialDataFromWebService();	
+		//this.loadInitialDataFromWebService();	
 	}
 	
 	public loadInitialDataFromWebService(): void {
