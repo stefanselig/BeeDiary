@@ -27,13 +27,18 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                 function EditDiaryEntryComponent(diaryEntryService, router, params) {
                     this.diaryEntryService = diaryEntryService;
                     this.router = router;
-                    this.loadSelectedDiaryEntryFromWebService(params.get('id'));
+                    this.diaryentry = {
+                        type: "AcarianControl",
+                        date: new Date(),
+                        Description: ""
+                    };
+                    //this.loadSelectedDiaryEntryFromWebService(params.get('id'));
                 }
                 EditDiaryEntryComponent.prototype.loadSelectedDiaryEntryFromWebService = function (id) {
                     var _this = this;
-                    this.diaryEntry = this.diaryEntryService.getDiaryEntryById(id).subscribe(function (selectedDiaryEntry) { return _this.diaryEntry = selectedDiaryEntry; }, function (error) { return console.error("Error" + error); }, function () {
+                    this.diaryentry = this.diaryEntryService.getDiaryEntryById(id).subscribe(function (selectedDiaryEntry) { return _this.diaryentry = selectedDiaryEntry; }, function (error) { return console.error("Error" + error); }, function () {
                         console.log("Completed");
-                        console.log(_this.diaryEntry);
+                        console.log(_this.diaryentry);
                     });
                 };
                 EditDiaryEntryComponent.prototype.updateDiaryEntry = function () {
