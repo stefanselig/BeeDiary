@@ -20,9 +20,9 @@ var port = process.env.PORT || 8080;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-var users = require('./routes/users');
-var beeHives = require('./routes/beehives');
-var diaryEntries = require('./routes/diaryentries');
+var users = require('./src/routes/users');
+var beeHives = require('./src/routes/beehives');
+var diaryEntries = require('./src/routes/diaryentries');
  
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
