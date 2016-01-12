@@ -51,6 +51,14 @@ DocumentDB issue - still to add
 
 Angular 2 can't handle input type="date" yet. Model date value is not displayed in the view.
 
+## xx.01.16 - Client
+
+Some errors with modules.
+
+## 11.01.16 - Client
+
+Somehow in a form angular2 recognizes every button click as a submit, even if another function call was intended.
+
 ## Other Documentation:
 
 ### Skripts: 

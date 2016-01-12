@@ -1,60 +1,58 @@
 <div>
 	<input type="search" placeholder="Search for DiaryEntry" />
 	<input type="submit" />
-</div>
-<div>
-	Type:
-	Date:
-	Description:
-	Photos:
+	<button (click)="createDiaryEntry()">Create New DiaryEntry</button>
 </div>
 <div *ngFor="#diaryentry of diaryEntries">
-	<p>{{diaryentry.type}}</p> <!-- Dropdown + more data -->
-	<select>
-		<option *ngFor="#type of typeEnum"></option>
-	</select>
-	<!-- Case AcarianControl: -->
-	<div *ngIf="type == 'AcarianControl'">
-		<input type="number" [(ngModel)]="diaryentry.type.acariancontrol._countDays" />
-		<input type="number" [(ngModel)]="_acariansCaseOfDeath" />
-		<input type="number" [(ngModel)]="_countDays" readonly />
-		<input type="text"   [(ngModel)]="_description" />
-	</div>
-	<!-- Case Construction: -->
-	<div *ngIf="type == 'Construction'"></div>
-	<!-- Case Treatment: -->
-	<div *ngIf="type == 'Treatment'">
-		<select>
-			<option *ngFor="#treatmentType of treatmentTypes"></option>
-		</select>
-		<input type="text" [(ngModel)]="diaryentry.type.means" />
-		<input type="date" [(ngModel)]="diaryentry.type.startdate" />
-		<input type="date" [(ngModel)]="diaryentry.type.enddate" />
-	</div>
-	<!-- Case Feeding: -->
-	<div *ngIf="type == 'Feeding'">
-		<select>
-			<option *ngFor="#feedingType of feedingTypes"></option>
-		</select>
-		<input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" />
-		<input type="text" [(ngModel)]="diaryentry.type.ratio" />
-	</div>
-	<!-- Case HoneyRemoval: -->
-	<div *ngIf="type == 'HoneyRemoval'">
-		<input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" />
-	</div>
-	<!-- Case Loss: -->
-	<div *ngIf="type == 'Loss'">
-		<input type="text" [(ngModel)]="diaryentry.type.reason" />
-	</div>
-	<!-- Case CutDroneBreed: -->
-	<div *ngIf="type == 'CutDroneBreed'"></div>
-	<!-- Case Other: -->
-	<div *ngIf="type == 'Other'"></div>
+	<button (click)="editDiaryEntry(diaryentry.id)">Edit DiaryEntry</button>
+	<p>{{diaryentry.type}}</p>
 	
-	<input type="date" [(ngModel)]="diaryentry._date" />
-	<input type="description" [(ngModel)]="diaryentry._description" /> <!-- markdown -->
-	<p>{{diaryentry.photos}}</p> <!-- Photo + upload -->
+	<!-- Case AcarianControl: -->
+	<div *ngIf="diaryentry.type == 'AcarianControl'">
+		CountDays: <input type="number" [(ngModel)]="diaryentry.countDays" readonly />
+		AcariansCaseOfDeath: <input type="number" [(ngModel)]="diaryentry.acariansCaseOfDeath" readonly />
+		Description: <input type="text"   [(ngModel)]="diaryentry.description" readonly />
+	</div>
+	
+	<!-- Case Construction: -->
+	<div *ngIf="diaryentry.type == 'Construction'"></div>
+	
+	<!-- Case Treatment: -->
+	<div *ngIf="diaryentry.type == 'Treatment'">
+		<p>{{diaryentry.treatmentType}}</p>
+		Means: <input type="text" [(ngModel)]="diaryentry.means" readonly />
+		Startdate: <input type="date" [(ngModel)]="diaryentry.startdate" readonly />
+		Enddate: <input type="date" [(ngModel)]="diaryentry.enddate" readonly />
+	</div>
+	
+	<!-- Case Feeding: -->
+	<div *ngIf="diaryentry.type == 'Feeding'">
+		<p>{{diaryentry.feedingType}}</p>
+		Amount: <input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly />
+		Ratio: <input type="text" [(ngModel)]="diaryentry.ratio" readonly />
+	</div>
+	
+	<!-- Case HoneyRemoval: -->
+	<div *ngIf="diaryentry.type == 'HoneyRemoval'">
+		Amount: <input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly />
+	</div>
+	
+	<!-- Case Loss: -->
+	<div *ngIf="diaryentry.type == 'Loss'">
+		Reason: <input type="text" [(ngModel)]="diaryentry.reason" readonly />
+	</div>
+	
+	<!-- Case CutDroneBreed: -->
+	<div *ngIf="diaryentry.type == 'CutDroneBreed'"></div>
+	
+	<!-- Case Other: -->
+	<div *ngIf="diaryentry.type == 'Other'"></div>
+	
+	Date: <input type="date" [(ngModel)]="diaryentry.date" readonly />
+	Description: <input type="description" [(ngModel)]="diaryentry.description" readonly /> <!-- markdown -->
+	
+	<!-- Photo + upload -->
+	Photos: 
 	<div *ngFor="#photo of diaryentry.photos">
 		<img src="photo.data" />
 	</div>

@@ -12,7 +12,7 @@ export class BeeHiveService {
 		this.getBeeHives();
 	}
 	
-	getBeeHives(): void {
+	public getBeeHives(): void {
 		this.beeHives = this.http
 		.get('http://localhost:8080/api/BeeHives/beeHives')
 		.map(
@@ -20,7 +20,7 @@ export class BeeHiveService {
 		);
 	}
 	
-	getBeeHiveById(id: number): any {
+	public getBeeHiveById(id: number): any {
 		// Somehow pass ID
 		return this.http
 		.get()
@@ -29,7 +29,7 @@ export class BeeHiveService {
 		);
 	}
 	
-	updateBeeHive(beeHive: any): void {
+	public updateBeeHive(beeHive: any): void {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		
@@ -46,7 +46,7 @@ export class BeeHiveService {
 		);
 	}
 	
-	createBeeHive(beeHive: any): void {
+	public createBeeHive(beeHive: any): void {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		

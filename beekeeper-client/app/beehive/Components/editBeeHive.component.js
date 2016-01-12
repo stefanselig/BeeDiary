@@ -48,6 +48,10 @@ System.register(['angular2/core', 'angular2/router', '../services/beehive.servic
                     });
                 };
                 EditBeeHiveComponent.prototype.updateBeeHive = function () {
+                    //this.beehiveService.updateBeeHive(this.beehive);
+                    this.router.navigate(['BeeHive']);
+                };
+                EditBeeHiveComponent.prototype.cancel = function () {
                     this.router.navigate(['BeeHive']);
                 };
                 EditBeeHiveComponent = __decorate([

@@ -46,6 +46,11 @@ export class EditBeeHiveComponent {
 	}
 	
 	public updateBeeHive(): void {
+		//this.beehiveService.updateBeeHive(this.beehive);
+		this.router.navigate(['BeeHive']);
+	}
+	
+	public cancel(): void {
 		this.router.navigate(['BeeHive']);
 	}
 }

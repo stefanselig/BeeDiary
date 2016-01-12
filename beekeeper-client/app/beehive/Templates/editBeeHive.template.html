@@ -1,56 +1,58 @@
 <div id="editBeeHiveContent">
 	<div>
+		<input type="submit" />
 		<div>
-			<input type="search" placeholder="Search for beehive" />
-			<input type="submit" />
-			<button (click)="createBeeHive()">Create New BeeHive</button>
-		</div>
-		<div *ngFor="#beehive of beehives" style="float:right">
 			BeeHive <input type="number" [(ngModel)]="beehive.number">:
 			Name: <input type="text" [(ngModel)]="beehive.location.name" />
-			Location: 
-			<input type="text" [(ngModel)]="beehive.location.address" />
 			
+			Location:
+			Address: <input type="text" [(ngModel)]="beehive.location.address" />
 			Lat: <input type="text" [(ngModel)]="beehive.location.lat" />
 			Long: <input type="text" [(ngModel)]="beehive.location.long" />
-			<button (click)="callGetCoordinates($index)">Get GPS Position</button>
+			<input type="button" (click)="callGetCoordinates()" value="Get GPS Position" />
 			
 			Description: <input type="text" [(ngModel)]="beehive.description">
-			<!-- Beim Select: Ausgewählter value muss ins model übertragen werden! -->
 			
-			Source: <p>{{beehive.source}}</p> <!-- dropdown -->
-			<select>
-				<option *ngFor="#sourceType of sourceTypes">
+			Source:
+			<select [(ngModel)]="beehive.source">
+				SourceTypes:
+				<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
 					{{sourceType}}
 				</option>
 			</select>
-			<input *ngIf="beehive.source.type == 'other'" type="text" /> <!-- case: free text -->
-			<input *ngIf="beehive.source.origin != 'undefined'" type="number" />
 			
-			<input type="date" [(ngModel)]="beehive.startdate" />
+			<div *ngIf="beehive.source.type == 'other'">
+				Other type: <input type="text" [(ngModel)]="beehive.source.otherType" /> <!-- case: free text -->
+			</div>
+			
+			<div *ngIf="beehive.source.origin != 'undefined'">
+				Origin: <input type="number" [(ngModel)]="beehive.source.origin" />
+			</div>
+			
+			Startdate: <input type="date" [(ngModel)]="beehive.startdate" />
 			
 			Lost? <input type="checkbox" [(ngModel)]="beehive.lost.isLost" />
 			<div *ngIf="beehive.lost.isLost">
-				<input [(ngModel)]="beehive.lost.reason">
+				Reason: <input [(ngModel)]="beehive.lost.reason">
 			</div>
 			
-			Beutenform: <p>{{beehive.beutenform}}</p> <!-- dropdown -->
-			<select>
-				<option *ngFor="#frameSize of frameSizes">
+			Beutenform:
+			<select [(ngModel)]="beehive.frameSize">
+				<option *ngFor="#frameSize of frameSizes" [value]="frameSize">
 					{{frameSize}}
 				</option>
 			</select>
 			
-			Beutenmaterial: <p>{{beehive.frameMaterial}}</p> <!-- dropdown -->
-			<select>
-				<option *ngFor="#frameMaterial of frameMaterialEnum">
+			Beutenmaterial:
+			<select [(ngModel)]="beehive.frameMaterial">
+				<option *ngFor="#frameMaterial of frameMaterialEnum" [value]="frameMaterial">
 					{{frameMaterial}}
 				</option>
 			</select>
 			
-			Wabenbau: <p>{{beehive.combConstruction}}</p> <!-- dropdown -->
-			<select>
-				<option *ngFor="#combConstruction of combConstrunctionEnum">
+			Wabenbau:
+			<select [(ngModel)]="beehive.combConstruction">
+				<option *ngFor="#combConstruction of combConstructionEnum" [value]="combConstruction">
 					{{combConstruction}}
 				</option>
 			</select>
