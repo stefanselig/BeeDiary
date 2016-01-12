@@ -6,9 +6,9 @@ class BeeHive {
     hiveLocation: HiveLocation;
     source: Source;
     lost: Lost;
-    frameSize: frameSizeEnum;
     frameMaterial: frameMaterialEnum;
     combConstruction: combConstructionEnum;
+    frameSize: frameSizeEnum;
 
     constructor(hiveNumber, hiveName, startDate, description, hiveLocation, source, lost, frameSize, frameMaterial, combConstruction) {
         this.hiveNumber = hiveNumber;
@@ -38,19 +38,19 @@ class BeeHive {
     }
     
     getSourceEnum() : string[] {
-        return this.getArrayOfEnum(Source);
+        return this.getArrayOfEnum(sourceEnum);
     }
     
     getFrameSizeEnum() : string[] {
-        return this.getArrayOfEnum(FrameSize);
+        return this.getArrayOfEnum(frameSizeEnum);
     }
     
     getFrameMaterialEnum() : string[] {
-        return this.getArrayOfEnum(FrameMaterial);
+        return this.getArrayOfEnum(frameMaterialEnum);
     }
     
     getCombConstructionEnum() : string[] {
-        return this.getArrayOfEnum(CombConstruction);
+        return this.getArrayOfEnum(combConstructionEnum);
     }
     
     private getArrayOfEnum(MyEnum) : string[] {

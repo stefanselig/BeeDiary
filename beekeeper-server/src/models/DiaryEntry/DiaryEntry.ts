@@ -1,32 +1,21 @@
 class DiaryEntry {
-    hiveNumber: number;
-    startDate: Date;
+    date: Date;
     type : entryTypeEnum;
+    photos: Photo[];
+    description: string;
 
-    constructor(hiveNumber, startDate, description) {
-       type: Type,
-	   date: Date,
-	   description: String,
-	   photos: Photo[]
+    constructor(type, photos, description, date) {
+       this.type = type;
+	   this.date = date;
+	   this.description = description;
+	   this.photos = photos;
     }
     
-    getSourceEnum() : string[] {
-        return this.getArrayOfEnum(Source);
+    getEntryTypeEnum() : string[] {
+        return this.getArrayOfEnum(entryTypeEnum);
     }
     
-    getFrameSizeEnum() : string[] {
-        return this.getArrayOfEnum(FrameSize);
-    }
-    
-    getFrameMaterialEnum() : string[] {
-        return this.getArrayOfEnum(FrameMaterial);
-    }
-    
-    getCombConstructionEnum() : string[] {
-        return this.getArrayOfEnum(CombConstruction);
-    }
-    
-    private getArrayOfEnum(MyEnum) : string[] {
+    getArrayOfEnum(MyEnum) : string[] {
         var enumArray:string[];
         for(var enumMember in MyEnum) {
             enumArray.push(enumMember);
@@ -39,18 +28,6 @@ enum entryTypeEnum {
 	acarianControl, construction, treatment, feeding, honeyRemoval, loss, cutDroneBrood, other
 }
 
-
-
-class Construction {}
-
-class Feeding {}
-
-class HoneyRemoval {}
-
-class Loss {}
-
-class CutDroneBrood {}
-
-class Other {}
-
-class Photo {}
+class Photo {
+    //TODO: Mit Stefan besprechen, wie die Klasse Photo aussehen soll.
+}
