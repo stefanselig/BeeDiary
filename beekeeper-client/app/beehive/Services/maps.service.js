@@ -25,6 +25,9 @@ System.register(['angular2/core', 'rxjs/add/operator/map'], function(exports_1) 
             //import {GoogleMaps} from 'google.maps';
             MapsService = (function () {
                 function MapsService() {
+                    // Somehow getMarkers() from REST
+                    this.markers = [];
+                    this.idCounter = this.markers.length;
                     this.initMap();
                 }
                 MapsService.prototype.initMap = function () {
@@ -43,7 +46,8 @@ System.register(['angular2/core', 'rxjs/add/operator/map'], function(exports_1) 
                     navigator.geolocation.getCurrentPosition(function (position) {
                         locParam = {
                             lat: position.coords.latitude,
-                            long: position.coords.longitude
+                            long: position.coords.longitude,
+                            address: ""
                         };
                         callback(locParam);
                         /*if (index != undefined) {
@@ -55,6 +59,33 @@ System.register(['angular2/core', 'rxjs/add/operator/map'], function(exports_1) 
                             this.location.long = position.coords.longitude;
                         }*/
                     });
+                };
+                MapsService.prototype.getAddress = function (locationParams, callback) {
+                    var geocoder = new google.maps.Geocoder;
+                    geocoder.geocode({
+                        'location': {
+                            lat: locationParams.lat,
+                            lng: locationParams.long
+                        }
+                    }, function (results) {
+                        console.log(results);
+                        callback(results[0].formatted_address);
+                    });
+                };
+                MapsService.prototype.getMarker = function (locationParams) {
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locationParams.lat, locationParams.long),
+                        map: this.map,
+                        title: 'BeeHive'
+                    });
+                    var markerObj = {};
+                    markerObj.marker = marker;
+                    markerObj.id = this.getNextId();
+                    return markerObj;
+                };
+                MapsService.prototype.getNextId = function () {
+                    this.idCounter = this.idCounter + 1;
+                    return this.idCounter;
                 };
                 MapsService = __decorate([
                     core_1.Injectable(), 

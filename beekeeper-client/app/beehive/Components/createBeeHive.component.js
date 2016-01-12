@@ -41,14 +41,25 @@ System.register(['angular2/core', 'angular2/router', '../services/beehive.servic
                     this.router = router;
                     this.location = {
                         lat: 0,
-                        long: 0
+                        long: 0,
+                        address: ""
                     };
                 }
                 CreateBeeHiveComponent.prototype.callGetCoordinates = function () {
                     var _this = this;
+                    var instance = this;
                     this.mapsService.getCoordinates(function (locParam) {
                         _this.location.lat = locParam.lat;
                         _this.location.long = locParam.long;
+                        instance.markerObj = instance.mapsService.getMarker(locParam);
+                        _this.callGetAddress();
+                    });
+                };
+                CreateBeeHiveComponent.prototype.callGetAddress = function () {
+                    var instance = this;
+                    this.mapsService.getAddress(this.location, function (address) {
+                        console.log("address is: " + address);
+                        instance.location.address = address;
                     });
                 };
                 CreateBeeHiveComponent.prototype.createNewBeeHive = function (createBeeHiveForm) {

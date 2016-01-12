@@ -14,8 +14,13 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MapsService {
 	map: google.maps.Map;
+	markers: MarkerObj[];
+	idCounter: number;
 	
 	constructor() {
+		// Somehow getMarkers() from REST
+		this.markers = [];
+		this.idCounter = this.markers.length;
 		this.initMap();
 	}
 	
@@ -36,7 +41,8 @@ export class MapsService {
 		navigator.geolocation.getCurrentPosition(position => {
 			locParam = {
 				lat: position.coords.latitude,
-				long: position.coords.longitude
+				long: position.coords.longitude,
+				address: ""
 			};
 			callback(locParam);
 			/*if (index != undefined) {
@@ -49,9 +55,49 @@ export class MapsService {
 			}*/
 		});
 	}
+	
+	public getAddress(locationParams: LocationParams, callback: any): void {
+		var geocoder = new google.maps.Geocoder;
+		geocoder.geocode(
+			{
+				'location': 
+				{
+					lat: locationParams.lat, 
+					lng: locationParams.long
+				}
+			}, 
+			results => {
+				console.log(results);
+				callback(results[0].formatted_address);
+			}
+		);
+	}
+	
+	public getMarker(locationParams): MarkerObj {
+		var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(locationParams.lat, locationParams.long),
+			map: this.map,
+			title: 'BeeHive'
+		});
+		var markerObj = {};
+		markerObj.marker = marker;
+		markerObj.id = this.getNextId();
+		return markerObj;
+	}
+	
+	public getNextId(): number {
+		this.idCounter = this.idCounter + 1;
+		return this.idCounter;
+	}
 }
 
 export interface LocationParams {
 	lat: number;
 	long: number;
+	address: string;
+}
+
+export interface MarkerObj {
+	marker: google.maps.Marker;
+	id: number;
 }
