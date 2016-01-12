@@ -1,59 +1,94 @@
 <div id="beeHiveContent">
 	<div>
-		<div>
-			<input type="search" placeholder="Search for beehive" />
-			<input type="submit" />
-			<button (click)="createBeeHive()">Create New BeeHive</button>
+		<div class="form-group form-inline">
+			<input type="search" placeholder="Search for BeeHive" class="form-control"/>
+			<input type="submit" class="btn btn-default" class="form-control"/>
+			<button (click)="createBeeHive()" class="btn btn-default" class="form-control">Create New BeeHive</button>
 		</div>
 		<div *ngFor="#beehive of beehives">
-			BeeHive <input type="number" [(ngModel)]="beehive.number" readonly>:
-			Name: <input type="text" [(ngModel)]="beehive.location.name" readonly />
+			<h1> BeeHive </h1>
+			<button (click)="editBeeHive(beehive.id)" class="btn btn-default">Edit BeeHive</button>
 			
-			<button (click)="editBeeHive(beehive.id)">Edit BeeHive</button>
-			
-			<label>Location:</label>
-			Address: <input type="text" [(ngModel)]="beehive.location.address" readonly />
-			Lat: <input type="text" [(ngModel)]="beehive.location.lat" readonly />
-			Long: <input type="text" [(ngModel)]="beehive.location.long" readonly />
-			
-			Description: <input type="text" [(ngModel)]="beehive.description" readonly>
-			
-			Source:
-			<select [(ngModel)]="beehive.source.type" disabled>
-				<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
-					{{sourceType}}
-				</option>
-			</select>
-			<input *ngIf="beehive.source.type == 'Other'" type="text" [(ngModel)]="beehive.source.type" readonly />
-			<input *ngIf="beehive.source.origin != 'undefined'" type="number" [(ngModel)]="beehive.source.origin" readonly />
-			
-			<input type="date" [(ngModel)]="beehive.startdate" readonly />
-			
-			Lost? <input type="checkbox" [(ngModel)]="beehive.lost.isLost" readonly />
-			<div *ngIf="beehive.lost.isLost">
-				<input type="text" [(ngModel)]="beehive.lost.reason" readonly>
+			<div class="form-group">
+				<label>Number: </label>
+				<input type="number" [(ngModel)]="beehive.number" readonly class="form-control">
 			</div>
 			
-			Beutenform:
-			<select [(ngModel)]="beehive.frameSize" disabled>
-				<option *ngFor="#frameSize of frameSizes" [value]="frameSize">
-					{{frameSize}}
-				</option>
-			</select>
+			<div class="form-group">
+				<label>Name:</label>
+				<input type="text" [(ngModel)]="beehive.name" readonly class="form-control" />
+			</div>
 			
-			Beutenmaterial:
-			<select [(ngModel)]="beehive.frameMaterial" disabled>
-				<option *ngFor="#frameMaterial of frameMaterialEnum" [value]="frameMaterial">
-					{{frameMaterial}}
-				</option>
-			</select>
+			<div class="form-group">
+				<h3>Location:</h3>
+				<label> Address: </label>
+				<input type="text" [(ngModel)]="beehive.location.address" readonly class="form-control"/>
+				<label> Lat: </label>
+				<input type="text" [(ngModel)]="beehive.location.lat" readonly class="form-control"/>
+				<label> Long: </label>
+				<input type="text" [(ngModel)]="beehive.location.long" readonly class="form-control"/>
+			</div>
 			
-			Wabenbau:
-			<select  [(ngModel)]="beehive.combConstruction" disabled>
-				<option *ngFor="#combConstruction of combConstrunctionEnum" [value]="combConstruction">
-					{{combConstruction}}
-				</option>
-			</select>
+			<div class="form-group">
+				<label> Description: </label>
+				<input type="text" [(ngModel)]="beehive.description" readonly class="form-control">
+			</div>
+			
+			<div class="form-group">
+				<label>Source:</label>
+				<select [(ngModel)]="beehive.source.type" disabled class="form-control">
+					<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
+						{{sourceType}}
+					</option>
+				</select>
+				<div *ngIf="beehive.source.type == 'Other'">
+					<label>Alternate source type:</label>
+					<input type="text" [(ngModel)]="beehive.source.type" placeholder="Source Type" class="form-control" readonly/>
+				</div>
+				<label> Source origin: (Not required): </label>
+				<input type="number" [(ngModel)]="beehive.source.origin" placeholder="Source Origin" readonly class="form-control"/>
+			</div>
+			
+			<div class="form-group">
+				<label> Startdate: </label>
+				<input type="date" [(ngModel)]="beehive.startdate" placeholder="Start date" readonly class="form-control"/>
+			</div>
+			
+			<div class="form-group">
+				<label> Lost? </label>
+				<input type="checkbox" [(ngModel)]="beehive.lost.isLost" disabled />
+				<div *ngIf="beehive.lost.isLost">
+					<label> Reason for Loss: </label>
+					<input type="text" placeholder="Reason" [(ngModel)]="beehive.lost.reason" class="form-control" readonly>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label> Beutenform: </label>
+				<select [(ngModel)]="beehive.frameSize" disabled class="form-control">
+					<option *ngFor="#frameSize of frameSizes" [value]="frameSize">
+						{{frameSize}}
+					</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label> Beutenmaterial: </label>
+				<select [(ngModel)]="beehive.frameMaterial" disabled class="form-control">
+					<option *ngFor="#frameMaterial of frameMaterialEnum" [value]="frameMaterial">
+						{{frameMaterial}}
+					</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label> Wabenbau: </label>
+				<select [(ngModel)]="beehive.combConstruction" disabled class="form-control">
+					<option *ngFor="#combConstruction of combConstrunctionEnum" [value]="combConstruction">
+						{{combConstruction}}
+					</option>
+				</select>
+			</div>
 		</div>
 	</div>
 </div>

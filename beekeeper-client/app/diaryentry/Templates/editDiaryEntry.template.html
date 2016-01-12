@@ -1,52 +1,74 @@
 <div id="editDiaryEntryContent">
-	<input type="button" (click)="cancel()" value="Cancel" />
 	<div>
-		Types: 
-		<select [(ngModel)]="diaryentry.type">
-			<option *ngFor="#type of typeEnum" [value]="type"></option>
-		</select>
-		
-		<!-- Case AcarianControl: -->
-		<div *ngIf="type == 'AcarianControl'">
-			CountDays: <input type="number" [(ngModel)]="diaryentry.countDays" />
-			AcariansCaseOfDeath: <input type="number" [(ngModel)]="diaryentry.acariansCaseOfDeath" />
-			CountDays: <input type="number" [(ngModel)]="diaryentry.countDays" readonly />
-			Description: <input type="text"   [(ngModel)]="diaryentry.description" />
+		<div class="form-group">
+			<label> Types: </label>
+			<select [(ngModel)]="diaryentry.type" class="form-control">
+				<option *ngFor="#type of typeEnum" [value]="type"></option>
+			</select>
 		</div>
-		
+
+		<!-- Case AcarianControl: -->
+		<div *ngIf="diaryentry.type == 'AcarianControl'">
+			<div class="form-group">
+				<label>CountDays:</label> 
+				<input type="number" [(ngModel)]="diaryentry.countDays" class="form-control"/>
+				<label>AcariansCaseOfDeath:</label> 
+				<input type="number" [(ngModel)]="diaryentry.acariansCaseOfDeath" class="form-control"/>
+				<label>CountDays:</label> 
+				<input type="number" [(ngModel)]="diaryentry.countDays" readonly class="form-control"/>
+				<label>Description:</label> 
+				<input type="text"   [(ngModel)]="diaryentry.description" class="form-control"/>
+			</div>
+		</div>
+
 		<!-- Case Construction: -->
 		<div *ngIf="type == 'Construction'"></div>
 		
 		<!-- Case Treatment: -->
-		<div *ngIf="type == 'Treatment'">
-			TreatmentTypes:
-			<select [(ngModel)]="diaryentry.treatmentType">
-				<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
-			</select>
-			Means: <input type="text" [(ngModel)]="diaryentry.type.means" />
-			Startdate: <input type="date" [(ngModel)]="diaryentry.type.startdate" />
-			Enddate: <input type="date" [(ngModel)]="diaryentry.type.enddate" />
+		<div *ngIf="diaryentry.type == 'Treatment'">
+			<div class="form-group">
+				<label>TreatmentTypes:</label>
+				<select [(ngModel)]="diaryentry.treatmentType" class="form-control">
+					<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
+				</select>
+				<label>Means:</label>
+				<input type="text" [(ngModel)]="diaryentry.type.means" class="form-control"/>
+				<label>Startdate:</label>
+				<input type="date" [(ngModel)]="diaryentry.type.startdate" class="form-control"/>
+				<label>Enddate:</label>
+				<input type="date" [(ngModel)]="diaryentry.type.enddate" class="form-control"/>
+			</div>
 		</div>
 		
 		<!-- Case Feeding: -->
-		<div *ngIf="type == 'Feeding'">
-			FeedingTypes:
-			<select [(ngModel)]="diaryentry.feedingType">
-				<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
-			</select>
-			Amount: <input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" />
-			Ratio: <input type="text" [(ngModel)]="diaryentry.type.ratio" />
+		<div *ngIf="diaryentry.type == 'Feeding'">
+			<div class="form-group">
+				<label>FeedingTypes:</label>
+				<select [(ngModel)]="diaryentry.feedingType" class="form-control">
+					<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
+				</select>
+				<label>Amount:</label>
+				<input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" class="form-control" />
+				<label>Ratio:</label>
+				<input type="text" [(ngModel)]="diaryentry.type.ratio" class="form-control"/>
+			</div>
 		</div>
-		
+
 		<!-- Case HoneyRemoval: -->
-		<div *ngIf="type == 'HoneyRemoval'">
-			Amount: <input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" />
+		<div *ngIf="diaryentry.type == 'HoneyRemoval'">
+			<div class="form-group">
+				<label>Amount:</label>
+				<input type="number" [(ngModel)]="diaryentry.type.amount" placeholder="[kg]" class="form-control" />
+			</div>
 		</div>
 		
 		<!-- Case Loss: -->
-		<div *ngIf="type == 'Loss'">
-			Reason: <input type="text" [(ngModel)]="diaryentry.type.reason" />
-		</div>
+		<div *ngIf="typeValue == 'Loss'">
+			<div class="form-group">
+				<label>Reason:</label>
+				<input type="text" [(ngModel)]="diaryentry.type.reason" class="form-control"/>
+			</div>
+		</div>	
 		
 		<!-- Case CutDroneBreed: -->
 		<div *ngIf="type == 'CutDroneBreed'"></div>
@@ -54,16 +76,29 @@
 		<!-- Case Other: -->
 		<div *ngIf="type == 'Other'"></div>
 		
-		Date: <input type="date" [(ngModel)]="diaryentry.date" />
-		Description: <input type="description" [(ngModel)]="diaryentry.description" /> <!-- markdown -->
-		
-		<!-- Photo + upload -->
-		Photos:
-		<div *ngFor="#photo of diaryentry.photos">
-			<img src="photo.data" />
+		<div class="form-group">
+			<label>Date:</label>
+			<input type="date" [(ngModel)]="diaryentry.date" class="form-control"/>
 		</div>
-		Upload Photo: <input type="file" />
+
+		<div class="form-group">
+			<label>Description:</label>
+			<input type="description" placeholder="Description" [(ngModel)]="diaryentry.description" class="form-control" /> <!-- markdown -->
+		</div>	
 		
-		<input type="submit" value="Update DiaryEntry" />
+		<div class="form-group">
+			<!-- Figure out photo upload -->
+			<label>Photos:</label>
+			<div *ngFor="#photo of diaryentry.photos"> <!-- No ngControl for this one -->
+				<img src="photo.data" />
+			</div>
+			<br />
+			<label>Upload Photo:</label>
+			<input type="file"/>
+		</div>
+
+		<input type="submit" value="Update DiaryEntry" class="btn btn-default"/>
+		
+		<input type="button" (click)="cancel()" value="Cancel" class="btn btn-default"/>
 	</div>	
 </div>
