@@ -24,6 +24,24 @@ export class BeeHiveComponent {
 		this.mapsService = mapsService;
 		this.router = router;
 		
+		
+		this.beehives.push({
+			number: 1,
+			name: "Beehive 1",
+			location: {
+				address: "",
+				lat: 0,
+				long: 0 
+			},
+			source: {
+				type: ""
+			},
+			lost: {
+				isLost: true,
+				reason: ""
+			}
+		});
+		
 		//this.loadInitialDataFromWebService();	
 	}
 	

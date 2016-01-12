@@ -1,16 +1,23 @@
-<input type="button" (click)="cancel()" value="Cancel" />
-<form (ngSubmit)="createNewDiaryEntry(createDiaryEntryForm)" #createDiaryEntryForm="ngForm">
-	Types:
-	<select ngControl="typeValue">
-		<option *ngFor="#type of typeEnum" [value]="type"></option>
-	</select>
-	
+<form (ngSubmit)="createNewDiaryEntry(createDiaryEntryForm)" #createDiaryEntryForm="ngForm" id="createDiaryEntryForm">
+	<div class="form-group">
+		<label> Types: </label>
+		<select ngControl="typeValue" class="form-control">
+			<option *ngFor="#type of typeEnum" [value]="type"></option>
+		</select>
+	</div>
+
 	<!-- Case AcarianControl: -->
 	<div *ngIf="typeValue == 'AcarianControl'">
-		CountDays: <input type="number" ngControl="countDays" />
-		AcariansCaseOfDeath: <input type="number" ngControl="acariansCaseOfDeath" />
-		CountDays: <input type="number" ngControl="coundDays" />
-		Description: <input type="text"   ngControl="description" />
+		<div class="form-group">
+			<label>CountDays:</label> 
+			<input type="number" ngControl="countDays" class="form-control"/>
+			<label>AcariansCaseOfDeath:</label> 
+			<input type="number" ngControl="acariansCaseOfDeath" class="form-control"/>
+			<label>CountDays:</label> 
+			<input type="number" ngControl="coundDays" readonly class="form-control"/>
+			<label>Description:</label> 
+			<input type="text"   ngControl="description" class="form-control"/>
+		</div>
 	</div>
 	
 	<!-- Case Construction: -->
@@ -18,50 +25,78 @@
 	
 	<!-- Case Treatment: -->
 	<div *ngIf="typeValue == 'Treatment'">
-		TreatmentTypes:
-		<select ngControl="treatmentTypeValue">
-			<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
-		</select>
-		Means: <input type="text" ngControl="means" />
-		Startdate: <input type="date" ngControl="startdate" />
-		Enddate: <input type="date" ngControl="enddate" />
+		<div class="form-group">
+			<label>TreatmentTypes:</label>
+			<select ngControl="treatmentTypeValue" class="form-control">
+				<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
+			</select>
+			<label>Means:</label>
+			<input type="text" ngControl="means" class="form-control"/>
+			<label>Startdate:</label>
+			<input type="date" ngControl="startdate" class="form-control"/>
+			<label>Enddate:</label>
+			<input type="date" ngControl="enddate" class="form-control"/>
+		</div>
 	</div>
 	
 	<!-- Case Feeding: -->
 	<div *ngIf="typeValue == 'Feeding'">
-		FeedingTypes:
-		<select ngControl="feedingTypeValue">
-			<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
-		</select>
-		Amount: <input type="number" ngControl="amount" placeholder="[kg]" />
-		Ratio: <input type="text" ngControl="ratio" />
+		<div class="form-group">
+			<label>FeedingTypes:</label>
+			<select ngControl="feedingTypeValue" class="form-control">
+				<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
+			</select>
+			<label>Amount:</label>
+			<input type="number" ngControl="amount" placeholder="[kg]" class="form-control" />
+			<label>Ratio:</label>
+			<input type="text" ngControl="ratio" class="form-control"/>
+		</div>
 	</div>
 	
 	<!-- Case HoneyRemoval: -->
 	<div *ngIf="typeValue == 'HoneyRemoval'">
-		Amount: <input type="number" ngControl="amount" placeholder="[kg]" />
+		<div class="form-group">
+			<label>Amount:</label>
+			<input type="number" ngControl="amount" placeholder="[kg]" class="form-control" />
+		</div>
 	</div>
 	
 	<!-- Case Loss: -->
 	<div *ngIf="typeValue == 'Loss'">
-		Reason: <input type="text" ngControl="reason" />
-	</div>
-	
+		<div class="form-group">
+			<label>Reason:</label>
+			<input type="text" ngControl="reason" class="form-control"/>
+		</div>
+	</div>		
+
 	<!-- Case CutDroneBreed: -->
 	<div *ngIf="typeValue == 'CutDroneBreed'"></div>
 	
 	<!-- Case Other: -->
 	<div *ngIf="typeValue == 'Other'"></div>
-	
-	Date: <input type="date" ngControl="date" />
-	Description: <input type="description" ngControl="description" /> <!-- markdown -->
-	
-	<!-- Figure out photo upload -->
-	Photos:
-	<div *ngFor="#photo of photos"> <!-- No ngControl for this one -->
-		<img src="photo.data" />
+		
+	<div class="form-group">
+		<label>Date:</label>
+		<input type="date" ngControl="date" class="form-control"/>
 	</div>
-	Upload Photo: <input type="file" />
+
+	<div class="form-group">
+		<label>Description:</label>
+		<input type="description" placeholder="Description" ngControl="description" class="form-control" /> <!-- markdown -->
+	</div>	
 	
-	<input type="submit" value="Create new DiaryEntry"/>
+	<div class="form-group">
+		<!-- Figure out photo upload -->
+		<label>Photos:</label>
+		<div *ngFor="#photo of photos"> <!-- No ngControl for this one -->
+			<img src="photo.data" />
+		</div>
+		<br />
+		<label>Upload Photo:</label>
+		<input type="file"/>
+	</div>
+	
+	<input type="submit" value="Create new DiaryEntry" class="btn btn-default"/>
+	
+	<input type="button" (click)="cancel()" value="Cancel" class="btn btn-default"/>
 </form>

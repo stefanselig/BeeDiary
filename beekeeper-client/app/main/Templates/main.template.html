@@ -3,10 +3,22 @@
 	By Stefan Selig & Valentin Hengstschläger
 </header>
 <h1>BeeKeeper</h1>
-<a [routerLink]="['SignUp']">Sign Up</a>
-<a [routerLink]="['LogIn']">Log In</a>
-<a [routerLink]="['BeeHive']">BeeHive</a>
-<a [routerLink]="['DiaryEntry']">DiaryEntry</a>
+<ul class="nav navbar-nav">
+	<li>
+		<a [routerLink]="['SignUp']">Sign Up</a>
+	</li>
+	<li>
+		<a [routerLink]="['LogIn']">Log In</a>
+	</li>
+	<li>
+		<a [routerLink]="['BeeHive']">BeeHive</a>
+	</li>
+	<li>
+		<a [routerLink]="['DiaryEntry']">DiaryEntry</a>
+	</li>	
+</ul>
+<br />
+<br />
 <br />
 <br />
 <router-outlet></router-outlet>

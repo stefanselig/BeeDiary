@@ -4,15 +4,35 @@ html {
 	padding: 0;
 }
 #map {
-	height: 300px;
-	width: 500px;
+	height: 80%;
+	width: 65%;
 	float: right;
 }
+
 #beeHiveContent {
-	display: inline;
 	float: left;
+	height: 80%;
+	overflow: auto;
 }
 #createBeeHiveContent {
-	width: 600px;
+	height: 80%;
+	width: 30%;
+	overflow: auto;
 	float: left;
+}
+#editBeeHiveContent {
+	height: 80%;
+	width: 30%;
+	overflow: auto;
+	float: left;
+}
+
+#diaryEntryContent {
+	width: 30%;
+}
+#createDiaryEntryForm {
+	width: 30%;
+}
+#editDiaryEntryContent {
+	width: 30%;
 }

@@ -31,7 +31,23 @@ System.register(['angular2/core', 'angular2/router', '../services/beehive.servic
                     this.beehiveService = beeHiveService;
                     this.mapsService = mapsService;
                     this.router = router;
-                    this.loadSelectedBeeHiveFromWebService(params.get('id'));
+                    //this.loadSelectedBeeHiveFromWebService(params.get('id'));
+                    this.beehive = {
+                        number: 1,
+                        name: "Beehive 1",
+                        location: {
+                            address: "",
+                            lat: 0,
+                            long: 0
+                        },
+                        source: {
+                            type: ""
+                        },
+                        lost: {
+                            isLost: true,
+                            reason: ""
+                        }
+                    };
                 }
                 EditBeeHiveComponent.prototype.loadSelectedBeeHiveFromWebService = function (id) {
                     var _this = this;

@@ -27,13 +27,18 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                     this.diaryEntries = [];
                     this.diaryEntryService = diaryEntryService;
                     this.router = router;
+                    this.diaryEntries.push({
+                        type: "AcarianControl",
+                        date: new Date(),
+                        Description: ""
+                    });
                     //this.diaryEntries = this.diaryEntryService.diaryEntries.slice();
                 }
                 DiaryEntryComponent.prototype.createDiaryEntry = function () {
-                    this.router.navigate(['CreateBeeHive']);
+                    this.router.navigate(['CreateDiaryEntry']);
                 };
                 DiaryEntryComponent.prototype.editDiaryEntry = function (id) {
-                    this.router.navigate(['EditBeeHive'], { id: id });
+                    this.router.navigate(['EditDiaryEntry'], { id: id });
                 };
                 DiaryEntryComponent = __decorate([
                     core_1.Component({

@@ -3,6 +3,7 @@ import {Router}			from 'angular2/router';
 import {BeeHiveService}	from '../services/beehive.service';
 import {MapsService}	from '../services/maps.service';
 import {LocationParams} from '../services/maps.service';
+import {MarkerObj}		from '../services/maps.service';
 
 @Component({
 	selector: 'CreateBeeHive',
@@ -17,6 +18,7 @@ export class CreateBeeHiveComponent {
 	
 	public newBeeHive: any;
 	public location: LocationParams;
+	public markerObj: MarkerObj;
 	
 	public beehiveService: BeeHiveService;
 	public mapsService: MapsService;
@@ -40,14 +42,26 @@ export class CreateBeeHiveComponent {
 		
 		this.location = {
 			lat: 0,
-			long: 0
+			long: 0,
+			address: ""
 		};
 	}
 	
-	public callGetCoordinates() {
+	public callGetCoordinates(): void {
+		var instance = this;
 		this.mapsService.getCoordinates(locParam => {
 			this.location.lat = locParam.lat;
 			this.location.long = locParam.long;
+			instance.markerObj =  instance.mapsService.getMarker(locParam);
+			this.callGetAddress();
+		});
+	}
+	
+	public callGetAddress(): void {
+		var instance = this;
+		this.mapsService.getAddress(this.location, address => {
+			console.log("address is: " + address);
+			instance.location.address = address;
 		});
 	}
 	

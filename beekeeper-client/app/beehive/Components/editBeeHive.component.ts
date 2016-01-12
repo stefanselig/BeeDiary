@@ -24,7 +24,25 @@ export class EditBeeHiveComponent {
 		this.mapsService = mapsService;
 		this.router = router;
 		
-		this.loadSelectedBeeHiveFromWebService(params.get('id'));
+		//this.loadSelectedBeeHiveFromWebService(params.get('id'));
+		
+		this.beehive = {
+			number: 1,
+			name: "Beehive 1",
+			location: {
+				address: "",
+				lat: 0,
+				long: 0 
+			},
+			source: {
+				type: ""
+			},
+			lost: {
+				isLost: true,
+				reason: ""
+			}
+		};
+		
 	}
 	
 	public loadSelectedBeeHiveFromWebService(id: number): void {
