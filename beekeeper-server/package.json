@@ -1,6 +1,9 @@
 {
     "name": "beekeeper-server",
     "description": "The beekeeper-server",
+    "scripts": {
+        "tsc":"tsc -p src -w"
+    },
     "main": "server.js",
     "author": "Valentin Hengstschläger",
     "dependencies": {
