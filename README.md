@@ -59,6 +59,10 @@ Some errors with modules.
 
 Somehow in a form angular2 recognizes every button click as a submit, even if another function call was intended.
 
+## 13.01.16 - Server
+
+Problem with mongoose schema/model.(not possible to map object) - still to add
+
 ## Other Documentation:
 
 ### Skripts: 
