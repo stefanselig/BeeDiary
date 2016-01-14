@@ -29,5 +29,6 @@ enum entryTypeEnum {
 }
 
 class Photo {
-    //TODO: Mit Stefan besprechen, wie die Klasse Photo aussehen soll.
+    id: number;
+    photo: string;
 }

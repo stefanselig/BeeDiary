@@ -1,3 +1,6 @@
+///<reference path='../../typings/mongoose/mongoose.d.ts'/>
+//import mongoose = require('mongoose');
+
 class BeeHive {
     hiveNumber: number;
     hiveName: string;
@@ -95,3 +98,13 @@ enum frameMaterialEnum {
 enum combConstructionEnum {
 	naturbau, mittelwaende, other
 }
+
+/*export var beeHiveSchema = new mongoose.Schema({
+   beeHive: BeeHive 
+});
+
+export interface IBeeHive extends mongoose.Document {
+    beeHive: BeeHive;
+}
+
+export var beeHiveRepository = mongoose.model<IBeeHive>("beeHiveSchema");*/

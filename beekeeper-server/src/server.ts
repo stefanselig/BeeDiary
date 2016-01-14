@@ -1,3 +1,5 @@
+/// <reference path="../typings/node/node.d.ts"/>
+
 // server.js
 
 // BASE SETUP
@@ -20,15 +22,15 @@ var port = process.env.PORT || 8080;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-var users = require('./src/routes/users');
-var beeHives = require('./src/routes/beehives');
-var diaryEntries = require('./src/routes/diaryentries');
+var users = require('./routes/usersRoute');
+//var beeHives = require('./routes/beehives');
+//var diaryEntries = require('./routes/diaryentries');
  
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api/', users);
-app.use('/api/BeeHives/', beeHives);
-app.use('/api/DiaryEntries/', diaryEntries);
+//app.use('/api/BeeHives/', beeHives);
+//app.use('/api/DiaryEntries/', diaryEntries);
 
 // START THE SERVER
 // =============================================================================

@@ -1,4 +1,4 @@
-// users.js
+/*// users.js
 
 var express = require('express');
 var router = express.Router();
@@ -7,10 +7,12 @@ var config = require('./config');
 //Database handeling (MongoDB)
 var mongoose = require('mongoose');
 var mongoDB = mongoose.connect('mongodb://localhost:27017/beesaver-db');
-//var mongoDB = mongoose.connect('mongodb://bees:Bees123@ds037005.mongolab.com:37005/beesaver-db').connection; //connect to our database
 
-var User = require('../models/user');
+//var User = require('../models/User');
+var Schema = mongoose.Schema;
 
+var IUser = userModel.IUser;
+var userRepository = userModel.repository;
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
@@ -19,21 +21,20 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-/*Callable with GET on http://localhost:8080/api/*/
+//Callable with GET on http://localhost:8080/api/
 router.get('/', function(req, res) {
-    res.json({ message: 'API is online and ready to receive requests!' });   
+    res.json({ message: 'API is online and ready to receive requests! - User' });   
 });
 
 
 // create a user (accessed at POST http://localhost:8080/api/users)
 router.route('/users').post(function(req, res) {
         // save the user and check for errors
-        var user = new User(); //create a new instance of the user-model
-        user.name = req.body.name; // set the user name (comes from the request)
-        user.email = req.body.email;
-        user.password = req.body.password;
+        console.log(req.body);
+        var user = new User(req.body.name, req.body.email, req.body.password);  //create a new instance of the user-model
+        console.log(JSON.stringify(user));
         
-        user.save(function(err) {
+        userRepository.save(function(err) {
             if(err){
                 console.log('Error at creating a new User.');
                 res.send(err);
@@ -110,4 +111,4 @@ router.route('/users/:user_id').delete(function(req, res) {
         });
     });
  
-module.exports = router;
+module.exports = router;*/
