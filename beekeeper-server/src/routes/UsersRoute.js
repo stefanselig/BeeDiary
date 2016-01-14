@@ -58,11 +58,74 @@ router.route('/users').get(function (req, res) {
                 console.error('Error at getting all Users.');
             }
             else {
-                res.json(users);
+                var jsonString = getJSONDataAsString(users.toArray());
+                console.log(jsonString);
+                res.json(jsonString);
                 console.log('All Users succesfully returned.');
             }
         });
     });
 });
+/*
+// get exactly one user by id(accesed at GET http://localhost:8080/api/users/:user_id)
+router.route('/users/:user_id').get(function(req, res) {
+        User.findById(req.params.user_id, function(err, user) {
+            if(err) {
+                res.send(err);
+                console.log('Error at getting one specific User by Id.');
+            } else {
+                res.json(user);
+                console.log('One specific User by Id succesfully returned.')
+            }
+        })
+    });
+    
+// update a single users info by id (accesed at PUT http://localhost:8080/api/users/:user_id)
+router.route('/users/:user_id').put(function(req, res) {
+        // use our user-model to find the user we want
+        User.findById(req.params.user_id, function(err, user) {
+
+            if (err) {
+                res.send(err);
+                console.log('Error at updating one specific User.');
+            } else {
+                //Update the users info
+                user.name = req.body.name;
+                user.email = req.body.email;
+                user.password = req.body.password;
+                //save the user
+                user.save(function(err) {
+                   if(err) {
+                       res.send(err);
+                   } else {
+                       res.json({message: 'User updated!' });
+                   }
+                });
+                console.log('One specific User by Id succesfully updated.')
+            }
+        });
+    });
+    
+// delete a single users info by id (accesed at DELETE http://localhost:8080/api/users/:user_id)
+router.route('/users/:user_id').delete(function(req, res) {
+        User.remove( {
+            _id: req.params.user_id
+        }, function(err) {
+            if(err) {
+                res.send(err);
+                console.log('Error at deleting one single User by id.')
+            } else {
+                res.json({message: 'User succesfully deleted.'});
+            }
+        });
+    });
+ */
+function getJSONDataAsString(arrayOfUsers) {
+    var jsonArray;
+    for (var currentUser in arrayOfUsers) {
+        jsonArray.push(JSON.parse(currentUser));
+    }
+    return JSON.stringify(jsonArray);
+}
 module.exports = router;
 //# sourceMappingURL=usersRoute.js.map
