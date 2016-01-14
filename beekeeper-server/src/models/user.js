@@ -1,12 +1,10 @@
-// models/user.js
-
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
-
-var UserSchema   = new Schema({
-    name: String,
-    email: String,
-    password: String
-});
-
-module.exports = mongoose.model('User', UserSchema);
+var User = (function () {
+    function User(name, email, password) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+    return User;
+})();
+exports.User = User;
+//# sourceMappingURL=User.js.map

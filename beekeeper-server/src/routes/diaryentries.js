@@ -6,7 +6,8 @@ var config = require('./config');
 
 //Database handeling (MongoDB)
 var mongoose = require('mongoose');
-var DiaryEntry = require('../models/DiaryEntry');
+var Schema = mongoose.Schema;
+var DiaryEntry = require('../models/DiaryEntry/DiaryEntry.js');
 
 
 // middleware to use for all requests

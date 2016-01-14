@@ -6,9 +6,13 @@ var config = require('./config');
 
 //Database handeling (MongoDB)
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var BeeHive = require('../models/BeeHive.ts');
+var BeeHiveM = require('../models/BeeHive.js');
 
+var BeeHiveSchema = new Schema({
+    beeHive: BeeHiveM
+});
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
@@ -26,7 +30,7 @@ router.get('/', function(req, res) {
 // create a new BeeHive (accessed at POST http://localhost:8080/api/BeeHives/beeHives)
 router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
-        var newHive = new BeeHive(); //create a new instance of the BeeHive-model
+        var newHive = new BeeHiveM(); //create a new instance of the BeeHive-model
         newHive.hiveNumber = req.body.hiveNumber; // set the BeeHive's number (comes from the request)
         newHive.description = req.body.description;
         newHive.startDate = req.body.startDate;
@@ -67,37 +71,3 @@ router.route('/beeHives').get(function(req, res) {
     });
   
 module.exports = router;
-
-/*var sourceEnum;
-(function (sourceEnum) {
-    sourceEnum[sourceEnum["swarm"] = 0] = "swarm";
-    sourceEnum[sourceEnum["branch"] = 1] = "branch";
-    sourceEnum[sourceEnum["bought"] = 2] = "bought";
-    sourceEnum[sourceEnum["other"] = 3] = "other";
-})(sourceEnum || (sourceEnum = {}));
-;
-var frameSizeEnum;
-(function (frameSizeEnum) {
-    frameSizeEnum[frameSizeEnum["zander"] = 0] = "zander";
-    frameSizeEnum[frameSizeEnum["deutschnormal"] = 1] = "deutschnormal";
-    frameSizeEnum[frameSizeEnum["atbreitwabe"] = 2] = "atbreitwabe";
-    frameSizeEnum[frameSizeEnum["einheitsmas"] = 3] = "einheitsmas";
-    frameSizeEnum[frameSizeEnum["langstrothmas"] = 4] = "langstrothmas";
-    frameSizeEnum[frameSizeEnum["dadantoriginal"] = 5] = "dadantoriginal";
-    frameSizeEnum[frameSizeEnum["dadantmodifiziert"] = 6] = "dadantmodifiziert";
-    frameSizeEnum[frameSizeEnum["kuntzsch"] = 7] = "kuntzsch";
-    frameSizeEnum[frameSizeEnum["schweitzermas"] = 8] = "schweitzermas";
-    frameSizeEnum[frameSizeEnum["other"] = 9] = "other";
-})(frameSizeEnum || (frameSizeEnum = {}));
-var frameMaterialEnum;
-(function (frameMaterialEnum) {
-    frameMaterialEnum[frameMaterialEnum["wood"] = 0] = "wood";
-    frameMaterialEnum[frameMaterialEnum["styrofoam"] = 1] = "styrofoam";
-    frameMaterialEnum[frameMaterialEnum["other"] = 2] = "other";
-})(frameMaterialEnum || (frameMaterialEnum = {}));
-var combConstructionEnum;
-(function (combConstructionEnum) {
-    combConstructionEnum[combConstructionEnum["naturbau"] = 0] = "naturbau";
-    combConstructionEnum[combConstructionEnum["mittelwaende"] = 1] = "mittelwaende";
-    combConstructionEnum[combConstructionEnum["other"] = 2] = "other";
-})(combConstructionEnum || (combConstructionEnum = {}));*/
