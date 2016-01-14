@@ -1,11 +1,10 @@
+/// <reference path="../../../typings/googlemaps/google.maps.d.ts" />
 import {Injectable}	from 'angular2/core';
 import {Http}		from 'angular2/http';
 import {Headers}	from 'angular2/http';
 import 'rxjs/add/operator/map';
-/// <reference path="../../../typings/googlemaps/google.maps.d.ts" />
 
 //import  '../../typings/googlemaps/google.maps';
-
 //import 'google.maps';
 //import {Map}		from 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD52xcKSvVXXDFZt43dW0oUR3mR3K_v-vk';
 //import googleMaps = require('google.maps');

@@ -120,4 +120,60 @@ recommended live-server, but since beta 1 they recommend lite-server. We have no
 
 typescript (incl. ts-config), angular2, systemjs, es6-promise, es6-shim, reflect-metadata, rxjs, zone.js, live-server, lite-server, gulp, angular2-router, angular2-polyfills
 
+#### Modules in JS:
+
+There are many different JS module formats available, including:
+
+- amd
+- umd
+- commonjs
+- system
+
+The used system must be specified in the typescript tsconfig.json file.
+The one we use on the server is commonjs and the one we use on the client is systemjs.
+For system modules to work there has to be the SystemJS library installed.
+
+There's a different syntax needed for importing modules as followed:
+
+##### es6 import syntax:
+
+```javascript
+import {abc} from './src/routes/Bhives';
+```
+
+Typescript is a powerful programming language, 
+that allows us to use es6 features that also get compiled to old .js.
+
+##### ts import syntax:
+(Write "export" in front of everything you want to make 
+available to the outside. (That's basically like defining an object "public"):
+
+```javascript
+import xyz = require('./src/routes/Bhives');
+```
+
+##### node import syntax:
+
+```javascript
+var uvw = require('./src/routes/Bhives');
+```
+
+##### ts reference for internal modules (Don't "export" your code if you want to use that!):
+
+```javascript
+/// <reference path='./src/routes/Bhives.ts' />
+```
+
+##### How to use the imported modules:
+
+```javascript
+// If ts reference or es6 import is used:
+var a = new abc();
+
+// if ts import or node import is used:
+var b = new xyz.abc();
+```
+
 #### Server
+
+

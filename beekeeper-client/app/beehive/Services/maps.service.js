@@ -17,7 +17,6 @@ System.register(['angular2/core', 'rxjs/add/operator/map'], function(exports_1) 
             },
             function (_1) {}],
         execute: function() {
-            /// <reference path="../../../typings/googlemaps/google.maps.d.ts" />
             //import  '../../typings/googlemaps/google.maps';
             //import 'google.maps';
             //import {Map}		from 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD52xcKSvVXXDFZt43dW0oUR3mR3K_v-vk';
