@@ -1,4 +1,4 @@
-class DiaryEntry {
+export class DiaryEntry {
     date: Date;
     type : entryTypeEnum;
     photos: Photo[];
@@ -28,7 +28,7 @@ enum entryTypeEnum {
 	acarianControl, construction, treatment, feeding, honeyRemoval, loss, cutDroneBrood, other
 }
 
-class Photo {
+export class Photo {
     id: number;
     photo: string;
 }

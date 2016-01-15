@@ -3,6 +3,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Feeding = (function (_super) {
     __extends(Feeding, _super);
     function Feeding(type, photos, description, date, typeOfFood, amount, proportion) {
@@ -16,6 +18,7 @@ var Feeding = (function (_super) {
     };
     return Feeding;
 })(DiaryEntry);
+exports.Feeding = Feeding;
 var typeOfFoodEnum;
 (function (typeOfFoodEnum) {
     typeOfFoodEnum[typeOfFoodEnum["sugar"] = 0] = "sugar";

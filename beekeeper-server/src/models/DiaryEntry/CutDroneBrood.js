@@ -3,6 +3,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var CutDroneBrood = (function (_super) {
     __extends(CutDroneBrood, _super);
     function CutDroneBrood(type, photos, description, date, notes) {
@@ -11,4 +13,5 @@ var CutDroneBrood = (function (_super) {
     }
     return CutDroneBrood;
 })(DiaryEntry);
+exports.CutDroneBrood = CutDroneBrood;
 //# sourceMappingURL=CutDroneBrood.js.map

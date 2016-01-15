@@ -1,4 +1,7 @@
-class Feeding extends DiaryEntry {
+import DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
+
+export class Feeding extends DiaryEntry {
     typeOfFood: typeOfFoodEnum;
     amount: number;
     proportion: string;

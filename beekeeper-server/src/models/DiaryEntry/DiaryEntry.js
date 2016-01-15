@@ -17,6 +17,7 @@ var DiaryEntry = (function () {
     };
     return DiaryEntry;
 })();
+exports.DiaryEntry = DiaryEntry;
 var entryTypeEnum;
 (function (entryTypeEnum) {
     entryTypeEnum[entryTypeEnum["acarianControl"] = 0] = "acarianControl";
@@ -33,4 +34,5 @@ var Photo = (function () {
     }
     return Photo;
 })();
+exports.Photo = Photo;
 //# sourceMappingURL=DiaryEntry.js.map

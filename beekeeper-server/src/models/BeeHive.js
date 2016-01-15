@@ -1,19 +1,12 @@
-///<reference path='../../typings/mongoose/mongoose.d.ts'/>
-//import mongoose = require('mongoose');
 var BeeHive = (function () {
     function BeeHive(hiveNumber, hiveName, startDate, description, hiveLocation, source, lost, frameSize, frameMaterial, combConstruction) {
         this.hiveNumber = hiveNumber;
         this.hiveName = hiveName;
         this.startDate = startDate;
         this.description = description;
-        this.hiveLocation.lat = hiveLocation.lat;
-        this.hiveLocation.long = hiveLocation.long;
-        this.hiveLocation.address = hiveLocation.address;
-        this.hiveLocation.markerId = hiveLocation.markerId;
-        this.source.type = source.type;
-        this.source.origin = source.origin;
-        this.lost.isLost = lost.isLost;
-        this.lost.reason = lost.reason;
+        this.hiveLocation = hiveLocation;
+        this.source = source;
+        this.lost = lost;
         this.frameSize = frameSize;
         this.frameMaterial = frameMaterial;
         this.combConstruction = combConstruction;
@@ -39,21 +32,33 @@ var BeeHive = (function () {
     };
     return BeeHive;
 })();
+exports.BeeHive = BeeHive;
 var HiveLocation = (function () {
-    function HiveLocation() {
+    function HiveLocation(lat, long, address, markerId) {
+        this.lat = lat;
+        this.long = long;
+        this.address = address;
+        this.markerId = markerId;
     }
     return HiveLocation;
 })();
+exports.HiveLocation = HiveLocation;
 var Source = (function () {
-    function Source() {
+    function Source(type, origin) {
+        this.type = type;
+        this.origin = origin;
     }
     return Source;
 })();
+exports.Source = Source;
 var Lost = (function () {
-    function Lost() {
+    function Lost(isLost, reason) {
+        this.isLost = isLost;
+        this.reason = reason;
     }
     return Lost;
 })();
+exports.Lost = Lost;
 var sourceEnum;
 (function (sourceEnum) {
     sourceEnum[sourceEnum["swarm"] = 0] = "swarm";
@@ -86,13 +91,4 @@ var combConstructionEnum;
     combConstructionEnum[combConstructionEnum["mittelwaende"] = 1] = "mittelwaende";
     combConstructionEnum[combConstructionEnum["other"] = 2] = "other";
 })(combConstructionEnum || (combConstructionEnum = {}));
-/*export var beeHiveSchema = new mongoose.Schema({
-   beeHive: BeeHive
-});
-
-export interface IBeeHive extends mongoose.Document {
-    beeHive: BeeHive;
-}
-
-export var beeHiveRepository = mongoose.model<IBeeHive>("beeHiveSchema");*/ 
 //# sourceMappingURL=BeeHive.js.map

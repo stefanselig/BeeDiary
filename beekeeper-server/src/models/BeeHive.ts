@@ -1,7 +1,4 @@
-///<reference path='../../typings/mongoose/mongoose.d.ts'/>
-//import mongoose = require('mongoose');
-
-class BeeHive {
+export class BeeHive {
     hiveNumber: number;
     hiveName: string;
     startDate: Date;
@@ -22,16 +19,11 @@ class BeeHive {
         
         this.description = description;
         
-        this.hiveLocation.lat = hiveLocation.lat;
-        this.hiveLocation.long = hiveLocation.long;
-        this.hiveLocation.address = hiveLocation.address;
-        this.hiveLocation.markerId = hiveLocation.markerId;
+        this.hiveLocation = hiveLocation;
         
-        this.source.type = source.type;
-        this.source.origin = source.origin;
+        this.source = source;
         
-        this.lost.isLost = lost.isLost;
-        this.lost.reason = lost.reason;
+        this.lost = lost;
         
         this.frameSize = frameSize;
         
@@ -65,21 +57,38 @@ class BeeHive {
     }    
 }
 
-class HiveLocation {
+export class HiveLocation {
 	lat: number;
 	long: number;
 	address: string;
     markerId: number;
+    
+    constructor(lat, long, address, markerId) {
+        this.lat = lat;
+        this.long = long;
+        this.address = address;
+        this.markerId = markerId;
+    }
 }
 
-class Source {
+export class Source {
 	type: sourceEnum;
 	origin: number;
+    
+    constructor(type, origin) {
+        this.type = type;
+        this.origin = origin;
+    }
 }
 
-class Lost {
+export class Lost {
 	isLost: boolean;
 	reason: string;
+    
+    constructor(isLost, reason) {
+        this.isLost = isLost;
+        this.reason = reason;
+    }
 }
 
 enum sourceEnum {
@@ -98,13 +107,3 @@ enum frameMaterialEnum {
 enum combConstructionEnum {
 	naturbau, mittelwaende, other
 }
-
-/*export var beeHiveSchema = new mongoose.Schema({
-   beeHive: BeeHive 
-});
-
-export interface IBeeHive extends mongoose.Document {
-    beeHive: BeeHive;
-}
-
-export var beeHiveRepository = mongoose.model<IBeeHive>("beeHiveSchema");*/
