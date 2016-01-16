@@ -1,4 +1,7 @@
-class AcarianControl extends DiaryEntry {
+import DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
+
+export class AcarianControl extends DiaryEntry {
 	countDays: number;
 	acariansCaseOfDeath: number;
     

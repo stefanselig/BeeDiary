@@ -1,4 +1,7 @@
-class Construction extends DiaryEntry {
+import DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
+
+export class Construction extends DiaryEntry {
     swarmBought: boolean;
     notes: string;
     

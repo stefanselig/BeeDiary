@@ -63,6 +63,10 @@ Somehow in a form angular2 recognizes every button click as a submit, even if an
 
 Problem with mongoose schema/model.(not possible to map object) - still to add
 
+##14.01.16 - Server
+
+Everything rewritten to Typescript - still to add
+
 ## Other Documentation:
 
 ### Skripts: 
@@ -120,7 +124,10 @@ recommended live-server, but since beta 1 they recommend lite-server. We have no
 
 typescript (incl. ts-config), angular2, systemjs, es6-promise, es6-shim, reflect-metadata, rxjs, zone.js, live-server, lite-server, gulp, angular2-router, angular2-polyfills
 
-#### Modules in JS:
+
+#### Server
+
+### Modules in JS:
 
 There are many different JS module formats available, including:
 
@@ -173,7 +180,5 @@ var a = new abc();
 // if ts import or node import is used:
 var b = new xyz.abc();
 ```
-
-#### Server
 
 

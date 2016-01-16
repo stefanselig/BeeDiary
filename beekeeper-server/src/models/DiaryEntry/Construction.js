@@ -3,6 +3,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Construction = (function (_super) {
     __extends(Construction, _super);
     function Construction(type, photos, description, date, swarmBought, notes) {
@@ -12,4 +14,5 @@ var Construction = (function (_super) {
     }
     return Construction;
 })(DiaryEntry);
+exports.Construction = Construction;
 //# sourceMappingURL=Construction.js.map

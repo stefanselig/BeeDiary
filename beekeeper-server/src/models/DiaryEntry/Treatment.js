@@ -3,6 +3,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Treatment = (function (_super) {
     __extends(Treatment, _super);
     function Treatment(type, photos, description, date, typeOfTreatment, appliance, beginOfTreatment, endOfTreatment) {
@@ -17,6 +19,7 @@ var Treatment = (function (_super) {
     };
     return Treatment;
 })(DiaryEntry);
+exports.Treatment = Treatment;
 var typeOfTreatmentEnum;
 (function (typeOfTreatmentEnum) {
     typeOfTreatmentEnum[typeOfTreatmentEnum["heat"] = 0] = "heat";

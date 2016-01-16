@@ -1,4 +1,7 @@
-class Treatment extends DiaryEntry {
+import DiaryEntryImport = require('./DiaryEntry');
+var DiaryEntry = DiaryEntryImport.DiaryEntry;
+
+export class Treatment extends DiaryEntry {
     typeOfTreatment: typeOfTreatmentEnum;
     appliance: string;
     beginOfTreatment: Date;
