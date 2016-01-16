@@ -78,7 +78,7 @@ export class DiaryEntryService {
 			}
 		)
 		.map(
-			response => response.json();
+			response => response.json()
 		);
 	}
 }
