@@ -137,5 +137,21 @@ router.route('/beeHives/:hive_id').delete(function (req, res) {
         });
     });
 });
+// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
+router.route('/sourceEnum').get(function (req, res) {
+    res.json(BeeHive.getSourceEnum());
+});
+// gets all Members of the BeeHive-FrameSizeEnum (accessed at GET http://localhost:8080/api/BeeHives/sizeEnum)    
+router.route('/sizeEnum').get(function (req, res) {
+    res.json(BeeHive.getFrameSizeEnum());
+});
+// gets all Members of the BeeHive-FrameMaterialEnum (accessed at GET http://localhost:8080/api/DiaryEntries/materialEnum)    
+router.route('/materialEnum').get(function (req, res) {
+    res.json(BeeHive.getFrameMaterialEnum());
+});
+// gets all Members of the BeeHive-CombConstructionEnum (accessed at GET http://localhost:8080/api/DiaryEntries/constructionEnum)    
+router.route('/constructionEnum').get(function (req, res) {
+    res.json(BeeHive.getCombConstructionEnum());
+});
 module.exports = router;
 //# sourceMappingURL=BeeHivesRoute.js.map

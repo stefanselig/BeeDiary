@@ -30,31 +30,7 @@ export class BeeHive {
         this.frameMaterial = frameMaterial;
         
         this.combConstruction = combConstruction;
-    }
-    
-    getSourceEnum() : string[] {
-        return this.getArrayOfEnum(sourceEnum);
-    }
-    
-    getFrameSizeEnum() : string[] {
-        return this.getArrayOfEnum(frameSizeEnum);
-    }
-    
-    getFrameMaterialEnum() : string[] {
-        return this.getArrayOfEnum(frameMaterialEnum);
-    }
-    
-    getCombConstructionEnum() : string[] {
-        return this.getArrayOfEnum(combConstructionEnum);
-    }
-    
-    private getArrayOfEnum(MyEnum) : string[] {
-        var enumArray:string[];
-        for(var enumMember in MyEnum) {
-            enumArray.push(enumMember);
-        }
-        return enumArray;
-    }    
+    }   
 }
 
 export class HiveLocation {
@@ -89,6 +65,30 @@ export class Lost {
         this.isLost = isLost;
         this.reason = reason;
     }
+}
+
+export function getSourceEnum() {
+    return getArrayOfEnum(sourceEnum);
+}
+
+export function getFrameSizeEnum() {
+    return getArrayOfEnum(frameSizeEnum);
+}
+
+export function getFrameMaterialEnum() {
+    return getArrayOfEnum(frameMaterialEnum);
+}
+
+export function getCombConstructionEnum() {
+    return getArrayOfEnum(combConstructionEnum);
+}
+
+function getArrayOfEnum(MyEnum) {
+    var enumArray = new Array();
+    Object.keys(MyEnum)
+      .filter(v => isNaN(parseInt(v, 10)))
+      .forEach(v => enumArray.push(v));
+    return enumArray;
 }
 
 enum sourceEnum {
