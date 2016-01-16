@@ -1,8 +1,9 @@
 ./.DS_Store
+.vscode/launch.json
 
 beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
+beekeeper-client/app/**/*.js
 
 beekeeper-server/routes/config.js
 beekeeper-server/node_modules
-.vscode/launch.json
