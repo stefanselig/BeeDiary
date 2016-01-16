@@ -28,7 +28,9 @@ html {
 }
 
 #diaryEntryContent {
-	width: 30%;
+	max-width: 30%;
+	min-width: 20%;
+	float: left;
 }
 #createDiaryEntryForm {
 	width: 30%;

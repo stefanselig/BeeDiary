@@ -26,14 +26,31 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                 function CreateDiaryEntryComponent(diaryEntryService, router) {
                     this.diaryEntryService = diaryEntryService;
                     this.router = router;
+                    this.typeEnum = [];
+                    this.typeEnum.push("acarianControl");
+                    this.typeEnum.push("construction");
+                    this.typeEnum.push("cutDroneBrood");
+                    this.typeEnum.push("other");
+                    this.typeEnum.push("feeding");
+                    this.typeEnum.push("honeyRemoval");
+                    this.typeEnum.push("loss");
+                    this.typeEnum.push("treatment");
                 }
                 CreateDiaryEntryComponent.prototype.createNewDiaryEntry = function (createDiaryEntryForm) {
-                    //this.diaryEntryService.createDiaryEntry(this.newDiaryEntry);
+                    this.newDiaryEntry = createDiaryEntryForm.value;
+                    console.log(this.newDiaryEntry);
                     console.log(createDiaryEntryForm.value);
-                    this.router.navigate(['DiaryEntry']);
+                    this.diaryEntryService.createDiaryEntry(this.newDiaryEntry, this.createDiaryEntryCallback('DiaryEntry'));
+                };
+                CreateDiaryEntryComponent.prototype.createDiaryEntryCallback = function (viewName) {
+                    var instance = this;
+                    return function (viewname) { return instance.router.navigate([viewName]); };
+                };
+                CreateDiaryEntryComponent.prototype.navigateToOtherView = function (viewName) {
+                    this.router.navigate([viewName]);
                 };
                 CreateDiaryEntryComponent.prototype.cancel = function () {
-                    this.router.navigate(['DiaryEntry']);
+                    this.navigateToOtherView('DiaryEntry');
                 };
                 CreateDiaryEntryComponent = __decorate([
                     core_1.Component({

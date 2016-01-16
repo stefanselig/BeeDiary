@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {DiaryEntryService}	from '../services/diaryentry.service';
 
@@ -7,7 +7,7 @@ import {DiaryEntryService}	from '../services/diaryentry.service';
 	templateUrl: 'app/diaryentry/Templates/diaryentry.template.html',
 	providers: [DiaryEntryService]
 })
-export class DiaryEntryComponent {
+export class DiaryEntryComponent implements OnInit {
 	public diaryEntries: Array<any>;
 	
 	public diaryEntryService: DiaryEntryService;
@@ -17,14 +17,22 @@ export class DiaryEntryComponent {
 		this.diaryEntries = [];
 		this.diaryEntryService = diaryEntryService;
 		this.router = router;
+	}
+	
+	private ngOnInit(): void {
+		this.diaryEntryService.getDiaryEntries();
 		
+		var instance = this;
 		
-		this.diaryEntries.push({
-			type: "AcarianControl",
-			date: new Date(),
-			Description: ""
-		});
-		//this.diaryEntries = this.diaryEntryService.diaryEntries.slice();
+		this.diaryEntryService.diaryEntries.subscribe(
+			diaryEntries => {
+				console.log("diaryentries retrieved. length: " + diaryEntries.length);
+				instance.diaryEntries = diaryEntries.slice();
+				console.log(instance.diaryEntries);
+			},
+			error => console.error("Error" + error),
+			() => console.log("Completed")
+		);
 	}
 	
 	public createDiaryEntry(): void {
@@ -32,6 +40,7 @@ export class DiaryEntryComponent {
 	}
 	
 	public editDiaryEntry(id: number): void {
-		this.router.navigate(['EditDiaryEntry'], { id: id });
+		console.log(id);
+		this.router.navigate(['EditDiaryEntry', { id: id }]);
 	}
 }

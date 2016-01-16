@@ -27,18 +27,22 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                     this.diaryEntries = [];
                     this.diaryEntryService = diaryEntryService;
                     this.router = router;
-                    this.diaryEntries.push({
-                        type: "AcarianControl",
-                        date: new Date(),
-                        Description: ""
-                    });
-                    //this.diaryEntries = this.diaryEntryService.diaryEntries.slice();
                 }
+                DiaryEntryComponent.prototype.ngOnInit = function () {
+                    this.diaryEntryService.getDiaryEntries();
+                    var instance = this;
+                    this.diaryEntryService.diaryEntries.subscribe(function (diaryEntries) {
+                        console.log("diaryentries retrieved. length: " + diaryEntries.length);
+                        instance.diaryEntries = diaryEntries.slice();
+                        console.log(instance.diaryEntries);
+                    }, function (error) { return console.error("Error" + error); }, function () { return console.log("Completed"); });
+                };
                 DiaryEntryComponent.prototype.createDiaryEntry = function () {
                     this.router.navigate(['CreateDiaryEntry']);
                 };
                 DiaryEntryComponent.prototype.editDiaryEntry = function (id) {
-                    this.router.navigate(['EditDiaryEntry'], { id: id });
+                    console.log(id);
+                    this.router.navigate(['EditDiaryEntry', { id: id }]);
                 };
                 DiaryEntryComponent = __decorate([
                     core_1.Component({

@@ -1,60 +1,63 @@
 <form (ngSubmit)="createNewDiaryEntry(createDiaryEntryForm)" #createDiaryEntryForm="ngForm" id="createDiaryEntryForm">
 	<div class="form-group">
 		<label> Types: </label>
-		<select ngControl="typeValue" class="form-control">
-			<option *ngFor="#type of typeEnum" [value]="type"></option>
+		<select ngControl="type" class="form-control">
+			<option *ngFor="#type of typeEnum" [value]="type">
+				{{type}}
+			</option>
 		</select>
 	</div>
-
+	type is: {{createDiaryEntryForm.value.type}}
 	<!-- Case AcarianControl: -->
-	<div *ngIf="typeValue == 'AcarianControl'">
+	<div *ngIf="createDiaryEntryForm.value.type == 'acarianControl'">
 		<div class="form-group">
 			<label>CountDays:</label> 
 			<input type="number" ngControl="countDays" class="form-control"/>
 			<label>AcariansCaseOfDeath:</label> 
-			<input type="number" ngControl="acariansCaseOfDeath" class="form-control"/>
-			<label>CountDays:</label> 
-			<input type="number" ngControl="coundDays" readonly class="form-control"/>
+			<input type="number" ngControl="acariansDied" class="form-control"/>
 			<label>Description:</label> 
 			<input type="text"   ngControl="description" class="form-control"/>
 		</div>
 	</div>
 	
 	<!-- Case Construction: -->
-	<div *ngIf="typeValue == 'Construction'"></div>
+	<div *ngIf="createDiaryEntryForm.value.type == 'construction'">
+		<label>Notes:</label>
+		<input type="text" ngControl="notes" class="form-control" />
+	</div>
 	
 	<!-- Case Treatment: -->
-	<div *ngIf="typeValue == 'Treatment'">
+	<div *ngIf="createDiaryEntryForm.value.type == 'treatment'">
 		<div class="form-group">
 			<label>TreatmentTypes:</label>
-			<select ngControl="treatmentTypeValue" class="form-control">
+			<select ngControl="typeOfTreatment" class="form-control">
 				<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
 			</select>
 			<label>Means:</label>
-			<input type="text" ngControl="means" class="form-control"/>
+			<input type="text" ngControl="appliance" class="form-control"/>
 			<label>Startdate:</label>
-			<input type="date" ngControl="startdate" class="form-control"/>
+			<input type="date" ngControl="beginOfTreatment" class="form-control"/>
 			<label>Enddate:</label>
-			<input type="date" ngControl="enddate" class="form-control"/>
+			<input type="date" ngControl="endOfTreatment" class="form-control"/>
 		</div>
 	</div>
 	
 	<!-- Case Feeding: -->
-	<div *ngIf="typeValue == 'Feeding'">
+	<div *ngIf="createDiaryEntryForm.value.type == 'feeding'">
 		<div class="form-group">
 			<label>FeedingTypes:</label>
-			<select ngControl="feedingTypeValue" class="form-control">
+			<select ngControl="typeOfFood" class="form-control">
 				<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
 			</select>
 			<label>Amount:</label>
 			<input type="number" ngControl="amount" placeholder="[kg]" class="form-control" />
 			<label>Ratio:</label>
-			<input type="text" ngControl="ratio" class="form-control"/>
+			<input type="text" ngControl="proportion" class="form-control"/>
 		</div>
 	</div>
 	
 	<!-- Case HoneyRemoval: -->
-	<div *ngIf="typeValue == 'HoneyRemoval'">
+	<div *ngIf="createDiaryEntryForm.value.type == 'honeyRemoval'">
 		<div class="form-group">
 			<label>Amount:</label>
 			<input type="number" ngControl="amount" placeholder="[kg]" class="form-control" />
@@ -62,18 +65,18 @@
 	</div>
 	
 	<!-- Case Loss: -->
-	<div *ngIf="typeValue == 'Loss'">
+	<div *ngIf="createDiaryEntryForm.value.type == 'loss'">
 		<div class="form-group">
 			<label>Reason:</label>
 			<input type="text" ngControl="reason" class="form-control"/>
 		</div>
 	</div>		
 
-	<!-- Case CutDroneBreed: -->
-	<div *ngIf="typeValue == 'CutDroneBreed'"></div>
+	<!-- Case cutDroneBrood: -->
+	<div *ngIf="createDiaryEntryForm.value.type == 'cutDroneBrood'"></div>
 	
 	<!-- Case Other: -->
-	<div *ngIf="typeValue == 'Other'"></div>
+	<div *ngIf="createDiaryEntryForm.value.type == 'other'"></div>
 		
 	<div class="form-group">
 		<label>Date:</label>

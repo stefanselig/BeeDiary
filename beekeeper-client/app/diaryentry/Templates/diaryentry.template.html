@@ -3,79 +3,85 @@
 	<input type="submit" class="btn btn-default" class="form-control"/>
 	<button (click)="createDiaryEntry()" class="btn btn-default" class="form-control">Create New DiaryEntry</button>
 </div>
-<div *ngFor="#diaryentry of diaryEntries" id="diaryEntryContent">
-	<h2>DiaryEntry</h2>
-	
-	<button (click)="editDiaryEntry(diaryentry.id)" class="btn btn-default">Edit DiaryEntry</button>
-	
-	<h3>{{diaryentry.type}}</h3>
-	
-	<!-- Case AcarianControl: -->
-	<div *ngIf="diaryentry.type == 'AcarianControl'" class="form-group">
-		<label> CountDays: </label>
-		<input type="number" [(ngModel)]="diaryentry.countDays" readonly class="form-control"/>
-		<label> AcariansCaseOfDeath: </label>
-		<input type="number" [(ngModel)]="diaryentry.acariansCaseOfDeath" readonly class="form-control"/>
-		<label> Description: </label>
-		<input type="text"   [(ngModel)]="diaryentry.description" readonly class="form-control"/>
-	</div>
-	
-	<!-- Case Construction: -->
-	<div *ngIf="diaryentry.type == 'Construction'" class="form-group"></div>
-	
-	<!-- Case Treatment: -->
-	<div *ngIf="diaryentry.type == 'Treatment'" class="form-group">
-		<p>{{diaryentry.treatmentType}}</p>
-		<label> Means: </label>
-		<input type="text" [(ngModel)]="diaryentry.means" readonly class="form-control"/>
-		<label> Startdate: </label>
-		<input type="date" [(ngModel)]="diaryentry.startdate" readonly class="form-control"/>
-		<label> Enddate: </label>
-		<input type="date" [(ngModel)]="diaryentry.enddate" readonly class="form-control"/>
-	</div>
-	
-	<!-- Case Feeding: -->
-	<div *ngIf="diaryentry.type == 'Feeding'" class="form-group">
-		<p>{{diaryentry.feedingType}}</p>
-		<label> Amount: </label>
-		<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
-		<label> Ratio: </label>
-		<input type="text" [(ngModel)]="diaryentry.ratio" readonly class="form-control"/>
-	</div>
-	
-	<!-- Case HoneyRemoval: -->
-	<div *ngIf="diaryentry.type == 'HoneyRemoval'" class="form-group">
-		<label> Amount: </label>
-		<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
-	</div>
-	
-	<!-- Case Loss: -->
-	<div *ngIf="diaryentry.type == 'Loss'" class="form-group">
-		<label> Reason: </label>
-		<input type="text" [(ngModel)]="diaryentry.reason" readonly class="form-control"/>
-	</div>
-	
-	<!-- Case CutDroneBreed: -->
-	<div *ngIf="diaryentry.type == 'CutDroneBreed'" class="form-group"></div>
-	
-	<!-- Case Other: -->
-	<div *ngIf="diaryentry.type == 'Other'" class="form-group"></div>
-	
-	<div class="form-group">
-		<label> Date: </label>
-		<input type="date" [(ngModel)]="diaryentry.date" readonly class="form-control"/>
-	</div>
-	
-	<div class="form-group">
-		<label> Description: </label>
-		<input type="description" [(ngModel)]="diaryentry.description" readonly class="form-control"/> <!-- markdown -->
-	</div>
-	
-	<!-- Photo + upload -->
-	<div class="form-group">
-		<label> Photos: </label>
-		<div *ngFor="#photo of diaryentry.photos">
-			<img src="photo.data" />
-		</div>
+<div class="container-fluid">
+	<div class="row">
+		<div *ngFor="#diaryentry of diaryEntries" id="diaryEntryContent" class="col-md-1">
+			<h2>DiaryEntry</h2>
+			<button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default">Edit DiaryEntry</button>
+			
+			<h3>{{diaryentry.type}}</h3>
+			
+			<!-- Case AcarianControl: -->
+			<div *ngIf="diaryentry.type == 'acarianControl'" class="form-group">
+				<label> CountDays: </label>
+				<input type="number" [(ngModel)]="diaryentry.countDays" readonly class="form-control"/>
+				<label> How many Acarians died?: </label>
+				<input type="number" [(ngModel)]="diaryentry.acariansDied" readonly class="form-control"/>
+				<label> Description: </label>
+				<input type="text"   [(ngModel)]="diaryentry.description" readonly class="form-control"/>
+			</div>
+			
+			<!-- Case Construction: -->
+			<div *ngIf="diaryentry.type == 'construction'" class="form-group">
+				<label>Notes:</label>
+				<input type="text" [(ngModel)]="diaryentry.notes" readonly class="form-control"/>
+			</div>
+			
+			<!-- Case Treatment: -->
+			<div *ngIf="diaryentry.type == 'treatment'" class="form-group">
+				<p>{{diaryentry.typeOfTreatment}}</p>
+				<label> Means: </label>
+				<input type="text" [(ngModel)]="diaryentry.appliance" readonly class="form-control"/>
+				<label> Startdate: </label>
+				<input type="date" [(ngModel)]="diaryentry.beginOfTreatment" readonly class="form-control"/>
+				<label> Enddate: </label>
+				<input type="date" [(ngModel)]="diaryentry.endOfTreatment" readonly class="form-control"/>
+			</div>
+			
+			<!-- Case Feeding: -->
+			<div *ngIf="diaryentry.type == 'feeding'" class="form-group">
+				<p>{{diaryentry.typeOfFood}}</p>
+				<label> Amount: </label>
+				<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
+				<label> Ratio: </label>
+				<input type="text" [(ngModel)]="diaryentry.proportion" readonly class="form-control"/>
+			</div>
+			
+			<!-- Case HoneyRemoval: -->
+			<div *ngIf="diaryentry.type == 'honeyRemoval'" class="form-group">
+				<label> Amount: </label>
+				<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
+			</div>
+			
+			<!-- Case Loss: -->
+			<div *ngIf="diaryentry.type == 'loss'" class="form-group">
+				<label> Reason: </label>
+				<input type="text" [(ngModel)]="diaryentry.reason" readonly class="form-control"/>
+			</div>
+			
+			<!-- Case CutDroneBrood: -->
+			<div *ngIf="diaryentry.type == 'cutDroneBrood'" class="form-group"></div>
+			
+			<!-- Case Other: -->
+			<div *ngIf="diaryentry.type == 'other'" class="form-group"></div>
+			
+			<div class="form-group">
+				<label> Date: </label>
+				<input type="date" [(ngModel)]="diaryentry.date" readonly class="form-control"/>
+			</div>
+			
+			<div class="form-group">
+				<label> Description: </label>
+				<input type="description" [(ngModel)]="diaryentry.description" readonly class="form-control"/> <!-- markdown -->
+			</div>
+			
+			<!-- Photo + upload -->
+			<div class="form-group">
+				<label> Photos: </label>
+				<div *ngFor="#photo of diaryentry.photos">
+					<img src="photo.data" />
+				</div>
+			</div>
+		</div>	
 	</div>
 </div>

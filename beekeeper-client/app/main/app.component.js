@@ -60,7 +60,7 @@ System.register(['angular2/core', 'angular2/router', './../signup/Components/sig
                         { path: '/editbeehive:id', name: 'EditBeeHive', component: editBeeHive_component_1.EditBeeHiveComponent },
                         { path: '/diaryentry', name: 'DiaryEntry', component: diaryentry_component_1.DiaryEntryComponent },
                         { path: '/creatediaryentry', name: 'CreateDiaryEntry', component: createDiaryEntry_component_1.CreateDiaryEntryComponent },
-                        { path: '/editdiaryentry:id', name: 'EditDiaryEntry', component: editDiaryEntry_component_1.EditDiaryEntryComponent }
+                        { path: '/editdiaryentry/:id', name: 'EditDiaryEntry', component: editDiaryEntry_component_1.EditDiaryEntryComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

@@ -24,7 +24,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
             DiaryEntryService = (function () {
                 function DiaryEntryService(http) {
                     this.http = http;
-                    //this.getDiaryEntries();
                 }
                 DiaryEntryService.prototype.getDiaryEntries = function () {
                     this.diaryEntries = this.http
@@ -32,27 +31,38 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
                         .map(function (response) { return response.json(); });
                 };
                 DiaryEntryService.prototype.getDiaryEntryById = function (id) {
-                    // Somehow pass ID
+                    var headers = new http_2.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    console.log('http://localhost:8080/api/DiaryEntries/diaryEntries/' + id);
                     return this.http
-                        .get()
+                        .get('http://localhost:8080/api/DiaryEntries/diaryEntries/' + id, {
+                        headers: headers
+                    })
                         .map(function (response) { return response.json(); });
                 };
-                DiaryEntryService.prototype.updateDiaryEntry = function (diaryEntry) {
+                DiaryEntryService.prototype.updateDiaryEntry = function (diaryEntry, callback) {
                     var headers = new http_2.Headers();
                     headers.append('Content-Type', 'application/json');
                     // Somehow pass ID
                     this.http
-                        .post('http://localhost:8080/api/DiaryEntries/diaryEntries', JSON.stringify(diaryEntry), {
+                        .post('http://localhost:8080/api/DiaryEntries/diaryEntries/' + diaryEntry.id, JSON.stringify(diaryEntry), {
                         headers: headers
-                    }).subscribe(function (res) { return window.alert(res.json()); });
+                    }).subscribe(function (res) {
+                        console.log(res.json());
+                        callback();
+                    });
                 };
-                DiaryEntryService.prototype.createDiaryEntry = function (diaryEntry) {
+                DiaryEntryService.prototype.createDiaryEntry = function (diaryEntry, callback) {
                     var headers = new http_2.Headers();
                     headers.append('Content-Type', 'application/json');
+                    console.log(JSON.stringify(diaryEntry));
                     this.http
                         .post('http://localhost:8080/api/DiaryEntries/diaryEntries', JSON.stringify(diaryEntry), {
                         headers: headers
-                    }).subscribe(function (res) { return window.alert(res.json()); });
+                    }).subscribe(function (res) {
+                        console.log(res.json());
+                        callback();
+                    });
                 };
                 DiaryEntryService = __decorate([
                     core_1.Injectable(), 

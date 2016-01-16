@@ -23,7 +23,7 @@ import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry
 	{path: '/editbeehive:id', name: 'EditBeeHive', component: EditBeeHiveComponent},
 	{path: '/diaryentry', name: 'DiaryEntry', component: DiaryEntryComponent},
 	{path: '/creatediaryentry', name: 'CreateDiaryEntry', component: CreateDiaryEntryComponent},
-	{path: '/editdiaryentry:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent}
+	{path: '/editdiaryentry/:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent}
 ])
 
 export class AppComponent {}

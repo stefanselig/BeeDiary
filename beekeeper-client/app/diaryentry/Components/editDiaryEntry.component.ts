@@ -13,35 +13,55 @@ export class EditDiaryEntryComponent {
 	public diaryEntryService: DiaryEntryService;
 	public router: Router;
 	
+	public typeEnum: any[];
+	
 	constructor(diaryEntryService: DiaryEntryService, router: Router, params: RouteParams) {
 		this.diaryEntryService = diaryEntryService;
 		this.router = router;
 		
-		this.diaryentry = {
-			type: "AcarianControl",
-			date: new Date(),
-			Description: ""
-		};
-		//this.loadSelectedDiaryEntryFromWebService(params.get('id'));
+		this.diaryentry = {};
+		
+		this.typeEnum = [];
+		this.typeEnum.push("acarianControl");
+		this.typeEnum.push("construction");
+		this.typeEnum.push("cutDroneBrood");
+		this.typeEnum.push("other");
+		this.typeEnum.push("feeding");
+		this.typeEnum.push("honeyRemoval");
+		this.typeEnum.push("loss");
+		this.typeEnum.push("treatment");
+		console.log("id is: ");
+		console.log(params.get('id'));
+		this.loadSelectedDiaryEntryFromWebService(params.get('id'));
 	}
 	
-	public loadSelectedDiaryEntryFromWebService(id: number): void {
-		this.diaryentry = this.diaryEntryService.getDiaryEntryById(id).subscribe(
-			selectedDiaryEntry => this.diaryentry = selectedDiaryEntry,
-			error => console.error("Error" + error),
-			() => {
-				console.log("Completed");
+	public loadSelectedDiaryEntryFromWebService(id: string): void {
+		var instance = this;
+		var observableObject = this.diaryEntryService.getDiaryEntryById(id);
+		observableObject.subscribe(
+			diaryEntry => {
+				instance.diaryentry = diaryEntry;
 				console.log(this.diaryentry);
-			}
+			},
+			error => console.log("Error " + error),
+			() => console.log("Loaded single diaryEntry")
 		);
 	}
 	
 	public updateDiaryEntry(): void {
-		//this.diaryEntryService.updateDiaryEntry(this.diaryEntry);
-		this.router.navigate(['DiaryEntry']);
+		this.diaryEntryService.updateDiaryEntry(this.diaryentry, this.updateDiaryEntryCallback('DiaryEntry'));
+	}
+	
+	public updateDiaryEntryCallback(viewName: string): (viewName: string) => void {
+		var instance = this;
+		return viewname => instance.router.navigate([viewName]);
+	}
+	
+	public navigateToOtherView(viewName: string): void {
+		this.router.navigate([viewName]);
 	}
 	
 	public cancel(): void {
-		this.router.navigate(['DiaryEntry']);
+		this.navigateToOtherView('DiaryEntry');
 	}
 }

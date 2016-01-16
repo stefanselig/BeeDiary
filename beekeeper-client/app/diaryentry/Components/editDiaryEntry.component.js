@@ -27,26 +27,41 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                 function EditDiaryEntryComponent(diaryEntryService, router, params) {
                     this.diaryEntryService = diaryEntryService;
                     this.router = router;
-                    this.diaryentry = {
-                        type: "AcarianControl",
-                        date: new Date(),
-                        Description: ""
-                    };
-                    //this.loadSelectedDiaryEntryFromWebService(params.get('id'));
+                    this.diaryentry = {};
+                    this.typeEnum = [];
+                    this.typeEnum.push("acarianControl");
+                    this.typeEnum.push("construction");
+                    this.typeEnum.push("cutDroneBrood");
+                    this.typeEnum.push("other");
+                    this.typeEnum.push("feeding");
+                    this.typeEnum.push("honeyRemoval");
+                    this.typeEnum.push("loss");
+                    this.typeEnum.push("treatment");
+                    console.log("id is: ");
+                    console.log(params.get('id'));
+                    this.loadSelectedDiaryEntryFromWebService(params.get('id'));
                 }
                 EditDiaryEntryComponent.prototype.loadSelectedDiaryEntryFromWebService = function (id) {
                     var _this = this;
-                    this.diaryentry = this.diaryEntryService.getDiaryEntryById(id).subscribe(function (selectedDiaryEntry) { return _this.diaryentry = selectedDiaryEntry; }, function (error) { return console.error("Error" + error); }, function () {
-                        console.log("Completed");
+                    var instance = this;
+                    var observableObject = this.diaryEntryService.getDiaryEntryById(id);
+                    observableObject.subscribe(function (diaryEntry) {
+                        instance.diaryentry = diaryEntry;
                         console.log(_this.diaryentry);
-                    });
+                    }, function (error) { return console.log("Error " + error); }, function () { return console.log("Loaded single diaryEntry"); });
                 };
                 EditDiaryEntryComponent.prototype.updateDiaryEntry = function () {
-                    //this.diaryEntryService.updateDiaryEntry(this.diaryEntry);
-                    this.router.navigate(['DiaryEntry']);
+                    this.diaryEntryService.updateDiaryEntry(this.diaryentry, this.updateDiaryEntryCallback('DiaryEntry'));
+                };
+                EditDiaryEntryComponent.prototype.updateDiaryEntryCallback = function (viewName) {
+                    var instance = this;
+                    return function (viewname) { return instance.router.navigate([viewName]); };
+                };
+                EditDiaryEntryComponent.prototype.navigateToOtherView = function (viewName) {
+                    this.router.navigate([viewName]);
                 };
                 EditDiaryEntryComponent.prototype.cancel = function () {
-                    this.router.navigate(['DiaryEntry']);
+                    this.navigateToOtherView('DiaryEntry');
                 };
                 EditDiaryEntryComponent = __decorate([
                     core_1.Component({
