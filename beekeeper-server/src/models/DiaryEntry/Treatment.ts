@@ -14,10 +14,18 @@ export class Treatment extends DiaryEntry {
        this.beginOfTreatment = beginOfTreatment;
        this.endOfTreatment = endOfTreatment;
     }
-    
-    getTypeOfTreatmentEnum() : string[] {
-        return this.getArrayOfEnum(typeOfTreatmentEnum);
-    }
+}
+
+export function getTypeOfTreatmentEnum() {
+    return getArrayOfEnum(typeOfTreatmentEnum);
+}
+
+function getArrayOfEnum(MyEnum) {
+    var typeOfTreatmentEnumArray = new Array();
+    Object.keys(MyEnum)
+      .filter(v => isNaN(parseInt(v, 10)))
+      .forEach(v => typeOfTreatmentEnumArray.push(v));
+    return typeOfTreatmentEnumArray;
 }
 
 enum typeOfTreatmentEnum {

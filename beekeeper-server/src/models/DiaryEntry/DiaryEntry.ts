@@ -9,19 +9,19 @@ export class DiaryEntry {
 	   this.date = date;
 	   this.description = description;
 	   this.photos = photos;
-    }
-    
-    getEntryTypeEnum() : string[] {
-        return this.getArrayOfEnum(entryTypeEnum);
-    }
-    
-    getArrayOfEnum(MyEnum) : string[] {
-        var enumArray:string[];
-        for(var enumMember in MyEnum) {
-            enumArray.push(enumMember);
-        }
-        return enumArray;
     }    
+}
+
+export function getEntryTypeEnum() {
+    return getArrayOfEnum(entryTypeEnum);
+}
+
+function getArrayOfEnum(MyEnum) {
+    var entryTypeEnumArray = new Array();
+    Object.keys(MyEnum)
+      .filter(v => isNaN(parseInt(v, 10)))
+      .forEach(v => entryTypeEnumArray.push(v));
+    return entryTypeEnumArray;
 }
 
 enum entryTypeEnum {

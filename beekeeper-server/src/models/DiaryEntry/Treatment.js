@@ -14,12 +14,20 @@ var Treatment = (function (_super) {
         this.beginOfTreatment = beginOfTreatment;
         this.endOfTreatment = endOfTreatment;
     }
-    Treatment.prototype.getTypeOfTreatmentEnum = function () {
-        return this.getArrayOfEnum(typeOfTreatmentEnum);
-    };
     return Treatment;
 })(DiaryEntry);
 exports.Treatment = Treatment;
+function getTypeOfTreatmentEnum() {
+    return getArrayOfEnum(typeOfTreatmentEnum);
+}
+exports.getTypeOfTreatmentEnum = getTypeOfTreatmentEnum;
+function getArrayOfEnum(MyEnum) {
+    var typeOfTreatmentEnumArray = new Array();
+    Object.keys(MyEnum)
+        .filter(function (v) { return isNaN(parseInt(v, 10)); })
+        .forEach(function (v) { return typeOfTreatmentEnumArray.push(v); });
+    return typeOfTreatmentEnumArray;
+}
 var typeOfTreatmentEnum;
 (function (typeOfTreatmentEnum) {
     typeOfTreatmentEnum[typeOfTreatmentEnum["heat"] = 0] = "heat";

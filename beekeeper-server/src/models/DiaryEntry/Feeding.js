@@ -13,12 +13,20 @@ var Feeding = (function (_super) {
         this.amount = amount;
         this.proportion = proportion;
     }
-    Feeding.prototype.getTypeOfFoodEnum = function () {
-        return this.getArrayOfEnum(typeOfFoodEnum);
-    };
     return Feeding;
 })(DiaryEntry);
 exports.Feeding = Feeding;
+function getTypeOfFoodEnum() {
+    return getArrayOfEnum(typeOfFoodEnum);
+}
+exports.getTypeOfFoodEnum = getTypeOfFoodEnum;
+function getArrayOfEnum(MyEnum) {
+    var typeOfFoodEnumArray = new Array();
+    Object.keys(MyEnum)
+        .filter(function (v) { return isNaN(parseInt(v, 10)); })
+        .forEach(function (v) { return typeOfFoodEnumArray.push(v); });
+    return typeOfFoodEnumArray;
+}
 var typeOfFoodEnum;
 (function (typeOfFoodEnum) {
     typeOfFoodEnum[typeOfFoodEnum["sugar"] = 0] = "sugar";

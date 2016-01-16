@@ -5,19 +5,20 @@ var DiaryEntry = (function () {
         this.description = description;
         this.photos = photos;
     }
-    DiaryEntry.prototype.getEntryTypeEnum = function () {
-        return this.getArrayOfEnum(entryTypeEnum);
-    };
-    DiaryEntry.prototype.getArrayOfEnum = function (MyEnum) {
-        var enumArray;
-        for (var enumMember in MyEnum) {
-            enumArray.push(enumMember);
-        }
-        return enumArray;
-    };
     return DiaryEntry;
 })();
 exports.DiaryEntry = DiaryEntry;
+function getEntryTypeEnum() {
+    return getArrayOfEnum(entryTypeEnum);
+}
+exports.getEntryTypeEnum = getEntryTypeEnum;
+function getArrayOfEnum(MyEnum) {
+    var entryTypeEnumArray = new Array();
+    Object.keys(MyEnum)
+        .filter(function (v) { return isNaN(parseInt(v, 10)); })
+        .forEach(function (v) { return entryTypeEnumArray.push(v); });
+    return entryTypeEnumArray;
+}
 var entryTypeEnum;
 (function (entryTypeEnum) {
     entryTypeEnum[entryTypeEnum["acarianControl"] = 0] = "acarianControl";

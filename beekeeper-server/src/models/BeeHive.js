@@ -11,25 +11,6 @@ var BeeHive = (function () {
         this.frameMaterial = frameMaterial;
         this.combConstruction = combConstruction;
     }
-    BeeHive.prototype.getSourceEnum = function () {
-        return this.getArrayOfEnum(sourceEnum);
-    };
-    BeeHive.prototype.getFrameSizeEnum = function () {
-        return this.getArrayOfEnum(frameSizeEnum);
-    };
-    BeeHive.prototype.getFrameMaterialEnum = function () {
-        return this.getArrayOfEnum(frameMaterialEnum);
-    };
-    BeeHive.prototype.getCombConstructionEnum = function () {
-        return this.getArrayOfEnum(combConstructionEnum);
-    };
-    BeeHive.prototype.getArrayOfEnum = function (MyEnum) {
-        var enumArray;
-        for (var enumMember in MyEnum) {
-            enumArray.push(enumMember);
-        }
-        return enumArray;
-    };
     return BeeHive;
 })();
 exports.BeeHive = BeeHive;
@@ -59,6 +40,29 @@ var Lost = (function () {
     return Lost;
 })();
 exports.Lost = Lost;
+function getSourceEnum() {
+    return getArrayOfEnum(sourceEnum);
+}
+exports.getSourceEnum = getSourceEnum;
+function getFrameSizeEnum() {
+    return getArrayOfEnum(frameSizeEnum);
+}
+exports.getFrameSizeEnum = getFrameSizeEnum;
+function getFrameMaterialEnum() {
+    return getArrayOfEnum(frameMaterialEnum);
+}
+exports.getFrameMaterialEnum = getFrameMaterialEnum;
+function getCombConstructionEnum() {
+    return getArrayOfEnum(combConstructionEnum);
+}
+exports.getCombConstructionEnum = getCombConstructionEnum;
+function getArrayOfEnum(MyEnum) {
+    var enumArray = new Array();
+    Object.keys(MyEnum)
+        .filter(function (v) { return isNaN(parseInt(v, 10)); })
+        .forEach(function (v) { return enumArray.push(v); });
+    return enumArray;
+}
 var sourceEnum;
 (function (sourceEnum) {
     sourceEnum[sourceEnum["swarm"] = 0] = "swarm";

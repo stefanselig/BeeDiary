@@ -12,11 +12,18 @@ export class Feeding extends DiaryEntry {
        this.amount = amount;
        this.proportion = proportion;
     }
-    
-    getTypeOfFoodEnum() : string[] {
-        return this.getArrayOfEnum(typeOfFoodEnum);
-    }
-    
+}
+
+export function getTypeOfFoodEnum() {
+    return getArrayOfEnum(typeOfFoodEnum);
+}
+
+function getArrayOfEnum(MyEnum) {
+    var typeOfFoodEnumArray = new Array();
+    Object.keys(MyEnum)
+      .filter(v => isNaN(parseInt(v, 10)))
+      .forEach(v => typeOfFoodEnumArray.push(v));
+    return typeOfFoodEnumArray;
 }
 
 enum typeOfFoodEnum {
