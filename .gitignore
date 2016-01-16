@@ -1,4 +1,4 @@
-.DS_Store
+./.DS_Store
 
 beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
