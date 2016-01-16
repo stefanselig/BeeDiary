@@ -5,6 +5,7 @@ beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
 beekeeper-client/app/**/*.js
 beekeeper-client/app/**/*.js.map
+beekeeper-client/typings
 
 beekeeper-server/routes/config.js
 beekeeper-server/node_modules

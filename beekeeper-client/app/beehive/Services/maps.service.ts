@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/googlemaps/google.maps.d.ts" />
+/// <reference path="../../../typings/tsd.d.ts" />
 import {Injectable}	from 'angular2/core';
 import {Http}		from 'angular2/http';
 import {Headers}	from 'angular2/http';
@@ -15,14 +15,14 @@ export class MapsService {
 	map: google.maps.Map;
 	markers: MarkerObj[];
 	idCounter: number;
-	
+
 	constructor() {
 		// Somehow getMarkers() from REST
 		this.markers = [];
 		this.idCounter = this.markers.length;
 		this.initMap();
 	}
-	
+
  	public initMap() {
 		var coordinates = new google.maps.LatLng(48, 13);
 		var mapOptions = {
@@ -30,10 +30,10 @@ export class MapsService {
 			zoom: 6
 		};
 		if (this.map == undefined) {
-			this.map = new google.maps.Map(document.getElementById('map'), mapOptions);	
+			this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 		}
 	}
-	
+
 	public getCoordinates(callback: any): void {
 		//var instance = this;
 		var locParam: LocationParams;
@@ -54,24 +54,24 @@ export class MapsService {
 			}*/
 		});
 	}
-	
+
 	public getAddress(locationParams: LocationParams, callback: any): void {
 		var geocoder = new google.maps.Geocoder;
 		geocoder.geocode(
 			{
-				'location': 
+				'location':
 				{
-					lat: locationParams.lat, 
+					lat: locationParams.lat,
 					lng: locationParams.long
 				}
-			}, 
+			},
 			results => {
 				console.log(results);
 				callback(results[0].formatted_address);
 			}
 		);
 	}
-	
+
 	public getMarker(locationParams): MarkerObj {
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(locationParams.lat, locationParams.long),
@@ -83,7 +83,7 @@ export class MapsService {
 		markerObj.id = this.getNextId();
 		return markerObj;
 	}
-	
+
 	public getNextId(): number {
 		this.idCounter = this.idCounter + 1;
 		return this.idCounter;
