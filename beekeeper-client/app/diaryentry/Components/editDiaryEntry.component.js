@@ -29,17 +29,10 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                     this.router = router;
                     this.diaryentry = {};
                     this.typeEnum = [];
-                    this.typeEnum.push("acarianControl");
-                    this.typeEnum.push("construction");
-                    this.typeEnum.push("cutDroneBrood");
-                    this.typeEnum.push("other");
-                    this.typeEnum.push("feeding");
-                    this.typeEnum.push("honeyRemoval");
-                    this.typeEnum.push("loss");
-                    this.typeEnum.push("treatment");
-                    console.log("id is: ");
-                    console.log(params.get('id'));
+                    this.treatmentTypes = [];
+                    this.feedingTypes = [];
                     this.loadSelectedDiaryEntryFromWebService(params.get('id'));
+                    this.loadEnums();
                 }
                 EditDiaryEntryComponent.prototype.loadSelectedDiaryEntryFromWebService = function (id) {
                     var _this = this;
@@ -56,6 +49,22 @@ System.register(['angular2/core', 'angular2/router', '../services/diaryentry.ser
                 EditDiaryEntryComponent.prototype.updateDiaryEntryCallback = function (viewName) {
                     var instance = this;
                     return function (viewname) { return instance.router.navigate([viewName]); };
+                };
+                EditDiaryEntryComponent.prototype.loadEnums = function () {
+                    var instance = this;
+                    var observableObject = [];
+                    observableObject.push(this.diaryEntryService.getEnum('typeEnum'));
+                    observableObject.push(this.diaryEntryService.getEnum('foodEnum'));
+                    observableObject.push(this.diaryEntryService.getEnum('treatmentEnum'));
+                    observableObject[0].subscribe(function (enumObj) {
+                        instance.typeEnum = enumObj.slice();
+                    }, function (error) { return console.log("Error " + error); }, function () { return console.log("Loaded enum"); });
+                    observableObject[1].subscribe(function (enumObj) {
+                        instance.feedingTypes = enumObj.slice();
+                    }, function (error) { return console.log("Error " + error); }, function () { return console.log("Loaded enum"); });
+                    observableObject[2].subscribe(function (enumObj) {
+                        instance.treatmentTypes = enumObj.slice();
+                    }, function (error) { return console.log("Error " + error); }, function () { return console.log("Loaded enum"); });
                 };
                 EditDiaryEntryComponent.prototype.navigateToOtherView = function (viewName) {
                     this.router.navigate([viewName]);

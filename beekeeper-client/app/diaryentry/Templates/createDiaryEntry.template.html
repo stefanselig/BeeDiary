@@ -31,7 +31,9 @@
 		<div class="form-group">
 			<label>TreatmentTypes:</label>
 			<select ngControl="typeOfTreatment" class="form-control">
-				<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
+				<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType">
+					{{treatmentType}}
+				</option>
 			</select>
 			<label>Means:</label>
 			<input type="text" ngControl="appliance" class="form-control"/>
@@ -47,7 +49,9 @@
 		<div class="form-group">
 			<label>FeedingTypes:</label>
 			<select ngControl="typeOfFood" class="form-control">
-				<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
+				<option *ngFor="#feedingType of feedingTypes" [value]="feedingType">
+					{{feedingType}}
+				</option>
 			</select>
 			<label>Amount:</label>
 			<input type="number" ngControl="amount" placeholder="[kg]" class="form-control" />

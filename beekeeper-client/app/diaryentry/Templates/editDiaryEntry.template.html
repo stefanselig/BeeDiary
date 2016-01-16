@@ -32,7 +32,9 @@
 			<div class="form-group">
 				<label>TreatmentTypes:</label>
 				<select [(ngModel)]="diaryentry.typeOfTreatment" class="form-control">
-					<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType"></option>
+					<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType">
+						{{treatmentType}}
+					</option>
 				</select>
 				<label>Means:</label>
 				<input type="text" [(ngModel)]="diaryentry.appliance" class="form-control"/>
@@ -48,7 +50,9 @@
 			<div class="form-group">
 				<label>FeedingTypes:</label>
 				<select [(ngModel)]="diaryentry.typeOfFood" class="form-control">
-					<option *ngFor="#feedingType of feedingTypes" [value]="feedingType"></option>
+					<option *ngFor="#feedingType of feedingTypes" [value]="feedingType">
+						{{feedingType}}
+					</option>
 				</select>
 				<label>Amount:</label>
 				<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" class="form-control" />

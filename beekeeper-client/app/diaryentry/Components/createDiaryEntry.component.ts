@@ -11,6 +11,9 @@ export class CreateDiaryEntryComponent {
 	public newDiaryEntry: any;
 	
 	public typeEnum: any[];
+	public treatmentTypes: any[];
+	public feedingTypes: any[];
+		
 	public diaryEntryService: DiaryEntryService;
 	public router: Router;
 	
@@ -19,14 +22,10 @@ export class CreateDiaryEntryComponent {
 		this.router = router;
 		
 		this.typeEnum = [];
-		this.typeEnum.push("acarianControl");
-		this.typeEnum.push("construction");
-		this.typeEnum.push("cutDroneBrood");
-		this.typeEnum.push("other");
-		this.typeEnum.push("feeding");
-		this.typeEnum.push("honeyRemoval");
-		this.typeEnum.push("loss");
-		this.typeEnum.push("treatment");
+		this.treatmentTypes = [];
+		this.feedingTypes = [];
+		
+		this.loadEnums();
 	}
 	
 	public createNewDiaryEntry(createDiaryEntryForm: any): void {
@@ -41,6 +40,37 @@ export class CreateDiaryEntryComponent {
 	public createDiaryEntryCallback(viewName: string): (viewName: string) => void {
 		var instance = this;
 		return viewname => instance.router.navigate([viewName]);
+	}
+	
+	public loadEnums(): void {
+		var instance = this;
+		var observableObject: any[] = [];
+		
+		observableObject.push(this.diaryEntryService.getEnum('typeEnum'));
+		observableObject.push(this.diaryEntryService.getEnum('foodEnum'));
+		observableObject.push(this.diaryEntryService.getEnum('treatmentEnum'));
+		
+		observableObject[0].subscribe(
+			enumObj => {
+				instance.typeEnum = enumObj.slice();
+			},
+			error => console.log("Error " + error),
+			() => console.log("Loaded enum")
+		);
+		observableObject[1].subscribe(
+			enumObj => {
+				instance.feedingTypes = enumObj.slice();
+			},
+			error => console.log("Error " + error),
+			() => console.log("Loaded enum")
+		);
+		observableObject[2].subscribe(
+			enumObj => {
+				instance.treatmentTypes = enumObj.slice();
+			},
+			error => console.log("Error " + error),
+			() => console.log("Loaded enum")
+		);
 	}
 	
 	public navigateToOtherView(viewName: string): void {
