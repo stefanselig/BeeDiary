@@ -9,3 +9,11 @@ beekeeper-client/typings
 
 beekeeper-server/routes/config.js
 beekeeper-server/node_modules
+beekeeper-server/npm-debug.log
+beekeeper-server/typings
+beekeeper-server/src/*.js
+beekeeper-server/src/*.js.map
+beekeeper-server/src/**/*.js
+beekeeper-server/src/**/*.js.map
+beekeeper-server/src/**/**/*.js
+beekeeper-server/src/**/**/*.js.map
