@@ -9,6 +9,7 @@ import {DiaryEntryService}	from '../services/diaryentry.service';
 })
 export class CreateDiaryEntryComponent {
 	public newDiaryEntry: any;
+	public mdDescription: string;
 	
 	public typeEnum: any[];
 	public treatmentTypes: any[];
@@ -24,6 +25,7 @@ export class CreateDiaryEntryComponent {
 		this.typeEnum = [];
 		this.treatmentTypes = [];
 		this.feedingTypes = [];
+		this.mdDescription = "";
 		
 		this.loadEnums();
 	}
@@ -34,7 +36,14 @@ export class CreateDiaryEntryComponent {
 		console.log(this.newDiaryEntry);
 		console.log(createDiaryEntryForm.value);
 		
-		this.diaryEntryService.createDiaryEntry(this.newDiaryEntry, this.createDiaryEntryCallback('DiaryEntry'));
+		this.diaryEntryService
+		.createDiaryEntry(this.newDiaryEntry)
+		.then(
+			viewName =>	this.router.navigate([viewName])
+		)
+		.catch(
+			error => console.log(error)
+		);
 	}
 	
 	public createDiaryEntryCallback(viewName: string): (viewName: string) => void {
@@ -45,6 +54,9 @@ export class CreateDiaryEntryComponent {
 	public loadEnums(): void {
 		var instance = this;
 		var observableObject: any[] = [];
+		
+		
+		// Rewrite to use Promises
 		
 		observableObject.push(this.diaryEntryService.getEnum('typeEnum'));
 		observableObject.push(this.diaryEntryService.getEnum('foodEnum'));
@@ -79,5 +91,9 @@ export class CreateDiaryEntryComponent {
 	
 	public cancel(): void {
 		this.navigateToOtherView('DiaryEntry');
+	}
+	
+	public parseMd(): void {
+		document.getElementById('mdDescription').innerHTML = marked(this.mdDescription);
 	}
 }

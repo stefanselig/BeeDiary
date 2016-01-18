@@ -27,25 +27,31 @@ export class EditDiaryEntryComponent {
 		this.treatmentTypes = [];
 		this.feedingTypes = [];
 		
-		this.loadSelectedDiaryEntryFromWebService(params.get('id'));
+		this.loadSelectedDiaryEntry(params.get('id'));
 		this.loadEnums();
 	}
 	
-	public loadSelectedDiaryEntryFromWebService(id: string): void {
-		var instance = this;
-		var observableObject = this.diaryEntryService.getDiaryEntryById(id);
-		observableObject.subscribe(
-			diaryEntry => {
-				instance.diaryentry = diaryEntry;
-				console.log(this.diaryentry);
-			},
-			error => console.log("Error " + error),
-			() => console.log("Loaded single diaryEntry")
+	public loadSelectedDiaryEntry(id: string): void {
+		this.diaryEntryService
+		.getDiaryEntryById(id)
+		.subscribe(
+			res => this.diaryentry = res,
+			err => console.log(err),
+			()  => console.log("Load completed.") 
 		);
 	}
 	
 	public updateDiaryEntry(): void {
-		this.diaryEntryService.updateDiaryEntry(this.diaryentry, this.updateDiaryEntryCallback('DiaryEntry'));
+		this.diaryEntryService
+		.updateDiaryEntry(this.diaryentry)
+		.subscribe(
+			res => console.log(res), 
+			err => console.log(err), 
+			()  => {
+				console.log("Update completed.");
+				this.router.navigate('DiaryEntry');
+			}
+		);
 	}
 	
 	public updateDiaryEntryCallback(viewName: string): (viewName: string) => void {
@@ -90,5 +96,9 @@ export class EditDiaryEntryComponent {
 	
 	public cancel(): void {
 		this.navigateToOtherView('DiaryEntry');
+	}
+	
+	public parseMd(): void {
+		document.getElementById('mdDescription').innerHTML = marked(this.diaryentry.description);
 	}
 }

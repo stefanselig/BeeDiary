@@ -28,11 +28,19 @@ export class DiaryEntryComponent implements OnInit {
 			diaryEntries => {
 				console.log("diaryentries retrieved. length: " + diaryEntries.length);
 				instance.diaryEntries = diaryEntries.slice();
-				console.log(instance.diaryEntries);
 			},
 			error => console.error("Error" + error),
 			() => console.log("Completed")
 		);
+	}
+	
+	public parseMd(id: number): any {
+		if (this.diaryEntries[id].description == null) {
+			return "";
+		}
+		else {
+			return marked(this.diaryEntries[id].description);	
+		}
 	}
 	
 	public createDiaryEntry(): void {
