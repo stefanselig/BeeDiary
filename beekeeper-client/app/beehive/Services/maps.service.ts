@@ -34,42 +34,47 @@ export class MapsService {
 		}
 	}
 
-	public getCoordinates(callback: any): void {
-		//var instance = this;
-		var locParam: LocationParams;
-		navigator.geolocation.getCurrentPosition(position => {
-			locParam = {
-				lat: position.coords.latitude,
-				long: position.coords.longitude,
-				address: ""
-			};
-			callback(locParam);
-			/*if (index != undefined) {
-				instance.beehives[index].location.lat = position.coords.latitude;
-				instance.beehives[index].location.long = position.coords.longitude;
-			}
-			else {
-				this.location.lat = position.coords.latitude;
-				this.location.long = position.coords.longitude;
-			}*/
+	public getCoordinates(): Promise {
+		return new Promise((resolve, reject) => {
+			navigator
+			.geolocation
+			.getCurrentPosition(
+				position => {
+					var locParam: LocationParams = {
+						lat: position.coords.latitude,
+						long: position.coords.longitude,
+						address: ""
+					}
+					resolve(locParam);
+				},
+				error => {
+					reject(error);
+				}
+			);
 		});
 	}
 
-	public getAddress(locationParams: LocationParams, callback: any): void {
-		var geocoder = new google.maps.Geocoder;
-		geocoder.geocode(
-			{
-				'location':
+	public getAddress(locationParams: LocationParams): Promise {
+		return new Promise((resolve, reject) => {
+			(new google.maps.Geocoder)
+			.geocode(
 				{
-					lat: locationParams.lat,
-					lng: locationParams.long
+					'location':
+					{
+						lat: locationParams.lat,
+						lng: locationParams.long
+					}
+				},
+				(results, status, error_message?) => {
+					if (status == 'OK') {
+						resolve(results[0].formatted_address);	
+					}
+					else {
+						reject(status, error_message);
+					}
 				}
-			},
-			results => {
-				console.log(results);
-				callback(results[0].formatted_address);
-			}
-		);
+			);
+		});
 	}
 
 	public getMarker(locationParams): MarkerObj {
