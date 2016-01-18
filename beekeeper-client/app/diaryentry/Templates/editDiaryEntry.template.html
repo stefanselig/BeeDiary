@@ -88,9 +88,7 @@
 			<label>Enable Markdown editing? </label>
 			<input type="checkbox" [(ngModel)]="markdownEnabled" />
 			<textarea placeholder="Description" [(ngModel)]="diaryentry.description" class="form-control" rows="4" cols="20"></textarea>
-			<div *ngIf="markdownEnabled == true" id="mdDescription">
-				{{parseMd()}}
-			</div>
+			<div *ngIf="markdownEnabled == true" [innerHTML]="parseMd()"></div>
 		</div>
 		
 		<div class="form-group">

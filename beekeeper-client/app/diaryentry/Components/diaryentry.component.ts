@@ -8,39 +8,40 @@ import {DiaryEntryService}	from '../services/diaryentry.service';
 	providers: [DiaryEntryService]
 })
 export class DiaryEntryComponent implements OnInit {
-	public diaryEntries: Array<any>;
+	public diaryEntries: any[];
 	
 	public diaryEntryService: DiaryEntryService;
 	public router: Router;
 
 	constructor(diaryEntryService: DiaryEntryService, router: Router) {
-		this.diaryEntries = [];
 		this.diaryEntryService = diaryEntryService;
 		this.router = router;
+		
+		this.diaryEntries = [];
 	}
 	
 	private ngOnInit(): void {
-		this.diaryEntryService.getDiaryEntries();
-		
-		var instance = this;
-		
-		this.diaryEntryService.diaryEntries.subscribe(
-			diaryEntries => {
-				console.log("diaryentries retrieved. length: " + diaryEntries.length);
-				instance.diaryEntries = diaryEntries.slice();
+		this.loadDiaryEntries();
+	}
+	
+	public loadDiaryEntries(): void {
+		this.diaryEntryService
+		.getDiaryEntries()
+		.subscribe(
+			res => {
+				this.diaryEntries = res.slice();
+				console.log("Length of retrieved DiaryEntries: " + res.length);
 			},
-			error => console.error("Error" + error),
-			() => console.log("Completed")
+			err => console.error(err),
+			()  => console.log("Load completed.")
 		);
 	}
 	
 	public parseMd(id: number): any {
-		if (this.diaryEntries[id].description == null) {
+		if (this.diaryEntries[id].description == null)
 			return "";
-		}
-		else {
-			return marked(this.diaryEntries[id].description);	
-		}
+		else
+			return marked(this.diaryEntries[id].description);
 	}
 	
 	public createDiaryEntry(): void {
@@ -48,7 +49,6 @@ export class DiaryEntryComponent implements OnInit {
 	}
 	
 	public editDiaryEntry(id: number): void {
-		console.log(id);
 		this.router.navigate(['EditDiaryEntry', { id: id }]);
 	}
 }
