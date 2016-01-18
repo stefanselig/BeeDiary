@@ -120,12 +120,12 @@ router.route('/diaryEntries').post(function(req, res) {
                 var newTreatmentEntry = new Treatment.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date,
                 req.body.typeOfTreatment, req.body.appliance, req.body.beginOfTreatment, req.body.endOfTreatment);
                 var added = addNewEntry(newTreatmentEntry);
-            if(added != 'OK') {
-                res.send(added);
-            } else {
-                res.json({message: 'DiaryEntry created! (Treatment)' });
-            }
-            break;
+                if(added != 'OK') {
+                    res.send(added);
+                } else {
+                    res.json({message: 'DiaryEntry created! (Treatment)' });
+                }
+                break;
             }
         }
     });
@@ -190,18 +190,178 @@ router.route('/diaryEntries/:entry_id').get(function(req, res) {
        });
     });
 });
+
+// update a single DiaryEntries info by id (accessed at PUT http://localhost:8080/api/DiaryEntries/diaryEntries/:entry_id
+router.route('/diaryEntries/:entry_id').put(function(req, res) {
+    database.collection('DiaryEntries', function(error, diaryEntries) {
+        if(error) {
+            console.error(error);
+            return;
+        }
+        switch(req.body.type) {
+            case 'acarianControl': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "countDays" : req.body.countDays,
+                "acariansCaseOfDeath" : req.body.acariansCaseOfDeath
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'construction': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "notes" : req.body.notes,
+                "swarmBought" : req.body.swarmBought
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'cutDroneBrood': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "notes" : req.body.notes
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'other': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'feeding': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "typeOfFood" : req.body.typeOfFood,
+                "amount" : req.body.amount,
+                "proportion" : req.body.proportion
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'honeyRemoval': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "amount" : req.body.amount
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'loss': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "reason" : req.body.reason
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+            case 'treatment': {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : req.body.photos,
+                "typeOfTreatment" : req.body.typeOfTreatment,
+                "appliance" : req.body.appliance,
+                "beginOfTreatment" : req.body.beginOfTreatment,
+                "endOfTreatment" : req.body.endOfTreatment
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            }
+        }
+    }) 
+});
 /*
-// update a single BeeHive info by id (accessed at PUT http://localhost:8080/api/BeeHives/beeHives/:hive_id)
-router.route('/beeHives/:hive_id').put(function(req, res) {
-       database.collection('BeeHives', function(error, beeHives) {
-       if(error) {
-           console.error(error);
-           return;
-       }
-       var newHiveLocation = new BeeHive.HiveLocation(req.body.lat, req.body.long, req.body.address, req.body.markerId);
-       var newSource = new BeeHive.Source(req.body.type, req.body.origin);
-       var newLost = new BeeHive.Lost(req.body.isLost, req.body.reason);
-        beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},
+       beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},
          {
              "hiveNumber" : req.body.hiveNumber,
              "hiveName" : req.body.hiveName,
