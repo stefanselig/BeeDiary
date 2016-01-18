@@ -17,7 +17,8 @@
     "rxjs": "5.0.0-beta.0",
     "zone.js": "0.5.10",
 	"traceur": "latest",
-	"bootstrap": "latest"
+	"bootstrap": "latest",
+	"marked": "latest"
   },
   "devDependencies": {
     "typescript": "^1.7.3",

@@ -28,7 +28,7 @@ html {
 }
 
 #diaryEntryContent {
-	max-width: 30%;
+	max-width: 100%;
 	min-width: 20%;
 	float: left;
 }
