@@ -49,20 +49,29 @@ export class CreateBeeHiveComponent {
 	
 	public callGetCoordinates(): void {
 		var instance = this;
-		this.mapsService.getCoordinates(locParam => {
-			this.location.lat = locParam.lat;
-			this.location.long = locParam.long;
-			instance.markerObj =  instance.mapsService.getMarker(locParam);
-			this.callGetAddress();
-		});
-	}
-	
-	public callGetAddress(): void {
-		var instance = this;
-		this.mapsService.getAddress(this.location, address => {
-			console.log("address is: " + address);
-			instance.location.address = address;
-		});
+		this.mapsService
+		.getCoordinates()
+		.then(
+			(locParam: LocationParams) => {
+				instance.location.lat = locParam.lat;
+				instance.location.long = locParam.long;
+				instance.location.address = locParam.address;
+			}
+		).then(
+			() => instance.mapsService.getAddress(instance.location)
+		).then(
+			address => {
+				instance.location.address = address;
+			}
+		)
+		.catch(
+			(error, error_message?) => {
+				console.log(error);
+				if (error_message != undefined) {
+					console.log(error_message);	
+				}
+			}
+		);
 	}
 	
 	public createNewBeeHive(createBeeHiveForm: any): void {

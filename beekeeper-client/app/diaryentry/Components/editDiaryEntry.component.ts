@@ -27,68 +27,67 @@ export class EditDiaryEntryComponent {
 		this.treatmentTypes = [];
 		this.feedingTypes = [];
 		
-		this.loadSelectedDiaryEntryFromWebService(params.get('id'));
 		this.loadEnums();
+		this.loadSelectedDiaryEntry(params.get('id'));
 	}
 	
-	public loadSelectedDiaryEntryFromWebService(id: string): void {
-		var instance = this;
-		var observableObject = this.diaryEntryService.getDiaryEntryById(id);
-		observableObject.subscribe(
-			diaryEntry => {
-				instance.diaryentry = diaryEntry;
-				console.log(this.diaryentry);
-			},
-			error => console.log("Error " + error),
-			() => console.log("Loaded single diaryEntry")
+	public loadSelectedDiaryEntry(id: string): void {
+		this.diaryEntryService
+		.getDiaryEntryById(id)
+		.subscribe(
+			res => this.diaryentry = res,
+			err => console.log(err),
+			()  => console.log("Load completed.") 
 		);
 	}
 	
 	public updateDiaryEntry(): void {
-		this.diaryEntryService.updateDiaryEntry(this.diaryentry, this.updateDiaryEntryCallback('DiaryEntry'));
-	}
-	
-	public updateDiaryEntryCallback(viewName: string): (viewName: string) => void {
-		var instance = this;
-		return viewname => instance.router.navigate([viewName]);
+		this.diaryEntryService
+		.updateDiaryEntry(this.diaryentry)
+		.subscribe(
+			res => console.log(res), 
+			err => console.log(err), 
+			()  => {
+				console.log("Update completed.");
+				this.router.navigate(['DiaryEntry']);
+			}
+		);
 	}
 	
 	public loadEnums(): void {
-		var instance = this;
-		var observableObject: any[] = [];
+		this.diaryEntryService
+		.getEnum('typeEnum')
+		.subscribe(
+			res => this.typeEnum = res.slice(),
+			err => console.log(err),
+			()  => console.log("TypeEnum loaded.") 
+		);
 		
-		observableObject.push(this.diaryEntryService.getEnum('typeEnum'));
-		observableObject.push(this.diaryEntryService.getEnum('foodEnum'));
-		observableObject.push(this.diaryEntryService.getEnum('treatmentEnum'));
+		this.diaryEntryService
+		.getEnum('foodEnum')
+		.subscribe(
+			res => this.feedingTypes = res.slice(),
+			err => console.log(err),
+			()  => console.log("FoodEnum loaded.")
+		);
 		
-		observableObject[0].subscribe(
-			enumObj => {
-				instance.typeEnum = enumObj.slice();
-			},
-			error => console.log("Error " + error),
-			() => console.log("Loaded enum")
+		this.diaryEntryService
+		.getEnum('treatmentEnum')
+		.subscribe(
+			res => this.treatmentTypes = res.slice(),
+			err => console.log(err),
+			()  => console.log("TreatmentEnum loaded.")
 		);
-		observableObject[1].subscribe(
-			enumObj => {
-				instance.feedingTypes = enumObj.slice();
-			},
-			error => console.log("Error " + error),
-			() => console.log("Loaded enum")
-		);
-		observableObject[2].subscribe(
-			enumObj => {
-				instance.treatmentTypes = enumObj.slice();
-			},
-			error => console.log("Error " + error),
-			() => console.log("Loaded enum")
-		);
-	}
-	
-	public navigateToOtherView(viewName: string): void {
-		this.router.navigate([viewName]);
 	}
 	
 	public cancel(): void {
-		this.navigateToOtherView('DiaryEntry');
+		this.router.navigate(['DiaryEntry']);
+	}
+	
+	public parseMd(): any {
+		if (this.diaryentry.description == null) 
+			return "";
+		else 
+			return marked(this.diaryentry.description);
 	}
 }

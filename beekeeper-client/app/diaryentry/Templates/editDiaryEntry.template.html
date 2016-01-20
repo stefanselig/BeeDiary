@@ -15,23 +15,18 @@
 				<label>CountDays:</label> 
 				<input type="number" [(ngModel)]="diaryentry.countDays" class="form-control"/>
 				<label>AcariansCaseOfDeath:</label> 
-				<input type="number" [(ngModel)]="diaryentry.acariansDied" class="form-control"/>
-				<label>Description:</label> 
-				<input type="text"   [(ngModel)]="diaryentry.description" class="form-control"/>
+				<input type="number" [(ngModel)]="diaryentry.deadAcarians" class="form-control"/>
 			</div>
 		</div>
 
 		<!-- Case Construction: -->
-		<div *ngIf="type == 'construction'" class="form-group">
-			<label>Notes:</label>
-			<input type="text" [(ngModel)]="diaryentry.notes" class="form-control"/>
-		</div>
+		<div *ngIf="type == 'construction'" class="form-group"></div>
 		
 		<!-- Case Treatment: -->
 		<div *ngIf="diaryentry.type == 'treatment'">
 			<div class="form-group">
 				<label>TreatmentTypes:</label>
-				<select [(ngModel)]="diaryentry.typeOfTreatment" class="form-control">
+				<select [(ngModel)]="diaryentry.treatmentType" class="form-control">
 					<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType">
 						{{treatmentType}}
 					</option>
@@ -39,9 +34,9 @@
 				<label>Means:</label>
 				<input type="text" [(ngModel)]="diaryentry.appliance" class="form-control"/>
 				<label>Startdate:</label>
-				<input type="date" [(ngModel)]="diaryentry.beginOfTreatment" class="form-control"/>
+				<input type="date" [(ngModel)]="diaryentry.treatmentBegin" class="form-control"/>
 				<label>Enddate:</label>
-				<input type="date" [(ngModel)]="diaryentry.endOfTreatment" class="form-control"/>
+				<input type="date" [(ngModel)]="diaryentry.treatmentEnd" class="form-control"/>
 			</div>
 		</div>
 		
@@ -49,7 +44,7 @@
 		<div *ngIf="diaryentry.type == 'feeding'">
 			<div class="form-group">
 				<label>FeedingTypes:</label>
-				<select [(ngModel)]="diaryentry.typeOfFood" class="form-control">
+				<select [(ngModel)]="diaryentry.foodType" class="form-control">
 					<option *ngFor="#feedingType of feedingTypes" [value]="feedingType">
 						{{feedingType}}
 					</option>
@@ -90,21 +85,24 @@
 
 		<div class="form-group">
 			<label>Description:</label>
-			<input type="description" placeholder="Description" [(ngModel)]="diaryentry.description" class="form-control" /> <!-- markdown -->
-		</div>	
+			<label>Enable Markdown editing? </label>
+			<input type="checkbox" [(ngModel)]="markdownEnabled" />
+			<textarea placeholder="Description" [(ngModel)]="diaryentry.description" class="form-control" rows="4" cols="20"></textarea>
+			<div *ngIf="markdownEnabled == true" [innerHTML]="parseMd()"></div>
+		</div>
 		
 		<div class="form-group">
 			<!-- Figure out photo upload -->
 			<label>Photos:</label>
 			<div *ngFor="#photo of diaryentry.photos"> <!-- No ngControl for this one -->
-				<img src="photo.data" />
+				<img src="photo.content" />
 			</div>
 			<br />
 			<label>Upload Photo:</label>
 			<input type="file"/>
 		</div>
 
-		<input type="submit" value="Update DiaryEntry" class="btn btn-default"/>
+		<input type="submit" (click)="updateDiaryEntry()" value="Update DiaryEntry" class="btn btn-default"/>
 		
 		<input type="button" (click)="cancel()" value="Cancel" class="btn btn-default"/>
 	</div>	

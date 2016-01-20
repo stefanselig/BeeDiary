@@ -8,17 +8,17 @@
 			
 			<div class="form-group">
 				<label> Name: </label>
-				<input type="text" ngControl="name" placeholder="Name" class="form-control" />
+				<input type="text" ngControl="hiveName" placeholder="Name" class="form-control" />
 			</div>
 			
 			<div class="form-group">
 				<h3> Location: </h3>
 				<label> Address: </label>
-				<input type="text" ngControl="locationAddress" placeholder="Address" class="form-control" [(ngModel)]="location.address" />
+				<input type="text" ngControl="address" placeholder="Address" class="form-control" [(ngModel)]="location.address" />
 				<label> Latitude: </label>
-				<input type="text" ngControl="locationLat" placeholder="Latitude" class="form-control" [(ngModel)]="location.lat"/>
+				<input type="text" ngControl="lat" placeholder="Latitude" class="form-control" [(ngModel)]="location.lat"/>
 				<label> Longitude: </label>
-				<input type="text" ngControl="locationLong" placeholder="Longitude" class="form-control" [(ngModel)]="location.long"/>
+				<input type="text" ngControl="long" placeholder="Longitude" class="form-control" [(ngModel)]="location.long"/>
 				<input type="button" (click)="callGetCoordinates()" class="btn btn-default" value="Get GPS Position">
 			</div>
 			
@@ -29,7 +29,7 @@
 			
 			<div class="form-group">
 				<label> Source: </label>
-				<select class="form-control" ngControl="sourceTypeValue" [(ngModel)]="sourceTypeValue">
+				<select class="form-control" ngControl="type" [(ngModel)]="sourceTypeValue">
 					<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
 						{{sourceType}}
 					</option>
@@ -39,7 +39,7 @@
 					<input type="text" placeholder="Source Type" ngControl="sourceTypeOtherText" class="form-control"/><!-- case: free text -->
 				</div>
 				<label> Source origin: (Not required): </label>
-				<input type="number" placeholder="Source Origin" class="form-control" ngControl="sourceOrigin" />
+				<input type="number" placeholder="Source Origin" class="form-control" ngControl="origin" />
 			</div>
 			
 			<div class="form-group">
@@ -52,13 +52,13 @@
 				<input type="checkbox" ngControl="isLost" [(ngModel)]="isLost" />
 				<div *ngIf="isLost">
 					<label> Reason for Loss: </label>
-					<input type="text" placeholder="Reason" ngControl="isLostReason" class="form-control" />
+					<input type="text" placeholder="Reason" ngControl="reason" class="form-control" />
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label> FrameSize: </label>
-				<select class="form-control" ngControl="frameSizeValue">
+				<select class="form-control" ngControl="frameSize">
 					<option *ngFor="#frameSize of frameSizes" [value]="frameSize">
 						{{frameSize}}
 					</option>
@@ -67,7 +67,7 @@
 			
 			<div class="form-group">
 				<label> FrameMaterial: </label>
-				<select class="form-control" ngControl="frameMaterialValue">
+				<select class="form-control" ngControl="frameMaterial">
 					<option *ngFor="#frameMaterial of frameMaterials" [value]="frameMaterial">
 						{{frameMaterial}}
 					</option>
@@ -76,7 +76,7 @@
 			
 			<div class="form-group">
 				<label> CombConstruction: </label>
-				<select class="form-control" ngControl="combConstructionValue" class="form-control">
+				<select class="form-control" ngControl="combConstruction" class="form-control">
 					<option *ngFor="#combConstruction of combConstructions" [value]="combConstruction">
 						{{combConstruction}}
 					</option>

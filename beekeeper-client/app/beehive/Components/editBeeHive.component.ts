@@ -3,6 +3,8 @@ import {Router} 		from 'angular2/router';
 import {RouteParams}	from 'angular2/router';
 import {BeeHiveService}	from '../services/beehive.service';
 import {MapsService}	from '../services/maps.service';
+import {LocationParams} from '../services/maps.service';
+import {MarkerObj}		from '../services/maps.service';
 import {BeeHiveComponent} from './beehive.component';
 import {CreateBeeHiveComponent} from './createBeeHive.component';
 
@@ -57,10 +59,32 @@ export class EditBeeHiveComponent {
 	}
 	
 	public callGetCoordinates(index: number) {
-		this.mapsService.getCoordinates(locParam => {
-			this.beehive.location.lat = locParam.lat;
-			this.beehive.location.long = locParam.long;
-		});
+		var instance = this;
+		this.mapsService
+		.getCoordinates()
+		.then(
+			(locParam: LocationParams) => {
+				instance.beehive.location.lat = locParam.lat;
+				instance.beehive.location.long = locParam.long;
+				instance.beehive.location.address = locParam.address;
+			}
+		).then(
+			() => {
+				instance.mapsService
+					.getAddress(instance.beehive.location)
+					.then(
+						address => instance.beehive.location.address = address
+					)
+					.catch(
+						(status, error_message) => {
+							console.log(status);
+							console.log(error_message);
+						}
+					);
+			}
+		).catch(
+			error => console.log(error)
+		);
 	}
 	
 	public updateBeeHive(): void {

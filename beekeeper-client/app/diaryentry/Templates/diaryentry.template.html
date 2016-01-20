@@ -5,7 +5,7 @@
 </div>
 <div class="container-fluid">
 	<div class="row">
-		<div *ngFor="#diaryentry of diaryEntries" id="diaryEntryContent" class="col-md-1">
+		<div *ngFor="#diaryentry of diaryEntries; #i = index" id="diaryEntryContent" class="col-md-1">
 			<h2>DiaryEntry</h2>
 			<button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default">Edit DiaryEntry</button>
 			
@@ -16,31 +16,26 @@
 				<label> CountDays: </label>
 				<input type="number" [(ngModel)]="diaryentry.countDays" readonly class="form-control"/>
 				<label> How many Acarians died?: </label>
-				<input type="number" [(ngModel)]="diaryentry.acariansDied" readonly class="form-control"/>
-				<label> Description: </label>
-				<input type="text"   [(ngModel)]="diaryentry.description" readonly class="form-control"/>
+				<input type="number" [(ngModel)]="diaryentry.deadAcarians" readonly class="form-control"/>
 			</div>
 			
 			<!-- Case Construction: -->
-			<div *ngIf="diaryentry.type == 'construction'" class="form-group">
-				<label>Notes:</label>
-				<input type="text" [(ngModel)]="diaryentry.notes" readonly class="form-control"/>
-			</div>
+			<div *ngIf="diaryentry.type == 'construction'" class="form-group"></div>
 			
 			<!-- Case Treatment: -->
 			<div *ngIf="diaryentry.type == 'treatment'" class="form-group">
-				<p>{{diaryentry.typeOfTreatment}}</p>
-				<label> Means: </label>
+				<p>{{diaryentry.treatmentType}}</p>
+				<label> Appliance: </label>
 				<input type="text" [(ngModel)]="diaryentry.appliance" readonly class="form-control"/>
 				<label> Startdate: </label>
-				<input type="date" [(ngModel)]="diaryentry.beginOfTreatment" readonly class="form-control"/>
+				<input type="date" [(ngModel)]="diaryentry.treatmentBegin" readonly class="form-control"/>
 				<label> Enddate: </label>
-				<input type="date" [(ngModel)]="diaryentry.endOfTreatment" readonly class="form-control"/>
+				<input type="date" [(ngModel)]="diaryentry.treatmentEnd" readonly class="form-control"/>
 			</div>
 			
 			<!-- Case Feeding: -->
 			<div *ngIf="diaryentry.type == 'feeding'" class="form-group">
-				<p>{{diaryentry.typeOfFood}}</p>
+				<p>{{diaryentry.foodType}}</p>
 				<label> Amount: </label>
 				<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
 				<label> Ratio: </label>
@@ -72,14 +67,14 @@
 			
 			<div class="form-group">
 				<label> Description: </label>
-				<input type="description" [(ngModel)]="diaryentry.description" readonly class="form-control"/> <!-- markdown -->
+				<div [innerHTML]="parseMd(i)"></div>
 			</div>
 			
 			<!-- Photo + upload -->
 			<div class="form-group">
 				<label> Photos: </label>
 				<div *ngFor="#photo of diaryentry.photos">
-					<img src="photo.data" />
+					<img src="photo.content" />
 				</div>
 			</div>
 		</div>	
