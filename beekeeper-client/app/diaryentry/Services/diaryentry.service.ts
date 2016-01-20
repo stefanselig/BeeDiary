@@ -8,12 +8,19 @@ import 'rxjs/Observable';
 export class DiaryEntryService {
 	http: Http;
 	generalHeaders: Headers;
+	public typeEnum: any[];
+	public treatmentTypes: any[];
+	public feedingTypes: any[];
 	
 	constructor(http:Http) {
 		this.http = http;
 		
 		this.generalHeaders = new Headers();
 		this.generalHeaders.append('Content-Type', 'application/json');
+		
+		this.typeEnum = [];
+		this.treatmentTypes = [];
+		this.feedingTypes = [];
 	}
 	
 	public getDiaryEntries(): Observable {
@@ -48,10 +55,43 @@ export class DiaryEntryService {
 	}
 	
 	public getEnum(enumType: string): Promise {
-		return this.http
-		.get(
-			'http://localhost:8080/api/DiaryEntries/' + enumType,
-			{ headers: this.generalHeaders})
-		.map(res => res.json());
+		return new Promise((resolve, reject) => {
+			this.http
+			.get(
+				'http://localhost:8080/api/DiaryEntries/' + enumType,
+				{ headers: this.generalHeaders})
+			.map(res => res.json())
+			.subscribe(
+				res => resolve(res),
+				err => reject(err)
+			)
+		});
+	}
+	
+	public loadEnums(): Promise {
+		return new Promise((resolve, reject) => {
+			this.getEnum('typeEnum')
+			.then(
+				res => { this.typeEnum = res.slice(); }
+			)
+			.then(
+				() => this.getEnum('foodEnum')
+			)
+			.then(
+				res => { this.feedingTypes = res.slice(); }
+			)
+			.then(
+				() => this.getEnum('treatmentEnum')
+			)
+			.then(
+				res => { this.treatmentTypes = res.slice(); }
+			)
+			.then( 
+				() => resolve("Finished loading enums.")
+			)
+			.catch(
+				err => reject(err)
+			);
+		});
 	}
 }

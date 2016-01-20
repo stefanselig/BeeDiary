@@ -1,82 +1,94 @@
-<div class="form-group form-inline">
-	<input type="search" placeholder="Search for DiaryEntry" class="form-control"/>
-	<input type="submit" class="btn btn-default" class="form-control"/>
-	<button (click)="createDiaryEntry()" class="btn btn-default" class="form-control">Create New DiaryEntry</button>
+<h2>DiaryEntry</h2>
+
+<button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default" *ngIf="display">Edit DiaryEntry</button>
+
+<div class="form-group">
+	<label> Types: </label>
+	<select [(ngModel)]="diaryentry.type" class="form-control" [disabled]="display">
+		<option *ngFor="#type of typeEnum" [value]="type">
+			{{type}}
+		</option>
+	</select>
 </div>
-<div class="container-fluid">
-	<div class="row">
-		<div *ngFor="#diaryentry of diaryEntries; #i = index" id="diaryEntryContent" class="col-md-1">
-			<h2>DiaryEntry</h2>
-			<button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default">Edit DiaryEntry</button>
-			
-			<h3>{{diaryentry.type}}</h3>
-			
-			<!-- Case AcarianControl: -->
-			<div *ngIf="diaryentry.type == 'acarianControl'" class="form-group">
-				<label> CountDays: </label>
-				<input type="number" [(ngModel)]="diaryentry.countDays" readonly class="form-control"/>
-				<label> How many Acarians died?: </label>
-				<input type="number" [(ngModel)]="diaryentry.deadAcarians" readonly class="form-control"/>
-			</div>
-			
-			<!-- Case Construction: -->
-			<div *ngIf="diaryentry.type == 'construction'" class="form-group"></div>
-			
-			<!-- Case Treatment: -->
-			<div *ngIf="diaryentry.type == 'treatment'" class="form-group">
-				<p>{{diaryentry.treatmentType}}</p>
-				<label> Appliance: </label>
-				<input type="text" [(ngModel)]="diaryentry.appliance" readonly class="form-control"/>
-				<label> Startdate: </label>
-				<input type="date" [(ngModel)]="diaryentry.treatmentBegin" readonly class="form-control"/>
-				<label> Enddate: </label>
-				<input type="date" [(ngModel)]="diaryentry.treatmentEnd" readonly class="form-control"/>
-			</div>
-			
-			<!-- Case Feeding: -->
-			<div *ngIf="diaryentry.type == 'feeding'" class="form-group">
-				<p>{{diaryentry.foodType}}</p>
-				<label> Amount: </label>
-				<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
-				<label> Ratio: </label>
-				<input type="text" [(ngModel)]="diaryentry.proportion" readonly class="form-control"/>
-			</div>
-			
-			<!-- Case HoneyRemoval: -->
-			<div *ngIf="diaryentry.type == 'honeyRemoval'" class="form-group">
-				<label> Amount: </label>
-				<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" readonly class="form-control"/>
-			</div>
-			
-			<!-- Case Loss: -->
-			<div *ngIf="diaryentry.type == 'loss'" class="form-group">
-				<label> Reason: </label>
-				<input type="text" [(ngModel)]="diaryentry.reason" readonly class="form-control"/>
-			</div>
-			
-			<!-- Case CutDroneBrood: -->
-			<div *ngIf="diaryentry.type == 'cutDroneBrood'" class="form-group"></div>
-			
-			<!-- Case Other: -->
-			<div *ngIf="diaryentry.type == 'other'" class="form-group"></div>
-			
-			<div class="form-group">
-				<label> Date: </label>
-				<input type="date" [(ngModel)]="diaryentry.date" readonly class="form-control"/>
-			</div>
-			
-			<div class="form-group">
-				<label> Description: </label>
-				<div [innerHTML]="parseMd(i)"></div>
-			</div>
-			
-			<!-- Photo + upload -->
-			<div class="form-group">
-				<label> Photos: </label>
-				<div *ngFor="#photo of diaryentry.photos">
-					<img src="photo.content" />
-				</div>
-			</div>
-		</div>	
+
+<!-- Case AcarianControl: -->
+<div *ngIf="diaryentry.type == 'acarianControl'" class="form-group">
+	<label> CountDays: </label>
+	<input type="number" [(ngModel)]="diaryentry.countDays" [readonly]="display" class="form-control"/>
+	<label> How many Acarians died?: </label>
+	<input type="number" [(ngModel)]="diaryentry.deadAcarians" [readonly]="display" class="form-control"/>
+</div>
+
+<!-- Case Construction: -->
+<div *ngIf="diaryentry.type == 'construction'" class="form-group"></div>
+
+<!-- Case Treatment: -->
+<div *ngIf="diaryentry.type == 'treatment'" class="form-group">
+	<select [(ngModel)]="diaryentry.treatmentType" [disabled]="display" class="form-control">
+		<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType">
+			{{treatmentType}}
+		</option>
+	</select>
+	<label> Appliance: </label>
+	<input type="text" [(ngModel)]="diaryentry.appliance" [readonly]="display" class="form-control"/>
+	<label> Startdate: </label>
+	<input type="date" [(ngModel)]="diaryentry.treatmentBegin" [readonly]="display" class="form-control"/>
+	<label> Enddate: </label>
+	<input type="date" [(ngModel)]="diaryentry.treatmentEnd" [readonly]="display" class="form-control"/>
+</div>
+
+<!-- Case Feeding: -->
+<div *ngIf="diaryentry.type == 'feeding'" class="form-group">
+	<select [(ngModel)]="diaryentry.foodType" class="form-control" [disabled]="display">
+		<option *ngFor="#feedingType of feedingTypes" [value]="feedingType">
+			{{feedingType}}
+		</option>
+	</select>
+	<label> Amount: </label>
+	<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" [readonly]="display" class="form-control"/>
+	<label> Ratio: </label>
+	<input type="text" [(ngModel)]="diaryentry.proportion" [readonly]="display" class="form-control"/>
+</div>
+
+<!-- Case HoneyRemoval: -->
+<div *ngIf="diaryentry.type == 'honeyRemoval'" class="form-group">
+	<label> Amount: </label>
+	<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" [readonly]="display" class="form-control"/>
+</div>
+
+<!-- Case Loss: -->
+<div *ngIf="diaryentry.type == 'loss'" class="form-group">
+	<label> Reason: </label>
+	<input type="text" [(ngModel)]="diaryentry.reason" [readonly]="display" class="form-control"/>
+</div>
+
+<!-- Case CutDroneBrood: -->
+<div *ngIf="diaryentry.type == 'cutDroneBrood'" class="form-group"></div>
+
+<!-- Case Other: -->
+<div *ngIf="diaryentry.type == 'other'" class="form-group"></div>
+
+<div class="form-group">
+	<label> Date: </label>
+	<input type="date" [(ngModel)]="diaryentry.date" [readonly]="display" class="form-control"/>
+</div>
+
+<div class="form-group">
+	<label>Description:</label>
+	<label>Enable Markdown editing? </label>
+	<input type="checkbox" [(ngModel)]="markdownEnabled" [disabled]="display" />
+	<textarea placeholder="Description" [(ngModel)]="diaryentry.description" [readonly]="display" class="form-control" rows="4" cols="20"></textarea>
+	<div *ngIf="markdownEnabled == true" [innerHTML]="parseMd()"></div>
+</div>
+
+<div class="form-group">
+	<!-- Figure out photo upload -->
+	<label>Photos:</label>
+	<div *ngFor="#photo of diaryentry.photos"> <!-- No ngControl for this one -->
+		<img src="photo.content" />
 	</div>
+	<br />
+	<label>Upload Photo:</label>
+	<input type="file" [disabled]="display" />
 </div>
+

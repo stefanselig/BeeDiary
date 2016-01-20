@@ -38,7 +38,7 @@ export class CreateDiaryEntryComponent {
 		.subscribe(
 			res => {
 				console.log(res);
-				this.router.navigate(['DiaryEntry']);	
+				this.router.navigate(['DiaryEntries']);	
 			},
 			err => console.log(err),
 			()  => console.log("Created diary entry.")
@@ -72,7 +72,7 @@ export class CreateDiaryEntryComponent {
 	}
 	
 	public cancel(): void {
-		this.router.navigate('DiaryEntry');
+		this.router.navigate('DiaryEntries');
 	}
 	
 	public parseMd(): any {
