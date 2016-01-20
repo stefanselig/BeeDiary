@@ -7,20 +7,20 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Treatment = (function (_super) {
     __extends(Treatment, _super);
-    function Treatment(type, photos, description, date, typeOfTreatment, appliance, beginOfTreatment, endOfTreatment) {
+    function Treatment(type, photos, description, date, treatmentType, appliance, treatmentBegin, treatmentEnd) {
         _super.call(this, type, photos, description, date);
-        this.typeOfTreatment = typeOfTreatment;
+        this.treatmentType = treatmentType;
         this.appliance = appliance;
-        this.beginOfTreatment = beginOfTreatment;
-        this.endOfTreatment = endOfTreatment;
+        this.treatmentBegin = treatmentBegin;
+        this.treatmentEnd = treatmentEnd;
     }
     return Treatment;
 })(DiaryEntry);
 exports.Treatment = Treatment;
-function getTypeOfTreatmentEnum() {
-    return getArrayOfEnum(typeOfTreatmentEnum);
+function getTreatmentTypeEnum() {
+    return getArrayOfEnum(treatmentTypeEnum);
 }
-exports.getTypeOfTreatmentEnum = getTypeOfTreatmentEnum;
+exports.getTreatmentTypeEnum = getTreatmentTypeEnum;
 function getArrayOfEnum(MyEnum) {
     var typeOfTreatmentEnumArray = new Array();
     Object.keys(MyEnum)
@@ -28,10 +28,10 @@ function getArrayOfEnum(MyEnum) {
         .forEach(function (v) { return typeOfTreatmentEnumArray.push(v); });
     return typeOfTreatmentEnumArray;
 }
-var typeOfTreatmentEnum;
-(function (typeOfTreatmentEnum) {
-    typeOfTreatmentEnum[typeOfTreatmentEnum["heat"] = 0] = "heat";
-    typeOfTreatmentEnum[typeOfTreatmentEnum["acid"] = 1] = "acid";
-    typeOfTreatmentEnum[typeOfTreatmentEnum["other"] = 2] = "other";
-})(typeOfTreatmentEnum || (typeOfTreatmentEnum = {}));
+var treatmentTypeEnum;
+(function (treatmentTypeEnum) {
+    treatmentTypeEnum[treatmentTypeEnum["heat"] = 0] = "heat";
+    treatmentTypeEnum[treatmentTypeEnum["acid"] = 1] = "acid";
+    treatmentTypeEnum[treatmentTypeEnum["other"] = 2] = "other";
+})(treatmentTypeEnum || (treatmentTypeEnum = {}));
 //# sourceMappingURL=Treatment.js.map

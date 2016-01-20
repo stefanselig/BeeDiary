@@ -7,9 +7,9 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Feeding = (function (_super) {
     __extends(Feeding, _super);
-    function Feeding(type, photos, description, date, typeOfFood, amount, proportion) {
+    function Feeding(type, photos, description, date, foodType, amount, proportion) {
         _super.call(this, type, photos, description, date);
-        this.typeOfFood = typeOfFood;
+        this.foodType = foodType;
         this.amount = amount;
         this.proportion = proportion;
     }
@@ -17,7 +17,7 @@ var Feeding = (function (_super) {
 })(DiaryEntry);
 exports.Feeding = Feeding;
 function getTypeOfFoodEnum() {
-    return getArrayOfEnum(typeOfFoodEnum);
+    return getArrayOfEnum(foodTypeEnum);
 }
 exports.getTypeOfFoodEnum = getTypeOfFoodEnum;
 function getArrayOfEnum(MyEnum) {
@@ -27,9 +27,9 @@ function getArrayOfEnum(MyEnum) {
         .forEach(function (v) { return typeOfFoodEnumArray.push(v); });
     return typeOfFoodEnumArray;
 }
-var typeOfFoodEnum;
-(function (typeOfFoodEnum) {
-    typeOfFoodEnum[typeOfFoodEnum["sugar"] = 0] = "sugar";
-    typeOfFoodEnum[typeOfFoodEnum["other"] = 1] = "other";
-})(typeOfFoodEnum || (typeOfFoodEnum = {}));
+var foodTypeEnum;
+(function (foodTypeEnum) {
+    foodTypeEnum[foodTypeEnum["sugar"] = 0] = "sugar";
+    foodTypeEnum[foodTypeEnum["other"] = 1] = "other";
+})(foodTypeEnum || (foodTypeEnum = {}));
 //# sourceMappingURL=Feeding.js.map

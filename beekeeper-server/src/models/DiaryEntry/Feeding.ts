@@ -2,20 +2,20 @@ import DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 
 export class Feeding extends DiaryEntry {
-    typeOfFood: typeOfFoodEnum;
-    amount: number;
-    proportion: string;
+    foodType : foodTypeEnum;
+    amount : number;
+    proportion : string;
     
-    constructor(type, photos, description, date, typeOfFood, amount, proportion) {
+    constructor(type, photos, description, date, foodType, amount, proportion) {
        super(type, photos, description, date);
-       this.typeOfFood = typeOfFood;
+       this.foodType = foodType;
        this.amount = amount;
        this.proportion = proportion;
     }
 }
 
 export function getTypeOfFoodEnum() {
-    return getArrayOfEnum(typeOfFoodEnum);
+    return getArrayOfEnum(foodTypeEnum);
 }
 
 function getArrayOfEnum(MyEnum) {
@@ -26,6 +26,6 @@ function getArrayOfEnum(MyEnum) {
     return typeOfFoodEnumArray;
 }
 
-enum typeOfFoodEnum {
+enum foodTypeEnum {
 	sugar, other
 }
