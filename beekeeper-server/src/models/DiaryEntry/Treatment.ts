@@ -2,22 +2,22 @@ import DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 
 export class Treatment extends DiaryEntry {
-    typeOfTreatment: typeOfTreatmentEnum;
+    treatmentType: treatmentTypeEnum;
     appliance: string;
-    beginOfTreatment: Date;
-    endOfTreatment: Date;
+    treatmentBegin: Date;
+    treatmentEnd : Date;
     
-    constructor(type, photos, description, date, typeOfTreatment, appliance, beginOfTreatment, endOfTreatment) {
+    constructor(type, photos, description, date, treatmentType, appliance, treatmentBegin, treatmentEnd) {
        super(type, photos, description, date);
-       this.typeOfTreatment = typeOfTreatment;
+       this.treatmentType = treatmentType;
        this.appliance = appliance;
-       this.beginOfTreatment = beginOfTreatment;
-       this.endOfTreatment = endOfTreatment;
+       this.treatmentBegin = treatmentBegin;
+       this.treatmentEnd = treatmentEnd;
     }
 }
 
-export function getTypeOfTreatmentEnum() {
-    return getArrayOfEnum(typeOfTreatmentEnum);
+export function getTreatmentTypeEnum() {
+    return getArrayOfEnum(treatmentTypeEnum);
 }
 
 function getArrayOfEnum(MyEnum) {
@@ -28,6 +28,6 @@ function getArrayOfEnum(MyEnum) {
     return typeOfTreatmentEnumArray;
 }
 
-enum typeOfTreatmentEnum {
+enum treatmentTypeEnum {
 	heat, acid, other
 }

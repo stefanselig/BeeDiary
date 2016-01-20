@@ -7,10 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Construction = (function (_super) {
     __extends(Construction, _super);
-    function Construction(type, photos, description, date, swarmBought, notes) {
+    function Construction(type, photos, description, date) {
         _super.call(this, type, photos, description, date);
-        this.swarmBought = swarmBought;
-        this.notes = notes;
     }
     return Construction;
 })(DiaryEntry);

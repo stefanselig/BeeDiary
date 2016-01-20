@@ -7,13 +7,13 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var AcarianControl = (function (_super) {
     __extends(AcarianControl, _super);
-    function AcarianControl(type, photos, description, date, acariansDied, countDays) {
+    function AcarianControl(type, photos, description, date, deadAcarians, countDays) {
         _super.call(this, type, photos, description, date);
         this.countDays = countDays;
-        this.acariansCaseOfDeath = acariansDied;
+        this.deadAcarians = deadAcarians;
     }
     AcarianControl.prototype.getAcarianDeathValue = function () {
-        return this.acariansCaseOfDeath / this.countDays;
+        return this.deadAcarians / this.countDays;
     };
     return AcarianControl;
 })(DiaryEntry);

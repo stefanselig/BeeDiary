@@ -3,6 +3,7 @@ export class DiaryEntry {
     type : entryTypeEnum;
     photos: Photo[];
     description: string;
+    isMarkdownEnabled: boolean; //Still to add in rest.
 
     constructor(type, photos, description, date) {
        this.type = type;
@@ -29,6 +30,6 @@ enum entryTypeEnum {
 }
 
 export class Photo {
-    id: number;
-    photo: string;
+    id : number;
+    content : string;
 }

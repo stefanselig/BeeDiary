@@ -35,7 +35,7 @@ router.route('/diaryEntries').post(function (req, res) {
     var newEntryPhotos = new Array();
     switch (req.body.type) {
         case 'acarianControl': {
-            var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.acariansDied, req.body.countDays);
+            var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.deadAcarians, req.body.countDays);
             var added = addNewEntry(newAcarianControlEntry);
             if (added != OK) {
                 res.send(added);
@@ -46,7 +46,7 @@ router.route('/diaryEntries').post(function (req, res) {
             break;
         }
         case 'construction': {
-            var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.swarmBought, req.body.notes);
+            var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date);
             var added = addNewEntry(newConstructionEntry);
             if (added != 'OK') {
                 res.send(added);
@@ -57,7 +57,7 @@ router.route('/diaryEntries').post(function (req, res) {
             break;
         }
         case 'cutDroneBrood': {
-            var newCutDroneBroodEntry = new CutDroneBrood.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.notes);
+            var newCutDroneBroodEntry = new CutDroneBrood.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description, req.body.date);
             var added = addNewEntry(newCutDroneBroodEntry);
             if (added != 'OK') {
                 res.send(added);
@@ -79,7 +79,7 @@ router.route('/diaryEntries').post(function (req, res) {
             break;
         }
         case 'feeding': {
-            var newFeedingEntry = new Feeding.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.typeOfFood, req.body.amount, req.body.proportion);
+            var newFeedingEntry = new Feeding.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.foodType, req.body.amount, req.body.proportion);
             var added = addNewEntry(newFeedingEntry);
             if (added != 'OK') {
                 res.send(added);
@@ -112,7 +112,7 @@ router.route('/diaryEntries').post(function (req, res) {
             break;
         }
         case 'treatment': {
-            var newTreatmentEntry = new Treatment.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.typeOfTreatment, req.body.appliance, req.body.beginOfTreatment, req.body.endOfTreatment);
+            var newTreatmentEntry = new Treatment.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
             var added = addNewEntry(newTreatmentEntry);
             if (added != 'OK') {
                 res.send(added);
@@ -198,7 +198,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "description": req.body.description,
                     "photos": req.body.photos,
                     "countDays": req.body.countDays,
-                    "acariansCaseOfDeath": req.body.acariansCaseOfDeath
+                    "deadAcarians": req.body.deadAcarians
                 }, function (error, entry) {
                     if (error) {
                         res.send(error);
@@ -216,9 +216,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
-                    "notes": req.body.notes,
-                    "swarmBought": req.body.swarmBought
+                    "photos": req.body.photos
                 }, function (error, entry) {
                     if (error) {
                         res.send(error);
@@ -236,8 +234,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
-                    "notes": req.body.notes
+                    "photos": req.body.photos
                 }, function (error, entry) {
                     if (error) {
                         res.send(error);
@@ -274,7 +271,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "type": req.body.type,
                     "description": req.body.description,
                     "photos": req.body.photos,
-                    "typeOfFood": req.body.typeOfFood,
+                    "foodType": req.body.foodType,
                     "amount": req.body.amount,
                     "proportion": req.body.proportion
                 }, function (error, entry) {
@@ -333,10 +330,10 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "type": req.body.type,
                     "description": req.body.description,
                     "photos": req.body.photos,
-                    "typeOfTreatment": req.body.typeOfTreatment,
+                    "treatmentType": req.body.treatmentType,
                     "appliance": req.body.appliance,
-                    "beginOfTreatment": req.body.beginOfTreatment,
-                    "endOfTreatment": req.body.endOfTreatment
+                    "treatmentBegin": req.body.treatmentBegin,
+                    "treatmentEnd": req.body.treatmentEnd
                 }, function (error, entry) {
                     if (error) {
                         res.send(error);
@@ -352,30 +349,6 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
         }
     });
 });
-/*
-       beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},
-         {
-             "hiveNumber" : req.body.hiveNumber,
-             "hiveName" : req.body.hiveName,
-             "startDate" : req.body.startDate,
-             "description" : req.body.description,
-             "hiveLocation" : newHiveLocation,
-             "source" : newSource,
-             "lost" : newLost,
-             "frameSize" : req.body.frameSize,
-             "frameMaterial" : req.body.frameMaterial,
-             "combConstruction" : req.body.combConstruction
-            }, function(error, hive) {
-            if(error) {
-                res.send(error);
-                console.log('Error at updating one specific BeeHive.');
-            } else {
-                res.json({message: 'BeeHive by Id successfully updated.' });
-                console.log('One specific BeeHive by Id successfully updated.');
-            }
-        });
-    });
-});*/
 // delete a single DiaryEntry by id (accessed at DELETE http://localhost:8080/api/DiaryEntries/diaryEntries/:entry_id)
 router.route('/diaryEntries/:entry_id').delete(function (req, res) {
     database.collection('DiaryEntries', function (error, diaryEntries) {
@@ -403,9 +376,9 @@ router.route('/typeEnum').get(function (req, res) {
 router.route('/foodEnum').get(function (req, res) {
     res.json(Feeding.getTypeOfFoodEnum());
 });
-// gets all Members of the DiaryEntry-Treatment-typeOfTreatmentEnum (accessed at GET http://localhost:8080/api/DiaryEntries/treatmentEnum)    
+// gets all Members of the DiaryEntry-Treatment-treatmentTypeEnum (accessed at GET http://localhost:8080/api/DiaryEntries/treatmentEnum)    
 router.route('/treatmentEnum').get(function (req, res) {
-    res.json(Treatment.getTypeOfTreatmentEnum());
+    res.json(Treatment.getTreatmentTypeEnum());
 });
 module.exports = router;
 //# sourceMappingURL=DiaryEntriesRoute.js.map
