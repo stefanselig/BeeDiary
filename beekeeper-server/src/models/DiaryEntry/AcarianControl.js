@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var AcarianControl = (function (_super) {
     __extends(AcarianControl, _super);
-    function AcarianControl(type, photos, description, date, deadAcarians, countDays) {
-        _super.call(this, type, photos, description, date);
+    function AcarianControl(type, photos, description, date, isMarkdownEnabled, deadAcarians, countDays) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled);
         this.countDays = countDays;
         this.deadAcarians = deadAcarians;
     }

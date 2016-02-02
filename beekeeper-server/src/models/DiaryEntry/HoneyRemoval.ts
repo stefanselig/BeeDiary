@@ -4,8 +4,8 @@ var DiaryEntry = DiaryEntryImport.DiaryEntry;
 export class HoneyRemoval extends DiaryEntry {
     amount: number;
     
-    constructor(type, photos, description, date, amount) {
-       super(type, photos, description, date);
+    constructor(type, photos, description, date, isMarkdownEnabled, amount) {
+       super(type, photos, description, date, isMarkdownEnabled);
        this.amount = amount;
     }
 }

@@ -1,9 +1,10 @@
 var DiaryEntry = (function () {
-    function DiaryEntry(type, photos, description, date) {
+    function DiaryEntry(type, photos, description, date, isMarkdownEnabled) {
         this.type = type;
         this.date = date;
         this.description = description;
         this.photos = photos;
+        this.isMarkdownEnabled = isMarkdownEnabled;
     }
     return DiaryEntry;
 })();

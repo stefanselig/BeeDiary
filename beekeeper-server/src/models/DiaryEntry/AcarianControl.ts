@@ -5,8 +5,8 @@ export class AcarianControl extends DiaryEntry {
 	countDays: number;
 	deadAcarians: number;
     
-    constructor(type, photos, description, date, deadAcarians, countDays) {
-       super(type, photos, description, date);
+    constructor(type, photos, description, date, isMarkdownEnabled, deadAcarians, countDays) {
+       super(type, photos, description, date, isMarkdownEnabled);
        this.countDays = countDays;
        this.deadAcarians = deadAcarians;
     }

@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Construction = (function (_super) {
     __extends(Construction, _super);
-    function Construction(type, photos, description, date) {
-        _super.call(this, type, photos, description, date);
+    function Construction(type, photos, description, date, isMarkdownEnabled) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled);
     }
     return Construction;
 })(DiaryEntry);

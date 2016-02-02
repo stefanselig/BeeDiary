@@ -3,13 +3,14 @@ export class DiaryEntry {
     type : entryTypeEnum;
     photos: Photo[];
     description: string;
-    isMarkdownEnabled: boolean; //Still to add in rest.
+    isMarkdownEnabled: boolean;
 
-    constructor(type, photos, description, date) {
+    constructor(type, photos, description, date, isMarkdownEnabled) {
        this.type = type;
 	   this.date = date;
 	   this.description = description;
 	   this.photos = photos;
+       this.isMarkdownEnabled = isMarkdownEnabled;
     }    
 }
 

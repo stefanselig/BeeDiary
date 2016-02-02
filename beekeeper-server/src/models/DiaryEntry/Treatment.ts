@@ -7,8 +7,8 @@ export class Treatment extends DiaryEntry {
     treatmentBegin: Date;
     treatmentEnd : Date;
     
-    constructor(type, photos, description, date, treatmentType, appliance, treatmentBegin, treatmentEnd) {
-       super(type, photos, description, date);
+    constructor(type, photos, description, date, isMarkdownEnabled, treatmentType, appliance, treatmentBegin, treatmentEnd) {
+       super(type, photos, description, date, isMarkdownEnabled);
        this.treatmentType = treatmentType;
        this.appliance = appliance;
        this.treatmentBegin = treatmentBegin;

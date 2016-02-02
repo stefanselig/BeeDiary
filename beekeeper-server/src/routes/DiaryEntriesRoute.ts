@@ -42,7 +42,7 @@ router.route('/diaryEntries').post(function(req, res) {
         var newEntryPhotos = new Array<DiaryEntry.Photo>();
         switch(req.body.type) {
             case 'acarianControl': {
-                var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date,
+                var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled,
                 req.body.deadAcarians, req.body.countDays);
                 var added = addNewEntry(newAcarianControlEntry);
                 if(added != OK) {
@@ -53,7 +53,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'construction': {
-                var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date);
+                var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled);
                 var added = addNewEntry(newConstructionEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -64,7 +64,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'cutDroneBrood': {
                 var newCutDroneBroodEntry = new CutDroneBrood.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description,
-                req.body.date);
+                req.body.date, req.body.isMarkDownEnabled);
                 var added = addNewEntry(newCutDroneBroodEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -74,7 +74,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'other': {
-                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date);
+                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled);
                 var added = addNewEntry(newOtherEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -85,7 +85,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'feeding': {
                 var newFeedingEntry = new Feeding.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.foodType, req.body.amount, req.body.proportion);
+                req.body.isMarkDownEnabled, req.body.foodType, req.body.amount, req.body.proportion);
                 var added = addNewEntry(newFeedingEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -96,7 +96,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'honeyRemoval': {
                 var newHoneyRemovalEntry = new HoneyRemoval.HoneyRemoval(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.amount);
+                req.body.isMarkDownEnabled, req.body.amount);
                 var added = addNewEntry(newHoneyRemovalEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -106,7 +106,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'loss': {
-                var newLossEntry = new Loss.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.reason);
+                var newLossEntry = new Loss.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.reason);
                 var added = addNewEntry(newLossEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -117,7 +117,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'treatment': {
                 var newTreatmentEntry = new Treatment.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
+                req.body.isMarkDownEnabled, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
                 var added = addNewEntry(newTreatmentEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -205,6 +205,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "countDays" : req.body.countDays,
                 "deadAcarians" : req.body.deadAcarians
                 }, function(error, entry) {
@@ -224,7 +225,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos
+                "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -242,7 +244,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos
+                "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -260,7 +263,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos
+                "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -279,6 +283,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "foodType" : req.body.foodType,
                 "amount" : req.body.amount,
                 "proportion" : req.body.proportion
@@ -300,6 +305,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "amount" : req.body.amount
                 }, function(error, entry) {
                 if(error) {
@@ -319,6 +325,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "reason" : req.body.reason
                 }, function(error, entry) {
                 if(error) {
@@ -338,6 +345,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "treatmentType" : req.body.treatmentType,
                 "appliance" : req.body.appliance,
                 "treatmentBegin" : req.body.treatmentBegin,

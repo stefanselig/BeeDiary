@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Treatment = (function (_super) {
     __extends(Treatment, _super);
-    function Treatment(type, photos, description, date, treatmentType, appliance, treatmentBegin, treatmentEnd) {
-        _super.call(this, type, photos, description, date);
+    function Treatment(type, photos, description, date, isMarkdownEnabled, treatmentType, appliance, treatmentBegin, treatmentEnd) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled);
         this.treatmentType = treatmentType;
         this.appliance = appliance;
         this.treatmentBegin = treatmentBegin;
