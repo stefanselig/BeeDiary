@@ -1,0 +1,10 @@
+<div class="form-group form-inline">
+	<input type="search" placeholder="Search for DiaryEntry" class="form-control"/>
+	<input type="submit" class="btn btn-default" class="form-control"/>
+	<button (click)="createDiaryEntry()" class="btn btn-default" class="form-control">Create New DiaryEntry</button>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<diaryentry *ngFor="#diaryentry of diaryEntries" [diaryentry]="diaryentry" [display]="display" id="diaryEntryContent" class="col-md-1"></diaryentry>	
+	</div>
+</div>

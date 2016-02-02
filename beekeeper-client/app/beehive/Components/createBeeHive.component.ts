@@ -48,20 +48,20 @@ export class CreateBeeHiveComponent {
 	}
 	
 	public callGetCoordinates(): void {
-		var instance = this;
+		// Check if instance is needed
 		this.mapsService
 		.getCoordinates()
 		.then(
 			(locParam: LocationParams) => {
-				instance.location.lat = locParam.lat;
-				instance.location.long = locParam.long;
-				instance.location.address = locParam.address;
+				this.location.lat = locParam.lat;
+				this.location.long = locParam.long;
+				this.location.address = locParam.address;
 			}
 		).then(
-			() => instance.mapsService.getAddress(instance.location)
+			() => this.mapsService.getAddress(this.location)
 		).then(
 			address => {
-				instance.location.address = address;
+				this.location.address = address;
 			}
 		)
 		.catch(

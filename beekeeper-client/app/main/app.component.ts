@@ -6,7 +6,7 @@ import {LogInComponent} from './../login/login.component';
 import {BeeHiveComponent} from './../beehive/Components/beehive.component';
 import {CreateBeeHiveComponent} from './../beehive/Components/createBeeHive.component';
 import {EditBeeHiveComponent} from './../beehive/Components/editBeeHive.component';
-import {DiaryEntryComponent} from './../diaryentry/Components/diaryentry.component';
+import {DiaryEntriesComponent} from './../diaryentry/Components/diaryentries.component';
 import {CreateDiaryEntryComponent} from './../diaryentry/Components/createDiaryEntry.component';
 import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry.component';
 
@@ -21,7 +21,7 @@ import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry
 	{path: '/beehive', name: 'BeeHive', component: BeeHiveComponent},
 	{path: '/createbeehive', name: 'CreateBeeHive', component: CreateBeeHiveComponent},
 	{path: '/editbeehive:id', name: 'EditBeeHive', component: EditBeeHiveComponent},
-	{path: '/diaryentry', name: 'DiaryEntry', component: DiaryEntryComponent},
+	{path: '/diaryentries', name: 'DiaryEntries', component: DiaryEntriesComponent},
 	{path: '/creatediaryentry', name: 'CreateDiaryEntry', component: CreateDiaryEntryComponent},
 	{path: '/editdiaryentry/:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent}
 ])

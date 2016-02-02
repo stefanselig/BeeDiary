@@ -1,10 +1,12 @@
 import {Component} 		from 'angular2/core';
 import {Router}			from 'angular2/router';
 import {RouteParams}	from 'angular2/router';
+import {DiaryEntryComponent} from './diaryentry.component';
 import {DiaryEntryService}	from '../services/diaryentry.service';
 
 @Component({
 	selector: 'EditDiaryEntry',
+	directives: [DiaryEntryComponent],
 	templateUrl: 'app/diaryentry/Templates/editDiaryEntry.template.html',
 	providers: [DiaryEntryService]
 })
@@ -12,22 +14,12 @@ export class EditDiaryEntryComponent {
 	public diaryentry: any;
 	public diaryEntryService: DiaryEntryService;
 	public router: Router;
-	
-	public typeEnum: any[];
-	public treatmentTypes: any[];
-	public feedingTypes: any[];
+	public display: boolean = false;
 	
 	constructor(diaryEntryService: DiaryEntryService, router: Router, params: RouteParams) {
 		this.diaryEntryService = diaryEntryService;
 		this.router = router;
-		
 		this.diaryentry = {};
-		
-		this.typeEnum = [];
-		this.treatmentTypes = [];
-		this.feedingTypes = [];
-		
-		this.loadEnums();
 		this.loadSelectedDiaryEntry(params.get('id'));
 	}
 	
@@ -49,45 +41,12 @@ export class EditDiaryEntryComponent {
 			err => console.log(err), 
 			()  => {
 				console.log("Update completed.");
-				this.router.navigate(['DiaryEntry']);
+				this.router.navigate(['DiaryEntries']);
 			}
 		);
 	}
 	
-	public loadEnums(): void {
-		this.diaryEntryService
-		.getEnum('typeEnum')
-		.subscribe(
-			res => this.typeEnum = res.slice(),
-			err => console.log(err),
-			()  => console.log("TypeEnum loaded.") 
-		);
-		
-		this.diaryEntryService
-		.getEnum('foodEnum')
-		.subscribe(
-			res => this.feedingTypes = res.slice(),
-			err => console.log(err),
-			()  => console.log("FoodEnum loaded.")
-		);
-		
-		this.diaryEntryService
-		.getEnum('treatmentEnum')
-		.subscribe(
-			res => this.treatmentTypes = res.slice(),
-			err => console.log(err),
-			()  => console.log("TreatmentEnum loaded.")
-		);
-	}
-	
 	public cancel(): void {
-		this.router.navigate(['DiaryEntry']);
-	}
-	
-	public parseMd(): any {
-		if (this.diaryentry.description == null) 
-			return "";
-		else 
-			return marked(this.diaryentry.description);
+		this.router.navigate(['DiaryEntries']);
 	}
 }
