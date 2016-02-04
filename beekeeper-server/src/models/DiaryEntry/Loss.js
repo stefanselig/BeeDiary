@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Loss = (function (_super) {
     __extends(Loss, _super);
-    function Loss(type, photos, description, date, isMarkdownEnabled, reason) {
-        _super.call(this, type, photos, description, date, isMarkdownEnabled);
+    function Loss(type, photos, description, date, isMarkdownEnabled, beeHiveName, reason) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveName);
         this.reason = reason;
     }
     return Loss;

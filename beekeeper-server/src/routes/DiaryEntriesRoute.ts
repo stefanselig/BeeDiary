@@ -43,7 +43,7 @@ router.route('/diaryEntries').post(function(req, res) {
         switch(req.body.type) {
             case 'acarianControl': {
                 var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled,
-                req.body.deadAcarians, req.body.countDays);
+                req.body.beeHiveName, req.body.deadAcarians, req.body.countDays);
                 var added = addNewEntry(newAcarianControlEntry);
                 if(added != OK) {
                     res.send(added);
@@ -53,7 +53,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'construction': {
-                var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled);
+                var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName);
                 var added = addNewEntry(newConstructionEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -64,7 +64,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'cutDroneBrood': {
                 var newCutDroneBroodEntry = new CutDroneBrood.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description,
-                req.body.date, req.body.isMarkDownEnabled);
+                req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName);
                 var added = addNewEntry(newCutDroneBroodEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -74,7 +74,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'other': {
-                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled);
+                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName);
                 var added = addNewEntry(newOtherEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -85,7 +85,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'feeding': {
                 var newFeedingEntry = new Feeding.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.isMarkDownEnabled, req.body.foodType, req.body.amount, req.body.proportion);
+                req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.foodType, req.body.amount, req.body.proportion);
                 var added = addNewEntry(newFeedingEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -96,7 +96,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'honeyRemoval': {
                 var newHoneyRemovalEntry = new HoneyRemoval.HoneyRemoval(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.isMarkDownEnabled, req.body.amount);
+                req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.amount);
                 var added = addNewEntry(newHoneyRemovalEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -106,7 +106,8 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'loss': {
-                var newLossEntry = new Loss.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.reason);
+                var newLossEntry = new Loss.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled,
+                req.body.beeHiveName, req.body.reason);
                 var added = addNewEntry(newLossEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -117,7 +118,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'treatment': {
                 var newTreatmentEntry = new Treatment.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.isMarkDownEnabled, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
+                req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
                 var added = addNewEntry(newTreatmentEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -206,6 +207,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "description" : req.body.description,
                 "photos" : req.body.photos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "countDays" : req.body.countDays,
                 "deadAcarians" : req.body.deadAcarians
                 }, function(error, entry) {
@@ -245,7 +247,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -264,7 +267,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : req.body.photos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -284,6 +288,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "description" : req.body.description,
                 "photos" : req.body.photos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "foodType" : req.body.foodType,
                 "amount" : req.body.amount,
                 "proportion" : req.body.proportion
@@ -306,6 +311,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "description" : req.body.description,
                 "photos" : req.body.photos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "amount" : req.body.amount
                 }, function(error, entry) {
                 if(error) {
@@ -326,6 +332,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "description" : req.body.description,
                 "photos" : req.body.photos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "reason" : req.body.reason
                 }, function(error, entry) {
                 if(error) {
@@ -346,6 +353,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "description" : req.body.description,
                 "photos" : req.body.photos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "treatmentType" : req.body.treatmentType,
                 "appliance" : req.body.appliance,
                 "treatmentBegin" : req.body.treatmentBegin,

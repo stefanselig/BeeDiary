@@ -1,10 +1,11 @@
 var DiaryEntry = (function () {
-    function DiaryEntry(type, photos, description, date, isMarkdownEnabled) {
+    function DiaryEntry(type, photos, description, date, isMarkdownEnabled, beeHiveName) {
         this.type = type;
         this.date = date;
         this.description = description;
         this.photos = photos;
         this.isMarkdownEnabled = isMarkdownEnabled;
+        this.beeHiveName = beeHiveName;
     }
     return DiaryEntry;
 })();

@@ -14,6 +14,7 @@
         "ejs": "^2.3.1",
 		"cors": "latest",
         "typescript": "latest",
-        "mongodb": "latest"
+        "mongodb": "latest",
+        "passport-google-oauth": "latest"
     }
 }

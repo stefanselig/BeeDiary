@@ -4,13 +4,15 @@ export class DiaryEntry {
     photos: Photo[];
     description: string;
     isMarkdownEnabled: boolean;
+    beeHiveName: string;
 
-    constructor(type, photos, description, date, isMarkdownEnabled) {
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveName) {
        this.type = type;
 	   this.date = date;
 	   this.description = description;
 	   this.photos = photos;
        this.isMarkdownEnabled = isMarkdownEnabled;
+       this.beeHiveName = beeHiveName;
     }    
 }
 
