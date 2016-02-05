@@ -33,7 +33,9 @@ var entryTypeEnum;
     entryTypeEnum[entryTypeEnum["other"] = 7] = "other";
 })(entryTypeEnum || (entryTypeEnum = {}));
 var Photo = (function () {
-    function Photo() {
+    function Photo(id, content) {
+        this.id = id;
+        this.content = content;
     }
     return Photo;
 })();

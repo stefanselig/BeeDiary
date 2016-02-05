@@ -34,5 +34,10 @@ enum entryTypeEnum {
 
 export class Photo {
     id : number;
-    content : string;
+    content : Buffer;
+    
+    constructor(id, content) {
+        this.id = id;
+        this.content = content;
+    }
 }

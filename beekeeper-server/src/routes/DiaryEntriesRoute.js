@@ -33,6 +33,9 @@ router.route('/diaryEntries').post(function (req, res) {
     var OK = 'OK';
     // save the DiaryEntry and check for errors
     var newEntryPhotos = new Array();
+    for (var currPhotoData in req.body.photos) {
+        newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), currPhotoData));
+    }
     switch (req.body.type) {
         case 'acarianControl': {
             var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.deadAcarians, req.body.countDays);
@@ -190,13 +193,17 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
             console.error(error);
             return;
         }
+        var updateEntryPhotos = new Array();
+        for (var currPhotoData in req.body.photos) {
+            updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), currPhotoData));
+        }
         switch (req.body.type) {
             case 'acarianControl': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName,
                     "countDays": req.body.countDays,
@@ -218,7 +225,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled
                 }, function (error, entry) {
                     if (error) {
@@ -237,7 +244,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName
                 }, function (error, entry) {
@@ -257,7 +264,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName
                 }, function (error, entry) {
@@ -277,7 +284,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName,
                     "foodType": req.body.foodType,
@@ -300,7 +307,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName,
                     "amount": req.body.amount
@@ -321,7 +328,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName,
                     "reason": req.body.reason
@@ -342,7 +349,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "date": req.body.date,
                     "type": req.body.type,
                     "description": req.body.description,
-                    "photos": req.body.photos,
+                    "photos": updateEntryPhotos,
                     "isMarkdownEnabled": req.body.isMarkdownEnabled,
                     "beeHiveName": req.body.beeHiveName,
                     "treatmentType": req.body.treatmentType,
@@ -379,6 +386,45 @@ router.route('/diaryEntries/:entry_id').delete(function (req, res) {
             else {
                 res.json({ message: 'DiaryEntry by Id successfully deleted.' });
                 console.log('One specific DiaryEntry by Id successfully deleted.');
+            }
+        });
+    });
+});
+// deletes one specific photo of an diaryentry (accessed at GET http://localhost:8080/api/DiaryEntries/deleteOnePhoto)    
+router.route('/deleteOnePhoto').get(function (req, res) {
+    database.collection('DiaryEntries', function (error, diaryEntries) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        diaryEntries.updateOne({ "_id": new ObjectId(req.params.entry_id) }, { $pull: { "photos.id": req.body.photoId } }, function (error, entry) {
+            if (error) {
+                res.send(error);
+                console.log('Error at deleting one Photo.');
+            }
+            else {
+                res.json({ message: 'One Photo successfully deleted.' });
+                console.log('One specific Photo successfully deleted.');
+            }
+        });
+    });
+});
+// adds one specific photo of an diaryentry (accessed at GET http://localhost:8080/api/DiaryEntries/addOnePhoto)    
+router.route('/addOnePhoto').get(function (req, res) {
+    database.collection('DiaryEntries', function (error, diaryEntries) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        var newPhoto = new DiaryEntry.Photo(new ObjectId, req.body.photo);
+        diaryEntries.updateOne({ "_id": new ObjectId(req.params.entry_id) }, { $addToSet: { photos: newPhoto } }, function (error, entry) {
+            if (error) {
+                res.send(error);
+                console.log('Error at adding one Photo.');
+            }
+            else {
+                res.json({ message: 'One Photo successfully added.' });
+                console.log('One specific Photo successfully added.');
             }
         });
     });
