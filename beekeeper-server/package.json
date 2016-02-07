@@ -15,6 +15,7 @@
 		"cors": "latest",
         "typescript": "latest",
         "mongodb": "latest",
-        "passport-google-oauth": "latest"
+        "passport-google-oauth": "latest",
+        "validator": "latest"
     }
 }

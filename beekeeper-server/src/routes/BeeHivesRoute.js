@@ -6,6 +6,8 @@ var mongodb = require('mongodb');
 var config = require('./config');
 var express = require('express');
 var router = express.Router();
+var validator = require('validator');
+validator.isEmail('foo@bar.com');
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
 var databaseServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true });

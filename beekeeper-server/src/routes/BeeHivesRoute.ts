@@ -9,6 +9,8 @@ var config = require('./config');
 var express = require('express');
 var router = express.Router();
 
+var validator = require('validator');
+
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
 var databaseServer =  new mongodb.Server('localhost', 27017, {auto_reconnect: true});
@@ -31,9 +33,9 @@ router.get('/', function(req, res) {
 // create a new BeeHive (accessed at POST http://localhost:8080/api/BeeHives/beeHives)
 router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
-        var hiveLocation = new BeeHive.HiveLocation(req.body.lat, req.body.long, req.body.address, req.body.markerId);
-        var source = new BeeHive.Source(req.body.type, req.body.origin);
-        var lost = new BeeHive.Lost(req.body.isLost, req.body.reason);
+        var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.long, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+        var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
+        var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description,
         hiveLocation, source, lost, req.body.frameSize, req.body.frameMaterial, req.body.combConstruction); //create a new instance of the BeeHive-model
         
@@ -102,9 +104,9 @@ router.route('/beeHives/:hive_id').put(function(req, res) {
            console.error(error);
            return;
        }
-       var newHiveLocation = new BeeHive.HiveLocation(req.body.lat, req.body.long, req.body.address, req.body.markerId);
-       var newSource = new BeeHive.Source(req.body.type, req.body.origin);
-       var newLost = new BeeHive.Lost(req.body.isLost, req.body.reason);
+       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.long, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+       var newSource = new BeeHive.Source(req.body.source.type, req.body.source.origin);
+       var newLost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},
          {
              "hiveNumber" : req.body.hiveNumber,
