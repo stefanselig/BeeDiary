@@ -9,6 +9,7 @@ import {EditBeeHiveComponent} from './../beehive/Components/editBeeHive.componen
 import {DiaryEntriesComponent} from './../diaryentry/Components/diaryentries.component';
 import {CreateDiaryEntryComponent} from './../diaryentry/Components/createDiaryEntry.component';
 import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry.component';
+import {Dashboard} from './../dashboard/Components/dashboard.component';
 
 @Component({
 	selector: 'beekeeper',
@@ -18,12 +19,13 @@ import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry
 @RouteConfig([
 	{path: '/signup', name: 'SignUp', component: SignUpComponent},
 	{path: '/login', name: 'LogIn', component: LogInComponent},
-	{path: '/beehive', name: 'BeeHive', component: BeeHiveComponent},
+	{path: '/beehive', name: 'BeeHives', component: BeeHiveComponent},
 	{path: '/createbeehive', name: 'CreateBeeHive', component: CreateBeeHiveComponent},
-	{path: '/editbeehive:id', name: 'EditBeeHive', component: EditBeeHiveComponent},
+	{path: '/editbeehive/:id', name: 'EditBeeHive', component: EditBeeHiveComponent},
 	{path: '/diaryentries', name: 'DiaryEntries', component: DiaryEntriesComponent},
 	{path: '/creatediaryentry', name: 'CreateDiaryEntry', component: CreateDiaryEntryComponent},
-	{path: '/editdiaryentry/:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent}
+	{path: '/editdiaryentry/:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent},
+	{path: '/dashboard', name: 'DashBoard', component: Dashboard}
 ])
 
 export class AppComponent {}
