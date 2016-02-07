@@ -3,51 +3,39 @@ import {Router} 		from 'angular2/router';
 import {BeeHiveService}	from '../services/beehive.service';
 import {MapsService}	from '../services/maps.service';
 import {CreateBeeHiveComponent} from './createBeeHive.component';
+import {ViewBeeHiveComponent} from './viewBeeHive.component';
 
 @Component({
-	selector: 'BeeHive',
-	templateUrl: 'app/beehive/Templates/beehive.template.html',
-	providers: [BeeHiveService, MapsService]
+	selector: 'BeeHives',
+	templateUrl: 'app/beehive/Templates/beehives.template.html',
+	providers: [BeeHiveService, MapsService],
+	directives: [ViewBeeHiveComponent]
 })
 export class BeeHiveComponent {
-	// These fields will be assigned trough REST data:
-	public beehives: any[];
+	public allBeehives: any[] = [];
+	public beehives: any[] = [];
+	public elementsStrings: string[] = [];
 	
 	public beehiveService: BeeHiveService;
 	public mapsService: MapsService;
 	public router: Router;
 	
 	constructor(beeHiveService: BeeHiveService, mapsService: MapsService, router: Router) {
-		this.beehives = [];
-		
 		this.beehiveService = beeHiveService;
 		this.mapsService = mapsService;
 		this.router = router;
-		
-		
-		this.beehives.push({
-			number: 1,
-			name: "Beehive 1",
-			location: {
-				address: "",
-				lat: 0,
-				long: 0 
-			},
-			source: {
-				type: ""
-			},
-			lost: {
-				isLost: true,
-				reason: ""
-			}
-		});
-		
-		//this.loadInitialDataFromWebService();	
+		this.loadInitialDataFromWebService();
 	}
 	
 	public loadInitialDataFromWebService(): void {
 		this.beehiveService.beeHives.subscribe(
-			beeHives => this.beehives = beeHives.slice(),
+			res => {
+				this.allBeehives = res.slice();
+				this.beehives = this.allBeehives.slice();
+				this.getStringsForSearch();
+				this.beehives.map(e => e.hiveLocation.marker = this.mapsService.getMarker(e.hiveLocation));
+				this.mapsService.centerMap();
+			},
 			error => console.error("Error" + error),
 			() => {
 				console.log("Completed");
@@ -56,18 +44,36 @@ export class BeeHiveComponent {
 		);
 	}
 	
+	public getStringsForSearch(): void {
+		this.beehives.map(e => this.elementsStrings.push(JSON.stringify(e)));
+	}
+	
+	
 	public callGetCoordinates(index: number) {
-		this.mapsService.getCoordinates(locParam => {
-			this.beehives[index].location.lat = locParam.lat;
-			this.beehives[index].location.long = locParam.long;
-		});
+		this.mapsService
+		.getCoordinates()
+		.done(res => {
+			this.beehives[index].location.lat = res.lat;
+			this.beehives[index].location.long = res.long;
+		})
+		.catch(err => console.error(err));
 	}
 	
 	public createBeeHive(): void {
 		this.router.navigate(['CreateBeeHive']);
 	}
 	
-	public editBeeHive(id: number): void {
-		this.router.navigate(['EditBeeHive'], { id: id });
+	public search(formContent: any): void {
+		var query: string = formContent.value.query;
+		this.beehives.length = 0;
+		if (query == undefined)
+			this.beehives = this.allBeehives.slice();
+		else {
+			this.elementsStrings
+			.filter(e => e.toUpperCase().indexOf(query.toUpperCase()) != -1)
+			.forEach(e => this.allBeehives
+				.filter(x => x._id == JSON.parse(e)._id)
+				.map(y => this.beehives.push(y)));	
+		}
 	}
 }

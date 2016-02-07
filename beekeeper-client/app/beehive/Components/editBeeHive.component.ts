@@ -14,85 +14,91 @@ import {CreateBeeHiveComponent} from './createBeeHive.component';
 	providers: [BeeHiveService, MapsService]
 })
 export class EditBeeHiveComponent {
-	// Somehow load selected beehive into component
-	public beehive: any;
+	public beehive: any = {hiveLocation: {}, source: {}, lost: {}};
 	
 	public beehiveService: BeeHiveService;
 	public mapsService: MapsService;
 	public router: Router;
+	public sourceTypes: any[];
+	public frameSizes: any[];
+	public frameMaterials: any[];
+	public combConstructions: any[];
 	
 	constructor(beeHiveService: BeeHiveService, mapsService: MapsService, router: Router, params: RouteParams) {
 		this.beehiveService = beeHiveService;
 		this.mapsService = mapsService;
 		this.router = router;
-		
-		//this.loadSelectedBeeHiveFromWebService(params.get('id'));
-		
-		this.beehive = {
-			number: 1,
-			name: "Beehive 1",
-			location: {
-				address: "",
-				lat: 0,
-				long: 0 
-			},
-			source: {
-				type: ""
-			},
-			lost: {
-				isLost: true,
-				reason: ""
-			}
-		};
-		
+		this.loadEnums();
+		this.loadSelectedBeeHive(params.get('id'));
 	}
 	
-	public loadSelectedBeeHiveFromWebService(id: number): void {
-		this.beehive = this.beehiveService.getBeeHiveById(id).subscribe(
-			selectedBeeHive => this.beehive = selectedBeeHive,
-			error => console.error("Error" + error),
-			() => {
-				console.log("Completed");
-				console.log(this.beehive);
-			}
+	public loadEnums(): void {
+		this.beehiveService
+			.loadEnums()
+			.then(
+				res => {
+					this.sourceTypes = this.beehiveService.sourceTypes.slice();
+					this.frameSizes = this.beehiveService.frameSizes.slice();
+					this.frameMaterials = this.beehiveService.frameMaterials.slice();
+					this.combConstructions = this.beehiveService.combConstructions.slice();
+				}
+			)
+			.catch(
+				err => console.log(err)
+			);
+	}
+	
+	public loadSelectedBeeHive(id: string): void {
+		this.beehiveService
+		.getBeeHiveById(id)
+		.subscribe(
+			res => {
+				this.beehive = res;
+				console.log("result: ");
+				console.log(res);
+			},
+			err => console.error(err),
+			() => console.log("Completed")
 		);
 	}
 	
 	public callGetCoordinates(index: number) {
-		var instance = this;
 		this.mapsService
 		.getCoordinates()
 		.then(
 			(locParam: LocationParams) => {
-				instance.beehive.location.lat = locParam.lat;
-				instance.beehive.location.long = locParam.long;
-				instance.beehive.location.address = locParam.address;
+				this.beehive.hiveLocation.lat = locParam.lat;
+				this.beehive.hiveLocation.long = locParam.long;
+				this.beehive.hiveLocation.address = locParam.address;
 			}
 		).then(
-			() => {
-				instance.mapsService
-					.getAddress(instance.beehive.location)
-					.then(
-						address => instance.beehive.location.address = address
-					)
-					.catch(
-						(status, error_message) => {
-							console.log(status);
-							console.log(error_message);
-						}
-					);
-			}
+			() => this.mapsService.getAddress(this.beehive.hiveLocation)
+		).then(
+			address => this.beehive.hiveLocation.address = address
 		).catch(
-			error => console.log(error)
+			(error, error_message?) => {
+				console.log(error);
+				if (error_message != undefined) {
+					console.log(error_message);	
+				}
+			}
 		);
 	}
 	
 	public updateBeeHive(): void {
-		//this.beehiveService.updateBeeHive(this.beehive);
-		this.router.navigate(['BeeHive']);
+		this.beehiveService
+		.updateBeeHive(this.beehive)
+		.subscribe(
+			res => console.log(res),
+			err => console.log(err),
+			() => {
+				console.log("Update completed");
+				this.router.navigate(['BeeHives']);
+			}
+		);
 	}
 	
 	public cancel(): void {
-		this.router.navigate(['BeeHive']);
+		this.router.navigate(['BeeHives']);
 	}
 }

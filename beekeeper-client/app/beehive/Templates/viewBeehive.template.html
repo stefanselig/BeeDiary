@@ -1,0 +1,61 @@
+<table class="table table-bordered" (click)="showDetails()">
+	<tr>
+		<th colspan="2">
+			<h3 style="display: inline">Bee Hive {{beehive.hiveNumber}}</h3>
+			<h5 style="display: inline"><small>Click for Details</small></h5>
+			<button (click)="editBeeHive(beehive._id)"  class="btn btn-default" style="float: right;">Edit BeeHive</button>
+		</th>
+	</tr>
+	<tr>
+		<td>Name: </td>
+		<td>{{beehive.hiveName}}</td>
+	</tr>
+	<tr>
+		<td>Address: </td>
+		<td>{{beehive.hiveLocation.address}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Lat: </td>
+		<td>{{beehive.hiveLocation.lat}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Long: </td>
+		<td>{{beehive.hiveLocation.long}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Description: </td>
+		<td>{{beehive.description}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Source Type: </td>
+		<td>{{beehive.source.type}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Source Origin</td>
+		<td>{{beehive.source.origin}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Start date:</td>
+		<td>{{beehive.startDate}}</td>
+	</tr>
+	<tr *ngIf="beehive.lost.isLost && viewDetails" class="ng-animate box">
+		<td>Lost:</td>
+		<td>{{beehive.lost.isLost}}</td>
+	</tr>
+	<tr *ngIf="beehive.lost.isLost && viewDetails" class="ng-animate box">
+		<td>Reason:</td>
+		<td>{{beehive.lost.reason}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Beutenform: </td>
+		<td>{{beehive.frameSize}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Beutenmaterial: </td>
+		<td>{{beehive.frameMaterial}}</td>
+	</tr>
+	<tr *ngIf="viewDetails" class="ng-animate box">
+		<td>Wabenbau: </td>
+		<td>{{beehive.combConstruction}}</td>
+	</tr>
+</table>
