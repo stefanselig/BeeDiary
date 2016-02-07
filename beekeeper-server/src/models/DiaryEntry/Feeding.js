@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var Feeding = (function (_super) {
     __extends(Feeding, _super);
-    function Feeding(type, photos, description, date, foodType, amount, proportion) {
-        _super.call(this, type, photos, description, date);
+    function Feeding(type, photos, description, date, isMarkdownEnabled, beeHiveName, foodType, amount, proportion) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveName);
         this.foodType = foodType;
         this.amount = amount;
         this.proportion = proportion;

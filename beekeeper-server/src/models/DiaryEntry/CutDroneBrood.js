@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var CutDroneBrood = (function (_super) {
     __extends(CutDroneBrood, _super);
-    function CutDroneBrood(type, photos, description, date) {
-        _super.call(this, type, photos, description, date);
+    function CutDroneBrood(type, photos, description, date, isMarkdownEnabled, beeHiveName) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveName);
     }
     return CutDroneBrood;
 })(DiaryEntry);

@@ -1,9 +1,11 @@
 var DiaryEntry = (function () {
-    function DiaryEntry(type, photos, description, date) {
+    function DiaryEntry(type, photos, description, date, isMarkdownEnabled, beeHiveName) {
         this.type = type;
         this.date = date;
         this.description = description;
         this.photos = photos;
+        this.isMarkdownEnabled = isMarkdownEnabled;
+        this.beeHiveName = beeHiveName;
     }
     return DiaryEntry;
 })();
@@ -31,7 +33,9 @@ var entryTypeEnum;
     entryTypeEnum[entryTypeEnum["other"] = 7] = "other";
 })(entryTypeEnum || (entryTypeEnum = {}));
 var Photo = (function () {
-    function Photo() {
+    function Photo(id, content) {
+        this.id = id;
+        this.content = content;
     }
     return Photo;
 })();

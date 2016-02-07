@@ -25,12 +25,14 @@ var port = process.env.PORT || 8080;        // set our port
 var users = require('./routes/usersRoute');
 var beeHives = require('./routes/beeHivesRoute');
 var diaryEntries = require('./routes/diaryEntriesRoute');
+var diagrams = require('./routes/diagramRoute');
  
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api/Users/', users);
 app.use('/api/BeeHives/', beeHives);
 app.use('/api/DiaryEntries/', diaryEntries);
+app.use('/api/Diagrams/', diagrams)
 
 // START THE SERVER
 // =============================================================================

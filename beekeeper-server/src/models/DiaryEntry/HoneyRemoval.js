@@ -7,8 +7,8 @@ var DiaryEntryImport = require('./DiaryEntry');
 var DiaryEntry = DiaryEntryImport.DiaryEntry;
 var HoneyRemoval = (function (_super) {
     __extends(HoneyRemoval, _super);
-    function HoneyRemoval(type, photos, description, date, amount) {
-        _super.call(this, type, photos, description, date);
+    function HoneyRemoval(type, photos, description, date, isMarkdownEnabled, beeHiveName, amount) {
+        _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveName);
         this.amount = amount;
     }
     return HoneyRemoval;

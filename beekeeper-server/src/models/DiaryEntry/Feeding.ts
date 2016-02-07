@@ -6,8 +6,8 @@ export class Feeding extends DiaryEntry {
     amount : number;
     proportion : string;
     
-    constructor(type, photos, description, date, foodType, amount, proportion) {
-       super(type, photos, description, date);
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveName, foodType, amount, proportion) {
+       super(type, photos, description, date, isMarkdownEnabled, beeHiveName);
        this.foodType = foodType;
        this.amount = amount;
        this.proportion = proportion;

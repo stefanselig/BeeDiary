@@ -3,13 +3,16 @@ export class DiaryEntry {
     type : entryTypeEnum;
     photos: Photo[];
     description: string;
-    isMarkdownEnabled: boolean; //Still to add in rest.
+    isMarkdownEnabled: boolean;
+    beeHiveName: string;
 
-    constructor(type, photos, description, date) {
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveName) {
        this.type = type;
 	   this.date = date;
 	   this.description = description;
 	   this.photos = photos;
+       this.isMarkdownEnabled = isMarkdownEnabled;
+       this.beeHiveName = beeHiveName;
     }    
 }
 
@@ -31,5 +34,10 @@ enum entryTypeEnum {
 
 export class Photo {
     id : number;
-    content : string;
+    content : Buffer;
+    
+    constructor(id, content) {
+        this.id = id;
+        this.content = content;
+    }
 }

@@ -40,10 +40,13 @@ router.route('/diaryEntries').post(function(req, res) {
         var OK = 'OK';
         // save the DiaryEntry and check for errors
         var newEntryPhotos = new Array<DiaryEntry.Photo>();
+        for(var currPhotoData in req.body.photos) {
+            newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), currPhotoData))
+        }
         switch(req.body.type) {
             case 'acarianControl': {
-                var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.deadAcarians, req.body.countDays);
+                var newAcarianControlEntry = new AcarianControl.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled,
+                req.body.beeHiveName, req.body.deadAcarians, req.body.countDays);
                 var added = addNewEntry(newAcarianControlEntry);
                 if(added != OK) {
                     res.send(added);
@@ -53,7 +56,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'construction': {
-                var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date);
+                var newConstructionEntry = new Construction.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName);
                 var added = addNewEntry(newConstructionEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -64,7 +67,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'cutDroneBrood': {
                 var newCutDroneBroodEntry = new CutDroneBrood.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description,
-                req.body.date);
+                req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName);
                 var added = addNewEntry(newCutDroneBroodEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -74,7 +77,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'other': {
-                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date);
+                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveName);
                 var added = addNewEntry(newOtherEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -85,7 +88,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'feeding': {
                 var newFeedingEntry = new Feeding.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.foodType, req.body.amount, req.body.proportion);
+                req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.foodType, req.body.amount, req.body.proportion);
                 var added = addNewEntry(newFeedingEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -96,7 +99,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'honeyRemoval': {
                 var newHoneyRemovalEntry = new HoneyRemoval.HoneyRemoval(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.amount);
+                req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.amount);
                 var added = addNewEntry(newHoneyRemovalEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -106,7 +109,8 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'loss': {
-                var newLossEntry = new Loss.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.reason);
+                var newLossEntry = new Loss.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled,
+                req.body.beeHiveName, req.body.reason);
                 var added = addNewEntry(newLossEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -117,7 +121,7 @@ router.route('/diaryEntries').post(function(req, res) {
             }
             case 'treatment': {
                 var newTreatmentEntry = new Treatment.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
+                req.body.isMarkDownEnabled, req.body.beeHiveName, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
                 var added = addNewEntry(newTreatmentEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -197,6 +201,10 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
             console.error(error);
             return;
         }
+        var updateEntryPhotos = new Array<DiaryEntry.Photo>();
+            for(var currPhotoData in req.body.photos) {
+                updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), currPhotoData))
+            }
         switch(req.body.type) {
             case 'acarianControl': {
                 diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
@@ -204,7 +212,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos,
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "countDays" : req.body.countDays,
                 "deadAcarians" : req.body.deadAcarians
                 }, function(error, entry) {
@@ -224,7 +234,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -242,7 +253,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -260,7 +273,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -278,7 +293,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos,
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "foodType" : req.body.foodType,
                 "amount" : req.body.amount,
                 "proportion" : req.body.proportion
@@ -299,7 +316,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos,
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "amount" : req.body.amount
                 }, function(error, entry) {
                 if(error) {
@@ -318,7 +337,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos,
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "reason" : req.body.reason
                 }, function(error, entry) {
                 if(error) {
@@ -337,7 +358,9 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "date" : req.body.date,
                 "type" : req.body.type,
                 "description" : req.body.description,
-                "photos" : req.body.photos,
+                "photos" : updateEntryPhotos,
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveName" : req.body.beeHiveName,
                 "treatmentType" : req.body.treatmentType,
                 "appliance" : req.body.appliance,
                 "treatmentBegin" : req.body.treatmentBegin,
@@ -359,7 +382,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
     
 // delete a single DiaryEntry by id (accessed at DELETE http://localhost:8080/api/DiaryEntries/diaryEntries/:entry_id)
 router.route('/diaryEntries/:entry_id').delete(function(req, res) {
-        database.collection('DiaryEntries', function(error, diaryEntries) {
+       database.collection('DiaryEntries', function(error, diaryEntries) {
        if(error) {
            console.error(error);
            return;
@@ -374,7 +397,47 @@ router.route('/diaryEntries/:entry_id').delete(function(req, res) {
           }
        });
     });
+});
+
+// deletes one specific photo of an diaryentry (accessed at GET http://localhost:8080/api/DiaryEntries/deleteOnePhoto)    
+router.route('/deleteOnePhoto').get(function(req, res) {
+    database.collection('DiaryEntries', function(error, diaryEntries) {
+       if(error) {
+           console.error(error);
+           return;
+       } 
+       diaryEntries.updateOne({"_id": new ObjectId(req.params.entry_id)}, { $pull: { "photos.id" : req.body.photoId}}, function(error, entry) {
+          if(error) {
+                res.send(error);
+                console.log('Error at deleting one Photo.');
+          } else {
+          res.json({message: 'One Photo successfully deleted.'});
+          console.log('One specific Photo successfully deleted.')
+          }
+       });
     });
+});
+
+// adds one specific photo of an diaryentry (accessed at GET http://localhost:8080/api/DiaryEntries/addOnePhoto)    
+router.route('/addOnePhoto').get(function(req, res) {
+       database.collection('DiaryEntries', function(error, diaryEntries) {
+       if(error) {
+           console.error(error);
+           return;
+       } 
+       var newPhoto = new DiaryEntry.Photo(new ObjectId, req.body.photo);
+       diaryEntries.updateOne({"_id": new ObjectId(req.params.entry_id)}, { $addToSet: { photos : newPhoto}}, function(error, entry) {
+          if(error) {
+                res.send(error);
+                console.log('Error at adding one Photo.');
+          } else {
+          res.json({message: 'One Photo successfully added.'});
+          console.log('One specific Photo successfully added.')
+          }
+       });
+    });
+});
+
     
 // gets all Members of the DiaryEntry-EntryTypeENUM (accessed at GET http://localhost:8080/api/DiaryEntries/typeEnum)    
 router.route('/typeEnum').get(function(req, res) {
