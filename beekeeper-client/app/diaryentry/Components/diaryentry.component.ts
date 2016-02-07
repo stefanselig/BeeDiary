@@ -22,19 +22,22 @@ export class DiaryEntryComponent implements OnInit {
 		this.diaryEntryService = diaryEntryService;
 		this.diaryentry = {};
 		this.router = router;
-		
+		this.loadEnums();
+	}
+	
+	public loadEnums(): void {
 		this.diaryEntryService
-		.loadEnums()
-		.then(
-			res => {
-				this.typeEnum = this.diaryEntryService.typeEnum.slice();
-				this.feedingTypes = this.diaryEntryService.feedingTypes.slice();
-				this.treatmentTypes = this.diaryEntryService.treatmentTypes.slice();
-			}
-		)
-		.catch(
-			err => console.log(err)
-		);
+			.loadEnums()
+			.then(
+				res => {
+					this.typeEnum = this.diaryEntryService.typeEnum.slice();
+					this.feedingTypes = this.diaryEntryService.feedingTypes.slice();
+					this.treatmentTypes = this.diaryEntryService.treatmentTypes.slice();
+				}
+			)
+			.catch(
+				err => console.log(err)
+			);
 	}
 	
 	public parseMd(): any {

@@ -1,0 +1,82 @@
+<table class="table table-bordered">
+	<tr>
+		<th colspan="2">Diary Entry <button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default" style="float: right;">Edit</button></th>
+	</tr>
+	<tr>
+		<td>Type: </td>
+		<td>{{diaryentry.type}}</td>
+	</tr>
+	<tr>
+		<td>Date: </td>
+		<td>{{diaryentry.date}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'acarianControl'">
+		<td>Days Count:</td>
+		<td>{{diaryentry.countDays}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'acarianControl'">
+		<td>Dead Acarians: </td>
+		<td>{{diaryentry.deadAcarians}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'construction'">
+		<td></td>
+		<td></td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'treatment'">
+		<td>Treatment Type:</td>
+		<td>{{diaryentry.treatmentType}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'treatment'">
+		<td>Appliance:</td>
+		<td>{{diaryentry.appliance}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'treatment'">
+		<td>Start date:</td>
+		<td>{{diaryentry.treatmentBegin}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'treatment'">
+		<td>End date (Optional):</td>
+		<td>{{diaryentry.treatmentEnd}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'feeding'">
+		<td>Feeding Type: </td>
+		<td>{{diaryentry.feedingType}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'treatment'">
+		<td>Amount:</td>
+		<td>{{diaryentry.amount}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'treatment'">
+		<td>Ratio:</td>
+		<td>{{diaryentry.proportion}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'honeyRemoval'">
+		<td>Amount:</td>
+		<td>{{diaryentry.amount}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'loss'">
+		<td>Reason:</td>
+		<td>{{diaryentry.reason}}</td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'cutDroneBrood'">
+		<td></td>
+		<td></td>
+	</tr>
+	<tr *ngIf="diaryentry.type == 'other'">
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td colspan="2"><div [innerHTML]="parseMd()"></div></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			Photos:
+			<div class="row">
+				<div *ngFor="#photo of diaryentry.photos">
+					<img [src]="photo.content" class="img-responsive col-sm-4"/>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
