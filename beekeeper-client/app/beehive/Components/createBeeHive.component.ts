@@ -30,15 +30,23 @@ export class CreateBeeHiveComponent {
 		this.frameMaterials = [];
 		this.combConstructions = [];
 		
-		// Placeholder until web service for that use case is available:
-		this.sourceTypes = ["aa", "bb", "cv", "ddf", "Other"];
-		this.frameSizes = ["aa", "bb", "cv", "ddf", "edfa"];
-		this.frameMaterials = ["aa", "bb", "cv", "ddf", "edfa"];
-		this.combConstructions = ["aa", "bb", "cv", "ddf", "edfa"];
-		
 		this.beehiveService = beeHiveService;
 		this.mapsService = mapsService;
 		this.router = router;
+		
+		this.beehiveService
+		.loadEnums()
+		.then(
+			res => {
+				this.sourceTypes = this.beehiveService.sourceTypes.slice();
+				this.frameSizes = this.beehiveService.frameSizes.slice();
+				this.frameMaterials = this.beehiveService.frameMaterials.slice();
+				this.combConstructions = this.beehiveService.combConstructions.slice();
+			}
+		)
+		.catch(
+			err => console.log(err)
+		);
 		
 		this.location = {
 			lat: 0,
@@ -75,15 +83,26 @@ export class CreateBeeHiveComponent {
 	}
 	
 	public createNewBeeHive(createBeeHiveForm: any): void {
-		//this.beehiveService.createBeeHive(this.newBeeHive);
+		/*this.beehiveService.createBeeHive(this.newBeeHive);
 		
 		console.log(createBeeHiveForm.value);
 		
 		this.newBeeHive = {};
-		this.router.navigate(['BeeHive']);
+		this.router.navigate(['BeeHives']);*/
+		this.newBeeHive = createBeeHiveForm.value;
+		
+		this.beehiveService
+		.createBeeHive(this.newBeeHive)
+		.then(
+			res => {
+				console.log(res);
+				this.router.navigate(['BeeHives']);	
+			}
+		)
+		.catch(err => console.log(err));
 	}
 	
 	public cancel(): void {
-		this.router.navigate(['BeeHive']);
+		this.router.navigate(['BeeHives']);
 	}
 }

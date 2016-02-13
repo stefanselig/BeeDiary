@@ -2,13 +2,26 @@
 	<head>
 		<base href="/">
 		<script src="./node_modules/angular2/bundles/angular2-polyfills.js"></script>
+		
 		<script src="./node_modules/systemjs/dist/system.src.js"></script>
+		
 		<script src="./node_modules/rxjs/bundles/Rx.js"></script>
+		
 		<script src="./node_modules/angular2/bundles/angular2.dev.js"></script>
 		<script src="./node_modules/angular2/bundles/router.dev.js"></script>
 		<script src="./node_modules/angular2/bundles/http.dev.js"></script>
+		
 		<script src="./node_modules/marked/lib/marked.js"></script>
+		
+		<script src="./node_modules/d3/d3.js"></script>
+		
+		<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="./node_modules/jquery-ui-browserify/dist/jquery-ui.js"></script>
+		
+		<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD52xcKSvVXXDFZt43dW0oUR3mR3K_v-vk"></script>
+		
 		<script>
 			System.config({
 				packages: {
@@ -20,10 +33,16 @@
 			});
 			System.import('./app/boot');
 		</script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
+		
+		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
-	<body>
+	
+	<body class="container">
 		<beekeeper>The application is loading ...</beekeeper>
 	</body>
-	<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	
 </html>

@@ -18,7 +18,10 @@
     "zone.js": "0.5.10",
 	"traceur": "latest",
 	"bootstrap": "latest",
-	"marked": "latest"
+	"marked": "latest",
+	"d3": "latest",
+	"jquery": "latest",
+	"jquery-ui-browserify": "latest"
   },
   "devDependencies": {
     "typescript": "^1.7.3",

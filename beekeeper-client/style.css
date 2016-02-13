@@ -2,18 +2,16 @@ html {
 	height:100%;
 	margin: 0; 
 	padding: 0;
+	position: relative;
+    min-height: 100%;
 }
 #map {
-	height: 80%;
+	height: 75%;
 	width: 65%;
 	float: right;
 }
 
-#beeHiveContent {
-	float: left;
-	height: 80%;
-	overflow: auto;
-}
+/* Beehive styling */
 #createBeeHiveContent {
 	height: 80%;
 	width: 30%;
@@ -27,14 +25,108 @@ html {
 	float: left;
 }
 
-#diaryEntryContent {
-	max-width: 100%;
-	min-width: 20%;
+/*#beeHiveContent {
 	float: left;
+	height: 80%;
+	overflow: auto;
+}*/
+
+.ui-datepicker,
+.ui-datepicker table,
+.ui-datepicker tr,
+.ui-datepicker td,
+.ui-datepicker th {
+    margin: 0;
+    padding: 0;
 }
-#createDiaryEntryForm {
-	width: 30%;
+.ui-datepicker {
+    display: none;
+	cursor: default;
 }
-#editDiaryEntryContent {
-	width: 30%;
+
+#calendar {
+	border: 1px solid #ddd;
+}
+.ui-datepicker-header {
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;
+}
+ 
+.ui-datepicker-title { text-align: center; }
+.ui-datepicker-next {
+	float: right;
+}
+.ui-datepicker-calendar th {
+    padding-top: 15px;
+    padding-bottom: 10px;
+ 
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+.ui-datepicker-calendar td {
+    padding: 0 7px;
+ 
+    text-align: center;
+    line-height: 26px;
+}
+.ui-datepicker-calendar .ui-state-default {
+    display: block;
+    width: 26px;
+    outline: none;
+ 
+    text-decoration: none;
+    color: grey;
+ 
+    border: 1px solid transparent;
+}
+.ui-datepicker-other-month .ui-state-default { color: black; }
+.ui-datepicker-calendar {
+	width: 100%;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    color: black;
+    border: 1px solid black;
+}
+
+/* Chart styling */
+.bar {
+  fill: steelblue;
+}
+.axis text {
+  font: 10px sans-serif;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.chart {
+	font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+.arc text {
+	font: 10px sans-serif;
+	text-anchor: middle;
+}
+.arc path {
+	stroke: #fff;
+}
+
+/* Angular2 Animation */
+.box {
+  transition: all 0.2s ease-in-out;
+}
+.box.ng-enter {
+  opacity: 0;
+  height: 0;
+}
+.box.ng-enter-active {
+  opacity: 1;
+}
+.box.ng-leave-active {
+  opacity: 0;
+  height: 0;
 }

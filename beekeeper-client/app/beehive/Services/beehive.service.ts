@@ -6,9 +6,17 @@ import 'rxjs/add/operator/map';
 export class BeeHiveService {
 	http: Http;
 	beeHives: any;
+	generalHeaders: Headers;
+	
+	sourceTypes: any[];
+	frameSizes: any[];
+	frameMaterials: any[];
+	combConstructions: any[];
 	
 	constructor(http:Http) {
 		this.http = http;
+		this.generalHeaders = new Headers();
+		this.generalHeaders.append('Content-Type', 'application/json');
 		this.getBeeHives();
 	}
 	
@@ -20,45 +28,84 @@ export class BeeHiveService {
 		);
 	}
 	
-	public getBeeHiveById(id: number): any {
-		// Somehow pass ID
+	public getBeeHiveById(id: string): Observable {
 		return this.http
-		.get()
-		.map(
-			response => response.json()	
-		);
+		.get('http://localhost:8080/api/BeeHives/beeHives/' + id,
+			{headers: this.generalHeaders})
+		.map(res => res.json());
 	}
 	
-	public updateBeeHive(beeHive: any): void {
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		
-		// Somehow pass ID
-		this.http
-		.post(
-			'http://localhost:8080/api/BeeHives/beeHives',
+	public updateBeeHive(beeHive: any): Observable {
+		return this.http
+		.put(
+			'http://localhost:8080/api/BeeHives/beeHives/' + beeHive._id,
 			JSON.stringify(beeHive),
-			{
-				headers: headers
-			}
-		).subscribe(
-			res => window.alert(res.json())
-		);
+			{ headers: this.generalHeaders }
+		).map(res => res.json());
 	}
 	
-	public createBeeHive(beeHive: any): void {
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		
-		this.http
-		.post(
-			'http://localhost:8080/api/BeeHives/beeHives',
-			JSON.stringify(beeHive),
-			{
-				headers: headers
-			}
-		).subscribe(
-			res => window.alert(res.json())
-		);
+	public createBeeHive(beeHive: any): Promise {
+		return new Promise((resolve, reject) => {
+			this.http
+			.post(
+				'http://localhost:8080/api/BeeHives/beeHives',
+				JSON.stringify(beeHive),
+				{
+					headers: this.generalHeaders
+				}
+			)
+			.map(res => res.json())
+			.subscribe(
+				res => resolve(res),
+				err => reject(err)
+			);
+		});
+	}
+	
+	public getEnum(enumType: string): Promise {
+		return new Promise((resolve, reject) => {
+			this.http
+			.get(
+				'http://localhost:8080/api/BeeHives/' + enumType, 
+				{ headers: this.generalHeaders})
+			.map(res => res.json())
+			.subscribe(
+				res => resolve(res),
+				err => reject(err)
+			)
+		});
+	}
+	
+	public loadEnums(): Promise {
+		return new Promise((resolve, reject) => {
+			this.getEnum('sourceEnum')
+			.then(
+				res => { this.sourceTypes = res.slice(); }
+			)
+			.then(
+				() => this.getEnum('sizeEnum')
+			)
+			.then(
+				res => { this.frameSizes = res.slice(); }
+			)
+			.then(
+				() => this.getEnum('materialEnum')
+			)
+			.then(
+				res => { this.frameMaterials = res.slice(); }
+			)
+			.then(
+				() => this.getEnum('constructionEnum')
+			)
+			.then(
+				res => {this.combConstructions = res.slice();}
+			)
+			.then( 
+				() => resolve("Finished loading enums.")
+			)
+			.catch(
+				err => reject(err)
+			);
+		});
 	}
 }

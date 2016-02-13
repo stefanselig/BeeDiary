@@ -69,7 +69,7 @@
 			<div class="form-group">
 				<label> Beutenmaterial: </label>
 				<select [(ngModel)]="beehive.frameMaterial" class="form-control">
-					<option *ngFor="#frameMaterial of frameMaterialEnum" [value]="frameMaterial">
+					<option *ngFor="#frameMaterial of frameMaterials" [value]="frameMaterial">
 						{{frameMaterial}}
 					</option>
 				</select>
@@ -78,14 +78,14 @@
 			<div class="form-group">
 				<label> Wabenbau: </label>
 				<select [(ngModel)]="beehive.combConstruction" class="form-control">
-					<option *ngFor="#combConstruction of combConstrunctionEnum" [value]="combConstruction">
+					<option *ngFor="#combConstruction of combConstructions" [value]="combConstruction">
 						{{combConstruction}}
 					</option>
 				</select>
 			</div>
 			
-			<input type="submit" class="btn btn-default" value="Submit Changes"/>
-			<input type="button" class="btn btn-default" value="Cancel" (click)="cancel()"/>
+			<input (click)="updateBeeHive()" type="submit" class="btn btn-default" value="Update BeeHive"/>
+			<input (click)="cancel()" type="button" class="btn btn-default" value="Cancel"/>
 		</div>
 	</div>
 </div>

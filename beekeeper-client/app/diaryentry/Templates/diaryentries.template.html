@@ -1,10 +1,13 @@
-<div class="form-group form-inline">
-	<input type="search" placeholder="Search for DiaryEntry" class="form-control"/>
-	<input type="submit" class="btn btn-default" class="form-control"/>
-	<button (click)="createDiaryEntry()" class="btn btn-default" class="form-control">Create New DiaryEntry</button>
-</div>
-<div class="container-fluid">
-	<div class="row">
-		<diaryentry *ngFor="#diaryentry of diaryEntries" [diaryentry]="diaryentry" [display]="display" id="diaryEntryContent" class="col-md-1"></diaryentry>	
+<h1>Your Diary Entries: </h1>
+<div class="row">
+	<div class="form-group form-inline">
+		<form (ngSubmit)="search(searchForm)" #searchForm="ngForm" style="display: inline;">
+			<input type="search" ngControl="query" placeholder="Search for DiaryEntry" class="form-control"/>
+			<input type="submit" class="btn btn-default" class="form-control"/>
+		</form>
+		<button (click)="createDiaryEntry()" class="btn btn-default" class="form-control">Create New DiaryEntry</button>
+	</div>
+	<div class="col-sm-8" id="diaryEntryContainer">
+		<viewdiaryentry *ngFor="#diaryentry of diaryEntries" [diaryentry]="diaryentry" [display]="display" id="diaryEntryContent" class="col-sm-6"></viewdiaryentry>
 	</div>
 </div>
