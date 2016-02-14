@@ -35,13 +35,13 @@ export class BeeHive {
 
 export class HiveLocation {
 	lat: number;
-	long: number;
+	lng: number;
 	address: string;
     markerId: number;
     
-    constructor(lat, long, address, markerId) {
+    constructor(lat, lng, address, markerId) {
         this.lat = lat;
-        this.long = long;
+        this.lng = lng;
         this.address = address;
         this.markerId = markerId;
     }

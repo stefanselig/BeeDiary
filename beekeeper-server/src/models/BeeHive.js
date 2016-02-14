@@ -15,9 +15,9 @@ var BeeHive = (function () {
 })();
 exports.BeeHive = BeeHive;
 var HiveLocation = (function () {
-    function HiveLocation(lat, long, address, markerId) {
+    function HiveLocation(lat, lng, address, markerId) {
         this.lat = lat;
-        this.long = long;
+        this.lng = lng;
         this.address = address;
         this.markerId = markerId;
     }

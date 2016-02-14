@@ -2,7 +2,7 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
-import User = require('../models/User');
+/*import User = require('../models/User');
 import mongodb = require('mongodb');
 
 
@@ -20,7 +20,7 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-/*Callable with GET on http://localhost:8080/api/*/
+// Callable with GET on http://localhost:8080/api/
 router.get('/', function(req, res) {
     res.json({ message: 'API is online and ready to receive requests! - User' });   
 });
@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
 // create a user (accessed at POST http://localhost:8080/api/users)
 router.route('/users').post(function(req, res) {
         // save the user and check for errors
-        var user = new User.User(req.body.name, req.body.email, req.body.password);  //create a new instance of the user-model
+        //var user = new User.User(req.body.name, req.body.email, req.body.password);  //create a new instance of the user-model
         console.log(JSON.stringify(user));
         
         database.collection('Users', function(error, users) {
@@ -134,4 +134,4 @@ router.route('/users/:user_id').delete(function(req, res) {
     });
     });
 
-module.exports = router;
+module.exports = router;*/

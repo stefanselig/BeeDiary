@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
         if (req.body.hiveLocation != null && req.body.source != null && req.body.lost != null) {
-            var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.long, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+            var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
             var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
             var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         
@@ -109,7 +109,7 @@ router.route('/beeHives/:hive_id').put(function(req, res) {
            console.error(error);
            return;
        }
-       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.long, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
        var newSource = new BeeHive.Source(req.body.source.type, req.body.source.origin);
        var newLost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},

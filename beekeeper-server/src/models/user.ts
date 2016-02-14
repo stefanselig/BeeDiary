@@ -1,11 +1,15 @@
+var bcrypt = require('bcrypt-nodejs');
+
 export class User {
-    name: string;
-    email: string;
-    password: string;
+    id : string;
+    token : string;
+    email : string;
+    name : string;
     
-    constructor(name, email, password) {
+    constructor(id, token, email, name) {
+       this.id = id;
+       this.token = token;
        this.email = email;
-       this.password = password;
        this.name = name;
     }
 }
