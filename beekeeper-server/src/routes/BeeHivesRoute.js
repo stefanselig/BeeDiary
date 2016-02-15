@@ -1,7 +1,7 @@
 ///<reference path='../../typings/node/node.d.ts'/>
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
-var BeeHive = require('../models/BeeHive');
+var BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
 var mongodb = require('mongodb');
 var config = require('./config');
 var express = require('express');

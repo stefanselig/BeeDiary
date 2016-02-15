@@ -2,7 +2,7 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
-import BeeHive = require('../models/BeeHive');
+import BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
 import mongodb = require('mongodb');
 
 var config = require('./config');
