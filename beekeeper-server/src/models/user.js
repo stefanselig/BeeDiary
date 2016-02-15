@@ -1,7 +1,9 @@
+var bcrypt = require('bcrypt-nodejs');
 var User = (function () {
-    function User(name, email, password) {
+    function User(id, token, email, name) {
+        this.id = id;
+        this.token = token;
         this.email = email;
-        this.password = password;
         this.name = name;
     }
     return User;

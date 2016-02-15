@@ -11,6 +11,7 @@ var AcarianControl = (function (_super) {
         _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveName);
         this.countDays = countDays;
         this.deadAcarians = deadAcarians;
+        this.acarianDeathValue = this.getAcarianDeathValue();
     }
     AcarianControl.prototype.getAcarianDeathValue = function () {
         return this.deadAcarians / this.countDays;

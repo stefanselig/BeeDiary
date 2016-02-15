@@ -33,29 +33,34 @@ router.get('/', function(req, res) {
 // create a new BeeHive (accessed at POST http://localhost:8080/api/BeeHives/beeHives)
 router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
-        var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.long, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
-        var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
-        var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
-        var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description,
-        hiveLocation, source, lost, req.body.frameSize, req.body.frameMaterial, req.body.combConstruction); //create a new instance of the BeeHive-model
+        if (req.body.hiveLocation != null && req.body.source != null && req.body.lost != null) {
+            var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+            var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
+            var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         
-        database.collection('BeeHives', function(error, beeHives) {
-            if(error) {
-                console.error(error);
-                return;
-            }
-            beeHives.insertOne(newHive, function(error, hive) {
+            var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description,
+            hiveLocation, source, lost, req.body.frameSize, req.body.frameMaterial, req.body.combConstruction); //create a new instance of the BeeHive-model
+            
+            database.collection('BeeHives', function(error, beeHives) {
                 if(error) {
-                    console.error('Error at adding a new BeeHive.')
                     console.error(error);
-                    res.send(error);
                     return;
-                } else {
-                    res.json({message: 'BeeHive created!' });
-                    console.log('New BeeHive created.');
                 }
-            })
-        });
+                beeHives.insertOne(newHive, function(error, hive) {
+                    if(error) {
+                        console.error('Error at adding a new BeeHive.')
+                        console.error(error);
+                        res.send(error);
+                        return;
+                    } else {
+                        res.json({message: 'BeeHive created!' });
+                        console.log('New BeeHive created.');
+                    }
+                })
+            });
+        } else {
+            res.json({message: 'Nested objects can not be null! (hiveLocation, lost, source)'})
+        }
     });
     
 // gets all BeeHives (accessed at GET http://localhost:8080/api/BeeHives/beeHives)    
@@ -104,7 +109,7 @@ router.route('/beeHives/:hive_id').put(function(req, res) {
            console.error(error);
            return;
        }
-       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.long, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
        var newSource = new BeeHive.Source(req.body.source.type, req.body.source.origin);
        var newLost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},
