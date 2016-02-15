@@ -28,12 +28,6 @@ import {MapsService} from './../beehive/services/maps.service';
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a [routerLink]="['SignUp']">Sign Up</a>
-					</li>
-					<li>
-						<a [routerLink]="['LogIn']">Log In</a>
-					</li>
-					<li>
 						<a [routerLink]="['BeeHives']">BeeHives</a>
 					</li>
 					<li>

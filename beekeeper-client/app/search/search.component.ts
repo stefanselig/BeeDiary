@@ -3,8 +3,8 @@ import {Component, AfterContentChecked, EventEmitter}	from 'angular2/core';
 	selector: 'search',
 	template: `
 		<form (ngSubmit)="search(searchForm)" #searchForm="ngForm" style="display: inline;">
-			<input type="search" ngControl="query" [placeholder]="'Search for ' + name" class="form-control"/>
-			Use filter: 
+			<input type="search" ngControl="query" [placeholder]="'Suche nach ' + name" class="form-control"/>
+			<!--Use filter: 
 			<input type="checkbox" #useFilter (click)="true"/>
 			<div *ngIf="useFilter.checked" style="display:inline;">
 				Filter by: 
@@ -13,8 +13,10 @@ import {Component, AfterContentChecked, EventEmitter}	from 'angular2/core';
 						{{opt}}
 					</option>
 				</select>
-			</div>
-			<input type="submit" class="btn btn-default" class="form-control"/>
+			</div>-->
+			<button type="submit" class="btn btn-default" class="form-control">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</button>
 		</form>
 	`,
 	inputs: ['collection', 'searchStrings', 'name'],

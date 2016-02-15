@@ -11,16 +11,18 @@ import {SearchComponent}	from './../../search/search.component';
 @Component({
 	selector: 'BeeHive',
 	template: `
-		<h1>Your Beehives: </h1>
+		<h1>Deine Bienenstöcke: </h1>
 		<div class="row">
 			<div class="form-group form-inline">
-				<search [collection]="allBeehives" [searchStrings]="beehiveStrings" [name]="'Beehives'" (OnSearchResult)="retrieveSearchResults($event)"></search>
-				<button (click)="createBeeHive()" class="btn btn-default" class="form-control">Create New BeeHive</button>
+				<search [collection]="allBeehives" [searchStrings]="beehiveStrings" [name]="'Bienenstöcken'" (OnSearchResult)="retrieveSearchResults($event)"></search>
+				<button (click)="createBeeHive()" class="btn btn-default form-control">
+					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+				</button>
 			</div>
-			<div class="col-sm-4" style="overflow: auto; height: 70%;">
+			<div class="col-sm-8" style="overflow: auto; height: 70%;">
 				<viewbeehive *ngFor="#beehive of beehives" [beehive]="beehive"></viewbeehive>
 			</div>
-			<map class="col-sm-8" (afterMapInit)="initMarkers($event)" [latitude]="48" [longitude]="13"></map>
+			<map class="col-sm-4" (afterMapInit)="initMarkers($event)" [latitude]="48" [longitude]="13"></map>
 		</div>
 	`,
 	providers: [BeeHiveService],

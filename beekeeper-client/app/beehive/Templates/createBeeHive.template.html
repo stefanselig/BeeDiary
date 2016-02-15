@@ -1,9 +1,9 @@
-<h1> BeeHive </h1>
+<h1> Bienenstock </h1>
 <div class="beehiveForm col-sm-4">
 		<form (ngSubmit)="createNewBeeHive(createBeeHiveForm)" #createBeeHiveForm="ngForm">
 			<div class="form-group">
-				<label> Number: </label>
-				<input type="number" ngControl="hiveNumber" placeholder="Number" class="form-control" />
+				<label> Nummer: </label>
+				<input type="number" ngControl="hiveNumber" placeholder="Nummer" class="form-control" />
 			</div>
 			
 			<div class="form-group">
@@ -12,47 +12,48 @@
 			</div>
 			
 			<div class="form-group">
-				<h3> Location: </h3>
-				<label> Address: </label>
-				<input type="text" ngControl="address" placeholder="Address" class="form-control" [(ngModel)]="location.address" />
-				<label> Latitude: </label>
-				<input type="text" ngControl="lat" placeholder="Latitude" class="form-control" [(ngModel)]="location.lat"/>
-				<label> Longitude: </label>
-				<input type="text" ngControl="lng" placeholder="Longitude" class="form-control" [(ngModel)]="location.lng"/>
-				<input type="button" (click)="callGetCoordinates()" class="btn btn-default" value="Get GPS Position">
+				<label> Adresse: </label>
+				<input type="text" ngControl="address" placeholder="Adresse" class="form-control" [(ngModel)]="location.address" />
+				<label> Lat: </label>
+				<input type="text" ngControl="lat" placeholder="Längengrad" class="form-control" [(ngModel)]="location.lat"/>
+				<label> Lng: </label>
+				<input type="text" ngControl="lng" placeholder="Breitengrad" class="form-control" [(ngModel)]="location.lng"/>
+				<button (click)="callGetCoordinates()" class="btn btn-default">
+					<span class="glyphicon glyphicon-map-marker" aria-hiden="true"></span>
+				</button>
 			</div>
 			
 			<div class="form-group">
-				<label>Description: </label>
-				<input type="text" ngControl="description" placeholder="Description" class="form-control">
+				<label>Beschreibung: </label>
+				<input type="text" ngControl="description" placeholder="Beschreibung" class="form-control">
 			</div>
 			
 			<div class="form-group">
-				<label> Source: </label>
+				<label> Quelle: </label>
 				<select class="form-control" ngControl="type" [(ngModel)]="sourceTypeValue">
 					<option *ngFor="#sourceType of sourceTypes" [value]="sourceType">
 						{{sourceType}}
 					</option>
 				</select>
 				<div *ngIf="sourceTypeValue == 'Other'">
-					<label>Alternate source type:</label>
-					<input type="text" placeholder="Source Type" ngControl="sourceTypeOtherText" class="form-control"/><!-- case: free text -->
+					<label>Alternativer Quellentyp:</label>
+					<input type="text" placeholder="Quellentyp" ngControl="sourceTypeOtherText" class="form-control"/><!-- case: free text -->
 				</div>
-				<label> Source origin: (Not required): </label>
+				<label> Quellursprung: (Nicht verpflichtend)</label>
 				<input type="number" placeholder="Source Origin" class="form-control" ngControl="origin" />
 			</div>
 			
 			<div class="form-group">
-				<label> Startdate: </label>
-				<input type="date" placeholder="Start date" ngControl="startDate" class="form-control" />
+				<label> Startdatum: </label>
+				<input type="date" placeholder="Startdatum" ngControl="startDate" class="form-control" />
 			</div>
 			
 			<div class="form-group">
-				<label> Lost? </label>
+				<label> Verlust? </label>
 				<input type="checkbox" ngControl="isLost" [(ngModel)]="isLost" />
 				<div *ngIf="isLost">
-					<label> Reason for Loss: </label>
-					<input type="text" placeholder="Reason" ngControl="reason" class="form-control" />
+					<label> Verlustgrund: </label>
+					<input type="text" placeholder="Grund" ngControl="reason" class="form-control" />
 				</div>
 			</div>
 			

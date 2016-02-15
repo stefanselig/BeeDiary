@@ -1,9 +1,11 @@
 <table class="table table-bordered" (click)="showDetails()">
 	<tr>
 		<th colspan="2">
-			<h3 style="display: inline">Bee Hive {{beehive.hiveNumber}}</h3>
-			<h5 style="display: inline"><small>Click for Details</small></h5>
-			<button (click)="editBeeHive(beehive._id)" class="btn btn-default" style="float: right;">Edit BeeHive</button>
+			<h3 style="display: inline">Bienenstock {{beehive.hiveNumber}}</h3>
+			<h5 style="display: inline"><small>Für Details klicken</small></h5>
+			<button (click)="editBeeHive(beehive._id)" class="btn btn-default" style="float: right;">
+				<span class="gyphicon glyphicon-pencil" aria-hidden="true"></span>
+			</button>
 		</th>
 	</tr>
 	<tr>
@@ -11,7 +13,7 @@
 		<td>{{beehive.hiveName}}</td>
 	</tr>
 	<tr>
-		<td>Address: </td>
+		<td>Adresse: </td>
 		<td>{{beehive.hiveLocation.address}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
@@ -19,31 +21,31 @@
 		<td>{{beehive.hiveLocation.lat}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Long: </td>
+		<td>Lng: </td>
 		<td>{{beehive.hiveLocation.lng}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Description: </td>
+		<td>Beschreibung: </td>
 		<td>{{beehive.description}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Source Type: </td>
+		<td>Quelltyp: </td>
 		<td>{{beehive.source.type}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Source Origin</td>
+		<td>Quellursprung: </td>
 		<td>{{beehive.source.origin}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Start date:</td>
+		<td>Startdatum:</td>
 		<td>{{beehive.startDate}}</td>
 	</tr>
 	<tr *ngIf="beehive.lost.isLost && viewDetails" class="ng-animate box">
-		<td>Lost:</td>
+		<td>Verlust:</td>
 		<td>{{beehive.lost.isLost}}</td>
 	</tr>
 	<tr *ngIf="beehive.lost.isLost && viewDetails" class="ng-animate box">
-		<td>Reason:</td>
+		<td>Grund:</td>
 		<td>{{beehive.lost.reason}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
