@@ -3,6 +3,7 @@
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
 import BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
+import Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 import mongodb = require('mongodb');
 
 var config = require('./config');
@@ -34,7 +35,7 @@ router.get('/', function(req, res) {
 router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
         if (req.body.hiveLocation != null && req.body.source != null && req.body.lost != null) {
-            var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+            var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId, req.body.hiveLocation.position);
             var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
             var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         
@@ -109,7 +110,7 @@ router.route('/beeHives/:hive_id').put(function(req, res) {
            console.error(error);
            return;
        }
-       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId);
+       var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId, req.body.hiveLocation.position);
        var newSource = new BeeHive.Source(req.body.source.type, req.body.source.origin);
        var newLost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
         beeHives.findOneAndUpdate({"_id": new ObjectId(req.params.hive_id)},
@@ -157,22 +158,22 @@ router.route('/beeHives/:hive_id').delete(function(req, res) {
     
 // gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
 router.route('/sourceEnum').get(function(req, res) {
-        res.json(BeeHive.getSourceEnum());
+        res.json(Utilities.getArrayOfEnum(BeeHive.sourceEnum));
 });
 
 // gets all Members of the BeeHive-FrameSizeEnum (accessed at GET http://localhost:8080/api/BeeHives/sizeEnum)    
 router.route('/sizeEnum').get(function(req, res) {
-        res.json(BeeHive.getFrameSizeEnum());
+        res.json(Utilities.getArrayOfEnum(BeeHive.frameSizeEnum));
 });
 
 // gets all Members of the BeeHive-FrameMaterialEnum (accessed at GET http://localhost:8080/api/DiaryEntries/materialEnum)    
 router.route('/materialEnum').get(function(req, res) {
-        res.json(BeeHive.getFrameMaterialEnum());
+        res.json(Utilities.getArrayOfEnum(BeeHive.frameMaterialEnum));
 });
 
 // gets all Members of the BeeHive-CombConstructionEnum (accessed at GET http://localhost:8080/api/DiaryEntries/constructionEnum)    
 router.route('/constructionEnum').get(function(req, res) {
-        res.json(BeeHive.getCombConstructionEnum());
+        res.json(Utilities.getArrayOfEnum(BeeHive.combConstructionEnum));
 });
     
 module.exports = router;
