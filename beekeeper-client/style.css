@@ -5,25 +5,17 @@ html {
 	position: relative;
     min-height: 100%;
 }
-#map {
+
+.beehiveForm {
+	height: 70%;
+	overflow: auto;
+}
+
+/*#map {
 	height: 75%;
 	width: 65%;
 	float: right;
-}
-
-/* Beehive styling */
-#createBeeHiveContent {
-	height: 80%;
-	width: 30%;
-	overflow: auto;
-	float: left;
-}
-#editBeeHiveContent {
-	height: 80%;
-	width: 30%;
-	overflow: auto;
-	float: left;
-}
+}*/
 
 /*#beeHiveContent {
 	float: left;
@@ -129,4 +121,53 @@ html {
 .box.ng-leave-active {
   opacity: 0;
   height: 0;
+}
+
+
+/* navbar styling */
+/*.affix {
+	color: green;
+}
+.affix-top {
+	color: red;
+}
+.affix-bottom {
+	color: blue;
+}*/
+
+/*.divide-nav{
+  height: 50px;
+  background-color: #428bca;
+}
+
+.divide-text{
+    color:#fff;
+    line-height: 20px;
+    font-size:20px;
+    padding: 15px 0;
+}
+
+.affix {
+  top: 50px;
+  width:100%;
+}
+
+.filler{
+  min-height: 2000px;
+}
+
+.navbar-form {
+   padding-left: 0;
+}
+
+.navbar-collapse{
+   padding-left:0; 
+}*/
+.affix {
+  top: 50px;
+  /*width:100%;*/
+}
+
+#dateNav{
+	z-index:9999;
 }

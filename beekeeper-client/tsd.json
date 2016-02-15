@@ -13,6 +13,9 @@
     },
     "d3/d3.d.ts": {
       "commit": "d6c51c607bd90c8bf0e065fabc41bc3f937425df"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "3030a4be536b6530c06b80081f1333dc0de4d703"
     }
   }
 }
