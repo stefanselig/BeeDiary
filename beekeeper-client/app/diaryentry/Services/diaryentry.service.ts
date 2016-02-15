@@ -1,42 +1,34 @@
 import {Injectable}	from 'angular2/core';
-import {Http}		from 'angular2/http';
-import {Headers}	from 'angular2/http';
+import {Http, Headers}		from 'angular2/http';
 import 'rxjs/add/operator/map';
-import 'rxjs/Observable';
+import {Observable}	from 'rxjs/Observable';
 
 @Injectable()
 export class DiaryEntryService {
-	http: Http;
-	generalHeaders: Headers;
-	public typeEnum: any[];
-	public treatmentTypes: any[];
-	public feedingTypes: any[];
+	public generalHeaders: Headers;
+	public typeEnum: any[] = [];
+	public treatmentTypes: any[] = [];
+	public feedingTypes: any[] = [];
 	
-	constructor(http:Http) {
-		this.http = http;
-		
+	constructor(public http:Http) {
 		this.generalHeaders = new Headers();
 		this.generalHeaders.append('Content-Type', 'application/json');
-		
-		this.typeEnum = [];
-		this.treatmentTypes = [];
-		this.feedingTypes = [];
 	}
 	
-	public getDiaryEntries(): Observable {
+	public getDiaryEntries(): Observable<any> {
 		return this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries')
 		.map(res => res.json());
 	}
 	
-	public getDiaryEntryById(id: string): Observable {
+	public getDiaryEntryById(id: string): Observable<any> {
 		return this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries/' + id,
 			{ headers: this.generalHeaders})
 		.map(res => res.json());
 	}
 	
-	public updateDiaryEntry(diaryEntry: any): Observable {
+	public updateDiaryEntry(diaryEntry: any): Observable<any> {
 		return this.http
 		.put(
 			'http://localhost:8080/api/DiaryEntries/diaryEntries/' + diaryEntry._id,
@@ -45,7 +37,7 @@ export class DiaryEntryService {
 		.map(res => res.json());
 	}
 	
-	public createDiaryEntry(diaryEntry: any): Promise {
+	public createDiaryEntry(diaryEntry: any): Observable<string> {
 		return this.http
 		.post(
 			'http://localhost:8080/api/DiaryEntries/diaryEntries',
@@ -54,7 +46,7 @@ export class DiaryEntryService {
 		).map(res => res.json());
 	}
 	
-	public getEnum(enumType: string): Promise {
+	public getEnum(enumType: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			this.http
 			.get(
@@ -68,8 +60,23 @@ export class DiaryEntryService {
 		});
 	}
 	
-	public loadEnums(): Promise {
-		return new Promise((resolve, reject) => {
+	public loadEnums(): Promise<string> {
+		return new Promise<string>((resolve, reject) => {
+			const promise1 = this.getEnum('typeEnum');
+			const promise2 = this.getEnum('foodEnum');
+			const promise3 = this.getEnum('treatmentEnum');
+			Promise.all([promise1, promise2, promise3])
+					.then((values: any[]) => {
+						this.typeEnum = values[0].slice();
+						this.feedingTypes = values[1].slice();
+						this.treatmentTypes = values[2].slice();
+						resolve("Loading enums was successful.");
+					}).catch((err) => reject(err));
+		});
+		
+		
+		
+		/*return new Promise((resolve, reject) => {
 			this.getEnum('typeEnum')
 			.then(
 				res => { this.typeEnum = res.slice(); }
@@ -92,6 +99,6 @@ export class DiaryEntryService {
 			.catch(
 				err => reject(err)
 			);
-		});
+		});*/
 	}
 }

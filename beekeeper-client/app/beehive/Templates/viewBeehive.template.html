@@ -3,7 +3,7 @@
 		<th colspan="2">
 			<h3 style="display: inline">Bee Hive {{beehive.hiveNumber}}</h3>
 			<h5 style="display: inline"><small>Click for Details</small></h5>
-			<button (click)="editBeeHive(beehive._id)"  class="btn btn-default" style="float: right;">Edit BeeHive</button>
+			<button (click)="editBeeHive(beehive._id)" class="btn btn-default" style="float: right;">Edit BeeHive</button>
 		</th>
 	</tr>
 	<tr>
@@ -20,7 +20,7 @@
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Long: </td>
-		<td>{{beehive.hiveLocation.long}}</td>
+		<td>{{beehive.hiveLocation.lng}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Description: </td>

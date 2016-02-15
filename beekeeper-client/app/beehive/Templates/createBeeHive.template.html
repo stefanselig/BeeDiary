@@ -1,5 +1,5 @@
 <h1> BeeHive </h1>
-<div id="createBeeHiveContent">
+<div class="beehiveForm col-sm-4">
 		<form (ngSubmit)="createNewBeeHive(createBeeHiveForm)" #createBeeHiveForm="ngForm">
 			<div class="form-group">
 				<label> Number: </label>
@@ -18,7 +18,7 @@
 				<label> Latitude: </label>
 				<input type="text" ngControl="lat" placeholder="Latitude" class="form-control" [(ngModel)]="location.lat"/>
 				<label> Longitude: </label>
-				<input type="text" ngControl="long" placeholder="Longitude" class="form-control" [(ngModel)]="location.long"/>
+				<input type="text" ngControl="lng" placeholder="Longitude" class="form-control" [(ngModel)]="location.lng"/>
 				<input type="button" (click)="callGetCoordinates()" class="btn btn-default" value="Get GPS Position">
 			</div>
 			
@@ -88,4 +88,4 @@
 			<input type="button" (click)="cancel()" class="btn btn-default" value="Cancel"/>
 		</form>
 </div>
-<div id="map"></div>
+<map class="col-sm-8" [latitude]="48" [longitude]="13"></map>

@@ -2,11 +2,13 @@ import {Injectable}	from 'angular2/core';
 import {Http}		from 'angular2/http';
 import {Headers}	from 'angular2/http';
 import 'rxjs/add/operator/map';
+import {Observable}	from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
 	http: Http;
 	test: any;
+	people: Observable<any>;
 	
 	constructor(http:Http) {
 		this.http = http;

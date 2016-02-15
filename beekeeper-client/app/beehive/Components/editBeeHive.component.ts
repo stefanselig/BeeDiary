@@ -1,33 +1,29 @@
 import {Component} 		from 'angular2/core';
-import {Router} 		from 'angular2/router';
-import {RouteParams}	from 'angular2/router';
+import {Router, RouteParams} 		from 'angular2/router';
 import {BeeHiveService}	from '../services/beehive.service';
-import {MapsService}	from '../services/maps.service';
-import {LocationParams} from '../services/maps.service';
-import {MarkerObj}		from '../services/maps.service';
+import {MapsService, LocationParams, MarkerObject}	from '../services/maps.service';
+import {MapComponent} from './map.component';
 import {BeeHiveComponent} from './beehive.component';
 import {CreateBeeHiveComponent} from './createBeeHive.component';
 
 @Component({
 	selector: 'editBeeHive',
 	templateUrl: 'app/beehive/Templates/editBeehive.template.html',
-	providers: [BeeHiveService, MapsService]
+	providers: [BeeHiveService],
+	directives: [MapComponent]
 })
 export class EditBeeHiveComponent {
 	public beehive: any = {hiveLocation: {}, source: {}, lost: {}};
 	
-	public beehiveService: BeeHiveService;
-	public mapsService: MapsService;
-	public router: Router;
 	public sourceTypes: any[];
 	public frameSizes: any[];
 	public frameMaterials: any[];
 	public combConstructions: any[];
 	
-	constructor(beeHiveService: BeeHiveService, mapsService: MapsService, router: Router, params: RouteParams) {
-		this.beehiveService = beeHiveService;
-		this.mapsService = mapsService;
-		this.router = router;
+	public isMapLoaded: boolean = false;
+	public isBeehiveLoaded: boolean = false;
+	
+	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService, public router: Router, params: RouteParams) {
 		this.loadEnums();
 		this.loadSelectedBeeHive(params.get('id'));
 	}
@@ -43,9 +39,7 @@ export class EditBeeHiveComponent {
 					this.combConstructions = this.beehiveService.combConstructions.slice();
 				}
 			)
-			.catch(
-				err => console.log(err)
-			);
+			.catch(err => console.log(err));
 	}
 	
 	public loadSelectedBeeHive(id: string): void {
@@ -54,12 +48,21 @@ export class EditBeeHiveComponent {
 		.subscribe(
 			res => {
 				this.beehive = res;
-				console.log("result: ");
-				console.log(res);
+				this.isBeehiveLoaded = true;
+				if (this.isMapLoaded) {
+					this.mapsService.assignMapToMarkers(this.beehive.hiveLocation.markerId);
+				}
 			},
-			err => console.error(err),
-			() => console.log("Completed")
+			err => console.error(err)
 		);
+	}
+	
+	public callCenterMap(eventArgs: string): void {
+		this.isMapLoaded = true;
+		if (this.isBeehiveLoaded) {
+			this.mapsService.assignMapToMarkers(this.beehive.hiveLocation.markerId);
+		}
+		this.mapsService.centerMap();
 	}
 	
 	public callGetCoordinates(index: number) {
@@ -68,21 +71,26 @@ export class EditBeeHiveComponent {
 		.then(
 			(locParam: LocationParams) => {
 				this.beehive.hiveLocation.lat = locParam.lat;
-				this.beehive.hiveLocation.long = locParam.long;
+				this.beehive.hiveLocation.long = locParam.lng;
 				this.beehive.hiveLocation.address = locParam.address;
 			}
-		).then(
-			() => this.mapsService.getAddress(this.beehive.hiveLocation)
-		).then(
-			address => this.beehive.hiveLocation.address = address
-		).catch(
+		).then(() => this.mapsService.getAddress(this.beehive.hiveLocation))
+		 .then(address => this.beehive.hiveLocation.address = address)
+		 .then(
+			() => this.beehive.hiveLocation.markerId = this.mapsService.createMarker({
+				lat: this.beehive.hiveLocation.lat,
+				lng: this.beehive.hiveLocation.lng,
+				position: new google.maps.LatLng(this.beehive.hiveLocation.lat,this.beehive.hiveLocation.lng)
+			})
+		).then(() => this.mapsService.centerMap())
+		 .catch(
 			(error, error_message?) => {
 				console.log(error);
 				if (error_message != undefined) {
 					console.log(error_message);	
 				}
 			}
-		);
+		 );
 	}
 	
 	public updateBeeHive(): void {
@@ -91,10 +99,7 @@ export class EditBeeHiveComponent {
 		.subscribe(
 			res => console.log(res),
 			err => console.log(err),
-			() => {
-				console.log("Update completed");
-				this.router.navigate(['BeeHives']);
-			}
+			()  => this.router.navigate(['BeeHives'])
 		);
 	}
 	

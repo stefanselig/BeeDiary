@@ -1,10 +1,7 @@
 import {Component, Input} 		from 'angular2/core';
-import {Router} 		from 'angular2/router';
-import {RouteParams}	from 'angular2/router';
+import {Router, RouteParams} 		from 'angular2/router';
 import {BeeHiveService}	from '../services/beehive.service';
-import {MapsService}	from '../services/maps.service';
-import {LocationParams} from '../services/maps.service';
-import {MarkerObj}		from '../services/maps.service';
+import {MapsService, LocationParams, MarkerObject}	from '../services/maps.service';
 import {BeeHiveComponent} from './beehive.component';
 import {CreateBeeHiveComponent} from './createBeeHive.component';
 
@@ -18,15 +15,7 @@ export class ViewBeeHiveComponent {
 	@Input() public beehive: any = {};
 	public viewDetails: boolean = false;
 	
-	public beehiveService: BeeHiveService;
-	public mapsService: MapsService;
-	public router: Router;
-	
-	constructor(beeHiveService: BeeHiveService, mapsService: MapsService, router: Router, params: RouteParams) {
-		this.beehiveService = beeHiveService;
-		this.mapsService = mapsService;
-		this.router = router;
-	}
+	constructor(public beeHiveService: BeeHiveService, public mapsService: MapsService, public router: Router, params: RouteParams) {}
 	
 	public showDetails(): void {
 		this.viewDetails = !this.viewDetails;

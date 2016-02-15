@@ -1,5 +1,5 @@
 <h1> BeeHive </h1>
-<div id="editBeeHiveContent">
+<div class="beehiveForm col-sm-4">
 	<div>
 		<div>
 			<div class="form-group">
@@ -19,7 +19,7 @@
 				<label> Lat: </label>
 				<input type="text" [(ngModel)]="beehive.hiveLocation.lat" placeholder="Latitude" class="form-control"/>
 				<label> Long: </label>
-				<input type="text" [(ngModel)]="beehive.hiveLocation.long" placeholder="Longitude" class="form-control"/>
+				<input type="text" [(ngModel)]="beehive.hiveLocation.lng" placeholder="Longitude" class="form-control"/>
 				<input type="button" (click)="callGetCoordinates()" class="btn btn-default" value="Get GPS Position">
 			</div>
 			
@@ -89,4 +89,4 @@
 		</div>
 	</div>
 </div>
-<div id="map"></div>
+<map class="col-sm-8" [latitude]="48" [longitude]="13" (afterMapInit)="callCenterMap($event)"></map>

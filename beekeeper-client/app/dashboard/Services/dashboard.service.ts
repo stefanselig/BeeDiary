@@ -2,7 +2,7 @@ import {Injectable}	from 'angular2/core';
 import {Http}		from 'angular2/http';
 import {Headers}	from 'angular2/http';
 import 'rxjs/add/operator/map';
-import 'rxjs/Observable';
+import {Observable}	from 'rxjs/Observable';
 
 @Injectable()
 export class DashBoardService {
@@ -23,26 +23,26 @@ export class DashBoardService {
 		this.feedingTypes = [];
 	}
 	
-	public getData(): Observable {
+	public getData(): Observable<any> {
 		return this.http
 		.get('http://localhost:8080/api/DashboardData')
 		.map(res => res.json());
 	}
 	
-	public getDiaryEntries(): Observable {
+	public getDiaryEntries(): Observable<any> {
 		return this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries')
 		.map(res => res.json());
 	}
 	
-	public getDiaryEntryById(id: string): Observable {
+	public getDiaryEntryById(id: string): Observable<any> {
 		return this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries/' + id,
 			{ headers: this.generalHeaders})
 		.map(res => res.json());
 	}
 	
-	public updateDiaryEntry(diaryEntry: any): Observable {
+	public updateDiaryEntry(diaryEntry: any): Observable<any> {
 		return this.http
 		.put(
 			'http://localhost:8080/api/DiaryEntries/diaryEntries/' + diaryEntry._id,
@@ -51,7 +51,7 @@ export class DashBoardService {
 		.map(res => res.json());
 	}
 	
-	public createDiaryEntry(diaryEntry: any): Promise {
+	public createDiaryEntry(diaryEntry: any): Observable<any> {
 		return this.http
 		.post(
 			'http://localhost:8080/api/DiaryEntries/diaryEntries',
@@ -60,7 +60,7 @@ export class DashBoardService {
 		).map(res => res.json());
 	}
 	
-	public getEnum(enumType: string): Promise {
+	public getEnum(enumType: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			this.http
 			.get(
@@ -74,7 +74,7 @@ export class DashBoardService {
 		});
 	}
 	
-	public loadEnums(): Promise {
+	public loadEnums(): Promise<any> {
 		return new Promise((resolve, reject) => {
 			this.getEnum('typeEnum')
 			.then(

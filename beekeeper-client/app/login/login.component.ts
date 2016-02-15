@@ -1,6 +1,10 @@
 import {Component} from 'angular2/core';
 
 @Component({
-	templateUrl: 'app/login/Templates/login.template.html'
+	template: `
+		
+	`
 })
-export class LogInComponent {}
+export class LogInComponent {
+	
+}

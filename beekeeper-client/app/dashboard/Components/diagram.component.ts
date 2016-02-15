@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, OnChanges, Input} from 'angular2/core';
+import {Component, OnInit, AfterViewInit, OnChanges, Input, SimpleChange} from 'angular2/core';
 import {DashBoardService}	from '../services/dashboard.service';
 
 @Component({

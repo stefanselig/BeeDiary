@@ -8,7 +8,7 @@
 	</tr>
 	<tr>
 		<td>Date: </td>
-		<td>{{diaryentry.date}}</td>
+		<td>{{diaryentry.date?.toDateString()}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'acarianControl'">
 		<td>Days Count:</td>
@@ -32,11 +32,11 @@
 	</tr>
 	<tr *ngIf="diaryentry.type == 'treatment'">
 		<td>Start date:</td>
-		<td>{{diaryentry.treatmentBegin}}</td>
+		<td>{{diaryentry.treatmentBegin?.toDateString()}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'treatment'">
 		<td>End date (Optional):</td>
-		<td>{{diaryentry.treatmentEnd}}</td>
+		<td>{{diaryentry.treatmentEnd?.toDateString()}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'feeding'">
 		<td>Feeding Type: </td>
