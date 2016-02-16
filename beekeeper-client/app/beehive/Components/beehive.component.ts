@@ -11,7 +11,7 @@ import {SearchComponent}	from './../../search/search.component';
 import {BeeHive} from './../../build-client/BeeHive/BeeHive';
 
 @Component({
-	selector: 'beehive',
+	selector: 'BeeHive',
 	template: `
 		<h1>Deine Bienenstöcke: </h1>
 		<div class="row">
