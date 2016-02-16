@@ -74,7 +74,7 @@
 			Photos:
 			<div class="row">
 				<div *ngFor="#photo of diaryentry.photos">
-					<img [src]="photo.content" class="img-responsive col-sm-4"/>
+					<img [src]="imageHeader + photo.content" class="img-responsive col-sm-4"/>
 				</div>
 			</div>
 		</td>

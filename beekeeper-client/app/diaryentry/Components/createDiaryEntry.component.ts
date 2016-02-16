@@ -8,7 +8,7 @@ import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
 	selector: 'creatediaryentry',
 	template: `
 		<diaryentry [diaryentry]="diaryentry"></diaryentry>
-		<button (click)="cancel()" type="submit" class="btn btn-default">
+		<button (click)="createDiaryEntry()" type="submit" class="btn btn-default">
 			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 		</button>
 		<button (click)="cancel()" class="btn btn-default">
