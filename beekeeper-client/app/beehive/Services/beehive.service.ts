@@ -3,22 +3,24 @@ import {Http, Headers}	from 'angular2/http';
 import {Observable}		from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import * as BeeHiveModule from '../../build-client/BeeHive/BeeHive';
+
 @Injectable()
 export class BeeHiveService {
-	// TODO: Refactor beehives to use shared model
-	beeHives: any;
+	beeHives: Observable<BeeHiveModule.BeeHive[]>;
 	generalHeaders: Headers;
 	
-	sourceTypes: any[];
-	frameSizes: any[];
-	frameMaterials: any[];
-	combConstructions: any[];
+	sourceTypes: Observable<BeeHiveModule.sourceEnum[]>;
+	frameSizes: Observable<BeeHiveModule.frameSizeEnum[]>;
+	frameMaterials: Observable<BeeHiveModule.frameMaterialEnum[]>;
+	combConstructions: Observable<BeeHiveModule.combConstructionEnum[]>;
 	
 	constructor(public http:Http) {
 		this.generalHeaders = new Headers();
 		this.generalHeaders.append('Content-Type', 'application/json');
 		
 		this.getBeeHives();
+		this.loadEnums();
 	}
 	
 	 public getBeeHives(): void {
@@ -29,14 +31,14 @@ export class BeeHiveService {
 		);
 	}
 	
-	 public getBeeHiveById(id: string): Observable<any> {
+	 public getBeeHiveById(id: string): Observable<BeeHiveModule.BeeHive> {
 		return this.http
 		.get('http://localhost:8080/api/BeeHives/beeHives/' + id,
 			{headers: this.generalHeaders})
 		.map(res => res.json());
 	}
 	
-	public updateBeeHive(beeHive: any): Observable<any> {
+	public updateBeeHive(beeHive: any): Observable<string> {
 		return this.http
 		.put(
 			'http://localhost:8080/api/BeeHives/beeHives/' + beeHive._id,
@@ -53,64 +55,17 @@ export class BeeHiveService {
 		.map(res => res.json());
 	}
 	
-	public getEnum(enumType: string): Promise<any> {
-		return new Promise((resolve, reject) => {
-			this.http
-			.get(
-				'http://localhost:8080/api/BeeHives/' + enumType, 
-				{ headers: this.generalHeaders})
-			.map(res => res.json())
-			.subscribe(
-				res => resolve(res),
-				err => reject(err)
-			)
-		});
+	public getEnum(enumType: string): Observable<any> {
+		return this.http
+				.get('http://localhost:8080/api/BeeHives/' + enumType, 
+					{ headers: this.generalHeaders})
+				.map(res => res.json());
 	}
 	
-	public loadEnums(): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
-			const promise1 = this.getEnum('sourceEnum');
-			const promise2 = this.getEnum('sizeEnum');
-			const promise3 = this.getEnum('materialEnum');
-			const promise4 = this.getEnum('constructionEnum');
-			Promise.all([promise1, promise2, promise3, promise4])
-					.then((values: any[]) => {
-						this.sourceTypes = values[0].slice();
-						this.frameSizes = values[1].slice();
-						this.frameMaterials = values[2].slice();
-						this.combConstructions = values[3].slice();
-						resolve("Loading enums was successful.");
-					}).catch((err) => reject(err));
-		});
-		/*return new Promise((resolve, reject) => {
-			this.getEnum('sourceEnum')
-			.then(
-				res => { this.sourceTypes = res.slice(); }
-			)
-			.then(
-				() => this.getEnum('sizeEnum')
-			)
-			.then(
-				res => { this.frameSizes = res.slice(); }
-			)
-			.then(
-				() => this.getEnum('materialEnum')
-			)
-			.then(
-				res => { this.frameMaterials = res.slice(); }
-			)
-			.then(
-				() => this.getEnum('constructionEnum')
-			)
-			.then(
-				res => {this.combConstructions = res.slice();}
-			)
-			.then( 
-				() => resolve("Finished loading enums.")
-			)
-			.catch(
-				err => reject(err)
-			);
-		});*/
+	public loadEnums(): void {
+		this.sourceTypes = this.getEnum('sourceEnum');
+		this.frameSizes = this.getEnum('sizeEnum');
+		this.frameMaterials = this.getEnum('materialEnum');
+		this.combConstructions = this.getEnum('constructionEnum');
 	}
 }
