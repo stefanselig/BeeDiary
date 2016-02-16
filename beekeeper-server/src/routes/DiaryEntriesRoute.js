@@ -30,9 +30,10 @@ router.route('/diaryEntries').post(function (req, res) {
         req.body.type = "Anderes";
     }
     var newEntryPhotos = new Array();
-    for (var currPhotoData in req.body.photos) {
-        newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]));
-    }
+    newEntryPhotos = req.body.photos;
+    /*for(var currPhotoData in req.body.photos) {
+        newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
+    }*/
     switch (req.body.type) {
         case 'Milbenkontrolle': {
             var newAcarianControlEntry = new DiaryEntry.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.deadAcarians, req.body.countDays);
@@ -206,9 +207,10 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
             req.body.type = "Anderes";
         }
         var updateEntryPhotos = new Array();
-        for (var currPhotoData in req.body.photos) {
-            updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]));
-        }
+        updateEntryPhotos = req.body.photos;
+        /*for(var currPhotoData in req.body.photos) {
+                updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
+        }*/
         switch (req.body.type) {
             case 'Milbenkontrolle': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
