@@ -28,7 +28,7 @@ export class DiaryEntryService {
 		.map(res => res.json());
 	}
 	
-	public getDiaryEntryById(id: string): Observable<DiaryEntry> {
+	public getDiaryEntryById(id: string): Observable<DiaryEntryModule.DiaryEntry> {
 		return this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries/' + id,
 			{ headers: this.generalHeaders})
