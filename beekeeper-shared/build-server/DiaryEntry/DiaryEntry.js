@@ -116,4 +116,3 @@ var foodTypeEnum = exports.foodTypeEnum;
     entryTypeEnum[entryTypeEnum["Anderes"] = 7] = "Anderes";
 })(exports.entryTypeEnum || (exports.entryTypeEnum = {}));
 var entryTypeEnum = exports.entryTypeEnum;
-//# sourceMappingURL=DiaryEntry.js.map

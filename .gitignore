@@ -17,3 +17,5 @@ beekeeper-server/src/**/*.js
 beekeeper-server/src/**/*.js.map
 beekeeper-server/src/**/**/*.js
 beekeeper-server/src/**/**/*.js.map
+
+beekeeper-shared/node_modules

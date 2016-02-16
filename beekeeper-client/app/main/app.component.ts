@@ -2,20 +2,27 @@ import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {SignUpComponent} from './../signup/Components/signup.component';
+
 import {LogInComponent} from './../login/login.component';
+
 import {BeeHiveComponent} from './../beehive/Components/beehive.component';
 import {CreateBeeHiveComponent} from './../beehive/Components/createBeeHive.component';
 import {EditBeeHiveComponent} from './../beehive/Components/editBeeHive.component';
+
 import {DiaryEntriesComponent} from './../diaryentry/Components/diaryentries.component';
 import {CreateDiaryEntryComponent} from './../diaryentry/Components/createDiaryEntry.component';
 import {EditDiaryEntryComponent} from './../diaryentry/Components/editDiaryEntry.component';
+
 import {Dashboard} from './../dashboard/Components/dashboard.component';
+
 import {MapsService} from './../beehive/services/maps.service';
+import {BeeHiveService} from './../beehive/services/beehive.service';
+import {DiaryEntryService} from './../diaryentry/services/diaryentry.service';
 
 @Component({
 	selector: 'beekeeper',
 	template: `
-			<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-header">
 				<a class="navbar-brand">BeeKeeper</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,10 +35,10 @@ import {MapsService} from './../beehive/services/maps.service';
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a [routerLink]="['BeeHives']">BeeHives</a>
+						<a [routerLink]="['BeeHives']">Bienenstöcke</a>
 					</li>
 					<li>
-						<a [routerLink]="['DiaryEntries']">DiaryEntries</a>
+						<a [routerLink]="['DiaryEntries']">Tagebucheinträge</a>
 					</li>	
 					<li>
 						<a [routerLink]="['DashBoard']">Dashboard</a>
@@ -43,13 +50,9 @@ import {MapsService} from './../beehive/services/maps.service';
 		<br />
 		<br />
 		<router-outlet></router-outlet>
-		<!--<footer>
-		Diploma Thesis <br />
-			By Stefan Selig & Valentin Hengstschläger
-		</footer>-->
 	`,
 	directives: [ROUTER_DIRECTIVES],
-	providers: [MapsService]
+	providers: [MapsService, BeeHiveService, DiaryEntryService]
 })
 @RouteConfig([
 	{path: '/signup', name: 'SignUp', component: SignUpComponent},

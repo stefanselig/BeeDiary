@@ -1,6 +1,6 @@
 <table class="table table-bordered">
 	<tr>
-		<th colspan="2">Diary Entry <button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default" style="float: right;">Edit</button></th>
+		<th colspan="2">Tagebucheintrag <button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default" style="float: right;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></th>
 	</tr>
 	<tr>
 		<td>Type: </td>
@@ -10,59 +10,59 @@
 		<td>Date: </td>
 		<td>{{diaryentry.date?.toDateString()}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'acarianControl'">
+	<tr *ngIf="diaryentry.type == 'Milbenkontrolle'">
 		<td>Days Count:</td>
 		<td>{{diaryentry.countDays}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'acarianControl'">
+	<tr *ngIf="diaryentry.type == 'Milbenkontrolle'">
 		<td>Dead Acarians: </td>
 		<td>{{diaryentry.deadAcarians}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'construction'">
+	<tr *ngIf="diaryentry.type == 'Errichtung'">
 		<td></td>
 		<td></td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'treatment'">
+	<tr *ngIf="diaryentry.type == 'Behandlung'">
 		<td>Treatment Type:</td>
 		<td>{{diaryentry.treatmentType}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'treatment'">
+	<tr *ngIf="diaryentry.type == 'Behandlung'">
 		<td>Appliance:</td>
 		<td>{{diaryentry.appliance}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'treatment'">
+	<tr *ngIf="diaryentry.type == 'Behandlung'">
 		<td>Start date:</td>
-		<td>{{diaryentry.treatmentBegin?.toDateString()}}</td>
+		<td>{{diaryentry.treatmentBegin?.toString()}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'treatment'">
+	<tr *ngIf="diaryentry.type == 'Behandlung'">
 		<td>End date (Optional):</td>
-		<td>{{diaryentry.treatmentEnd?.toDateString()}}</td>
+		<td>{{diaryentry.treatmentEnd?.toString()}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'feeding'">
+	<tr *ngIf="diaryentry.type == 'Fuetterung'">
 		<td>Feeding Type: </td>
 		<td>{{diaryentry.feedingType}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'treatment'">
+	<tr *ngIf="diaryentry.type == 'Behandlung'">
 		<td>Amount:</td>
 		<td>{{diaryentry.amount}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'treatment'">
+	<tr *ngIf="diaryentry.type == 'Behandlung'">
 		<td>Ratio:</td>
 		<td>{{diaryentry.proportion}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'honeyRemoval'">
+	<tr *ngIf="diaryentry.type == 'Honigentnahme'">
 		<td>Amount:</td>
 		<td>{{diaryentry.amount}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'loss'">
+	<tr *ngIf="diaryentry.type == 'Verlust'">
 		<td>Reason:</td>
 		<td>{{diaryentry.reason}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'cutDroneBrood'">
+	<tr *ngIf="diaryentry.type == 'Drohnenbrutausschnitt'">
 		<td></td>
 		<td></td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'other'">
+	<tr *ngIf="diaryentry.type == 'Anderes'">
 		<td></td>
 		<td></td>
 	</tr>

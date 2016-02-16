@@ -1,34 +1,41 @@
 import {Injectable}	from 'angular2/core';
-import {Http, Headers}		from 'angular2/http';
+import {Http, Headers} from 'angular2/http';
 import 'rxjs/add/operator/map';
 import {Observable}	from 'rxjs/Observable';
 
+import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
+
 @Injectable()
 export class DiaryEntryService {
+	diaryEntries: Observable<DiaryEntryModule.DiaryEntry>;
 	public generalHeaders: Headers;
-	public typeEnum: any[] = [];
-	public treatmentTypes: any[] = [];
-	public feedingTypes: any[] = [];
+	
+	public typeEnum: Observable<DiaryEntryModule.entryTypeEnum[]>;
+	public treatmentTypes: Observable<DiaryEntryModule.treatmentTypeEnum[]>;
+	public feedingTypes: Observable<DiaryEntryModule.foodTypeEnum[]>;
 	
 	constructor(public http:Http) {
 		this.generalHeaders = new Headers();
 		this.generalHeaders.append('Content-Type', 'application/json');
+		
+		this.getDiaryEntries();
+		this.loadEnums();
 	}
 	
-	public getDiaryEntries(): Observable<any> {
-		return this.http
+	public getDiaryEntries(): void {
+		this.diaryEntries = this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries')
 		.map(res => res.json());
 	}
 	
-	public getDiaryEntryById(id: string): Observable<any> {
+	public getDiaryEntryById(id: string): Observable<DiaryEntry> {
 		return this.http
 		.get('http://localhost:8080/api/DiaryEntries/diaryEntries/' + id,
 			{ headers: this.generalHeaders})
 		.map(res => res.json());
 	}
 	
-	public updateDiaryEntry(diaryEntry: any): Observable<any> {
+	public updateDiaryEntry(diaryEntry: any): Observable<string> {
 		return this.http
 		.put(
 			'http://localhost:8080/api/DiaryEntries/diaryEntries/' + diaryEntry._id,
@@ -46,59 +53,16 @@ export class DiaryEntryService {
 		).map(res => res.json());
 	}
 	
-	public getEnum(enumType: string): Promise<any> {
-		return new Promise((resolve, reject) => {
-			this.http
-			.get(
-				'http://localhost:8080/api/DiaryEntries/' + enumType,
+	public getEnum(enumType: string): Observable<any> {
+		return this.http
+			.get('http://localhost:8080/api/DiaryEntries/' + enumType,
 				{ headers: this.generalHeaders})
-			.map(res => res.json())
-			.subscribe(
-				res => resolve(res),
-				err => reject(err)
-			)
-		});
+			.map(res => res.json());
 	}
 	
-	public loadEnums(): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
-			const promise1 = this.getEnum('typeEnum');
-			const promise2 = this.getEnum('foodEnum');
-			const promise3 = this.getEnum('treatmentEnum');
-			Promise.all([promise1, promise2, promise3])
-					.then((values: any[]) => {
-						this.typeEnum = values[0].slice();
-						this.feedingTypes = values[1].slice();
-						this.treatmentTypes = values[2].slice();
-						resolve("Loading enums was successful.");
-					}).catch((err) => reject(err));
-		});
-		
-		
-		
-		/*return new Promise((resolve, reject) => {
-			this.getEnum('typeEnum')
-			.then(
-				res => { this.typeEnum = res.slice(); }
-			)
-			.then(
-				() => this.getEnum('foodEnum')
-			)
-			.then(
-				res => { this.feedingTypes = res.slice(); }
-			)
-			.then(
-				() => this.getEnum('treatmentEnum')
-			)
-			.then(
-				res => { this.treatmentTypes = res.slice(); }
-			)
-			.then( 
-				() => resolve("Finished loading enums.")
-			)
-			.catch(
-				err => reject(err)
-			);
-		});*/
+	public loadEnums(): void {
+		this.feedingTypes = this.getEnum('foodEnum');
+		this.typeEnum = this.getEnum('typeEnum');
+		this.treatmentTypes = this.getEnum('treatmentEnum');
 	}
 }

@@ -6,11 +6,6 @@ html {
     min-height: 100%;
 }
 
-.beehiveForm {
-	height: 70%;
-	overflow: auto;
-}
-
 /*#map {
 	height: 75%;
 	width: 65%;
@@ -22,66 +17,6 @@ html {
 	height: 80%;
 	overflow: auto;
 }*/
-
-.ui-datepicker,
-.ui-datepicker table,
-.ui-datepicker tr,
-.ui-datepicker td,
-.ui-datepicker th {
-    margin: 0;
-    padding: 0;
-}
-.ui-datepicker {
-    display: none;
-	cursor: default;
-}
-
-#calendar {
-	border: 1px solid #ddd;
-}
-.ui-datepicker-header {
-    position: relative;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d6d6d6;
-}
- 
-.ui-datepicker-title { text-align: center; }
-.ui-datepicker-next {
-	float: right;
-}
-.ui-datepicker-calendar th {
-    padding-top: 15px;
-    padding-bottom: 10px;
- 
-    text-align: center;
-    font-weight: bold;
-    color: black;
-}
-.ui-datepicker-calendar td {
-    padding: 0 7px;
- 
-    text-align: center;
-    line-height: 26px;
-}
-.ui-datepicker-calendar .ui-state-default {
-    display: block;
-    width: 26px;
-    outline: none;
- 
-    text-decoration: none;
-    color: grey;
- 
-    border: 1px solid transparent;
-}
-.ui-datepicker-other-month .ui-state-default { color: black; }
-.ui-datepicker-calendar {
-	width: 100%;
-}
-
-.ui-datepicker-calendar .ui-state-active {
-    color: black;
-    border: 1px solid black;
-}
 
 /* Chart styling */
 .bar {
