@@ -31,7 +31,7 @@ router.route('/diaryEntries').post(function (req, res) {
         newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]));
     }
     switch (req.body.type) {
-        case 'acarianControl': {
+        case 'Milbenkontrolle': {
             var newAcarianControlEntry = new DiaryEntry.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.deadAcarians, req.body.countDays);
             var added = addNewEntry(newAcarianControlEntry);
             if (added != OK) {
@@ -42,7 +42,7 @@ router.route('/diaryEntries').post(function (req, res) {
             }
             break;
         }
-        case 'construction': {
+        case 'Errichtung': {
             var newConstructionEntry = new DiaryEntry.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId);
             var added = addNewEntry(newConstructionEntry);
             if (added != 'OK') {
@@ -64,7 +64,7 @@ router.route('/diaryEntries').post(function (req, res) {
             }
             break;
         }
-        case 'other': {
+        case 'Anderes': {
             var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId);
             var added = addNewEntry(newOtherEntry);
             if (added != 'OK') {
@@ -75,7 +75,7 @@ router.route('/diaryEntries').post(function (req, res) {
             }
             break;
         }
-        case 'feeding': {
+        case 'Fuetterung': {
             var newFeedingEntry = new DiaryEntry.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.foodType, req.body.amount, req.body.proportion);
             var added = addNewEntry(newFeedingEntry);
             if (added != 'OK') {
@@ -86,7 +86,7 @@ router.route('/diaryEntries').post(function (req, res) {
             }
             break;
         }
-        case 'honeyRemoval': {
+        case 'Honigentnahme': {
             var newHoneyRemovalEntry = new DiaryEntry.HoneyRemoval(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.amount);
             var added = addNewEntry(newHoneyRemovalEntry);
             if (added != 'OK') {
@@ -97,7 +97,7 @@ router.route('/diaryEntries').post(function (req, res) {
             }
             break;
         }
-        case 'loss': {
+        case 'Verlust': {
             var newLossEntry = new DiaryEntry.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.reason);
             var added = addNewEntry(newLossEntry);
             if (added != 'OK') {
@@ -192,7 +192,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
             updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]));
         }
         switch (req.body.type) {
-            case 'acarianControl': {
+            case 'Milbenkontrolle': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -214,7 +214,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'construction': {
+            case 'Errichtung': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -233,7 +233,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'cutDroneBrood': {
+            case 'Drohnenbrutausschnitt': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -253,7 +253,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'other': {
+            case 'Anderes': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -273,7 +273,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'feeding': {
+            case 'Fuetterung': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -296,7 +296,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'honeyRemoval': {
+            case 'Honigentnahme': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -317,7 +317,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'loss': {
+            case 'Verlust': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
@@ -338,7 +338,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                 });
                 break;
             }
-            case 'treatment': {
+            case 'Behandlung': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {
                     "date": req.body.date,
                     "type": req.body.type,
