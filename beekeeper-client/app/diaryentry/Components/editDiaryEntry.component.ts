@@ -1,25 +1,31 @@
 import {Component} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
+
 import {DiaryEntryComponent} from './diaryentry.component';
 import {DiaryEntryService}	from '../services/diaryentry.service';
+
+import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'EditDiaryEntry',
 	directives: [DiaryEntryComponent],
-	templateUrl: `
+	template: `
 		<div>
 			<div class="form-group">
 				<diaryentry [diaryentry]="diaryentry"></diaryentry>
-				<input type="submit" (click)="updateDiaryEntry()" value="Update DiaryEntry" class="btn btn-default"/>
-				<input type="button" (click)="cancel()" value="Cancel" class="btn btn-default"/>
+				<button type="submit" (click)="updateDiaryEntry()" class="btn btn-default">
+					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+				</button>
+				<button (click)="cancel()" class="btn btn-default">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
 			</div>
 		</div>
 	`,
 	providers: [DiaryEntryService]
 })
 export class EditDiaryEntryComponent {
-	public diaryentry: any = {};
-	//public display: boolean = false;
+	public diaryentry: DiaryEntry = new DiaryEntry();
 	
 	constructor(public diaryEntryService: DiaryEntryService, public router: Router, params: RouteParams) {
 		this.loadSelectedDiaryEntry(params.get('id'));
@@ -29,7 +35,7 @@ export class EditDiaryEntryComponent {
 		this.diaryEntryService
 		.getDiaryEntryById(id)
 		.subscribe(
-			res => this.diaryentry = res,
+			(res: DiaryEntry) => {this.diaryentry = res;console.log(this.diaryentry);},
 			err => console.log(err),
 			()  => console.log("Load completed.") 
 		);
