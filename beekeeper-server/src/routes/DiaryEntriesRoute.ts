@@ -127,6 +127,16 @@ router.route('/diaryEntries').post(function(req, res) {
                 }
                 break;
             }
+            default : {
+                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId);
+                var added = addNewEntry(newOtherEntry);
+                if(added != 'OK') {
+                    res.send(added);
+                } else {
+                    res.json({message: 'DiaryEntry created! (Other)' });
+                }
+                break;
+            }
         }
     });
 
@@ -377,6 +387,26 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 });
                 break;
             }
+            default : {
+                diaryEntries.findOneAndUpdate({"_id": new ObjectId(req.params.entry_id)},
+                 {
+                "date" : req.body.date,
+                "type" : req.body.type,
+                "description" : req.body.description,
+                "photos" : updateEntryPhotos,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
+                "beeHiveId" : req.body.beeHiveId
+                }, function(error, entry) {
+                if(error) {
+                    res.send(error);
+                    console.log('Error at updating one specific DiaryEntry.');
+                } else {
+                    res.json({message: 'DiaryEntry by Id successfully updated.' });
+                    console.log('One specific DiaryEntry by Id successfully updated.');
+                }
+                });
+                break;
+            } 
         }
     }) 
 });
