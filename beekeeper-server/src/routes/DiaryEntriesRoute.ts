@@ -198,6 +198,10 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
             console.error(error);
             return;
         }
+                // save the DiaryEntry and check for errors
+        if (req.body.type == undefined) {
+            req.body.type = "Anderes";
+        }
         var updateEntryPhotos = new Array<DiaryEntry.Photo>();
             for(var currPhotoData in req.body.photos) {
                 updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
