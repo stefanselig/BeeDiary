@@ -33,6 +33,9 @@ router.get('/', function(req, res) {
 router.route('/diaryEntries').post(function(req, res) {
         var OK = 'OK';
         // save the DiaryEntry and check for errors
+        if (req.body.type == undefined) {
+            req.body.type = "Anderes";
+        }
         var newEntryPhotos = new Array<DiaryEntry.Photo>();
         for(var currPhotoData in req.body.photos) {
             newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
@@ -207,7 +210,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
                 "countDays" : req.body.countDays,
                 "deadAcarians" : req.body.deadAcarians
@@ -229,7 +232,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -248,7 +251,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId
                 }, function(error, entry) {
                 if(error) {
@@ -268,7 +271,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId
                 }, function(error, entry) {
                 if(error) {
@@ -288,7 +291,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
                 "foodType" : req.body.foodType,
                 "amount" : req.body.amount,
@@ -311,7 +314,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
                 "amount" : req.body.amount
                 }, function(error, entry) {
@@ -332,7 +335,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
                 "reason" : req.body.reason
                 }, function(error, entry) {
@@ -353,7 +356,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "type" : req.body.type,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "isMarkDownEnabled" : req.body.isMarkDownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
                 "treatmentType" : req.body.treatmentType,
                 "appliance" : req.body.appliance,
