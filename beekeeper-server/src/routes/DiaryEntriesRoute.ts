@@ -35,7 +35,7 @@ router.route('/diaryEntries').post(function(req, res) {
         // save the DiaryEntry and check for errors
         var newEntryPhotos = new Array<DiaryEntry.Photo>();
         for(var currPhotoData in req.body.photos) {
-            newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), currPhotoData))
+            newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
         }
         switch(req.body.type) {
             case 'acarianControl': {
@@ -197,7 +197,7 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
         }
         var updateEntryPhotos = new Array<DiaryEntry.Photo>();
             for(var currPhotoData in req.body.photos) {
-                updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), currPhotoData))
+                updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
             }
         switch(req.body.type) {
             case 'acarianControl': {
