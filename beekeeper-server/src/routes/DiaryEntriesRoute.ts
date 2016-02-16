@@ -62,7 +62,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 }
                 break;
             }
-            case 'cutDroneBrood': {
+            case 'Drohnenbrutausschnitt': {
                 var newCutDroneBroodEntry = new DiaryEntry.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description,
                 req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId);
                 var added = addNewEntry(newCutDroneBroodEntry);
@@ -116,7 +116,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 }
             break;
             }
-            case 'treatment': {
+            case 'Behandlung': {
                 var newTreatmentEntry = new DiaryEntry.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date,
                 req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
                 var added = addNewEntry(newTreatmentEntry);
