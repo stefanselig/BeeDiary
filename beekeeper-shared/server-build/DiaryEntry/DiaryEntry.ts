@@ -17,7 +17,7 @@ export class HoneyRemoval extends DiaryEntry {
 export class AcarianControl extends DiaryEntry {
     acarianDeathValue: number;
     
-    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public deadAcarians?: number, public countDays?: number) {
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public deadAcarians: number, public countDays: number) {
        super(type, photos, description, date, isMarkdownEnabled, beeHiveId);
        this.acarianDeathValue = this.getAcarianDeathValue();
     }
@@ -34,31 +34,29 @@ export class Construction extends DiaryEntry {
 }
 
 export class Feeding extends DiaryEntry {
-    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public foodType?: foodTypeEnum, public amount?: number, public proportion?: string) {
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public foodType: foodTypeEnum, public amount: number, public proportion: string) {
        super(type, photos, description, date, isMarkdownEnabled, beeHiveId);
     }
 }
 
 export class Treatment extends DiaryEntry {
-    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public treatmentType?: treatmentTypeEnum, public appliance?: string, public treatmentBegin?: Date, public treatmentEnd?: Date) {
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public treatmentType : treatmentTypeEnum, public appliance : string, public treatmentBegin : Date, public treatmentEnd : Date) {
         super(type, photos, description, date, isMarkdownEnabled, beeHiveId);
     }
 }
 
 export class Loss extends DiaryEntry {
-    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public reason?: string) {
+    constructor(type, photos, description, date, isMarkdownEnabled, beeHiveId, public reason : string) {
         super(type, photos, description, date, isMarkdownEnabled, beeHiveId);
     }
 }
 
 export class Photo {
-    constructor(public id?: any, public content?: string) {}
+    constructor(public id: any, public content: string) {}
 }
 
 export enum treatmentTypeEnum {
-	Hitze,
-	Säure,
-	Anderes
+	heat, acid, other
 }
 
 export enum foodTypeEnum {
