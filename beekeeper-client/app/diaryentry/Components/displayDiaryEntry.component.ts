@@ -13,7 +13,7 @@ import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
 })
 export class DisplayDiaryEntryComponent implements OnInit, AfterViewInit {
 	//Take care of image format
-	imageHeader: string = 'data:image/png;base64,';
+	imageHeader: string = `data:image/png;base64,`;
 	public diaryentry: DiaryEntryModule.DiaryEntry = new DiaryEntryModule.DiaryEntry();
 	
 	constructor(public diaryEntryService: DiaryEntryService, public router: Router) {}
