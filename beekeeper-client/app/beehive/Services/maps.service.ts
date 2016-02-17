@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MapsService {
 	MAPID: string = "map";
-	map: google.maps.Map = undefined;
+	map: google.maps.Map;
 	
 	markers: MarkerObject[] = [];
 	idCounter: number;
@@ -94,6 +94,9 @@ export class MapsService {
 	 * @returns {number} id - MarkerObject's id
 	 */
 	public createMarker(locationParams: LocationParams, id?: number): number {
+		if (locationParams.position == undefined) {
+			return;
+		}
 		const marker = new google.maps.Marker({
 			position: locationParams.position,
 			map: this.map,
@@ -151,8 +154,10 @@ export class MapsService {
 		this.markers
 			.map(marker => marker.position)
 			.map(position => bounds.extend(position));
-		this.map.setCenter(bounds.getCenter());
-		this.map.fitBounds(bounds);
+		if (this.markers.length > 0) {
+			this.map.setCenter(bounds.getCenter());
+			this.map.fitBounds(bounds);
+		}
 	}
 	
 	/**
@@ -192,33 +197,3 @@ export interface MarkerObject {
 	/** Google Maps Info window */
 	infoWindow: google.maps.InfoWindow;
 }
-
-
-	/*
-	latlngs: google.maps.LatLng[] = [];
-	*/
-	/*public initMap(callback: () => void) {
-		var coordinates = new google.maps.LatLng(48, 13);
-		var mapOptions = {
-			center: coordinates,
-			zoom: 6
-		};
-		if (this.map == undefined) {
-			this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-		}
-		callback();
-	}*/
-	/*this.initMap(() => {
-			var latlngObj: google.maps.LatLng = new google.maps.LatLng(locationParams.lat, locationParams.long);
-			var marker = new google.maps.Marker({
-				position: latlngObj,
-				map: this.map,
-				title: 'BeeHive'
-			});
-			var markerObj:MarkerObj = {marker:undefined,id:undefined};
-			markerObj.marker = marker;
-			markerObj.id = this.getNextId();
-			this.markers.push(markerObj);
-			this.latlngs.push(latlngObj);
-			return markerObj;
-	});	*/
