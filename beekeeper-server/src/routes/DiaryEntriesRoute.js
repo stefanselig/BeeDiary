@@ -31,9 +31,11 @@ router.route('/diaryEntries').post(function (req, res) {
     }
     var newEntryPhotos = new Array();
     newEntryPhotos = req.body.photos;
-    /*for(var currPhotoData in req.body.photos) {
-        newEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
-    }*/
+    for (var currPhotoID in req.body.photos) {
+        if (newEntryPhotos[currPhotoID].id == 0) {
+            newEntryPhotos[currPhotoID].id = new ObjectId();
+        }
+    }
     switch (req.body.type) {
         case 'Milbenkontrolle': {
             var newAcarianControlEntry = new DiaryEntry.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkDownEnabled, req.body.beeHiveId, req.body.deadAcarians, req.body.countDays);
@@ -208,9 +210,11 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
         }
         var updateEntryPhotos = new Array();
         updateEntryPhotos = req.body.photos;
-        /*for(var currPhotoData in req.body.photos) {
-                updateEntryPhotos.push(new DiaryEntry.Photo(new ObjectId(), req.body.photos[currPhotoData]))
-        }*/
+        for (var currPhotoID in req.body.photos) {
+            if (updateEntryPhotos[currPhotoID].id == 0) {
+                updateEntryPhotos[currPhotoID].id = new ObjectId();
+            }
+        }
         switch (req.body.type) {
             case 'Milbenkontrolle': {
                 diaryEntries.findOneAndUpdate({ "_id": new ObjectId(req.params.entry_id) }, {

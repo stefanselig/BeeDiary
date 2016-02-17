@@ -16,6 +16,7 @@
         "typescript": "latest",
         "mongodb": "latest",
         "passport-google-oauth": "latest",
-        "validator": "latest"
+        "validator": "latest",
+        "assert" : "latest"
     }
 }
