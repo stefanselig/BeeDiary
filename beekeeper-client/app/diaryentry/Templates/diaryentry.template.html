@@ -88,19 +88,28 @@
 
 <div class="form-group">
 	<label>Beschreibung:</label>
-	<label>Markdownbearbeitung aktivieren? </label>
+	<br />
+	<label><a href="https://daringfireball.net/projects/markdown/" title="Ein Textformat, dass Formatierungen mittels gewisser Zeichen ermöglicht.">Markdownbearbeitung</a> aktivieren? </label>
 	<input type="checkbox" [(ngModel)]="diaryentry.isMarkdownEnabled" />
 	<textarea placeholder="Beschreibung" [(ngModel)]="diaryentry.description" class="form-control" rows="4" cols="20"></textarea>
 	<div *ngIf="diaryentry.isMarkdownEnabled" [innerHTML]="parseMd()"></div>
 </div>
 
 <div class="form-group">
-	<!-- Figure out photo upload -->
 	<label>Fotos:</label>
-	<div *ngFor="#photo of diaryentry.photos"> <!-- No ngControl for this one -->
-		<img src="photo.content" />
-	</div>
+	<table>
+		<tr *ngFor="#photo of diaryentry.photos">
+			<td>
+				<img [src]="photo.content" class="img-responsive" />
+			</td>
+			<td>
+				<button (click)="deletePhoto(photo, photos)">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</td>
+		</tr>
+	</table>
 	<br />
 	<label>Foto hochladen:</label>
-	<input type="file" accept="image/*;capture=camera" />
+	<input type="file" accept="image/*;capture=camera" multiple #photos (change)="handlePhotos(photos.files)"/>
 </div>

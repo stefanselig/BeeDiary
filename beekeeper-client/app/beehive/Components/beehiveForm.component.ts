@@ -49,8 +49,9 @@ export class BeeHiveForm {
 				 lat: this.beehive.hiveLocation.lat,
 				 lng: this.beehive.hiveLocation.lng,
 				 position: this.beehive.hiveLocation.position
-			 })
-			 ).catch((err, err_msg?) => {
+			 }))
+			 .then(() => this.mapsService.setInfoWindowText(this.beehive.hiveName, this.beehive.hiveLocation.markerId))
+			 .catch((err, err_msg?) => {
 				  console.log(err);
 				  if (err_msg != undefined) {
 					  console.log(err_msg);
