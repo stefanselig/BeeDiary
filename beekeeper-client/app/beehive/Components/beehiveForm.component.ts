@@ -40,8 +40,9 @@ export class BeeHiveForm {
 			.getCoordinates()
 			.then(
 				(res: LocationParams) => {
-					this.beehive.hiveLocation.lat = res.lat;
-					this.beehive.hiveLocation.lng = res.lng;
+					this.beehive.hiveLocation.lat = +res.lat.toFixed(2);
+					this.beehive.hiveLocation.lng = +res.lng.toFixed(2);
+					this.beehive.hiveLocation.position = new google.maps.LatLng(res.lat, res.lng);
 				}
 			).then(() => this.mapsService.getAddress(this.beehive.hiveLocation))
 			 .then((address:string) => {this.beehive.hiveLocation.address = address;})
@@ -50,6 +51,7 @@ export class BeeHiveForm {
 				 lng: this.beehive.hiveLocation.lng,
 				 position: this.beehive.hiveLocation.position
 			 }))
+			 .then(() => this.mapsService.centerMap())
 			 .then(() => this.mapsService.setInfoWindowText(this.beehive.hiveName, this.beehive.hiveLocation.markerId))
 			 .catch((err, err_msg?) => {
 				  console.log(err);

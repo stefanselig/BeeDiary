@@ -16,10 +16,13 @@ import {BeeHive}	from '../../build-client/BeeHive/BeeHive';
 		<div class="col-sm-8">
 			<beehiveform [beehive]="beehive"></beehiveform>
 			<button (click)="updateBeeHive()" type="submit" class="btn btn-default">
-				<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+			<button (click)="deleteBeeHive()" class="btn btn-default">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 			</button>
 			<button (click)="cancel()" class="btn btn-default">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 			</button>
 		</div>
 		<map class="col-sm-4" [latitude]="48" [longitude]="13" (afterMapInit)="callCenterMap($event)"></map>
@@ -61,6 +64,16 @@ export class EditBeeHiveComponent implements OnInit {
 			err => console.log(err),
 			()  => this.router.navigate(['BeeHives'])
 		);
+	}
+	
+	public deleteBeeHive(): void {
+		this.beehiveService
+			.deleteBeeHiveById(this.beehive._id)
+			.subscribe(
+				res => console.log(res),
+				err => console.log(err),
+				()  => this.router.navigate(['BeeHives'])
+			);
 	}
 	
 	public cancel(): void {
