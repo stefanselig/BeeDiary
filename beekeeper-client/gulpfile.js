@@ -20,7 +20,7 @@ gulp.task('start-server', function () {
 gulp.task('default', ['build', 'start-server', 'serve']);
 function execute(command) {
     return new Promise(function (resolve, reject) {
-        exec(command, function (err, stdout, stderr) {
+        exec(command, {maxBuffer: 1024 * 100000}, function (err, stdout, stderr) {
             console.log(stdout);
             if (err == undefined) {
                 console.log("executed err is undefined.");

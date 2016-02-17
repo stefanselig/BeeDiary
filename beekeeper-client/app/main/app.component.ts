@@ -40,9 +40,9 @@ import {DiaryEntryService} from './../diaryentry/services/diaryentry.service';
 					<li>
 						<a [routerLink]="['DiaryEntries']">Tagebucheinträge</a>
 					</li>	
-					<li>
+					<!--<li>
 						<a [routerLink]="['DashBoard']">Dashboard</a>
-					</li>	
+					</li>-->
 				</ul>
 			</div>
 		</nav>

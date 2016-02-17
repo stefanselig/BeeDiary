@@ -4,8 +4,9 @@
   "description": "Diploma thesis, 5BHIF",
   "scripts": {
     "tsc": "tsc -p app -w",
-    "start": "live-server",
+    "start": "lite-server",
     "lite": "lite-server --verbose",
+	"live": "live-server",
 	"babel": "babel gulpfile.js --out-file gulpfile.js"
   },
   "author": "Stefan Selig and Valentin Hengstschläger",
