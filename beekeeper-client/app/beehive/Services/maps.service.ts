@@ -120,11 +120,26 @@ export class MapsService {
 	 */
 	public assignMapToMarkers(markerId?: number): void {
 		if (markerId == undefined) {
-			this.markers.forEach(marker => marker.marker.setMap(this.map));	
+			this.markers.forEach(marker => marker.marker.setMap(this.map));
 		}
 		else {
 			this.markers[markerId].marker.setMap(this.map);
 		}
+	}
+	
+	/**
+	 * Sets an info window for the selected marker.
+	 */
+	public setInfoWindowText(text: string, markerId: number): void {
+		if (text == null || text == undefined) {
+			text = "Bienenstock";
+		}
+		this.markers[markerId].infoWindow = new google.maps.InfoWindow({
+			content: `<h1>${text}</h1>`
+		});
+		this.markers[markerId].marker
+			.addListener("click", 
+			() => this.markers[markerId].infoWindow.open(this.map, this.markers[markerId]));
 	}
 	
 	
@@ -174,6 +189,8 @@ export interface MarkerObject {
 	id: number;
 	/** Marker's position */
 	position: google.maps.LatLng;
+	/** Google Maps Info window */
+	infoWindow: google.maps.InfoWindow;
 }
 
 

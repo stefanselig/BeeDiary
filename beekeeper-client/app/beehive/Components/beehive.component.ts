@@ -93,11 +93,13 @@ export class BeeHiveComponent implements OnInit {
 	 * Loads a marker for each beehive
 	 */
 	public initMarkers(eventArgs: string): void {
-		this.beehives.map((e: BeeHive) => e.hiveLocation.markerId = this.mapsService.createMarker({
+		this.beehives.forEach((e: BeeHive) => e.hiveLocation.markerId = this.mapsService.createMarker({
 			lat: e.hiveLocation.lat,
 			lng: e.hiveLocation.lng,
 			position: new google.maps.LatLng(e.hiveLocation.lat, e.hiveLocation.lng)
-		}, e.hiveLocation.markerId));
+		}, e.hiveLocation.markerId))
+		this.beehives.forEach(beehive => this.mapsService.setInfoWindowText(beehive.hiveName, beehive.hiveLocation.markerId));
+		//this.beehives.forEach();
 		this.mapsService.centerMap();
 	}
 	
