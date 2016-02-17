@@ -12,8 +12,6 @@ import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
 	providers: [DiaryEntryService]
 })
 export class DisplayDiaryEntryComponent implements OnInit, AfterViewInit {
-	//Take care of image format
-	imageHeader: string = `data:image/png;base64,`;
 	public diaryentry: DiaryEntryModule.DiaryEntry = new DiaryEntryModule.DiaryEntry();
 	
 	constructor(public diaryEntryService: DiaryEntryService, public router: Router) {}
