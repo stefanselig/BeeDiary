@@ -160,5 +160,24 @@ router.route('/materialEnum').get(function (req, res) {
 router.route('/constructionEnum').get(function (req, res) {
     res.json(Utilities.getArrayOfEnum(BeeHive.combConstructionEnum));
 });
+// gets all BeehiveNames with Id's (accessed at GET http://localhost:8080/api/BeeHives/BeeHiveNames)    
+router.route('/BeeHiveNames').get(function (req, res) {
+    database.collection('BeeHives', function (error, beeHives) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        beeHives.find({}, { _id: 1, hiveName: 1 }).toArray(function (error, beeHives) {
+            if (error) {
+                res.send(error);
+                console.error('Error at getting all BeeHiveNames with Ids..');
+            }
+            else {
+                res.json(beeHives);
+                console.log('All BeeHiveNames with Ids successfully returned. (' + beeHives.length + ' BeeHives)');
+            }
+        });
+    });
+});
 module.exports = router;
 //# sourceMappingURL=BeeHivesRoute.js.map
