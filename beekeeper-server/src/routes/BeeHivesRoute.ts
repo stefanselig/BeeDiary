@@ -37,7 +37,7 @@ router.route('/beeHives').post(function(req, res) {
         // save the BeeHive and check for errors
         if (req.body.hiveLocation != null && req.body.source != null && req.body.lost != null) {
             var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId, req.body.hiveLocation.position);
-            var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
+            var source = new BeeHive.Source(req.body.source.type, req.body.source.otherSource, req.body.source.origin);
             var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
             if(req.body.photo == undefined) {
                 req.body.photo = {};
@@ -120,7 +120,7 @@ router.route('/beeHives/:hive_id').put(function(req, res) {
            return;
        }
        var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId, req.body.hiveLocation.position);
-       var newSource = new BeeHive.Source(req.body.source.type, req.body.source.origin);
+       var newSource = new BeeHive.Source(req.body.source.type, req.body.source.otherSource, req.body.source.origin);
        var newLost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
        if(req.body.photo == undefined) {
                 req.body.photo = {};
