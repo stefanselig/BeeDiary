@@ -44,12 +44,14 @@
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Quelltyp: </td>
-		<td>{{beehive.source.type}}</td>
+		<td *ngIf="beehive.source.type != 'Anderes'">{{beehive.source.type}}</td>
+		<td *ngIf="beehive.source.type == 'Anderes'">{{beehive.otherType}}</td>
+		<td *ngIf="beehive.source.type == 'Gekauft'">{{beehive.trader}}</td>
 	</tr>
-	<tr *ngIf="viewDetails" class="ng-animate box">
+	<!--<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Quellursprung: </td>
 		<td>{{beehive.source.origin}}</td>
-	</tr>
+	</tr>-->
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Startdatum:</td>
 		<td>{{beehive.startDate}}</td>
@@ -64,14 +66,17 @@
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Beutenform: </td>
-		<td>{{beehive.frameSize}}</td>
+		<td *ngIf="beehive.frameSize != 'Anderes'">{{beehive.frameSize}}</td>
+		<td *ngIf="beehive.frameSize == 'Anderes'">{{beehive.otherFrameSize}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Beutenmaterial: </td>
-		<td>{{beehive.frameMaterial}}</td>
+		<td *ngIf="beehive.frameMaterial != 'Anderes'">{{beehive.frameMaterial}}</td>
+		<td *ngIf="beehive.frameMaterial == 'Anderes'">{{beehive.otherFrameMaterial}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Wabenbau: </td>
-		<td>{{beehive.combConstruction}}</td>
+		<td *ngIf="beehive.combConstruction != 'Anderes'">{{beehive.combConstruction}}</td>
+		<td *ngIf="beehive.combConstruction == 'Anderes'">{{beehive.otherCombConstruction}}</td>
 	</tr>
 </table>
