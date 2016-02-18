@@ -49,7 +49,7 @@ router.route('/beeHives').post(function(req, res) {
             
         
             var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, req.body.lastDiaryEntryDate,
-            hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction); //create a new instance of the BeeHive-model
+            hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader); //create a new instance of the BeeHive-model
             
             database.collection('BeeHives', function(error, beeHives) {
                 if(error) {
@@ -145,7 +145,8 @@ router.route('/beeHives/:hive_id').put(function(req, res) {
              "frameMaterial" : req.body.frameMaterial,
              "otherFrameMaterial" : req.body.otherFrameMaterial,
              "combConstruction" : req.body.combConstruction,
-             "otherCombConstruction" : req.body.otherCombConstruction
+             "otherCombConstruction" : req.body.otherCombConstruction,
+             "trader" : req.body.trader
             }, function(error, hive) {
             if(error) {
                 res.send(error);
