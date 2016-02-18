@@ -34,7 +34,7 @@
 			</select>
 			<div *ngIf="beehive.source?.type == 'Anderes'">
 				<label>Alternativer Quelltyp:</label>
-				<input type="text" [ngModel]="beehive.otherType" (ngModelChange)="beehive.otherType = $event" placeholder="Quelltyp" class="form-control" />
+				<input type="text" [ngModel]="beehive.source?.otherSource" (ngModelChange)="beehive.source.otherSource = $event" placeholder="Quelltyp" class="form-control" />
 			</div>
 			<div *ngIf="beehive.source?.type == 'Gekauft'">
 				<label>Händler: </label>
