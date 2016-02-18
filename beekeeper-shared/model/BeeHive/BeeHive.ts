@@ -12,7 +12,7 @@ export class HiveLocation {
 }
 
 export class Source {
-    constructor(public type?: sourceEnum, public origin?: number) {}
+    constructor(public type?: sourceEnum, public otherSource? : string, public origin?: number) {}
 }
 
 export class Lost {

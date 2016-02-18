@@ -32,8 +32,9 @@ var HiveLocation = (function () {
 })();
 exports.HiveLocation = HiveLocation;
 var Source = (function () {
-    function Source(type, origin) {
+    function Source(type, otherSource, origin) {
         this.type = type;
+        this.otherSource = otherSource;
         this.origin = origin;
     }
     return Source;
