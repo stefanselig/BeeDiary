@@ -137,6 +137,24 @@ router.route('/diaryEntries').post(function (req, res) {
             break;
         }
     }
+    if (req.body.beeHiveId == undefined || req.body.beeHiveId == 0 || req.body.beeHiveId == null) {
+        database.collection('BeeHives', function (error, beeHives) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            beeHives.updateOne({ "_id": new ObjectId(req.body.beeHiveId) }, { $set: { "lastDiaryEntryDate": req.body.date } }, function (error, entry) {
+                if (error) {
+                    res.send(error);
+                    console.log('Error at adding one Photo.');
+                }
+                else {
+                    res.json({ message: 'One Photo successfully added.' });
+                    console.log('One specific Photo successfully added.');
+                }
+            });
+        });
+    }
 });
 //Adds a new DiaryEntry to the database.
 function addNewEntry(newEntry) {

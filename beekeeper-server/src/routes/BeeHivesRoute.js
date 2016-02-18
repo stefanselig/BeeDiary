@@ -38,7 +38,7 @@ router.route('/beeHives').post(function (req, res) {
             req.body.photo.id = new ObjectId();
         }
         var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
-        var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, req.body.lastDiaryEntryDate, hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader); //create a new instance of the BeeHive-model
+        var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, 'Noch kein Eintrag vorhanden!', hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, ''); //create a new instance of the BeeHive-model
         database.collection('BeeHives', function (error, beeHives) {
             if (error) {
                 console.error(error);

@@ -1,5 +1,5 @@
 var BeeHive = (function () {
-    function BeeHive(hiveNumber, hiveName, startDate, description, photo, lastDiaryEntryDate, hiveLocation, source, lost, frameSize, otherFrameSize, frameMaterial, otherFrameMaterial, combConstruction, otherCombConstruction, trader) {
+    function BeeHive(hiveNumber, hiveName, startDate, description, photo, lastDiaryEntryDate, hiveLocation, source, lost, frameSize, otherFrameSize, frameMaterial, otherFrameMaterial, combConstruction, otherCombConstruction, trader, lastDiaryEntryId) {
         this.hiveNumber = hiveNumber;
         this.hiveName = hiveName;
         this.startDate = startDate;
@@ -16,6 +16,7 @@ var BeeHive = (function () {
         this.combConstruction = combConstruction;
         this.otherCombConstruction = otherCombConstruction;
         this.trader = trader;
+        this.lastDiaryEntryId = lastDiaryEntryId;
     }
     return BeeHive;
 })();
