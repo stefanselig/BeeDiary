@@ -1,7 +1,8 @@
+import DiaryEntry = require('../DiaryEntry/DiaryEntry');
 export class BeeHive {
     constructor(public hiveNumber?: number, public hiveName?: string, 
-	public startDate?: Date, public description?: string, public hiveLocation?: HiveLocation, 
-	public source?: Source, public lost?: Lost, public frameSize?: frameSizeEnum, 
+	public startDate?: Date, public description?: string, public photo?: DiaryEntry.Photo, public lastDiaryEntryDate? : Date,
+    public hiveLocation?: HiveLocation, public source?: Source, public lost?: Lost, public frameSize?: frameSizeEnum, 
 	public frameMaterial?: frameMaterialEnum, public combConstruction?: combConstructionEnum)
 	{}
 }

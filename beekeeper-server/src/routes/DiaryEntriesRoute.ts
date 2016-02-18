@@ -45,8 +45,8 @@ router.route('/diaryEntries').post(function(req, res) {
         }
         switch(req.body.type) {
             case 'Milbenkontrolle': {
-                var newAcarianControlEntry = new DiaryEntry.AcarianControl(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled,
-                req.body.beeHiveId, req.body.deadAcarians, req.body.countDays);
+                var newAcarianControlEntry = new DiaryEntry.AcarianControl(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled,
+                req.body.beeHiveId, req.body.beeHiveName, req.body.deadAcarians, req.body.countDays);
                 var added = addNewEntry(newAcarianControlEntry);
                 if(added != OK) {
                     res.send(added);
@@ -56,7 +56,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'Errichtung': {
-                var newConstructionEntry = new DiaryEntry.Construction(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId);
+                var newConstructionEntry = new DiaryEntry.Construction(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName);
                 var added = addNewEntry(newConstructionEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -66,8 +66,8 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'Drohnenbrutausschnitt': {
-                var newCutDroneBroodEntry = new DiaryEntry.CutDroneBrood(req.body.type, newEntryPhotos, req.body.description,
-                req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId);
+                var newCutDroneBroodEntry = new DiaryEntry.CutDroneBrood(req.body.type, req.body.otherType, newEntryPhotos, req.body.description,
+                req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName);
                 var added = addNewEntry(newCutDroneBroodEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -77,7 +77,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'Anderes': {
-                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId);
+                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName);
                 var added = addNewEntry(newOtherEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -87,8 +87,8 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'Fuetterung': {
-                var newFeedingEntry = new DiaryEntry.Feeding(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.foodType, req.body.amount, req.body.proportion);
+                var newFeedingEntry = new DiaryEntry.Feeding(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date,
+                req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName, req.body.foodType, req.body.amount, req.body.proportion);
                 var added = addNewEntry(newFeedingEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -98,8 +98,8 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'Honigentnahme': {
-                var newHoneyRemovalEntry = new DiaryEntry.HoneyRemoval(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.amount);
+                var newHoneyRemovalEntry = new DiaryEntry.HoneyRemoval(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date,
+                req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName, req.body.amount);
                 var added = addNewEntry(newHoneyRemovalEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -109,8 +109,8 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             case 'Verlust': {
-                var newLossEntry = new DiaryEntry.Loss(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled,
-                req.body.beeHiveId, req.body.reason);
+                var newLossEntry = new DiaryEntry.Loss(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled,
+                req.body.beeHiveId, req.body.beeHiveName, req.body.reason);
                 var added = addNewEntry(newLossEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -120,8 +120,8 @@ router.route('/diaryEntries').post(function(req, res) {
             break;
             }
             case 'Behandlung': {
-                var newTreatmentEntry = new DiaryEntry.Treatment(req.body.type, newEntryPhotos, req.body.description, req.body.date,
-                req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.treatmentType, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
+                var newTreatmentEntry = new DiaryEntry.Treatment(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date,
+                req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName, req.body.treatmentType, req.body.otherTreatment, req.body.appliance, req.body.treatmentBegin, req.body.treatmentEnd);
                 var added = addNewEntry(newTreatmentEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -131,7 +131,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
             default : {
-                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId);
+                var newOtherEntry = new DiaryEntry.DiaryEntry(req.body.type, req.body.otherType, newEntryPhotos, req.body.description, req.body.date, req.body.isMarkdownEnabled, req.body.beeHiveId, req.body.beeHiveName);
                 var added = addNewEntry(newOtherEntry);
                 if(added != 'OK') {
                     res.send(added);
@@ -228,10 +228,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType": req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName,
                 "countDays" : req.body.countDays,
                 "deadAcarians" : req.body.deadAcarians
                 }, function(error, entry) {
@@ -250,9 +252,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
-                "isMarkdownEnabled" : req.body.isMarkdownEnabled
+                "isMarkdownEnabled" : req.body.isMarkdownEnabled,
+                "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -269,10 +274,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
-                "beeHiveId" : req.body.beeHiveId
+                "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -289,10 +296,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
-                "beeHiveId" : req.body.beeHiveId
+                "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
@@ -309,10 +318,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName,
                 "foodType" : req.body.foodType,
                 "amount" : req.body.amount,
                 "proportion" : req.body.proportion
@@ -332,10 +343,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName,
                 "amount" : req.body.amount
                 }, function(error, entry) {
                 if(error) {
@@ -353,10 +366,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName,
                 "reason" : req.body.reason
                 }, function(error, entry) {
                 if(error) {
@@ -374,10 +389,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
                 "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName,
                 "treatmentType" : req.body.treatmentType,
                 "appliance" : req.body.appliance,
                 "treatmentBegin" : req.body.treatmentBegin,
@@ -398,10 +415,12 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                  {
                 "date" : req.body.date,
                 "type" : req.body.type,
+                "otherType" : req.body.otherType,
                 "description" : req.body.description,
                 "photos" : updateEntryPhotos,
                 "isMarkdownEnabled" : req.body.isMarkdownEnabled,
-                "beeHiveId" : req.body.beeHiveId
+                "beeHiveId" : req.body.beeHiveId,
+                "beeHiveName" : req.body.beeHiveName
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);
