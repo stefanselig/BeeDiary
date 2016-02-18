@@ -64,6 +64,7 @@ export class DiaryEntriesComponent implements OnInit {
 	 */
 	public initDiaryEntries(res: DiaryEntry[]): void {
 		this.allDiaryEntries = res.slice();
+		console.log(this.allDiaryEntries);
 		this.convertDatesOfDiaryEntries();
 		this.getStringsForSearch();
 		this.getDates();
@@ -151,6 +152,11 @@ export class DiaryEntriesComponent implements OnInit {
 				this.allDiaryEntries
 					.filter(e => e.date != null && e.date != undefined)
 					.filter(e => e.date.toDateString() == (this.entryDates[k]).toDateString())
+					.sort((x, y) => {
+						if (x.beeHiveId > y.beeHiveId) {
+							return 1;
+						}
+					})
 					.slice();
 			}
 		}
@@ -160,6 +166,11 @@ export class DiaryEntriesComponent implements OnInit {
 					collection
 					.filter(e => e.date != null && e.date != undefined)
 					.filter(e => e.date.toDateString() == (this.entryDates[k]).toDateString())
+					.sort((x, y) => {
+						if (x.beeHiveId > y.beeHiveId) {
+							return 1;
+						}
+					})
 					.slice();
 			}
 		}
@@ -207,10 +218,10 @@ export class DiaryEntriesComponent implements OnInit {
 			month = months[date.getMonth()];
 		}
 		else {
-			month = date.getMonth()+1;
+			month = date.getMonth()+1 + ".";
 		}
 		if (date != undefined && date != null)
-			return `${date.getDate()}. ${month}. ${date.getFullYear()}`;
+			return `${date.getDate()}. ${month} ${date.getFullYear()}`;
 		else
 			return "";
 	}

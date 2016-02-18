@@ -24,6 +24,7 @@ import {
 })
 export class DiaryEntryComponent {
 	public diaryentry: DiaryEntry;
+	public beehiveMap: any[];
 	
 	public typeEnum: entryTypeEnum[];
 	public treatmentTypes: treatmentTypeEnum[];
@@ -31,6 +32,7 @@ export class DiaryEntryComponent {
 	
 	constructor(public diaryEntryService: DiaryEntryService) {
 		this.loadEnums();
+		this.getBeeHiveNamesAndIds();
 	}
 	
 	public loadEnums(): void {
@@ -47,6 +49,19 @@ export class DiaryEntryComponent {
 			err => console.log(err)
 		);
 	}
+	
+	public getBeeHiveNamesAndIds(): void {
+		this.diaryEntryService
+			.beehiveNamesAndIdsMap
+			.subscribe(
+				res => {
+					console.log(res);
+					this.beehiveMap = res.slice();
+				},
+				err => console.log(err)
+			);
+	}
+	
 	
 	public parseMd(): string {
 		if (this.diaryentry.description == null) 
