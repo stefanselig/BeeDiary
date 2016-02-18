@@ -34,10 +34,21 @@
 			</select>
 			<div *ngIf="beehive.source?.type == 'Anderes'">
 				<label>Alternativer Quelltyp:</label>
-				<input type="text" [ngModel]="beehive.source?.type" (ngModelChange)="beehive.source.type = $event" placeholder="Quelltyp" class="form-control" />
+				<input type="text" [ngModel]="beehive.otherType" (ngModelChange)="beehive.otherType = $event" placeholder="Quelltyp" class="form-control" />
 			</div>
-			<label> Quellursprung: (Nicht erforderlich) </label>
-			<input type="number" [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event" placeholder="Quellursprung" class="form-control" />
+			<div *ngIf="beehive.source?.type == 'Gekauft'">
+				<label>Händler: </label>
+				<input type="text" [ngModel]="beehive.trader" (ngModelChange)="beehive.trader = $event" placeholder="Händler" class="form-control" />
+			</div>
+			<!--<div *ngIf="beehive.source?.type == 'Ableger'">
+				<label> Quellursprung: </label>-->
+				<!--<input type="number" [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event" placeholder="Quellursprung" class="form-control" />-->
+				<!--<select [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event">
+					<option *ngFor="#beehive of allBeeHives" [value]="beehive._id">
+						{{beehive.hiveName}}
+					</option>
+				</select>-->
+			<!--</div>-->
 		</div>
 		
 		<div class="form-group">
@@ -61,6 +72,10 @@
 					{{frameSize}}
 				</option>
 			</select>
+			<div *ngIf="beehive.frameSize == 'Anderes'">
+				<label>Alternative Beutenform:</label>
+				<input type="text" [ngModel]="beehive.otherFrameSize" (ngModelChange)="beehive.otherFrameSize = $event" placeholder="Beutenform" class="form-control" />
+			</div>
 		</div>
 		
 		<div class="form-group">
@@ -70,6 +85,10 @@
 					{{frameMaterial}}
 				</option>
 			</select>
+			<div *ngIf="beehive.frameMaterial == 'Anderes'">
+				<label>Alternatives Beutenmaterial:</label>
+				<input type="text" [ngModel]="beehive.otherFrameMaterial" (ngModelChange)="beehive.otherFrameMaterial = $event" placeholder="Beutenmaterial" class="form-control" />
+			</div>
 		</div>
 		
 		<div class="form-group">
@@ -79,6 +98,10 @@
 					{{combConstruction}}
 				</option>
 			</select>
+			<div *ngIf="beehive.combConstruction == 'Anderes'">
+				<label>Alternativer Wabenbautyp:</label>
+				<input type="text" [ngModel]="beehive.otherCombConstruction" (ngModelChange)="beehive.otherCombConstruction = $event" placeholder="Wabenbautyp" class="form-control" />
+			</div>
 		</div>
 		
 		<div class="form-group" style="width: 30%;">
