@@ -134,4 +134,4 @@ router.route('/users/:user_id').delete(function(req, res) {
     });
 
 module.exports = router;*/ 
-//# sourceMappingURL=usersRoute.js.map
+//# sourceMappingURL=UsersRoute.js.map

@@ -2,6 +2,7 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 var BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
+var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
 var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 var mongodb = require('mongodb');
 var config = require('./config');
@@ -30,7 +31,14 @@ router.route('/beeHives').post(function (req, res) {
         var hiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId, req.body.hiveLocation.position);
         var source = new BeeHive.Source(req.body.source.type, req.body.source.origin);
         var lost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
-        var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, hiveLocation, source, lost, req.body.frameSize, req.body.frameMaterial, req.body.combConstruction); //create a new instance of the BeeHive-model
+        if (req.body.photo == undefined) {
+            req.body.photo = {};
+        }
+        if (req.body.photo.id == 0) {
+            req.body.photo.id = new ObjectId();
+        }
+        var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
+        var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, req.body.lastDiaryEntryDate, hiveLocation, source, lost, req.body.frameSize, req.body.frameMaterial, req.body.combConstruction); //create a new instance of the BeeHive-model
         database.collection('BeeHives', function (error, beeHives) {
             if (error) {
                 console.error(error);
@@ -102,11 +110,20 @@ router.route('/beeHives/:hive_id').put(function (req, res) {
         var newHiveLocation = new BeeHive.HiveLocation(req.body.hiveLocation.lat, req.body.hiveLocation.lng, req.body.hiveLocation.address, req.body.hiveLocation.markerId, req.body.hiveLocation.position);
         var newSource = new BeeHive.Source(req.body.source.type, req.body.source.origin);
         var newLost = new BeeHive.Lost(req.body.lost.isLost, req.body.lost.reason);
+        if (req.body.photo == undefined) {
+            req.body.photo = {};
+        }
+        if (req.body.photo.id == 0) {
+            req.body.photo.id = new ObjectId();
+        }
+        var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
         beeHives.findOneAndUpdate({ "_id": new ObjectId(req.params.hive_id) }, {
             "hiveNumber": req.body.hiveNumber,
             "hiveName": req.body.hiveName,
             "startDate": req.body.startDate,
             "description": req.body.description,
+            "photo": photo,
+            "lastDiaryEntryDate": req.body.lastDiaryEntryDate,
             "hiveLocation": newHiveLocation,
             "source": newSource,
             "lost": newLost,

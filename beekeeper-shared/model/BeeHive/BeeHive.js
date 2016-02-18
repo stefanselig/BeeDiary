@@ -1,9 +1,11 @@
 var BeeHive = (function () {
-    function BeeHive(hiveNumber, hiveName, startDate, description, hiveLocation, source, lost, frameSize, frameMaterial, combConstruction) {
+    function BeeHive(hiveNumber, hiveName, startDate, description, photo, lastDiaryEntryDate, hiveLocation, source, lost, frameSize, frameMaterial, combConstruction) {
         this.hiveNumber = hiveNumber;
         this.hiveName = hiveName;
         this.startDate = startDate;
         this.description = description;
+        this.photo = photo;
+        this.lastDiaryEntryDate = lastDiaryEntryDate;
         this.hiveLocation = hiveLocation;
         this.source = source;
         this.lost = lost;
