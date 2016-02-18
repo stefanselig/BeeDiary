@@ -83,6 +83,7 @@ export class BeeHiveComponent implements OnInit {
 				this.beehives = res.slice();
 				this.getStringsForSearch();
 				this.mapDateStringsToDates('startDate');
+				this.mapDateStringsToDates('lastDiaryEntryDate');
 				console.log(this.allBeehives);
 			},
 			err => console.log(err),

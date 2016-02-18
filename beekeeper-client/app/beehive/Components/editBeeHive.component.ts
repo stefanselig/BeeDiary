@@ -51,7 +51,9 @@ export class EditBeeHiveComponent implements OnInit {
 				this.beehive = res;
 				this.isBeehiveLoaded = true;
 				if (this.isMapLoaded) {
-					this.mapsService.assignMapToMarkers(this.beehive.hiveLocation.markerId);
+					console.log(this.beehive);
+					if (this.beehive.hiveLocation.markerId != null)
+						this.mapsService.assignMapToMarkers(this.beehive.hiveLocation.markerId);
 				}
 			},
 			err => console.error(err)
@@ -85,7 +87,9 @@ export class EditBeeHiveComponent implements OnInit {
 	public callCenterMap(eventArgs: string): void {
 		this.isMapLoaded = true;
 		if (this.isBeehiveLoaded) {
-			this.mapsService.assignMapToMarkers(this.beehive.hiveLocation.markerId);
+			console.log(this.beehive);
+			if (this.beehive.hiveLocation.markerId != null)
+				this.mapsService.assignMapToMarkers(this.beehive.hiveLocation.markerId);
 		}
 		this.mapsService.centerMap();
 	}

@@ -41,4 +41,21 @@ export class ViewBeeHiveComponent {
 	public removeBeeHive(id: string): void {
 		this.onBeeHiveDeleted.emit(id);
 	}
+	
+	public formatDate(date: Date, options): string {
+		if (date == null || date == undefined)
+			return "";
+		const months = ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+		let month;
+		if (options == "Noch kein Eintrag vorhanden" && isNaN(Date.parse(date.toDateString()))) {
+			return options;
+		}
+		if (options == "fullmonths") {
+			month = months[date.getMonth()];
+		}
+		else {
+			month = date.getMonth()+1 + ".";
+		}
+		return `${date.getDate()}. ${month} ${date.getFullYear()}`;
+	}
 }
