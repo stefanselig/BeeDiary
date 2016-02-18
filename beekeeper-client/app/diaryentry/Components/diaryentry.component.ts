@@ -1,4 +1,4 @@
-import {Component,Input}	from 'angular2/core';
+import {Component,Input, AfterViewInit}	from 'angular2/core';
 import {DiaryEntryService} from '../services/diaryentry.service';
 import {
 	DiaryEntry, 
@@ -22,17 +22,26 @@ import {
 		}
 	`]
 })
-export class DiaryEntryComponent {
+export class DiaryEntryComponent implements AfterViewInit {
 	public diaryentry: DiaryEntry;
 	public beehiveMap: any[];
+	public beehiveMapSelection: BeeHiveMapSelection;
 	
 	public typeEnum: entryTypeEnum[];
 	public treatmentTypes: treatmentTypeEnum[];
 	public feedingTypes: foodTypeEnum[];
 	
+	public isSelectionLoaded: boolean = false;
+	public isViewLoaded: boolean = false;
+	
 	constructor(public diaryEntryService: DiaryEntryService) {
 		this.loadEnums();
 		this.getBeeHiveNamesAndIds();
+	}
+	
+	public selectBeeHiveValue(event: any): void {
+		this.diaryentry.beeHiveId = event.target.value;
+		this.diaryentry.beeHiveName = this.beehiveMap.find(el => el._id == event.target.value).hiveName;
 	}
 	
 	public loadEnums(): void {
@@ -57,9 +66,21 @@ export class DiaryEntryComponent {
 				res => {
 					console.log(res);
 					this.beehiveMap = res.slice();
+					this.beehiveMap.unshift({hiveName: undefined, _id: undefined});
+					this.isSelectionLoaded = true;
+					if (this.isViewLoaded) {
+						this.diaryentry.beeHiveName = this.beehiveMap.find(el => el._id == this.diaryentry.beeHiveId).hiveName;
+					}
 				},
 				err => console.log(err)
 			);
+	}
+	
+	public ngAfterViewInit(): void {
+		this.isViewLoaded = true;
+		if (this.isSelectionLoaded) {
+			this.diaryentry.beeHiveName = this.beehiveMap.find(el => el._id == this.diaryentry.beeHiveId).hiveName;
+		}
 	}
 	
 	
@@ -90,4 +111,9 @@ export class DiaryEntryComponent {
 		const index = this.diaryentry.photos.indexOf(this.diaryentry.photos.find(p => p == photo));
 		this.diaryentry.photos.splice(index, 1);
 	}
+}
+
+export interface BeeHiveMapSelection {
+	beeHiveId: string;
+	beeHiveName: string;
 }

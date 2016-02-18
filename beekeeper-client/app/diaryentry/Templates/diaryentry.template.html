@@ -7,7 +7,7 @@
 
 <div class="form-group">
 	<label>Bienenvolk auswählen:</label>
-	<select [(ngModel)]="diaryentry.beeHiveId">
+	<select (change)="selectBeeHiveValue($event)" [(ngModel)]="diaryentry.beeHiveId">
 		<option *ngFor="#hive of beehiveMap" [value]="hive._id">
 			{{hive.hiveName}}
 		</option>
@@ -43,6 +43,10 @@
 					{{treatmentType}}
 				</option>
 			</select>
+			<div *ngIf="diaryentry.treatmentType == 'Anderes'">
+				<label>Anderen Behandlungstyp wählen:</label>
+				<input type="text" [(ngModel)]="diaryentry.otherTreatment" class="form-control" />
+			</div>
 			<label>Mittel:</label>
 			<input type="text" [(ngModel)]="diaryentry.appliance" class="form-control"/>
 			<label>Startdatum:</label>
@@ -60,6 +64,10 @@
 					{{feedingType}}
 				</option>
 			</select>
+			<div *ngIf="diaryentry.foodType == 'Anderes'">
+				<label>Anderen Futtertyp wählen:</label>
+				<input type="text" [(ngModel)]="diaryentry.otherFood" class="form-control" />
+			</div>
 			<label>Menge:</label>
 			<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" class="form-control" min="0" step="0.01" />
 			<label>Verhältnis:</label>

@@ -22,7 +22,7 @@
 	</tr>
 	<tr *ngIf="viewDetails">
 		<td>Zugeordneter Bienenstock:</td>
-		<td>{{getBeeHiveName(diaryentry.beeHiveId)}}</td>
+		<td>{{diaryentry.beeHiveName}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Milbenkontrolle' && viewDetails">
 		<td>Anzahl an Tagen:</td>
@@ -34,7 +34,8 @@
 	</tr>	
 	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
 		<td>Behandlungstyp:</td>
-		<td>{{diaryentry.treatmentType}}</td>
+		<td *ngIf="diaryentry.treatmentType != 'Anderes'">{{diaryentry.treatmentType}}</td>
+		<td *ngIf="diaryentry.treatmentType == 'Anderes'">{{diaryentry.otherTreatment}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
 		<td>Mittel:</td>
@@ -50,7 +51,8 @@
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Fuetterung' && viewDetails">
 		<td>Futtertyp: </td>
-		<td>{{diaryentry.feedingType}}</td>
+		<td *ngIf="diaryentry.foodType != 'Anderes'">{{diaryentry.feedingType}}</td>
+		<td *ngIf="diaryentry.foodType == 'Anderes'">{{diaryentry.otherFood}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Fuetterung' && viewDetails">
 		<td>Menge: </td>

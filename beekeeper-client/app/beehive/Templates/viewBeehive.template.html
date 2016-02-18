@@ -1,10 +1,10 @@
 <table class="table table-bordered" (click)="showDetails()">
 	<tr>
 		<th colspan="2" class="row">
-			<div style="float: left;height:100%;" *ngIf="beehive?.photo != undefined" class="col-sm-4">
-				<img [src]="beehive?.photo" class="img-responsive beehivePhoto" />
+			<div style="float: left;height:100%;" *ngIf="beehive?.photo != undefined && beehive?.photo != null && beehive?.photo?.content != null" class="col-sm-4">
+				<img [src]="beehive?.photo?.content" class="img-responsive beehivePhoto" />
 			</div>
-			<div [class]="beehive?.photo != undefined ? 'photoHeader col-sm-8' : ''">
+			<div [class]="(beehive?.photo != undefined && beehive?.photo != null && beehive?.photo?.content != null) ? 'photoHeader col-sm-8' : ''">
 				<h2>Bienenstock {{beehive.hiveNumber}}</h2>
 				<h5 style="display: inline;">
 					<small>Für Details klicken</small>
