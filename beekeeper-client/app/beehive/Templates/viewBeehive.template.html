@@ -5,7 +5,7 @@
 				<img [src]="beehive?.photo?.content" class="img-responsive beehivePhoto" />
 			</div>
 			<div [class]="(beehive?.photo != undefined && beehive?.photo != null && beehive?.photo?.content != null) ? 'photoHeader col-sm-8' : ''">
-				<h2>Bienenstock {{beehive.hiveNumber}}</h2>
+				<h3>Bienenstock {{beehive.hiveNumber}}</h3>
 				<h5 style="display: inline;">
 					<small>Für Details klicken</small>
 				</h5>
@@ -44,9 +44,9 @@
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Quelltyp: </td>
-		<td *ngIf="beehive.source.type != 'Anderes'">{{beehive.source.type}}</td>
-		<td *ngIf="beehive.source.type == 'Anderes'">{{beehive.otherType}}</td>
-		<td *ngIf="beehive.source.type == 'Gekauft'">{{beehive.trader}}</td>
+		<td *ngIf="beehive.source.type != 'Anderes' && beehive.source.type != 'Gekauft'">{{beehive.source.type}}</td>
+		<td *ngIf="beehive.source.type == 'Anderes'">{{beehive.source.otherSource}}</td>
+		<td *ngIf="beehive.source.type == 'Gekauft'">Gekauft von {{beehive.trader}}</td>
 	</tr>
 	<!--<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Quellursprung: </td>

@@ -38,6 +38,7 @@ export class CreateBeeHiveComponent {
 	}
 	
 	public createNewBeeHive(): void {
+		console.log(this.beehive);
 		this.beehiveService
 		.createBeeHive(this.beehive)
 		.subscribe(
