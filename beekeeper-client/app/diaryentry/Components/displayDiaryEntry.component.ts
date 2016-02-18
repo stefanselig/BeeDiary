@@ -14,10 +14,13 @@ import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
 export class DisplayDiaryEntryComponent  {
 	public diaryentry: DiaryEntryModule.DiaryEntry = new DiaryEntryModule.DiaryEntry();
 	public onDiaryEntryDeleted: EventEmitter<string> = new EventEmitter<string>();
+	public beehiveMap: any[];
 	
 	public viewDetails: boolean = false;
 	
-	constructor(public diaryEntryService: DiaryEntryService, public router: Router) {}
+	constructor(public diaryEntryService: DiaryEntryService, public router: Router) {
+		this.getBeeHiveNamesAndIds();
+	}
 	
 	public showDetails(): void {
 		this.viewDetails = !this.viewDetails;
@@ -38,6 +41,27 @@ export class DisplayDiaryEntryComponent  {
 		this.onDiaryEntryDeleted.emit(id);
 	}
 	
+	public getBeeHiveNamesAndIds(): void {
+		this.diaryEntryService
+			.beehiveNamesAndIdsMap
+			.subscribe(
+				res => {
+					console.log(res);
+					this.beehiveMap = res.slice();
+				},
+				err => console.log(err)
+			);
+	}
+	
+	public getBeeHiveName(beeHiveId: string): string {
+		if (this.beehiveMap != undefined) {
+			const hive = this.beehiveMap.find(beehive => beehive._id == beeHiveId);
+			return hive == undefined ? "" : hive.hiveName;
+		}
+		else
+			return "";
+	}
+	
 	public formatDate(date: Date, options): string {
 		if (date == null || date == undefined)
 			return "";
@@ -47,8 +71,8 @@ export class DisplayDiaryEntryComponent  {
 			month = months[date.getMonth()];
 		}
 		else {
-			month = date.getMonth()+1;
+			month = date.getMonth()+1 + ".";
 		}
-		return `${date.getDate()}. ${month}. ${date.getFullYear()}`;
+		return `${date.getDate()}. ${month} ${date.getFullYear()}`;
 	}
 }

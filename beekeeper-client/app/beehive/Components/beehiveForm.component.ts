@@ -8,8 +8,9 @@ import {
 	sourceEnum,
 	frameSizeEnum,
 	frameMaterialEnum,
-	combConstructionEnum
+	combConstructionEnum,
 } from '../../build-client/BeeHive/BeeHive';
+import {Photo} from '../../build-client/DiaryEntry/DiaryEntry';
 
 
 @Component({
@@ -19,6 +20,12 @@ import {
 		.beehiveForm {
 			height: 70%;
 			overflow: auto;
+		}
+		.ng-valid[required] {
+			border-left: 5px solid #42A948; /* green */
+		}
+		.ng-invalid {
+			border-left: 5px solid #a94442; /* red */
 		}
 	`],
 	inputs: ['beehive']
@@ -78,5 +85,20 @@ export class BeeHiveForm {
 			(res: combConstructionEnum[]) => this.combConstructions =  res.slice(),
 			err => console.log(err)
 		);
+	}
+	
+	public handlePhoto(photo): void {
+		const reader = new FileReader();
+		if (photo[0]) {
+			reader.readAsDataURL(photo[0]);
+			reader.addEventListener("load", () => {
+				this.beehive.photo = new Photo(0,reader.result);
+			});
+		}
+	}
+	
+	public deletePhoto(filePicker: HTMLInputElement): void {
+		filePicker.value = "";
+		this.beehive.photo = undefined;
 	}
 }

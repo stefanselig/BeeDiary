@@ -2,27 +2,27 @@
 	<div>
 		<div class="form-group">
 			<label>Nummer: </label>
-			<input type="number" [(ngModel)]="beehive.hiveNumber" placeholder="Number" class="form-control">
+			<input type="number" [(ngModel)]="beehive.hiveNumber" placeholder="Nummer" class="form-control" min="0" required>
 		</div>
 		
 		<div class="form-group">
 			<label>Name:</label>
-			<input type="text" [(ngModel)]="beehive.hiveName" placeholder="Name" class="form-control"/>
+			<input type="text" [(ngModel)]="beehive.hiveName" placeholder="Name" class="form-control" required/>
 		</div>
 		
 		<div class="form-group">
 			<label> Adresse: </label>
-			<input type="text" [ngModel]="beehive.hiveLocation?.address" (ngModelChange)="beehive.hiveLocation.address = $event" placeholder="Address" class="form-control"/>
+			<input type="text" [ngModel]="beehive.hiveLocation?.address" (ngModelChange)="beehive.hiveLocation.address = $event" placeholder="Adresse" class="form-control"/>
 			<label> Lat: </label>
-			<input type="text" [ngModel]="beehive.hiveLocation?.lat" (ngModelChange)="beehive.hiveLocation.lat = $event" placeholder="Latitude" class="form-control"/>
+			<input type="text" [ngModel]="beehive.hiveLocation?.lat" (ngModelChange)="beehive.hiveLocation.lat = $event" placeholder="Breitengrad" class="form-control"/>
 			<label> Lng: </label>
-			<input type="text" [ngModel]="beehive.hiveLocation?.lng" (ngModelChange)="beehive.hiveLocation.lng = $event" placeholder="Longitude" class="form-control"/>
+			<input type="text" [ngModel]="beehive.hiveLocation?.lng" (ngModelChange)="beehive.hiveLocation.lng = $event" placeholder="Längengrad" class="form-control"/>
 			<input type="button" (click)="callGetCoordinates()" class="btn btn-default" value="GPS-Position abrufen">
 		</div>
 		
 		<div class="form-group">
 			<label> Beschreibung: </label>
-			<input type="text" [(ngModel)]="beehive.description" placeholder="Description" class="form-control">
+			<input type="text" [(ngModel)]="beehive.description" placeholder="Beschreibung" class="form-control">
 		</div>
 		
 		<div class="form-group">
@@ -34,15 +34,15 @@
 			</select>
 			<div *ngIf="beehive.source?.type == 'Anderes'">
 				<label>Alternativer Quelltyp:</label>
-				<input type="text" [ngModel]="beehive.source?.type" (ngModelChange)="beehive.source.type = $event" placeholder="Source Type" class="form-control" />
+				<input type="text" [ngModel]="beehive.source?.type" (ngModelChange)="beehive.source.type = $event" placeholder="Quelltyp" class="form-control" />
 			</div>
 			<label> Quellursprung: (Nicht erforderlich) </label>
-			<input type="number" [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event" placeholder="Source Origin" class="form-control"/>
+			<input type="number" [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event" placeholder="Quellursprung" class="form-control" />
 		</div>
 		
 		<div class="form-group">
 			<label> Startdatum: </label>
-			<input type="date" [(ngModel)]="beehive.startDate" placeholder="Start date" class="form-control"/>
+			<input type="date" [(ngModel)]="beehive.startDate" placeholder="Startdatum" class="form-control"/>
 		</div>
 		
 		<div class="form-group">
@@ -50,7 +50,7 @@
 			<input type="checkbox" [ngModel]="beehive.lost?.isLost" (ngModelChange)="beehive.lost.isLost = $event" />
 			<div *ngIf="beehive.lost?.isLost">
 				<label> Verlustgrund: </label>
-				<input type="text" placeholder="Reason" [ngModel]="beehive.lost?.reason" (ngModelChange)="beehive.lost.reason = $event" class="form-control">
+				<input type="text" placeholder="Grund" [ngModel]="beehive.lost?.reason" (ngModelChange)="beehive.lost.reason = $event" class="form-control">
 			</div>
 		</div>
 		
@@ -79,6 +79,23 @@
 					{{combConstruction}}
 				</option>
 			</select>
+		</div>
+		
+		<div class="form-group">
+			<table *ngIf="beehive?.photo != undefined">
+				<tr>
+					<td>
+						<img [src]="beehive?.photo?.content" class="img-responsive" />
+					</td>
+					<td>
+						<button (click)="deletePhoto(filePicker)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</td>
+				</tr>
+			</table>
+			<label>Foto hochladen: </label>
+			<input type="file" accept="image/*;capture=camera" #filePicker (change)="handlePhoto(filePicker.files)"/>
 		</div>
 	</div>
 </div>

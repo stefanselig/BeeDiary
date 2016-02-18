@@ -13,11 +13,16 @@
 	</tr>
 	<tr>
 		<td>Typ: </td>
-		<td>{{diaryentry.type}}</td>
+		<td *ngIf="diaryentry.type != 'Anderes'">{{diaryentry.type}}</td>
+		<td *ngIf="diaryentry.type == 'Anderes'">{{diaryentry.otherType}}</td>
 	</tr>
 	<tr>
 		<td>Datum: </td>
 		<td>{{formatDate(diaryentry.date)}}</td>
+	</tr>
+	<tr *ngIf="viewDetails">
+		<td>Zugeordneter Bienenstock:</td>
+		<td>{{getBeeHiveName(diaryentry.beeHiveId)}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Milbenkontrolle' && viewDetails">
 		<td>Anzahl an Tagen:</td>
@@ -26,8 +31,7 @@
 	<tr *ngIf="diaryentry.type == 'Milbenkontrolle' && viewDetails">
 		<td>Milbentodesfälle: </td>
 		<td>{{diaryentry.deadAcarians}}</td>
-	</tr>
-	<tr *ngIf="diaryentry.type == 'Errichtung' && viewDetails"></tr>
+	</tr>	
 	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
 		<td>Behandlungstyp:</td>
 		<td>{{diaryentry.treatmentType}}</td>
@@ -48,12 +52,12 @@
 		<td>Futtertyp: </td>
 		<td>{{diaryentry.feedingType}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
-		<td>Menge:</td>
+	<tr *ngIf="diaryentry.type == 'Fuetterung' && viewDetails">
+		<td>Menge: </td>
 		<td>{{diaryentry.amount}}</td>
 	</tr>
-	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
-		<td>Verhältnis:</td>
+	<tr *ngIf="diaryentry.type == 'Fuetterung' && viewDetails">
+		<td>Verhältnis: </td>
 		<td>{{diaryentry.proportion}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Honigentnahme' && viewDetails">
@@ -65,9 +69,10 @@
 		<td>{{diaryentry.reason}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Drohnenbrutausschnitt' && viewDetails"></tr>
-	<tr *ngIf="diaryentry.type == 'Anderes' && viewDetails"></tr>
+	<tr *ngIf="diaryentry.type == 'Errichtung' && viewDetails"></tr>
+	<tr *ngIf="diaryentry.type == 'Anderes' && viewDetails"></tr>	
 	<tr *ngIf="viewDetails">
-		<td colspan="2">
+			<td colspan="2">
 			Beschreibung: <br />
 			<div *ngIf="diaryentry.isMarkdownEnabled" [innerHTML]="parseMd()"></div>
 			<div *ngIf="!diaryentry.isMarkdownEnabled">{{diaryentry.description}}</div>

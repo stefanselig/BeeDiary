@@ -8,6 +8,7 @@ import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
 @Injectable()
 export class DiaryEntryService {
 	diaryEntries: Observable<DiaryEntryModule.DiaryEntry>;
+	beehiveNamesAndIdsMap: Observable<any[]>;
 	public generalHeaders: Headers;
 	
 	public typeEnum: Observable<DiaryEntryModule.entryTypeEnum[]>;
@@ -20,6 +21,7 @@ export class DiaryEntryService {
 		
 		this.getDiaryEntries();
 		this.loadEnums();
+		this.getBeeHiveNamesAndIds();
 	}
 	
 	public getDiaryEntries(): void {
@@ -58,6 +60,12 @@ export class DiaryEntryService {
 			.delete(
 				'http://localhost:8080/api/DiaryEntries/diaryEntries/' + id,
 				{ headers: this.generalHeaders })
+			.map(res => res.json());
+	}
+	
+	public getBeeHiveNamesAndIds(): void {
+		this.beehiveNamesAndIdsMap = this.http
+			.get('http://localhost:8080/api/BeeHives/BeeHiveNames', {headers: this.generalHeaders})
 			.map(res => res.json());
 	}
 	

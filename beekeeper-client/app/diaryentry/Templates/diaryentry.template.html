@@ -5,14 +5,14 @@
 	<input type="date" [(ngModel)]="diaryentry.date" class="form-control" required/>
 </div>
 
-<!--<div class="form-group">
+<div class="form-group">
 	<label>Bienenvolk auswählen:</label>
 	<select [(ngModel)]="diaryentry.beeHiveId">
-		<option *ngFor="hive of beehives[]" [value]="hive.id">
-			{{hive.name}}
+		<option *ngFor="#hive of beehiveMap" [value]="hive._id">
+			{{hive.hiveName}}
 		</option>
 	</select>
-</div>-->
+</div>
 
 <div class="form-group">
 	<label> Typen: </label>
@@ -23,76 +23,70 @@
 	</select>
 </div>
 
-<!-- Case AcarianControl: -->
-<div *ngIf="diaryentry.type == 'Milbenkontrolle'">
-	<div class="form-group">
-		<label>Anzahl an Tagen:</label> 
-		<input type="number" [(ngModel)]="diaryentry.countDays" class="form-control"/>
-		<label>Milbentodesfälle:</label> 
-		<input type="number" [(ngModel)]="diaryentry.deadAcarians" class="form-control"/>
+<div [ngSwitch]="diaryentry.type">
+	<div *ngSwitchWhen="'Milbenkontrolle'">
+		<div class="form-group">
+			<label>Anzahl an Tagen:</label> 
+			<input type="number" [(ngModel)]="diaryentry.countDays" class="form-control" min="0"/>
+			<label>Milbentodesfälle:</label> 
+			<input type="number" [(ngModel)]="diaryentry.deadAcarians" class="form-control" min="0"/>
+		</div>
 	</div>
-</div>
 
-<!-- Case Construction: -->
-<div *ngIf="diaryentry.type == 'Errichtung'"></div>
+	<div *ngSwitchWhen="'Errichtung'"></div>
 
-<!-- Case Treatment: -->
-<div *ngIf="diaryentry.type == 'Behandlung'">
-	<div class="form-group">
-		<label>Behandlungstypen:</label>
-		<select [(ngModel)]="diaryentry.treatmentType" class="form-control">
-			<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType">
-				{{treatmentType}}
-			</option>
-		</select>
-		<label>Mittel:</label>
-		<input type="text" [(ngModel)]="diaryentry.appliance" class="form-control"/>
-		<label>Startdatum:</label>
-		<input type="date" [(ngModel)]="diaryentry.treatmentBegin" class="form-control"/>
-		<label>Enddatum:</label>
-		<input type="date" [(ngModel)]="diaryentry.treatmentEnd" class="form-control"/>
+	<div *ngSwitchWhen="'Behandlung'">
+		<div class="form-group">
+			<label>Behandlungstypen:</label>
+			<select [(ngModel)]="diaryentry.treatmentType" class="form-control">
+				<option *ngFor="#treatmentType of treatmentTypes" [value]="treatmentType">
+					{{treatmentType}}
+				</option>
+			</select>
+			<label>Mittel:</label>
+			<input type="text" [(ngModel)]="diaryentry.appliance" class="form-control"/>
+			<label>Startdatum:</label>
+			<input type="date" [(ngModel)]="diaryentry.treatmentBegin" class="form-control"/>
+			<label>Enddatum:</label>
+			<input type="date" [(ngModel)]="diaryentry.treatmentEnd" class="form-control"/>
+		</div>
 	</div>
-</div>
 
-<!-- Case Feeding: -->
-<div *ngIf="diaryentry.type == 'Fuetterung'">
-	<div class="form-group">
-		<label>Futtertypen:</label>
-		<select [(ngModel)]="diaryentry.foodType" class="form-control">
-			<option *ngFor="#feedingType of feedingTypes" [value]="feedingType">
-				{{feedingType}}
-			</option>
-		</select>
-		<label>Menge:</label>
-		<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" class="form-control" />
-		<label>Verhältnis:</label>
-		<input type="text" [(ngModel)]="diaryentry.proportion" class="form-control"/>
+	<div *ngSwitchWhen="'Fuetterung'">
+		<div class="form-group">
+			<label>Futtertypen:</label>
+			<select [(ngModel)]="diaryentry.foodType" class="form-control">
+				<option *ngFor="#feedingType of feedingTypes" [value]="feedingType">
+					{{feedingType}}
+				</option>
+			</select>
+			<label>Menge:</label>
+			<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" class="form-control" min="0" step="0.01" />
+			<label>Verhältnis:</label>
+			<input type="text" [(ngModel)]="diaryentry.proportion" class="form-control"/>
+		</div>
 	</div>
-</div>
 
-<!-- Case HoneyRemoval: -->
-<div *ngIf="diaryentry.type == 'Honigentnahme'">
-	<div class="form-group">
-		<label>Menge:</label>
-		<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" class="form-control" />
+	<div *ngSwitchWhen="'Honigentnahme'">
+		<div class="form-group">
+			<label>Menge:</label>
+			<input type="number" [(ngModel)]="diaryentry.amount" placeholder="[kg]" class="form-control" min="0" step="0.01" />
+		</div>
 	</div>
-</div>
 
-<!-- Case Loss: -->
-<div *ngIf="diaryentry.type == 'Verlust'">
-	<div class="form-group">
-		<label>Verlustgrund:</label>
-		<input type="text" [(ngModel)]="diaryentry.reason" class="form-control"/>
+	<div *ngSwitchWhen="'Verlust'">
+		<div class="form-group">
+			<label>Verlustgrund:</label>
+			<input type="text" [(ngModel)]="diaryentry.reason" class="form-control"/>
+		</div>
+	</div>		
+
+	<div *ngSwitchWhen="'Drohnenbrutausschnitt'"></div>
+	
+	<div *ngSwitchWhen="'Anderes'">
+		<label>Anderen Typ wählen: </label>
+		<input type="text" [(ngModel)]="diaryentry.otherType" class="form-control"/>
 	</div>
-</div>		
-
-<!-- Case cutDroneBrood: -->
-<div *ngIf="diaryentry.type == 'Drohnenbrutausschnitt'"></div>
-
-<!-- Case Other: -->
-<div *ngIf="diaryentry.type == 'Anderes'">
-	<label>Anderen Typ spezifizieren: </label>
-	<input type="text" [(ngModel)]="diaryentry.otherText" class="form-control"/>
 </div>
 
 <div class="form-group">
@@ -104,7 +98,7 @@
 	<div *ngIf="diaryentry.isMarkdownEnabled" [innerHTML]="parseMd()"></div>
 </div>
 
-<div class="form-group">
+<div class="form-group" style="width: 30%;">
 	<label>Fotos:</label>
 	<table>
 		<tr *ngFor="#photo of diaryentry.photos">
