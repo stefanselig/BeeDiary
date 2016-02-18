@@ -14,13 +14,15 @@ import * as BeeHiveModule	from '../../build-client/BeeHive/BeeHive';
 	template: `
 		<h1> Bienenstock </h1>
 		<div class="col-sm-8">
-			<beehiveform [beehive]="beehive"></beehiveform>
-			<button (click)="createNewBeeHive()" type="submit" class="btn btn-default">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-			<button (click)="cancel()" class="btn btn-default">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-			</button>
+			<form (ngSubmit)="createNewBeeHive()" #createbeehiveform="ngForm">
+				<beehiveform [beehive]="beehive"></beehiveform>
+				<button type="submit" class="btn btn-default" [disabled]="!createbeehiveform.valid">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button>
+				<button (click)="cancel()" class="btn btn-default">
+					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+				</button>
+			</form>
 		</div>
 		<map class="col-sm-4" [latitude]="48" [longitude]="13"></map>
 	`,

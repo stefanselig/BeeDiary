@@ -14,16 +14,18 @@ import {BeeHive}	from '../../build-client/BeeHive/BeeHive';
 	template: `
 		<h1> Bienenstock </h1>
 		<div class="col-sm-8">
-			<beehiveform [beehive]="beehive"></beehiveform>
-			<button (click)="updateBeeHive()" type="submit" class="btn btn-default">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-			<button (click)="deleteBeeHive()" class="btn btn-default">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</button>
-			<button (click)="cancel()" class="btn btn-default">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-			</button>
+			<form (ngSubmit)="updateBeeHive()" #updatebeehiveform="ngForm">
+				<beehiveform [beehive]="beehive"></beehiveform>
+				<button type="submit" class="btn btn-default" [disabled]="!updatebeehiveform.valid">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button>
+				<button (click)="deleteBeeHive()" class="btn btn-default">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
+				<button (click)="cancel()" class="btn btn-default">
+					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+				</button>
+			</form>
 		</div>
 		<map class="col-sm-4" [latitude]="48" [longitude]="13" (afterMapInit)="callCenterMap($event)"></map>
 	`,

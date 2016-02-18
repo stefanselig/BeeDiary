@@ -1,14 +1,21 @@
 <table class="table table-bordered" (click)="showDetails()">
 	<tr>
-		<th colspan="2">
-			<h3 style="display: inline">Bienenstock {{beehive.hiveNumber}}</h3>
-			<h6 style="display: inline"><small>Für Details klicken</small></h6>
-			<button (click)="editBeeHive(beehive._id)" class="btn btn-default" style="float: right;">
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-			</button>
-			<button (click)="removeBeeHive(beehive._id)" class="btn btn-default" style="float: right;">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</button>
+		<th colspan="2" class="row">
+			<div style="float: left;height:100%;" *ngIf="beehive?.photo != undefined" class="col-sm-4">
+				<img [src]="beehive?.photo" class="img-responsive beehivePhoto" />
+			</div>
+			<div [class]="beehive?.photo != undefined ? 'photoHeader col-sm-8' : ''">
+				<h2>Bienenstock {{beehive.hiveNumber}}</h2>
+				<h5 style="display: inline;">
+					<small>Für Details klicken</small>
+				</h5>
+				<button (click)="editBeeHive(beehive._id)" class="btn btn-default" style="float: right;">
+					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				</button>
+				<button (click)="removeBeeHive(beehive._id)" class="btn btn-default" style="float: right;">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
+			</div>
 		</th>
 	</tr>
 	<tr>
@@ -19,12 +26,16 @@
 		<td>Adresse: </td>
 		<td>{{beehive.hiveLocation.address}}</td>
 	</tr>
+	<tr>
+		<td>Letzter Tagebucheintrag: </td>
+		<td></td>
+	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Lat: </td>
+		<td>Breitengrad: </td>
 		<td>{{beehive.hiveLocation.lat}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Lng: </td>
+		<td>Längengrad: </td>
 		<td>{{beehive.hiveLocation.lng}}</td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
