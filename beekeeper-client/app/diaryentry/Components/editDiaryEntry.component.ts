@@ -10,17 +10,20 @@ import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
 	selector: 'EditDiaryEntry',
 	directives: [DiaryEntryComponent],
 	template: `
-		<div>
+		<form (ngSubmit)="updateDiaryEntry()" #updatediaryentryform="ngForm">
 			<div class="form-group">
 				<diaryentry [diaryentry]="diaryentry"></diaryentry>
-				<button type="submit" (click)="updateDiaryEntry()" class="btn btn-default">
-					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+				<button type="submit" class="btn btn-default" [disabled]="!updatediaryentryform.valid">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 				</button>
-				<button (click)="cancel()" class="btn btn-default">
+				<button (click)="deleteDiaryEntry()" class="btn btn-default">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
+				<button (click)="cancel()" class="btn btn-default">
+					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+				</button>
 			</div>
-		</div>
+		</form>
 	`,
 	providers: [DiaryEntryService]
 })
@@ -52,6 +55,16 @@ export class EditDiaryEntryComponent {
 				this.router.navigate(['DiaryEntries']);
 			}
 		);
+	}
+	
+	public deleteDiaryEntry(): void {
+		this.diaryEntryService
+			.deleteDiaryEntryById(this.diaryentry._id)
+			.subscribe(
+				res => console.log(res),
+				err => console.log(err),
+				()  => this.router.navigate(['DiaryEntries'])
+			);
 	}
 	
 	public cancel(): void {

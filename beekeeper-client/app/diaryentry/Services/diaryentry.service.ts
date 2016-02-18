@@ -53,6 +53,14 @@ export class DiaryEntryService {
 		).map(res => res.json());
 	}
 	
+	public deleteDiaryEntryById(id: string): Observable<string> {
+		return this.http
+			.delete(
+				'http://localhost:8080/api/DiaryEntries/diaryEntries/' + id,
+				{ headers: this.generalHeaders })
+			.map(res => res.json());
+	}
+	
 	public getEnum(enumType: string): Observable<any> {
 		return this.http
 			.get('http://localhost:8080/api/DiaryEntries/' + enumType,

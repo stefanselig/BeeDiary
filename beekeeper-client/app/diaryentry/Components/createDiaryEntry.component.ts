@@ -7,13 +7,15 @@ import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
 @Component({
 	selector: 'creatediaryentry',
 	template: `
-		<diaryentry [diaryentry]="diaryentry"></diaryentry>
-		<button (click)="createDiaryEntry()" type="submit" class="btn btn-default">
-			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-		</button>
-		<button (click)="cancel()" class="btn btn-default">
-			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-		</button>
+		<form (ngSubmit)="createDiaryEntry()" #creatediaryentryform="ngForm">
+			<diaryentry [diaryentry]="diaryentry"></diaryentry>
+			<button type="submit" class="btn btn-default" [disabled]="!creatediaryentryform.valid">
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+			<button (click)="cancel()" class="btn btn-default">
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+			</button>
+		</form>
 	`,
 	directives: [DiaryEntryComponent]
 })

@@ -1,11 +1,12 @@
 import {Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import {DiaryEntryComponent} from './diaryentry.component';
+import {DiaryEntryService}	from './../services/diaryentry.service';
+
 import {DisplayDiaryEntryComponent} from './displaydiaryentry.component';
 import {SearchComponent}	from './../../search/search.component';
-import {DiaryEntryService}	from './../services/diaryentry.service';
-import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
+
+import {DiaryEntry, entryTypeEnum} from './../../build-client/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'DiaryEntries',
@@ -22,17 +23,16 @@ import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
 			</div>
 			<div *ngFor="#date of entryDates" [id]="date">
 				<h1>
-					{{diaryEntriesPerDate[date.toDateString()].length == 0 ? "" : date.toDateString()}}
+					{{diaryEntriesPerDate[date.toDateString()].length == 0 ? "" : formatDate(date, "fullmonths")}}
 				</h1>
 				<div class="row">
-					<displaydiaryentry *ngFor="#diaryentry of diaryEntriesPerDate[date.toDateString()]" [diaryentry]="diaryentry" class="col-sm-4"></displaydiaryentry>
+					<displaydiaryentry *ngFor="#diaryentry of diaryEntriesPerDate[date.toDateString()]" (onDiaryEntryDeleted)="deleteDiaryEntry($event)" [diaryentry]="diaryentry" class="col-sm-4"></displaydiaryentry>
 				</div>
 			</div>
 		</div>
 	`
 })
 export class DiaryEntriesComponent implements OnInit {
-	// This should maybe be part of the diaryEntryService:
 	public allDiaryEntries: DiaryEntry[] = [];
 	public diaryEntries: DiaryEntry[] = [];
 	public searchStrings: string[] = [];
@@ -76,8 +76,8 @@ export class DiaryEntriesComponent implements OnInit {
 	 */
 	public convertDatesOfDiaryEntries() {
 		this.mapDateStringsToDates('date');
-		this.mapDateStringsToDates('treatmentBegin', 'treatment');
-		this.mapDateStringsToDates('treatmentEnd', 'treatment');
+		this.mapDateStringsToDates('treatmentBegin', 'Behandlung');
+		this.mapDateStringsToDates('treatmentEnd', 'Behandlung');
 	}
 	
 	/**
@@ -108,7 +108,7 @@ export class DiaryEntriesComponent implements OnInit {
 		}
 		else {
 			this.allDiaryEntries
-				.filter(e => e[e.type] == option)
+				.filter(e => entryTypeEnum[entryTypeEnum[e.type]] == option)
 				.filter(e => e[propertyName] != undefined && e[propertyName] != null && e[propertyName] != NaN)
 				.forEach(e => e[propertyName] = new Date(e[propertyName]));
 		}
@@ -171,5 +171,47 @@ export class DiaryEntriesComponent implements OnInit {
 	 */
 	public createDiaryEntry(): void {
 		this.router.navigate(['CreateDiaryEntry']);
+	}
+	
+	public deleteDiaryEntry(id: string): void {
+		let diaryentryToDelete: DiaryEntry;
+		let index: number;
+		
+		diaryentryToDelete = this.allDiaryEntries.find(diaryentry => diaryentry._id == id);
+		
+		const diaryentryStrToDelete = this.searchStrings.find(diaryentryStr => JSON.stringify(diaryentryStrToDelete) == diaryentryStr);
+		index = this.searchStrings.indexOf(diaryentryStrToDelete);
+		this.searchStrings.splice(index, 1);
+		
+		index = this.allDiaryEntries.indexOf(diaryentryToDelete);
+		this.allDiaryEntries.splice(index, 1);
+		
+		index = this.diaryEntries.indexOf(diaryentryToDelete);
+		this.diaryEntries.splice(index, 1);
+		
+		index = this.diaryEntriesPerDate[diaryentryToDelete.date.toDateString()].indexOf(diaryentryToDelete);
+		this.diaryEntriesPerDate[diaryentryToDelete.date.toDateString()].splice(index, 1);
+		
+		this.diaryEntryService
+			.deleteDiaryEntryById(id)
+			.subscribe(
+				res => console.log(res),
+				err => console.log(err)
+			);
+	}
+	
+	public formatDate(date: Date, options): string {
+		const months = ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+		let month;
+		if (options == "fullmonths") {
+			month = months[date.getMonth()];
+		}
+		else {
+			month = date.getMonth()+1;
+		}
+		if (date != undefined && date != null)
+			return `${date.getDate()}. ${month}. ${date.getFullYear()}`;
+		else
+			return "";
 	}
 }

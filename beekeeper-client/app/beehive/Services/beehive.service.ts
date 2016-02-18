@@ -55,6 +55,13 @@ export class BeeHiveService {
 		.map(res => res.json());
 	}
 	
+	public deleteBeeHiveById(id: string): Observable<string> {
+		return this.http
+		.delete('http://localhost:8080/api/BeeHives/beeHives/' + id,
+			{headers: this.generalHeaders})
+		.map(res => res.json());
+	}
+	
 	public getEnum(enumType: string): Observable<any> {
 		return this.http
 				.get('http://localhost:8080/api/BeeHives/' + enumType, 

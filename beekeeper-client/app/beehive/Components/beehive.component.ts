@@ -23,7 +23,7 @@ import {BeeHive} from './../../build-client/BeeHive/BeeHive';
 				<button [innerHTML]="toggleMapText" (click)="toggleMap()" class="btn btn-default form-control" style="float:right;"></button>
 			</div>
 			<div [class]="isMapHidden ? 'col-sm-12' : 'col-sm-8'" style="overflow: auto; height: 70%;">
-				<viewbeehive *ngFor="#beehive of beehives" [beehive]="beehive" [class]="isMapHidden ? 'col-sm-4' : 'col-sm-6'"></viewbeehive>
+				<viewbeehive *ngFor="#beehive of beehives" [beehive]="beehive" [class]="isMapHidden ? 'col-sm-4' : 'col-sm-6'" (onBeeHiveDeleted)="removeBeeHive($event)"></viewbeehive>
 			</div>
 			<map *ngIf="!isMapHidden" class="col-sm-4" (afterMapInit)="initMarkers($event)" [latitude]="48" [longitude]="13"></map>
 		</div>
@@ -93,13 +93,19 @@ export class BeeHiveComponent implements OnInit {
 	 * Loads a marker for each beehive
 	 */
 	public initMarkers(eventArgs: string): void {
-		this.beehives.forEach((e: BeeHive) => e.hiveLocation.markerId = this.mapsService.createMarker({
-			lat: e.hiveLocation.lat,
-			lng: e.hiveLocation.lng,
-			position: new google.maps.LatLng(e.hiveLocation.lat, e.hiveLocation.lng)
-		}, e.hiveLocation.markerId))
-		this.beehives.forEach(beehive => this.mapsService.setInfoWindowText(beehive.hiveName, beehive.hiveLocation.markerId));
-		//this.beehives.forEach();
+		this.beehives.forEach((e: BeeHive) => {
+			if(e.hiveLocation.lat != null && e.hiveLocation.lng != null && e.hiveLocation.lat != undefined && e.hiveLocation.lng != undefined) {
+				const locationParams = {
+					lat: e.hiveLocation.lat,
+					lng: e.hiveLocation.lng,
+					position: new google.maps.LatLng(e.hiveLocation.lat, e.hiveLocation.lng)
+				};
+				e.hiveLocation.markerId = this.mapsService.createMarker(locationParams, e.hiveLocation.markerId);
+			}
+		});
+		/*this.beehives
+			.filter(beehive => beehive.hiveLocation.markerId != undefined)
+			.forEach(beehive => this.mapsService.setInfoWindowText(beehive.hiveName, beehive.hiveLocation.markerId));*/
 		this.mapsService.centerMap();
 	}
 	
@@ -120,5 +126,38 @@ export class BeeHiveComponent implements OnInit {
 				.filter(e => e[propertyName] != undefined && e[propertyName] != null && e[propertyName] != NaN)
 				.forEach(e => e[propertyName] = new Date(e[propertyName]));
 		}*/
+	}
+	
+	public removeBeeHive(id: string): void {
+		let beehiveToDelete: BeeHive;
+		let index: number;
+		
+		beehiveToDelete = this.allBeehives.find(beehive => beehive._id == id);
+
+		for (var key in this.mapsService.markers) {
+			if (this.mapsService.markers[key].id == beehiveToDelete.hiveLocation.markerId) {
+				const markerToDelete = this.mapsService.markers[key];
+				markerToDelete.marker.setMap(null);
+				index = this.mapsService.markers.indexOf(markerToDelete);
+				this.mapsService.markers.splice(index, 1);
+			}
+		}
+		
+		const beehiveStrToDelete = this.beehiveStrings.find(beehiveStr => JSON.stringify(beehiveToDelete) == beehiveStr);
+		index = this.beehiveStrings.indexOf(beehiveStrToDelete);
+		this.beehiveStrings.splice(index, 1);
+		
+		index = this.allBeehives.indexOf(beehiveToDelete);
+		this.allBeehives.splice(index, 1);
+		
+		index = this.beehives.indexOf(beehiveToDelete);
+		this.beehives.splice(index, 1);
+		
+		this.beehiveService
+			.deleteBeeHiveById(id)
+			.subscribe(
+				res => console.log(res),
+				err => console.log(err)
+			);
 	}
 }

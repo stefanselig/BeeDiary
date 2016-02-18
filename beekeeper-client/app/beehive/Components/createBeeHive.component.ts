@@ -19,7 +19,7 @@ import * as BeeHiveModule	from '../../build-client/BeeHive/BeeHive';
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</button>
 			<button (click)="cancel()" class="btn btn-default">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 			</button>
 		</div>
 		<map class="col-sm-4" [latitude]="48" [longitude]="13"></map>
