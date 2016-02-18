@@ -9,29 +9,31 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             DiaryEntry = (function () {
-                function DiaryEntry(type, photos, description, date, isMarkdownEnabled, beeHiveId) {
+                function DiaryEntry(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName) {
                     this.type = type;
+                    this.otherType = otherType;
                     this.photos = photos;
                     this.description = description;
                     this.date = date;
                     this.isMarkdownEnabled = isMarkdownEnabled;
                     this.beeHiveId = beeHiveId;
+                    this.beeHiveName = beeHiveName;
                 }
                 return DiaryEntry;
             })();
             exports_1("DiaryEntry", DiaryEntry);
             CutDroneBrood = (function (_super) {
                 __extends(CutDroneBrood, _super);
-                function CutDroneBrood(type, photos, description, date, isMarkdownEnabled, beeHiveId) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function CutDroneBrood(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                 }
                 return CutDroneBrood;
             })(DiaryEntry);
             exports_1("CutDroneBrood", CutDroneBrood);
             HoneyRemoval = (function (_super) {
                 __extends(HoneyRemoval, _super);
-                function HoneyRemoval(type, photos, description, date, isMarkdownEnabled, beeHiveId, amount) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function HoneyRemoval(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, amount) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                     this.amount = amount;
                 }
                 return HoneyRemoval;
@@ -39,8 +41,8 @@ System.register([], function(exports_1) {
             exports_1("HoneyRemoval", HoneyRemoval);
             AcarianControl = (function (_super) {
                 __extends(AcarianControl, _super);
-                function AcarianControl(type, photos, description, date, isMarkdownEnabled, beeHiveId, deadAcarians, countDays) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function AcarianControl(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, deadAcarians, countDays) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                     this.deadAcarians = deadAcarians;
                     this.countDays = countDays;
                     this.acarianDeathValue = this.getAcarianDeathValue();
@@ -53,17 +55,18 @@ System.register([], function(exports_1) {
             exports_1("AcarianControl", AcarianControl);
             Construction = (function (_super) {
                 __extends(Construction, _super);
-                function Construction(type, photos, description, date, isMarkdownEnabled, beeHiveId) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function Construction(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                 }
                 return Construction;
             })(DiaryEntry);
             exports_1("Construction", Construction);
             Feeding = (function (_super) {
                 __extends(Feeding, _super);
-                function Feeding(type, photos, description, date, isMarkdownEnabled, beeHiveId, foodType, amount, proportion) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function Feeding(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, foodType, otherFood, amount, proportion) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                     this.foodType = foodType;
+                    this.otherFood = otherFood;
                     this.amount = amount;
                     this.proportion = proportion;
                 }
@@ -72,9 +75,10 @@ System.register([], function(exports_1) {
             exports_1("Feeding", Feeding);
             Treatment = (function (_super) {
                 __extends(Treatment, _super);
-                function Treatment(type, photos, description, date, isMarkdownEnabled, beeHiveId, treatmentType, appliance, treatmentBegin, treatmentEnd) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function Treatment(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, treatmentType, otherTreatment, appliance, treatmentBegin, treatmentEnd) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                     this.treatmentType = treatmentType;
+                    this.otherTreatment = otherTreatment;
                     this.appliance = appliance;
                     this.treatmentBegin = treatmentBegin;
                     this.treatmentEnd = treatmentEnd;
@@ -84,8 +88,8 @@ System.register([], function(exports_1) {
             exports_1("Treatment", Treatment);
             Loss = (function (_super) {
                 __extends(Loss, _super);
-                function Loss(type, photos, description, date, isMarkdownEnabled, beeHiveId, reason) {
-                    _super.call(this, type, photos, description, date, isMarkdownEnabled, beeHiveId);
+                function Loss(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, reason) {
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                     this.reason = reason;
                 }
                 return Loss;

@@ -137,7 +137,7 @@ export class DiaryEntriesComponent implements OnInit {
 		this.entryDates = dateStrings
 							.filter((e, i) => dateStrings.indexOf(e) == i)
 							.map(e => new Date(e))
-							.sort();
+							.sort((a: Date, b: Date) => a < b ? 1 : -1);
 	}
 	
 	/**
@@ -152,11 +152,7 @@ export class DiaryEntriesComponent implements OnInit {
 				this.allDiaryEntries
 					.filter(e => e.date != null && e.date != undefined)
 					.filter(e => e.date.toDateString() == (this.entryDates[k]).toDateString())
-					.sort((x, y) => {
-						if (x.beeHiveId > y.beeHiveId) {
-							return 1;
-						}
-					})
+					.sort((x, y) => x.beeHiveId > y.beeHiveId ? 1 : -1)
 					.slice();
 			}
 		}
@@ -166,11 +162,7 @@ export class DiaryEntriesComponent implements OnInit {
 					collection
 					.filter(e => e.date != null && e.date != undefined)
 					.filter(e => e.date.toDateString() == (this.entryDates[k]).toDateString())
-					.sort((x, y) => {
-						if (x.beeHiveId > y.beeHiveId) {
-							return 1;
-						}
-					})
+					.sort((x, y) => x.beeHiveId > y.beeHiveId ? 1 : -1)
 					.slice();
 			}
 		}
