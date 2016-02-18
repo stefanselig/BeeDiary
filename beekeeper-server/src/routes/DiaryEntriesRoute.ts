@@ -141,7 +141,7 @@ router.route('/diaryEntries').post(function(req, res) {
                 break;
             }
         }
-        if (req.body.beeHiveId == undefined || req.body.beeHiveId == 0 || req.body.beeHiveId == null) {
+        if (req.body.beeHiveId != undefined && req.body.beeHiveId != 0 && req.body.beeHiveId != null) {
             database.collection('BeeHives', function(error, beeHives) {
             if(error) {
                 console.error(error);
