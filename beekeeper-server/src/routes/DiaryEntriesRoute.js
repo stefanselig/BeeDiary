@@ -317,6 +317,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "beeHiveId": req.body.beeHiveId,
                     "beeHiveName": req.body.beeHiveName,
                     "foodType": req.body.foodType,
+                    "otherFood": req.body.otherFood,
                     "amount": req.body.amount,
                     "proportion": req.body.proportion
                 }, function (error, entry) {
@@ -388,6 +389,7 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "beeHiveId": req.body.beeHiveId,
                     "beeHiveName": req.body.beeHiveName,
                     "treatmentType": req.body.treatmentType,
+                    "otherTreatment": req.body.otherTreatment,
                     "appliance": req.body.appliance,
                     "treatmentBegin": req.body.treatmentBegin,
                     "treatmentEnd": req.body.treatmentEnd
