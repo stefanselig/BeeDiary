@@ -144,11 +144,14 @@ export class MapsService {
 			text = "Bienenstock";
 		}
 		this.markers[markerId].infoWindow = new google.maps.InfoWindow({
-			content: `<h1>${text}</h1>`
+			content: `<h3>${text}</h3>`
 		});
 		this.markers[markerId].marker
 			.addListener("click", 
-			() => this.markers[markerId].infoWindow.open(this.map, this.markers[markerId]));
+			() => {
+				console.log(this.markers[markerId]);
+				this.markers[markerId].infoWindow.open(this.map, this.markers[markerId].marker);
+			});
 	}
 	
 	
