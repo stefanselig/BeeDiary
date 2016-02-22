@@ -253,7 +253,8 @@ router.route('/diaryEntries/:entry_id').put(function(req, res) {
                 "beeHiveId" : req.body.beeHiveId,
                 "beeHiveName" : req.body.beeHiveName,
                 "countDays" : req.body.countDays,
-                "deadAcarians" : req.body.deadAcarians
+                "deadAcarians" : req.body.deadAcarians,
+                "acarianDeathValue" : req.body.deadAcarians / req.body.countDays
                 }, function(error, entry) {
                 if(error) {
                     res.send(error);

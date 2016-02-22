@@ -15,7 +15,7 @@ export class HoneyRemoval extends DiaryEntry {
 }
 
 export class AcarianControl extends DiaryEntry {
-    acarianDeathValue: number;
+    public acarianDeathValue: number;
     
     constructor(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public deadAcarians?: number, public countDays?: number) {
        super(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);

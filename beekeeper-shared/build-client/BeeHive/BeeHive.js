@@ -4,7 +4,8 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             BeeHive = (function () {
-                function BeeHive(hiveNumber, hiveName, startDate, description, photo, lastDiaryEntryDate, hiveLocation, source, lost, frameSize, otherFrameSize, frameMaterial, otherFrameMaterial, combConstruction, otherCombConstruction, trader, lastDiaryEntryId) {
+                function BeeHive(googleID, hiveNumber, hiveName, startDate, description, photo, lastDiaryEntryDate, hiveLocation, source, lost, frameSize, otherFrameSize, frameMaterial, otherFrameMaterial, combConstruction, otherCombConstruction, trader, lastDiaryEntryId) {
+                    this.googleID = googleID;
                     this.hiveNumber = hiveNumber;
                     this.hiveName = hiveName;
                     this.startDate = startDate;

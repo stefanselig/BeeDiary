@@ -4,10 +4,12 @@
 var BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
 var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
 var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
+var Authentication = require('./../Authentication');
 var mongodb = require('mongodb');
 var config = require('./config');
 var express = require('express');
 var router = express.Router();
+var Auth = new Authentication.Authentication();
 var validator = require('validator');
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
@@ -18,7 +20,12 @@ database.open(function () { });
 router.use(function (req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-    next(); // make sure we go to the next routes and don't stop here
+    if (Auth.isTokenValid(req.body.token) == Authentication.requestValidEnum.Success) {
+        next(); // make sure we go to the next routes and don't stop here   
+    }
+    else {
+        res.json({ message: 'Authentication failed. Token invalid or Access denied.' });
+    }
 });
 //Callable with GET on http://localhost:8080/api/BeeHives/
 router.get('/', function (req, res) {

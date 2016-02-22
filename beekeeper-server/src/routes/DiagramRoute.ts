@@ -34,7 +34,7 @@ router.route('/acarianTime').get(function(req, res) {
            console.error(error);
            return;
        } 
-       diaryEntries.find({type : 'acarianControl', beeHiveName : req.body.hiveName}, {date: 1, deadAcarians: 1}).toArray(function(error, acarianTimes) {
+       diaryEntries.find({type : 'acarianControl', beeHiveName : req.body.hiveName}, {date: 1, acarianDeathValue: 1}).toArray(function(error, acarianTimes) {
           if(error) {
               res.send(error);
               console.error('Error at getting Time-AcarianDeath.');
