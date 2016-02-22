@@ -28,7 +28,7 @@
 	</tr>
 	<tr>
 		<td>Letzter Tagebucheintrag: </td>
-		<td>{{formatDate(beehive.lastDiaryEntryDate, "Noch kein Eintrag vorhanden")}}</td>
+		<td><a (click)="router.navigate(['DiaryEntries', {id: beehive._id}])">{{utils.formatDate(beehive.lastDiaryEntryDate, "Noch kein Eintrag vorhanden")}}</a></td>
 	</tr>
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Breitengrad: </td>
@@ -54,11 +54,11 @@
 	</tr>-->
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Startdatum:</td>
-		<td>{{formatDate(beehive.startDate)}}</td>
+		<td>{{utils.formatDate(beehive.startDate)}}</td>
 	</tr>
 	<tr *ngIf="beehive.lost.isLost && viewDetails" class="ng-animate box">
 		<td>Verlust:</td>
-		<td>{{beehive.lost.isLost}}</td>
+		<td>{{beehive.lost.isLost  == true ? "Ja" : "Nein"}}</td>
 	</tr>
 	<tr *ngIf="beehive.lost.isLost && viewDetails" class="ng-animate box">
 		<td>Grund:</td>

@@ -3,10 +3,12 @@ import {Router} from 'angular2/router';
 
 import {BeeHiveService}	from '../services/beehive.service';
 import {MapsService}	from '../services/maps.service';
+import {SearchService}	from '../../search/services/search.service';
+import {Utilities}		from '../../utilities.service';
 
 import {ViewBeeHiveComponent} from './viewBeeHive.component';
 import {MapComponent}	from './map.component';
-import {SearchComponent}	from './../../search/search.component';
+import {SearchComponent}	from './../../search/components/search.component';
 
 import {BeeHive} from './../../build-client/BeeHive/BeeHive';
 
@@ -16,7 +18,7 @@ import {BeeHive} from './../../build-client/BeeHive/BeeHive';
 		<h1>Deine Bienenstöcke: </h1>
 		<div class="row">
 			<div class="form-group form-inline">
-				<search [collection]="allBeehives" [searchStrings]="beehiveStrings" [name]="'Bienenstöcke'" (OnSearchResult)="retrieveSearchResults($event)"></search>
+				<search [name]="'Bienenstöcke'" (onSearch)="search($event)"></search>
 				<button (click)="createBeeHive()" class="btn btn-default form-control">
 					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
 				</button>
@@ -28,19 +30,19 @@ import {BeeHive} from './../../build-client/BeeHive/BeeHive';
 			<map *ngIf="!isMapHidden" class="col-sm-4" (afterMapInit)="initMarkers($event)" [latitude]="48" [longitude]="13"></map>
 		</div>
 	`,
-	directives: [ViewBeeHiveComponent, MapComponent, SearchComponent]
+	directives: [ViewBeeHiveComponent, MapComponent, SearchComponent],
+	providers: [SearchService]
 })
 export class BeeHiveComponent implements OnInit {
-	public allBeehives: BeeHive[] = [];
 	public beehives: BeeHive[] = [];
-	public beehiveStrings: string[] = [];
 	
 	public toggleMapText: string = "Karte verbergen";
 	public isMapHidden: boolean = false;
 	
-	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService, public router: Router) {}
+	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService, public router: Router, public utils: Utilities, public searchService: SearchService<BeeHive>) {}
 	
 	ngOnInit(): void {
+		this.searchService.initSearch(this.beehiveService);
 		this.getBeehives();
 	}
 	
@@ -53,10 +55,19 @@ export class BeeHiveComponent implements OnInit {
 	}
 	
 	/**
-	 * Event callback when search result is available.
+	 * Event callback when query is fired.
 	 */
-	public retrieveSearchResults(eventArgs: any[]) {
-		this.beehives = eventArgs.slice();
+	public search(eventArgs: string) {
+		this.beehives.length = 0;
+		this.searchService.search(eventArgs).subscribe(
+			res => {
+				res.startDate = new Date(res.startDate.toString());
+				res.lastDiaryEntryDate = new Date(res.lastDiaryEntryDate.toString());
+				this.beehives.push(res);
+			},
+			err => console.error(err),
+			() => console.log("Completed.")
+		);
 	}
 	
 	/**
@@ -67,24 +78,14 @@ export class BeeHiveComponent implements OnInit {
 	}
 	
 	/**
-	 * Maps each beehive to a string representation for search.
-	 */
-	public getStringsForSearch(): void {
-		this.beehives.forEach((e: BeeHive) => this.beehiveStrings.push(JSON.stringify(e)));
-	}
-	
-	/**
 	 * Gets data from service.
 	 */
 	public getBeehives(): void {
 		this.beehiveService.beeHives.subscribe(
 			(res: BeeHive[]) => {
-				this.allBeehives = res.slice();
 				this.beehives = res.slice();
-				this.getStringsForSearch();
-				this.mapDateStringsToDates('startDate');
-				this.mapDateStringsToDates('lastDiaryEntryDate');
-				console.log(this.allBeehives);
+				this.beehives = this.utils.mapDateStringsToDates('startDate', this.beehives);
+				this.beehives = this.utils.mapDateStringsToDates('lastDiaryEntryDate', this.beehives);
 			},
 			err => console.log(err),
 			() => console.log("Load completed")
@@ -103,6 +104,7 @@ export class BeeHiveComponent implements OnInit {
 					position: new google.maps.LatLng(e.hiveLocation.lat, e.hiveLocation.lng)
 				};
 				e.hiveLocation.markerId = this.mapsService.createMarker(locationParams, e.hiveLocation.markerId);
+				this.mapsService.setInfoWindowText(e.hiveName, e.hiveLocation.markerId);
 			}
 		});
 		/*this.beehives
@@ -111,55 +113,23 @@ export class BeeHiveComponent implements OnInit {
 		this.mapsService.centerMap();
 	}
 	
-	/**
-	 * Maps dates that are strings to Dates
-	 * (When converting a date to a JSON it becomes
-	 * a string and needs to be converted back again)
-	 */
-	public mapDateStringsToDates(propertyName: string, option?: string): void {
-		if (option == undefined) {
-			this.allBeehives
-				.filter(e => e[propertyName] != undefined && e[propertyName] != null && e[propertyName] != NaN)
-				.forEach(e => e[propertyName] = new Date(e[propertyName]));
-		}
-		/*else {
-			this.allBeehives
-				.filter(e => e.type == option)
-				.filter(e => e[propertyName] != undefined && e[propertyName] != null && e[propertyName] != NaN)
-				.forEach(e => e[propertyName] = new Date(e[propertyName]));
-		}*/
-	}
-	
 	public removeBeeHive(id: string): void {
-		let beehiveToDelete: BeeHive;
-		let index: number;
+		this.beehiveService.deleteBeeHiveById(id).subscribe(
+			res => console.log(res),
+			err => console.error(err)
+		);
 		
-		beehiveToDelete = this.allBeehives.find(beehive => beehive._id == id);
-
+		const beehiveToDelete = this.beehives.find(beehive => beehive._id == id);
+		
 		for (var key in this.mapsService.markers) {
 			if (this.mapsService.markers[key].id == beehiveToDelete.hiveLocation.markerId) {
 				const markerToDelete = this.mapsService.markers[key];
 				markerToDelete.marker.setMap(null);
-				index = this.mapsService.markers.indexOf(markerToDelete);
+				const index = this.mapsService.markers.indexOf(markerToDelete);
 				this.mapsService.markers.splice(index, 1);
 			}
 		}
 		
-		const beehiveStrToDelete = this.beehiveStrings.find(beehiveStr => JSON.stringify(beehiveToDelete) == beehiveStr);
-		index = this.beehiveStrings.indexOf(beehiveStrToDelete);
-		this.beehiveStrings.splice(index, 1);
-		
-		index = this.allBeehives.indexOf(beehiveToDelete);
-		this.allBeehives.splice(index, 1);
-		
-		index = this.beehives.indexOf(beehiveToDelete);
-		this.beehives.splice(index, 1);
-		
-		this.beehiveService
-			.deleteBeeHiveById(id)
-			.subscribe(
-				res => console.log(res),
-				err => console.log(err)
-			);
+		this.beehives.splice(this.beehives.indexOf(beehiveToDelete), 1);
 	}
 }
