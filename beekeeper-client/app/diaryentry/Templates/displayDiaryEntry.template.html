@@ -18,7 +18,7 @@
 	</tr>
 	<tr>
 		<td>Datum: </td>
-		<td>{{formatDate(diaryentry.date)}}</td>
+		<td>{{utils.formatDate(diaryentry.date)}}</td>
 	</tr>
 	<tr *ngIf="viewDetails">
 		<td>Zugeordneter Bienenstock:</td>
@@ -43,11 +43,11 @@
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
 		<td>Startdatum:</td>
-		<td>{{formatDate(diaryentry.treatmentBegin)}}</td>
+		<td>{{utils.formatDate(diaryentry.treatmentBegin)}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Behandlung' && viewDetails">
 		<td>Enddatum:</td>
-		<td>{{formatDate(diaryentry.treatmentEnd)}}</td>
+		<td>{{utils.formatDate(diaryentry.treatmentEnd)}}</td>
 	</tr>
 	<tr *ngIf="diaryentry.type == 'Fuetterung' && viewDetails">
 		<td>Futtertyp: </td>

@@ -67,7 +67,8 @@ export class EditDiaryEntryComponent {
 			);
 	}
 	
-	public cancel(): void {
+	public cancel(): boolean {
 		this.router.navigate(['DiaryEntries']);
+		return false;
 	}
 }

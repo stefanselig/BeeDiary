@@ -7,7 +7,7 @@ import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
 
 @Injectable()
 export class DiaryEntryService {
-	diaryEntries: Observable<DiaryEntryModule.DiaryEntry>;
+	diaryEntries: Observable<DiaryEntryModule.DiaryEntry[]>;
 	beehiveNamesAndIdsMap: Observable<any[]>;
 	public generalHeaders: Headers;
 	

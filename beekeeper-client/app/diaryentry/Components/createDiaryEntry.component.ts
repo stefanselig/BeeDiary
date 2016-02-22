@@ -1,8 +1,11 @@
 import {Component} from 'angular2/core';
+
 import {Router}	from 'angular2/router';
+
 import {DiaryEntryService}	from '../services/diaryentry.service';
+
 import {DiaryEntryComponent} from './diaryentry.component';
-import {DiaryEntry, entryTypeEnum} from './../../build-client/DiaryEntry/DiaryEntry';
+import {DiaryEntry} from './../../build-client/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'creatediaryentry',
@@ -31,7 +34,6 @@ export class CreateDiaryEntryComponent {
 	 * Returns back to diary entry main view on success.
 	 */
 	public createDiaryEntry(): void {
-		console.log(this.diaryentry);
 		this.diaryEntryService
 			.createDiaryEntry(this.diaryentry)
 			.subscribe(
@@ -47,7 +49,8 @@ export class CreateDiaryEntryComponent {
 	 * Cancels current operation and
 	 * returns back to diary entry main view
 	 */
-	public cancel(): void {
+	public cancel(): boolean {
 		this.router.navigate(['DiaryEntries']);
+		return false;
 	}
 }
