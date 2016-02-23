@@ -6,7 +6,6 @@ var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntr
 var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 var Authentication = require('./../Authentication');
 var mongodb = require('mongodb');
-var config = require('./config');
 var express = require('express');
 var router = express.Router();
 var Auth = new Authentication.Authentication();
@@ -20,7 +19,9 @@ database.open(function () { });
 router.use(function (req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-    if (Auth.isTokenValid(req.body.token) == Authentication.requestValidEnum.Success) {
+    var valid = Auth.isTokenValid(req.body.token);
+    if (valid != 'Error') {
+        req.body.googleUserId = valid;
         next(); // make sure we go to the next routes and don't stop here   
     }
     else {
@@ -45,7 +46,7 @@ router.route('/beeHives').post(function (req, res) {
             req.body.photo.id = new ObjectId();
         }
         var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
-        var newHive = new BeeHive.BeeHive(req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, 'Noch kein Eintrag vorhanden!', hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, ''); //create a new instance of the BeeHive-model
+        var newHive = new BeeHive.BeeHive(req.body.googleUserId, req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, undefined, hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, ''); //create a new instance of the BeeHive-model
         database.collection('BeeHives', function (error, beeHives) {
             if (error) {
                 console.error(error);
@@ -125,6 +126,7 @@ router.route('/beeHives/:hive_id').put(function (req, res) {
         }
         var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
         beeHives.findOneAndUpdate({ "_id": new ObjectId(req.params.hive_id) }, {
+            "googleId": req.body.googleUserId,
             "hiveNumber": req.body.hiveNumber,
             "hiveName": req.body.hiveName,
             "startDate": req.body.startDate,

@@ -8,7 +8,6 @@ import Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 import Authentication = require('./../Authentication');
 import mongodb = require('mongodb');
 
-var config = require('./config');
 var express = require('express');
 var router = express.Router();
 var Auth = new Authentication.Authentication();
@@ -56,7 +55,7 @@ router.route('/beeHives').post(function(req, res) {
             var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
             
         
-            var newHive = new BeeHive.BeeHive(req.body.googleUserId,req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, 'Noch kein Eintrag vorhanden!',
+            var newHive = new BeeHive.BeeHive(req.body.googleUserId,req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, undefined,
             hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, ''); //create a new instance of the BeeHive-model
             
             database.collection('BeeHives', function(error, beeHives) {

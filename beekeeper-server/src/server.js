@@ -21,14 +21,12 @@ var port = process.env.PORT || 8080; // set our port
 var beeHives = require('./routes/beeHivesRoute');
 var diaryEntries = require('./routes/diaryEntriesRoute');
 var diagrams = require('./routes/diagramRoute');
-var authentication = require('./routes/authenticationRoute');
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 //app.use('/api/Users/', users);
 app.use('/api/BeeHives/', beeHives);
 app.use('/api/DiaryEntries/', diaryEntries);
 app.use('/api/Diagrams/', diagrams);
-app.use('api/Auth', authentication);
 // START THE SERVER
 // =============================================================================
 app.listen(port);

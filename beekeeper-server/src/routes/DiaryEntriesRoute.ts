@@ -6,7 +6,6 @@ import DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryE
 import Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 import mongodb = require('mongodb');
 
-var config = require('./config');
 var express = require('express');
 var router = express.Router();
 

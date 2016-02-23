@@ -4,7 +4,6 @@
 var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
 var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 var mongodb = require('mongodb');
-var config = require('./config');
 var express = require('express');
 var router = express.Router();
 //Database handeling (MongoDB)
