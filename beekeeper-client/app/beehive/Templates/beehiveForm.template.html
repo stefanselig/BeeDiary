@@ -105,7 +105,7 @@
 		</div>
 		
 		<div class="form-group" style="width: 30%;">
-			<table *ngIf="beehive?.photo != undefined">
+			<table *ngIf="beehive?.photo?.content != undefined && beehive?.photo?.content != null">
 				<tr>
 					<td>
 						<img [src]="beehive?.photo?.content" class="img-responsive" />

@@ -50,7 +50,8 @@ export class CreateBeeHiveComponent {
 		);
 	}
 	
-	public cancel(): void {
+	public cancel(): boolean {
 		this.router.navigate(['BeeHives']);
+		return false;
 	}
 }

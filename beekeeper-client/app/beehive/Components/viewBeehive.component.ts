@@ -3,6 +3,7 @@ import {Router, RouteParams} from 'angular2/router';
 
 import {BeeHiveService}	from '../services/beehive.service';
 import {MapsService}	from '../services/maps.service';
+import {Utilities}		from '../../utilities.service';
 
 import {BeeHive} from '../../build-client/BeeHive/BeeHive';
 
@@ -28,7 +29,7 @@ export class ViewBeeHiveComponent {
 	public viewDetails: boolean = false;
 	public onBeeHiveDeleted: EventEmitter<string> = new EventEmitter<string>();
 	
-	constructor(public beeHiveService: BeeHiveService, public mapsService: MapsService, public router: Router, params: RouteParams) {}
+	constructor(public beeHiveService: BeeHiveService, public mapsService: MapsService, public router: Router, params: RouteParams, public utils: Utilities) {}
 	
 	public showDetails(): void {
 		this.viewDetails = !this.viewDetails;

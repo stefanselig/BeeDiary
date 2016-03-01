@@ -18,6 +18,7 @@ import {Dashboard} from './../dashboard/Components/dashboard.component';
 import {MapsService} from './../beehive/services/maps.service';
 import {BeeHiveService} from './../beehive/services/beehive.service';
 import {DiaryEntryService} from './../diaryentry/services/diaryentry.service';
+import {Utilities} from '../utilities.service';
 
 @Component({
 	selector: 'beekeeper',
@@ -35,14 +36,17 @@ import {DiaryEntryService} from './../diaryentry/services/diaryentry.service';
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>
+						<a [routerLink]="['LogIn']">Login</a>
+					</li>
+					<li>
 						<a [routerLink]="['BeeHives']">Bienenstöcke</a>
 					</li>
 					<li>
 						<a [routerLink]="['DiaryEntries']">Tagebucheinträge</a>
 					</li>	
-					<!--<li>
+					<li>
 						<a [routerLink]="['DashBoard']">Dashboard</a>
-					</li>-->
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -52,7 +56,7 @@ import {DiaryEntryService} from './../diaryentry/services/diaryentry.service';
 		<router-outlet></router-outlet>
 	`,
 	directives: [ROUTER_DIRECTIVES],
-	providers: [MapsService, BeeHiveService, DiaryEntryService]
+	providers: [MapsService, BeeHiveService, DiaryEntryService, Utilities]
 })
 @RouteConfig([
 	{path: '/signup', name: 'SignUp', component: SignUpComponent},

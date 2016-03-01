@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {DiaryEntryService} from '../services/diaryentry.service';
+import {Utilities} from '../../utilities.service';
 
 import * as DiaryEntryModule from './../../build-client/DiaryEntry/DiaryEntry';
 
@@ -18,7 +19,7 @@ export class DisplayDiaryEntryComponent  {
 	
 	public viewDetails: boolean = false;
 	
-	constructor(public diaryEntryService: DiaryEntryService, public router: Router) {
+	constructor(public diaryEntryService: DiaryEntryService, public router: Router, public utils: Utilities) {
 		this.getBeeHiveNamesAndIds();
 	}
 	
@@ -60,19 +61,5 @@ export class DisplayDiaryEntryComponent  {
 		}
 		else
 			return "";
-	}
-	
-	public formatDate(date: Date, options): string {
-		if (date == null || date == undefined)
-			return "";
-		const months = ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-		let month;
-		if (options == "fullmonths") {
-			month = months[date.getMonth()];
-		}
-		else {
-			month = date.getMonth()+1 + ".";
-		}
-		return `${date.getDate()}. ${month} ${date.getFullYear()}`;
 	}
 }

@@ -33,10 +33,16 @@ export class DiaryEntryComponent implements AfterViewInit {
 	
 	public isSelectionLoaded: boolean = false;
 	public isViewLoaded: boolean = false;
+	public mood: boolean = true;
 	
 	constructor(public diaryEntryService: DiaryEntryService) {
 		this.loadEnums();
 		this.getBeeHiveNamesAndIds();
+	}
+	
+	public toggleMood(): boolean {
+		this.mood = !this.mood;
+		return false;
 	}
 	
 	public selectBeeHiveValue(event: any): void {

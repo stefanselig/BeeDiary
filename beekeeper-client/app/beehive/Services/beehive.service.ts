@@ -23,6 +23,14 @@ export class BeeHiveService {
 		this.loadEnums();
 	}
 	
+	public getElements(): Observable<Array<BeeHiveModule.BeeHive>> {
+		return this.http
+		.get('http://localhost:8080/api/BeeHives/beeHives')
+		.map(
+			response => response.json()
+		);
+	}
+	
 	 public getBeeHives(): void {
 		this.beeHives = this.http
 		.get('http://localhost:8080/api/BeeHives/beeHives')

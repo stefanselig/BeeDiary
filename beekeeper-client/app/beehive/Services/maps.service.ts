@@ -94,7 +94,7 @@ export class MapsService {
 	 * @returns {number} id - MarkerObject's id
 	 */
 	public createMarker(locationParams: LocationParams, id?: number): number {
-		if (locationParams.position == undefined) {
+		if (locationParams.position == undefined || locationParams.position == null) {
 			return;
 		}
 		const marker = new google.maps.Marker({
@@ -103,7 +103,7 @@ export class MapsService {
 			title: 'BeeHive'
 		});
 		let newId;
-		if (id == undefined) {
+		if (id == undefined || id == null) {
 			newId = this.getNextId();
 		}
 		else {
@@ -126,7 +126,13 @@ export class MapsService {
 			this.markers.forEach(marker => marker.marker.setMap(this.map));
 		}
 		else {
-			this.markers[markerId].marker.setMap(this.map);
+			if (markerId == null) {
+				return;
+			}
+			else {
+				if (this.markers[markerId] != undefined && this.markers[markerId] != null)
+					this.markers[markerId].marker.setMap(this.map);	
+			}
 		}
 	}
 	
@@ -138,11 +144,14 @@ export class MapsService {
 			text = "Bienenstock";
 		}
 		this.markers[markerId].infoWindow = new google.maps.InfoWindow({
-			content: `<h1>${text}</h1>`
+			content: `<h3>${text}</h3>`
 		});
 		this.markers[markerId].marker
 			.addListener("click", 
-			() => this.markers[markerId].infoWindow.open(this.map, this.markers[markerId]));
+			() => {
+				console.log(this.markers[markerId]);
+				this.markers[markerId].infoWindow.open(this.map, this.markers[markerId].marker);
+			});
 	}
 	
 	

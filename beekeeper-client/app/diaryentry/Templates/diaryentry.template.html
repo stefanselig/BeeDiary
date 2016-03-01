@@ -98,6 +98,16 @@
 </div>
 
 <div class="form-group">
+	<label>Allgemeines Empfinden:</label>
+	<button (click)="toggleMood()" [class]="mood ? 'btn btn-default active' : 'btn btn-default'">
+		<span class="glyphicon glyphicon-thumbs-up"></span>
+	</button>
+	<button (click)="toggleMood()" [class]="mood ? 'btn btn-default' : 'btn btn-default active'">
+		<span class="glyphicon glyphicon-thumbs-down"></span>
+	</button>
+</div>
+
+<div class="form-group">
 	<label>Beschreibung:</label>
 	<br />
 	<label><a href="https://daringfireball.net/projects/markdown/" title="Ein Textformat, dass Formatierungen mittels gewisser Zeichen ermöglicht.">Markdownbearbeitung</a> aktivieren? </label>

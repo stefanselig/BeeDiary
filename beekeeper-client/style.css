@@ -1,45 +1,9 @@
 html {
 	height:100%;
+	min-height: 100%;
 	margin: 0; 
 	padding: 0;
 	position: relative;
-    min-height: 100%;
-}
-
-/*#map {
-	height: 75%;
-	width: 65%;
-	float: right;
-}*/
-
-/*#beeHiveContent {
-	float: left;
-	height: 80%;
-	overflow: auto;
-}*/
-
-/* Chart styling */
-.bar {
-  fill: steelblue;
-}
-.axis text {
-  font: 10px sans-serif;
-}
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-.chart {
-	font-family: Arial, sans-serif;
-    font-size: 10px;
-}
-.arc text {
-	font: 10px sans-serif;
-	text-anchor: middle;
-}
-.arc path {
-	stroke: #fff;
 }
 
 /* Angular2 Animation */
@@ -56,53 +20,4 @@ html {
 .box.ng-leave-active {
   opacity: 0;
   height: 0;
-}
-
-
-/* navbar styling */
-/*.affix {
-	color: green;
-}
-.affix-top {
-	color: red;
-}
-.affix-bottom {
-	color: blue;
-}*/
-
-/*.divide-nav{
-  height: 50px;
-  background-color: #428bca;
-}
-
-.divide-text{
-    color:#fff;
-    line-height: 20px;
-    font-size:20px;
-    padding: 15px 0;
-}
-
-.affix {
-  top: 50px;
-  width:100%;
-}
-
-.filler{
-  min-height: 2000px;
-}
-
-.navbar-form {
-   padding-left: 0;
-}
-
-.navbar-collapse{
-   padding-left:0; 
-}*/
-.affix {
-  top: 50px;
-  /*width:100%;*/
-}
-
-#dateNav{
-	z-index:9999;
 }

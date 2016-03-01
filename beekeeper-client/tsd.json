@@ -11,11 +11,8 @@
     "marked/marked.d.ts": {
       "commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
     },
-    "d3/d3.d.ts": {
-      "commit": "d6c51c607bd90c8bf0e065fabc41bc3f937425df"
-    },
-    "jquery/jquery.d.ts": {
-      "commit": "3030a4be536b6530c06b80081f1333dc0de4d703"
+    "google.visualization/google.visualization.d.ts": {
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
     }
   }
 }
