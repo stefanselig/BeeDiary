@@ -22,5 +22,5 @@ gulp.task('default', function () {
 		}))
 		.pipe(gulp.dest('build-client'));
 	gulp.src(['./model/**/*.ts', './utilities/**/*.ts']).pipe(gulp.dest('build-server'));
-	gulp.src(['./model/**/*.ts', './utilities/**/*.ts']).pipe(gulp.dest('../beekeeper-client/app/build-client'));
+	gulp.src(['./model/**/*.ts', './utilities/**/*.ts']).pipe(gulp.dest('../beekeeper-client/app/model/'));
 });
