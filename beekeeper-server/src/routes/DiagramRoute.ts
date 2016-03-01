@@ -4,7 +4,6 @@
 
 import mongodb = require('mongodb');
 
-var config = require('./config');
 var express = require('express');
 var router = express.Router();
 
@@ -27,14 +26,14 @@ router.get('/', function(req, res) {
 });
 
 // gets Time-AcarianDeath (accessed at GET http://localhost:8080/api/Diagrams/acarianTime)
-// Parameter: hiveName to get the Died Acarians per Time    
+// Parameter: hiveId to get the Died Acarians per Time    
 router.route('/acarianTime').get(function(req, res) {
        database.collection('DiaryEntries', function(error, diaryEntries) {
        if(error) {
            console.error(error);
            return;
        } 
-       diaryEntries.find({type : 'acarianControl', beeHiveName : req.body.hiveName}, {date: 1, deadAcarians: 1}).toArray(function(error, acarianTimes) {
+       diaryEntries.find({type : 'Milbenkontrolle', beeHiveId : req.body.beeHiveId}, {date: 1, acarianDeathValue: 1}).toArray(function(error, acarianTimes) {
           if(error) {
               res.send(error);
               console.error('Error at getting Time-AcarianDeath.');
@@ -53,7 +52,7 @@ router.route('/honeyPerPopulation').get(function(req, res) {
            console.error(error);
            return;
        } 
-       diaryEntries.find({type: 'honeyRemoval'}, {beeHiveName: 1, amount: 1}).toArray(function(error, honeyPerPopulation) {
+       diaryEntries.find({type: 'Honigentnahme'}, {beeHiveName: 1, amount: 1}).toArray(function(error, honeyPerPopulation) {
           if(error) {
               res.send(error);
               console.error('Error at getting Honey per Population/BeeHive.');
@@ -72,7 +71,7 @@ router.route('/honeyForPopulation').get(function(req, res) {
            console.error(error);
            return;
        } 
-       diaryEntries.find({type: 'honeyRemoval', beeHiveName: req.body.hiveName}, {date: 1, amount: 1}).toArray(function(error, honeyForPopulation) {
+       diaryEntries.find({type: 'Honigentnahme', beeHiveId : req.body.beeHiveId}, {date: 1, amount: 1}).toArray(function(error, honeyForPopulation) {
           if(error) {
               res.send(error);
               console.error('Error at getting Honey for one Population/BeeHive.');

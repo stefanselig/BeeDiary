@@ -82,4 +82,3 @@ var frameMaterialEnum = exports.frameMaterialEnum;
     combConstructionEnum[combConstructionEnum["Anderes"] = 2] = "Anderes";
 })(exports.combConstructionEnum || (exports.combConstructionEnum = {}));
 var combConstructionEnum = exports.combConstructionEnum;
-//# sourceMappingURL=BeeHive.js.map

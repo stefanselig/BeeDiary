@@ -4,7 +4,6 @@
 var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
 var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 var mongodb = require('mongodb');
-var config = require('./config');
 var express = require('express');
 var router = express.Router();
 //Database handeling (MongoDB)
@@ -245,7 +244,8 @@ router.route('/diaryEntries/:entry_id').put(function (req, res) {
                     "beeHiveId": req.body.beeHiveId,
                     "beeHiveName": req.body.beeHiveName,
                     "countDays": req.body.countDays,
-                    "deadAcarians": req.body.deadAcarians
+                    "deadAcarians": req.body.deadAcarians,
+                    "acarianDeathValue": req.body.deadAcarians / req.body.countDays
                 }, function (error, entry) {
                     if (error) {
                         res.send(error);

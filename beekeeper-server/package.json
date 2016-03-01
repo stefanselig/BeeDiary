@@ -17,6 +17,7 @@
         "mongodb": "latest",
         "passport-google-oauth": "latest",
         "validator": "latest",
-        "assert" : "latest"
+        "assert" : "latest",
+        "request" : "latest"
     }
 }
