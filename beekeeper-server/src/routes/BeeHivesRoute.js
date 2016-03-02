@@ -3,7 +3,7 @@
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 "use strict";
 var BeeHive = require('./../model/model/BeeHive/BeeHive');
-var DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
+var DiaryEntry = require('./../model/model/DiaryEntry/DiaryEntry');
 var Authentication = require('./../Authentication');
 var mongodb = require('mongodb');
 var express = require('express');

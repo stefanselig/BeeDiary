@@ -32,7 +32,8 @@ export class AuthService {
 	registerClickHandler(id): void {
 		this.googleAuth.attachClickHandler(document.getElementById(id), {}, (user) => {
 				this.googleUser = <gapi.auth2.GoogleUser> user;
-				this.router.navigate(['BeeHives']);
+				console.log(this.googleUser.getAuthResponse().id_token);
+				//this.router.navigate(['BeeHives']);
 		}, err => console.log(err));
 	}
 	

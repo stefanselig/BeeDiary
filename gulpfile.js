@@ -12,7 +12,7 @@ var PATH_CLIENT = './beekeeper-client/';
 var PATH_SERVER = './beekeeper-server/';
 var PATH_SHARED = './beekeeper-shared/';
 
-var tsClient = ts.createProject(PATH_CLIENT + 'app/tsconfig.json');
+var tsClient = ts.createProject(PATH_CLIENT + 'tsconfig.json');
 var tsServer = ts.createProject(PATH_SERVER + 'src/tsconfig.json');
 var tsShared = ts.createProject(PATH_SHARED + 'tsconfig.json');
 
