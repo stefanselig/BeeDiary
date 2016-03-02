@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -16,7 +17,7 @@ var DiaryEntry = (function () {
         this.beeHiveName = beeHiveName;
     }
     return DiaryEntry;
-})();
+}());
 exports.DiaryEntry = DiaryEntry;
 var CutDroneBrood = (function (_super) {
     __extends(CutDroneBrood, _super);
@@ -24,7 +25,7 @@ var CutDroneBrood = (function (_super) {
         _super.call(this, mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
     }
     return CutDroneBrood;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.CutDroneBrood = CutDroneBrood;
 var HoneyRemoval = (function (_super) {
     __extends(HoneyRemoval, _super);
@@ -33,7 +34,7 @@ var HoneyRemoval = (function (_super) {
         this.amount = amount;
     }
     return HoneyRemoval;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.HoneyRemoval = HoneyRemoval;
 var AcarianControl = (function (_super) {
     __extends(AcarianControl, _super);
@@ -47,7 +48,7 @@ var AcarianControl = (function (_super) {
         return this.deadAcarians / this.countDays;
     };
     return AcarianControl;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.AcarianControl = AcarianControl;
 var Construction = (function (_super) {
     __extends(Construction, _super);
@@ -55,7 +56,7 @@ var Construction = (function (_super) {
         _super.call(this, mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
     }
     return Construction;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.Construction = Construction;
 var Feeding = (function (_super) {
     __extends(Feeding, _super);
@@ -67,7 +68,7 @@ var Feeding = (function (_super) {
         this.proportion = proportion;
     }
     return Feeding;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.Feeding = Feeding;
 var Treatment = (function (_super) {
     __extends(Treatment, _super);
@@ -80,7 +81,7 @@ var Treatment = (function (_super) {
         this.treatmentEnd = treatmentEnd;
     }
     return Treatment;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.Treatment = Treatment;
 var Loss = (function (_super) {
     __extends(Loss, _super);
@@ -89,7 +90,7 @@ var Loss = (function (_super) {
         this.reason = reason;
     }
     return Loss;
-})(DiaryEntry);
+}(DiaryEntry));
 exports.Loss = Loss;
 var Photo = (function () {
     function Photo(id, content) {
@@ -97,7 +98,7 @@ var Photo = (function () {
         this.content = content;
     }
     return Photo;
-})();
+}());
 exports.Photo = Photo;
 exports.treatmentTypes = ["Hitze", "Säure", "Anderes"];
 exports.foodTypes = ["Zucker", "Anderes"];
@@ -125,3 +126,4 @@ export enum entryTypeEnum {
     Anderes
 }
 */ 
+//# sourceMappingURL=DiaryEntry.js.map

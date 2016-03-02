@@ -3,7 +3,6 @@
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 "use strict";
 var DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
-var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
 var mongodb = require('mongodb');
 var express = require('express');
 var router = express.Router();
@@ -516,17 +515,19 @@ router.route('/addOnePhoto').get(function (req, res) {
         });
     });
 });
-// gets all Members of the DiaryEntry-EntryTypeENUM (accessed at GET http://localhost:8080/api/DiaryEntries/typeEnum)    
-router.route('/typeEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(DiaryEntry.entryTypeEnum));
+/*// gets all Members of the DiaryEntry-EntryTypeENUM (accessed at GET http://localhost:8080/api/DiaryEntries/typeEnum)
+router.route('/typeEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(DiaryEntry.entryTypeEnum));
 });
-// gets all Members of the DiaryEntry-Feeding-typeOfFoodEnum (accessed at GET http://localhost:8080/api/DiaryEntries/foodEnum)    
-router.route('/foodEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(DiaryEntry.foodTypeEnum));
+
+// gets all Members of the DiaryEntry-Feeding-typeOfFoodEnum (accessed at GET http://localhost:8080/api/DiaryEntries/foodEnum)
+router.route('/foodEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(DiaryEntry.foodTypeEnum));
 });
-// gets all Members of the DiaryEntry-Treatment-treatmentTypeEnum (accessed at GET http://localhost:8080/api/DiaryEntries/treatmentEnum)    
-router.route('/treatmentEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(DiaryEntry.treatmentTypeEnum));
-});
+
+// gets all Members of the DiaryEntry-Treatment-treatmentTypeEnum (accessed at GET http://localhost:8080/api/DiaryEntries/treatmentEnum)
+router.route('/treatmentEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(DiaryEntry.treatmentTypeEnum));
+});*/
 module.exports = router;
 //# sourceMappingURL=DiaryEntriesRoute.js.map

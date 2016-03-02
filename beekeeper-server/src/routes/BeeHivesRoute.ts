@@ -184,7 +184,7 @@ router.route('/beeHives/:hive_id').delete(function(req, res) {
     });
     });
     
-// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
+/*// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
 router.route('/sourceEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(BeeHive.sourceEnum));
 });
@@ -202,7 +202,7 @@ router.route('/materialEnum').get(function(req, res) {
 // gets all Members of the BeeHive-CombConstructionEnum (accessed at GET http://localhost:8080/api/DiaryEntries/constructionEnum)    
 router.route('/constructionEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(BeeHive.combConstructionEnum));
-});
+});*/
 
 // gets all BeehiveNames with Id's (accessed at GET http://localhost:8080/api/BeeHives/BeeHiveNames)    
 router.route('/BeeHiveNames').get(function(req, res) {

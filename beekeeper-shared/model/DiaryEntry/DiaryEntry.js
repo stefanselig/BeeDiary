@@ -61,7 +61,7 @@ exports.Construction = Construction;
 var Feeding = (function (_super) {
     __extends(Feeding, _super);
     function Feeding(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, foodType, otherFood, amount, proportion) {
-        _super.call(this, mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
+        _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
         this.foodType = foodType;
         this.otherFood = otherFood;
         this.amount = amount;
@@ -100,26 +100,30 @@ var Photo = (function () {
     return Photo;
 }());
 exports.Photo = Photo;
-(function (treatmentTypeEnum) {
-    treatmentTypeEnum[treatmentTypeEnum["Hitze"] = 0] = "Hitze";
-    treatmentTypeEnum[treatmentTypeEnum["Säure"] = 1] = "Säure";
-    treatmentTypeEnum[treatmentTypeEnum["Anderes"] = 2] = "Anderes";
-})(exports.treatmentTypeEnum || (exports.treatmentTypeEnum = {}));
-var treatmentTypeEnum = exports.treatmentTypeEnum;
-(function (foodTypeEnum) {
-    foodTypeEnum[foodTypeEnum["Zucker"] = 0] = "Zucker";
-    foodTypeEnum[foodTypeEnum["Anderes"] = 1] = "Anderes";
-})(exports.foodTypeEnum || (exports.foodTypeEnum = {}));
-var foodTypeEnum = exports.foodTypeEnum;
-(function (entryTypeEnum) {
-    entryTypeEnum[entryTypeEnum["Milbenkontrolle"] = 0] = "Milbenkontrolle";
-    entryTypeEnum[entryTypeEnum["Errichtung"] = 1] = "Errichtung";
-    entryTypeEnum[entryTypeEnum["Behandlung"] = 2] = "Behandlung";
-    entryTypeEnum[entryTypeEnum["Fuetterung"] = 3] = "Fuetterung";
-    entryTypeEnum[entryTypeEnum["Honigentnahme"] = 4] = "Honigentnahme";
-    entryTypeEnum[entryTypeEnum["Verlust"] = 5] = "Verlust";
-    entryTypeEnum[entryTypeEnum["Drohnenbrutausschnitt"] = 6] = "Drohnenbrutausschnitt";
-    entryTypeEnum[entryTypeEnum["Anderes"] = 7] = "Anderes";
-})(exports.entryTypeEnum || (exports.entryTypeEnum = {}));
-var entryTypeEnum = exports.entryTypeEnum;
+exports.treatmentTypes = ["Hitze", "Säure", "Anderes"];
+exports.foodTypes = ["Zucker", "Anderes"];
+exports.entryTypes = ["Milbenkontrolle", "Errichtung", "Behandlung", "Fütterung", "Honigentnahme", "Verlust", "Drohnenbrutausschnitt", "Anderes"];
+/*
+export enum treatmentTypeEnum {
+    Hitze,
+    Säure,
+    Anderes
+}
+
+export enum foodTypeEnum {
+    Zucker,
+    Anderes
+}
+
+export enum entryTypeEnum {
+    Milbenkontrolle,
+    Errichtung,
+    Behandlung,
+    Fuetterung,
+    Honigentnahme,
+    Verlust,
+    Drohnenbrutausschnitt,
+    Anderes
+}
+*/ 
 //# sourceMappingURL=DiaryEntry.js.map

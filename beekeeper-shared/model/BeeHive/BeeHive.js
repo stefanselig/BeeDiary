@@ -51,36 +51,36 @@ var Lost = (function () {
     return Lost;
 }());
 exports.Lost = Lost;
-(function (sourceEnum) {
-    sourceEnum[sourceEnum["Schwarm"] = 0] = "Schwarm";
-    sourceEnum[sourceEnum["Ableger"] = 1] = "Ableger";
-    sourceEnum[sourceEnum["Gekauft"] = 2] = "Gekauft";
-    sourceEnum[sourceEnum["Anderes"] = 3] = "Anderes";
-})(exports.sourceEnum || (exports.sourceEnum = {}));
-var sourceEnum = exports.sourceEnum;
-(function (frameSizeEnum) {
-    frameSizeEnum[frameSizeEnum["Zander"] = 0] = "Zander";
-    frameSizeEnum[frameSizeEnum["Deutschnormal"] = 1] = "Deutschnormal";
-    frameSizeEnum[frameSizeEnum["Atbreitwabe"] = 2] = "Atbreitwabe";
-    frameSizeEnum[frameSizeEnum["Einheitsmas"] = 3] = "Einheitsmas";
-    frameSizeEnum[frameSizeEnum["Langstrothmas"] = 4] = "Langstrothmas";
-    frameSizeEnum[frameSizeEnum["Dadantoriginal"] = 5] = "Dadantoriginal";
-    frameSizeEnum[frameSizeEnum["Dadantmodifiziert"] = 6] = "Dadantmodifiziert";
-    frameSizeEnum[frameSizeEnum["Kuntzsch"] = 7] = "Kuntzsch";
-    frameSizeEnum[frameSizeEnum["Schweitzermas"] = 8] = "Schweitzermas";
-    frameSizeEnum[frameSizeEnum["Anderes"] = 9] = "Anderes";
-})(exports.frameSizeEnum || (exports.frameSizeEnum = {}));
-var frameSizeEnum = exports.frameSizeEnum;
-(function (frameMaterialEnum) {
-    frameMaterialEnum[frameMaterialEnum["Holz"] = 0] = "Holz";
-    frameMaterialEnum[frameMaterialEnum["Styropor"] = 1] = "Styropor";
-    frameMaterialEnum[frameMaterialEnum["Anderes"] = 2] = "Anderes";
-})(exports.frameMaterialEnum || (exports.frameMaterialEnum = {}));
-var frameMaterialEnum = exports.frameMaterialEnum;
-(function (combConstructionEnum) {
-    combConstructionEnum[combConstructionEnum["Naturbau"] = 0] = "Naturbau";
-    combConstructionEnum[combConstructionEnum["Mittelwaende"] = 1] = "Mittelwaende";
-    combConstructionEnum[combConstructionEnum["Anderes"] = 2] = "Anderes";
-})(exports.combConstructionEnum || (exports.combConstructionEnum = {}));
-var combConstructionEnum = exports.combConstructionEnum;
+exports.sources = ["Schwarm", "Ableger", "Gekauft", "Anderes"];
+exports.frameSizes = ["Zandermaß", "Deutschnormalmaß", "Österreichische Breitwabe", "Einheitsmaß", "Langstrothmaß", "Dadant original", "Dadant modifiziert", "Kuntzsch", "Schweitzermaß", "Anderes"];
+exports.frameMaterials = ["Holz", "Styropor", "Anderes"];
+exports.combConstructions = ["Naturbau", "Mittelwände", "Anderes"];
+/*export enum sourceEnum {
+     Schwarm,
+     Ableger,
+     Gekauft,
+     Anderes
+}*/
+/*export enum frameSizeEnum {
+    Zander,
+    Deutschnormal,
+    Atbreitwabe,
+    Einheitsmas,
+    Langstrothmas,
+    Dadantoriginal,
+    Dadantmodifiziert,
+    Kuntzsch,
+    Schweitzermas,
+    Anderes
+}*/
+/*export enum frameMaterialEnum {
+    Holz,
+    Styropor,
+    Anderes
+}*/
+/*export enum combConstructionEnum {
+    Naturbau,
+    Mittelwaende,
+    Anderes
+}*/ 
 //# sourceMappingURL=BeeHive.js.map
