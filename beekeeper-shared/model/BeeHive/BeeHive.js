@@ -82,8 +82,4 @@ exports.combConstructions = ["Naturbau", "Mittelwände", "Anderes"];
     Naturbau,
     Mittelwaende,
     Anderes
-}*/ 
-<<<<<<< HEAD
-=======
-//# sourceMappingURL=BeeHive.js.map
->>>>>>> a8f7f09fe0723ac32438a31c3f7d0cb0c61805f6
+}*/

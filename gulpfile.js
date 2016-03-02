@@ -12,7 +12,7 @@ var PATH_CLIENT = './beekeeper-client/';
 var PATH_SERVER = './beekeeper-server/';
 var PATH_SHARED = './beekeeper-shared/';
 
-var tsClient = ts.createProject(PATH_CLIENT + 'app/tsconfig.json');
+var tsClient = ts.createProject(PATH_CLIENT + 'tsconfig.json');
 var tsServer = ts.createProject(PATH_SERVER + 'src/tsconfig.json');
 var tsShared = ts.createProject(PATH_SHARED + 'tsconfig.json');
 
@@ -33,7 +33,7 @@ gulp.task('build-server', function () {
 // Don't use this one
 gulp.task('build-shared', function () {
 	tsShared.src()
-		.pipe(ts(tsServer))
+		.pipe(ts(tsShared))
 		.js.pipe(gulp.dest(PATH_SHARED));
 });
 

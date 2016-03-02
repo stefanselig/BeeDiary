@@ -31,4 +31,3 @@ app.use('/api/Diagrams/', diagrams);
 // =============================================================================
 app.listen(port);
 console.log('Express running on port ' + port);
-//# sourceMappingURL=server.js.map
