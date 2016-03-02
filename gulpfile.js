@@ -44,7 +44,7 @@ gulp.task('move-model-to-client', function () {
 
 gulp.task('move-model-to-server', function () {
 	gulp.src([PATH_SHARED + '**/*'])
-		.pipe(gulp.dest(PATH_SERVER + 'model'));
+		.pipe(gulp.dest(PATH_SERVER + 'src/model'));
 });
 
 gulp.task('install-client', function () {
