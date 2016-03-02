@@ -530,4 +530,3 @@ router.route('/treatmentEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(DiaryEntry.treatmentTypeEnum));
 });*/
 module.exports = router;
-//# sourceMappingURL=DiaryEntriesRoute.js.map
