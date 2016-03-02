@@ -7,4 +7,3 @@ function getArrayOfEnum(myEnum) {
     return enumArray;
 }
 exports.getArrayOfEnum = getArrayOfEnum;
-//# sourceMappingURL=Utilities.js.map

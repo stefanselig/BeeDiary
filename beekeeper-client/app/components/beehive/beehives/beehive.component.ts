@@ -10,7 +10,7 @@ import {ViewBeeHiveComponent} from '../viewbeehive/viewBeeHive.component';
 import {MapComponent} from '../map/map.component';
 import {SearchComponent} from '../../search/search.component';
 
-import {BeeHive} from '../../../model/BeeHive/BeeHive';
+import {BeeHive} from '../../../model/model/BeeHive/BeeHive';
 // Somehow include _id in model
 @Component({
 	selector: 'BeeHive',

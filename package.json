@@ -1,0 +1,12 @@
+{
+  "name": "dependenciesforgulp",
+  "version": "1.0.0",
+  "description": "Dependencies for the gulp tasks",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-install": "latest",
+    "gulp-typescript": "latest",
+    "typescript": "^1.8.2"
+  }
+}

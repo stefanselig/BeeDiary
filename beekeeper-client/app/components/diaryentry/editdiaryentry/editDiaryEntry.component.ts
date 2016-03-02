@@ -4,7 +4,7 @@ import {Router, RouteParams} from 'angular2/router';
 import {DiaryEntryComponent} from '../diaryentry/diaryentry.component';
 import {DiaryEntryService}	from '../../../services/diaryentry.service';
 
-import {DiaryEntry} from '../../../model/DiaryEntry/DiaryEntry';
+import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'EditDiaryEntry',

@@ -4,7 +4,7 @@ import {Router, RouteParams} from 'angular2/router';
 import {DiaryEntryService} from '../../../services/diaryentry.service';
 import {Utilities} from '../../../services/utilities.service';
 
-import * as DiaryEntryModule from '../../../model/DiaryEntry/DiaryEntry';
+import * as DiaryEntryModule from '../../../model/model/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'displaydiaryentry',

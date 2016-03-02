@@ -2,12 +2,12 @@ import {Component, OnInit} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {BeeHiveService}	from '../../../services/beehive.service';
-import {MapsService, LocationParams, MarkerObject}	from '../../../services/maps.service';
+import {MapsService, MarkerObject}	from '../../../services/maps.service';
 
 import {BeeHiveForm}	from '../beehiveform/beehiveForm.component';
 import {MapComponent}	from '../map/map.component';
 
-import {BeeHive} from '../../../model/BeeHive/BeeHive';
+import {BeeHive} from '../../../model/model/BeeHive/BeeHive';
 
 @Component({
 	selector: 'editBeeHive',

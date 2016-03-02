@@ -1,5 +1,6 @@
 ./.DS_Store
 .vscode/launch.json
+node_modules
 
 beekeeper-client/node_modules
 beekeeper-client/npm-debug.log
@@ -20,3 +21,5 @@ beekeeper-server/src/**/**/*.js
 beekeeper-server/src/**/**/*.js.map
 
 beekeeper-shared/node_modules
+beekeeper-shared/**/*.js
+beekeeper-shared/**/*.js.map
