@@ -2,7 +2,7 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 "use strict";
-var DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
+var DiaryEntry = require('./../model/model/DiaryEntry/DiaryEntry');
 var mongodb = require('mongodb');
 var express = require('express');
 var router = express.Router();
