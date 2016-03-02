@@ -3,7 +3,7 @@
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
 import DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
-import Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
+import Utilities = require('./../../../beekeeper-shared/build-server/Utilities');
 import mongodb = require('mongodb');
 
 var express = require('express');
@@ -524,7 +524,7 @@ router.route('/addOnePhoto').get(function(req, res) {
 });
 
     
-// gets all Members of the DiaryEntry-EntryTypeENUM (accessed at GET http://localhost:8080/api/DiaryEntries/typeEnum)    
+/*// gets all Members of the DiaryEntry-EntryTypeENUM (accessed at GET http://localhost:8080/api/DiaryEntries/typeEnum)    
 router.route('/typeEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(DiaryEntry.entryTypeEnum));
 });
@@ -537,6 +537,6 @@ router.route('/foodEnum').get(function(req, res) {
 // gets all Members of the DiaryEntry-Treatment-treatmentTypeEnum (accessed at GET http://localhost:8080/api/DiaryEntries/treatmentEnum)    
 router.route('/treatmentEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(DiaryEntry.treatmentTypeEnum));
-});
+});*/
     
 module.exports = router;

@@ -1,15 +1,14 @@
 ///<reference path='../../typings/node/node.d.ts'/>
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
-var BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
-var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
-var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
+"use strict";
+var BeeHive = require('./../../../beekeeper-shared/build-server/BeeHive/BeeHive');
+var DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
 var Authentication = require('./../Authentication');
 var mongodb = require('mongodb');
 var express = require('express');
 var router = express.Router();
 var Auth = new Authentication.Authentication();
-var validator = require('validator');
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
 var databaseServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
@@ -174,22 +173,25 @@ router.route('/beeHives/:hive_id').delete(function (req, res) {
         });
     });
 });
-// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
-router.route('/sourceEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(BeeHive.sourceEnum));
+/*// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)
+router.route('/sourceEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(BeeHive.sourceEnum));
 });
-// gets all Members of the BeeHive-FrameSizeEnum (accessed at GET http://localhost:8080/api/BeeHives/sizeEnum)    
-router.route('/sizeEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(BeeHive.frameSizeEnum));
+
+// gets all Members of the BeeHive-FrameSizeEnum (accessed at GET http://localhost:8080/api/BeeHives/sizeEnum)
+router.route('/sizeEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(BeeHive.frameSizeEnum));
 });
-// gets all Members of the BeeHive-FrameMaterialEnum (accessed at GET http://localhost:8080/api/DiaryEntries/materialEnum)    
-router.route('/materialEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(BeeHive.frameMaterialEnum));
+
+// gets all Members of the BeeHive-FrameMaterialEnum (accessed at GET http://localhost:8080/api/DiaryEntries/materialEnum)
+router.route('/materialEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(BeeHive.frameMaterialEnum));
 });
-// gets all Members of the BeeHive-CombConstructionEnum (accessed at GET http://localhost:8080/api/DiaryEntries/constructionEnum)    
-router.route('/constructionEnum').get(function (req, res) {
-    res.json(Utilities.getArrayOfEnum(BeeHive.combConstructionEnum));
-});
+
+// gets all Members of the BeeHive-CombConstructionEnum (accessed at GET http://localhost:8080/api/DiaryEntries/constructionEnum)
+router.route('/constructionEnum').get(function(req, res) {
+        res.json(Utilities.getArrayOfEnum(BeeHive.combConstructionEnum));
+});*/
 // gets all BeehiveNames with Id's (accessed at GET http://localhost:8080/api/BeeHives/BeeHiveNames)    
 router.route('/BeeHiveNames').get(function (req, res) {
     database.collection('BeeHives', function (error, beeHives) {

@@ -9,15 +9,9 @@
     "dependencies": {
         "express": "~4.0.0",
         "body-parser": "~1.0.1",
-        "morgan": "^1.5.2",
-        "cookie-parser": "^1.3.4",
-        "ejs": "^2.3.1",
 		"cors": "latest",
         "typescript": "latest",
         "mongodb": "latest",
-        "passport-google-oauth": "latest",
-        "validator": "latest",
-        "assert" : "latest",
         "request" : "latest"
     }
 }

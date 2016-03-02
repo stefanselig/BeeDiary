@@ -2,17 +2,15 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
-import BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
-import DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
-import Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
+import BeeHive = require('./../../../beekeeper-shared/build-server/BeeHive/BeeHive');
+import DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
+import Utilities = require('./../../../beekeeper-shared/build-server/Utilities');
 import Authentication = require('./../Authentication');
 import mongodb = require('mongodb');
 
 var express = require('express');
 var router = express.Router();
 var Auth = new Authentication.Authentication();
-
-var validator = require('validator');
 
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
@@ -186,7 +184,7 @@ router.route('/beeHives/:hive_id').delete(function(req, res) {
     });
     });
     
-// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
+/*// gets all Members of the BeeHive-SourceEnum (accessed at GET http://localhost:8080/api/BeeHives/sourceEnum)    
 router.route('/sourceEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(BeeHive.sourceEnum));
 });
@@ -204,7 +202,7 @@ router.route('/materialEnum').get(function(req, res) {
 // gets all Members of the BeeHive-CombConstructionEnum (accessed at GET http://localhost:8080/api/DiaryEntries/constructionEnum)    
 router.route('/constructionEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(BeeHive.combConstructionEnum));
-});
+});*/
 
 // gets all BeehiveNames with Id's (accessed at GET http://localhost:8080/api/BeeHives/BeeHiveNames)    
 router.route('/BeeHiveNames').get(function(req, res) {

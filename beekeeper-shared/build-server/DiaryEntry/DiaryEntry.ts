@@ -1,5 +1,5 @@
 export class DiaryEntry {
-    constructor(public mood? : boolean, public type?: string, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
+    constructor(public mood? : Boolean, public type?: string, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
 }
 
 export class CutDroneBrood extends DiaryEntry {

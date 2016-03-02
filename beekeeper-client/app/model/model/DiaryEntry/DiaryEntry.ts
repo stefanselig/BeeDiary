@@ -1,9 +1,13 @@
 export class DiaryEntry {
+<<<<<<< HEAD:beekeeper-client/app/model/model/DiaryEntry/DiaryEntry.ts
 <<<<<<< HEAD
     constructor(public type?: string, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
 =======
     constructor(public mood? : Boolean, public type?: entryTypeEnum, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
 >>>>>>> f7f8f957c21d3f59fbbd7468fb9ff34b6bd8dc0c
+=======
+    constructor(public mood? : Boolean, public type?: string, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
+>>>>>>> a8f7f09fe0723ac32438a31c3f7d0cb0c61805f6:beekeeper-client/app/model/DiaryEntry/DiaryEntry.ts
 }
 
 export class CutDroneBrood extends DiaryEntry {
@@ -38,6 +42,7 @@ export class Construction extends DiaryEntry {
 }
 
 export class Feeding extends DiaryEntry {
+<<<<<<< HEAD:beekeeper-client/app/model/model/DiaryEntry/DiaryEntry.ts
 <<<<<<< HEAD
     constructor(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public foodType?: string, public otherFood? : string, public amount?: number, public proportion?: string) {
        super(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
@@ -45,10 +50,15 @@ export class Feeding extends DiaryEntry {
     constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public foodType?: foodTypeEnum, public otherFood? : string, public amount?: number, public proportion?: string) {
        super(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
 >>>>>>> f7f8f957c21d3f59fbbd7468fb9ff34b6bd8dc0c
+=======
+    constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public foodType?: string, public otherFood? : string, public amount?: number, public proportion?: string) {
+       super(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
+>>>>>>> a8f7f09fe0723ac32438a31c3f7d0cb0c61805f6:beekeeper-client/app/model/DiaryEntry/DiaryEntry.ts
     }
 }
 
 export class Treatment extends DiaryEntry {
+<<<<<<< HEAD:beekeeper-client/app/model/model/DiaryEntry/DiaryEntry.ts
 <<<<<<< HEAD
     constructor(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public treatmentType?: string, public otherTreatment? : string, public appliance?: string, public treatmentBegin?: Date, public treatmentEnd?: Date) {
         super(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
@@ -56,6 +66,11 @@ export class Treatment extends DiaryEntry {
     constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public treatmentType?: treatmentTypeEnum, public otherTreatment? : string, public appliance?: string, public treatmentBegin?: Date, public treatmentEnd?: Date) {
         super(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
 >>>>>>> f7f8f957c21d3f59fbbd7468fb9ff34b6bd8dc0c
+=======
+    constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public treatmentType?: string, public otherTreatment? : string, public appliance?: string, public treatmentBegin?: Date, public treatmentEnd?: Date) {
+        super(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
+
+>>>>>>> a8f7f09fe0723ac32438a31c3f7d0cb0c61805f6:beekeeper-client/app/model/DiaryEntry/DiaryEntry.ts
     }
 }
 
