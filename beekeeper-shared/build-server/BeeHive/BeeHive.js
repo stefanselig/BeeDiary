@@ -1,3 +1,4 @@
+"use strict";
 var BeeHive = (function () {
     function BeeHive(googleID, hiveNumber, hiveName, startDate, description, photo, lastDiaryEntryDate, hiveLocation, source, lost, frameSize, otherFrameSize, frameMaterial, otherFrameMaterial, combConstruction, otherCombConstruction, trader, lastDiaryEntryId) {
         this.googleID = googleID;
@@ -20,7 +21,7 @@ var BeeHive = (function () {
         this.lastDiaryEntryId = lastDiaryEntryId;
     }
     return BeeHive;
-})();
+}());
 exports.BeeHive = BeeHive;
 var HiveLocation = (function () {
     function HiveLocation(lat, lng, address, markerId, position) {
@@ -31,7 +32,7 @@ var HiveLocation = (function () {
         this.position = position;
     }
     return HiveLocation;
-})();
+}());
 exports.HiveLocation = HiveLocation;
 var Source = (function () {
     function Source(type, otherSource, origin) {
@@ -40,7 +41,7 @@ var Source = (function () {
         this.origin = origin;
     }
     return Source;
-})();
+}());
 exports.Source = Source;
 var Lost = (function () {
     function Lost(isLost, reason) {
@@ -48,7 +49,7 @@ var Lost = (function () {
         this.reason = reason;
     }
     return Lost;
-})();
+}());
 exports.Lost = Lost;
 exports.sources = ["Schwarm", "Ableger", "Gekauft", "Anderes"];
 exports.frameSizes = ["Zandermaß", "Deutschnormalmaß", "Österreichische Breitwabe", "Einheitsmaß", "Langstrothmaß", "Dadant original", "Dadant modifiziert", "Kuntzsch", "Schweitzermaß", "Anderes"];
@@ -82,3 +83,4 @@ exports.combConstructions = ["Naturbau", "Mittelwände", "Anderes"];
     Mittelwaende,
     Anderes
 }*/ 
+//# sourceMappingURL=BeeHive.js.map

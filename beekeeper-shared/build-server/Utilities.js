@@ -1,3 +1,4 @@
+"use strict";
 function getArrayOfEnum(myEnum) {
     var enumArray = [];
     Object.keys(myEnum)
@@ -6,3 +7,4 @@ function getArrayOfEnum(myEnum) {
     return enumArray;
 }
 exports.getArrayOfEnum = getArrayOfEnum;
+//# sourceMappingURL=Utilities.js.map

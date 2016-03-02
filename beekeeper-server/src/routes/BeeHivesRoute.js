@@ -2,8 +2,8 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 "use strict";
-var BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
-var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
+var BeeHive = require('./../../../beekeeper-shared/build-server/BeeHive/BeeHive');
+var DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
 var Authentication = require('./../Authentication');
 var mongodb = require('mongodb');
 var express = require('express');
