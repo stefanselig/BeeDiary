@@ -1,3 +1,4 @@
+"use strict";
 function getArrayOfEnum(myEnum) {
     var enumArray = [];
     Object.keys(myEnum)

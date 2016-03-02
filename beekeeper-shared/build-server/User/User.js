@@ -1,3 +1,4 @@
+"use strict";
 var User = (function () {
     function User(googleId, email, token, name) {
         this.googleId = googleId;
@@ -6,5 +7,6 @@ var User = (function () {
         this.name = name;
     }
     return User;
-})();
+}());
 exports.User = User;
+//# sourceMappingURL=User.js.map

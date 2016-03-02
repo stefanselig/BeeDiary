@@ -1,6 +1,7 @@
 ///<reference path='../../typings/node/node.d.ts'/>
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
+"use strict";
 var BeeHive = require('./../../../beekeeper-shared/model/BeeHive/BeeHive');
 var DiaryEntry = require('./../../../beekeeper-shared/model/DiaryEntry/DiaryEntry');
 var Utilities = require('./../../../beekeeper-shared/utilities/Utilities');
@@ -9,7 +10,6 @@ var mongodb = require('mongodb');
 var express = require('express');
 var router = express.Router();
 var Auth = new Authentication.Authentication();
-var validator = require('validator');
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
 var databaseServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true });

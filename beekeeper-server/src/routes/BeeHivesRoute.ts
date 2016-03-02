@@ -12,8 +12,6 @@ var express = require('express');
 var router = express.Router();
 var Auth = new Authentication.Authentication();
 
-var validator = require('validator');
-
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
 var databaseServer =  new mongodb.Server('localhost', 27017, {auto_reconnect: true});
