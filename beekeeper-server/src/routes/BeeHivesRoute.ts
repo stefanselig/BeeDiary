@@ -2,9 +2,9 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
-import BeeHive = require('./../../../beekeeper-shared/build-server/BeeHive/BeeHive');
-import DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
-import Utilities = require('./../../../beekeeper-shared/build-server/Utilities');
+import BeeHive = require('./../model/model/BeeHive/BeeHive');
+import DiaryEntry = require('./../model/model/DiaryEntry/DiaryEntry');
+import Utilities = require('./../model/utilities/Utilities');
 import Authentication = require('./../Authentication');
 import mongodb = require('mongodb');
 
