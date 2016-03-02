@@ -1,11 +1,7 @@
 <html>
 	<head>
 		<base href="/">
-		
-		<script src="https://apis.google.com/js/platform.js"></script>
-		
-		<meta name="google-signin-client_id" content="766450771509-6udg4kpcrarlvq9rm9tqskn3epmv94f4.apps.googleusercontent.com">
-		
+
 		<script src="./node_modules/es6-shim/es6-shim.min.js"></script>
 		
 		<script src="./node_modules/systemjs/dist/system-polyfills.js"></script>
@@ -22,9 +18,11 @@
 		
 		<script src="./node_modules/marked/lib/marked.js"></script>
 		
+		<script src="https://www.google.com/jsapi"></script>
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="https://apis.google.com/js/api:client.js"></script>
 		
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD52xcKSvVXXDFZt43dW0oUR3mR3K_v-vk"></script>
+		<script src="./app/boot/config.js"></script>
 		
 		<script>
 			System.config({
@@ -35,7 +33,7 @@
 					}
 				}
 			});
-			System.import('./app/boot').then(null, console.error.bind(console));;
+			System.import('./app/boot/boot').then(null, console.error.bind(console));
 		</script>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1">

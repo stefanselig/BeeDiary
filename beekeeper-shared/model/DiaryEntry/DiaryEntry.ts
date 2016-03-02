@@ -1,5 +1,5 @@
 export class DiaryEntry {
-    constructor(public mood? : Boolean, public type?: entryTypeEnum, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
+    constructor(public mood? : Boolean, public type?: string, public otherType? : string, public photos?: Photo[], public description?: string, public date?: Date, public isMarkdownEnabled?: boolean, public beeHiveId?: any, public beeHiveName? : string) {}    
 }
 
 export class CutDroneBrood extends DiaryEntry {
@@ -34,14 +34,15 @@ export class Construction extends DiaryEntry {
 }
 
 export class Feeding extends DiaryEntry {
-    constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public foodType?: foodTypeEnum, public otherFood? : string, public amount?: number, public proportion?: string) {
-       super(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
+    constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public foodType?: string, public otherFood? : string, public amount?: number, public proportion?: string) {
+       super(type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
     }
 }
 
 export class Treatment extends DiaryEntry {
-    constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public treatmentType?: treatmentTypeEnum, public otherTreatment? : string, public appliance?: string, public treatmentBegin?: Date, public treatmentEnd?: Date) {
+    constructor(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, public treatmentType?: string, public otherTreatment? : string, public appliance?: string, public treatmentBegin?: Date, public treatmentEnd?: Date) {
         super(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
+
     }
 }
 
@@ -55,6 +56,11 @@ export class Photo {
     constructor(public id?: any, public content?: string) {}
 }
 
+export const treatmentTypes: string[] = ["Hitze","Säure","Anderes"];
+export const foodTypes: string[] = ["Zucker", "Anderes"];
+export const entryTypes: string[] = ["Milbenkontrolle", "Errichtung", "Behandlung", "Fütterung", "Honigentnahme", "Verlust", "Drohnenbrutausschnitt", "Anderes"];
+
+/*
 export enum treatmentTypeEnum {
 	Hitze,
 	Säure,
@@ -76,3 +82,4 @@ export enum entryTypeEnum {
 	Drohnenbrutausschnitt,
 	Anderes
 }
+*/

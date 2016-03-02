@@ -4,7 +4,7 @@ System.register([], function(exports_1) {
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var DiaryEntry, CutDroneBrood, HoneyRemoval, AcarianControl, Construction, Feeding, Treatment, Loss, Photo, treatmentTypeEnum, foodTypeEnum, entryTypeEnum;
+    var DiaryEntry, CutDroneBrood, HoneyRemoval, AcarianControl, Construction, Feeding, Treatment, Loss, Photo, treatmentTypes, foodTypes, entryTypes;
     return {
         setters:[],
         execute: function() {
@@ -65,7 +65,7 @@ System.register([], function(exports_1) {
             Feeding = (function (_super) {
                 __extends(Feeding, _super);
                 function Feeding(mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName, foodType, otherFood, amount, proportion) {
-                    _super.call(this, mood, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
+                    _super.call(this, type, otherType, photos, description, date, isMarkdownEnabled, beeHiveId, beeHiveName);
                     this.foodType = foodType;
                     this.otherFood = otherFood;
                     this.amount = amount;
@@ -104,28 +104,32 @@ System.register([], function(exports_1) {
                 return Photo;
             })();
             exports_1("Photo", Photo);
-            (function (treatmentTypeEnum) {
-                treatmentTypeEnum[treatmentTypeEnum["Hitze"] = 0] = "Hitze";
-                treatmentTypeEnum[treatmentTypeEnum["Säure"] = 1] = "Säure";
-                treatmentTypeEnum[treatmentTypeEnum["Anderes"] = 2] = "Anderes";
-            })(treatmentTypeEnum || (treatmentTypeEnum = {}));
-            exports_1("treatmentTypeEnum", treatmentTypeEnum);
-            (function (foodTypeEnum) {
-                foodTypeEnum[foodTypeEnum["Zucker"] = 0] = "Zucker";
-                foodTypeEnum[foodTypeEnum["Anderes"] = 1] = "Anderes";
-            })(foodTypeEnum || (foodTypeEnum = {}));
-            exports_1("foodTypeEnum", foodTypeEnum);
-            (function (entryTypeEnum) {
-                entryTypeEnum[entryTypeEnum["Milbenkontrolle"] = 0] = "Milbenkontrolle";
-                entryTypeEnum[entryTypeEnum["Errichtung"] = 1] = "Errichtung";
-                entryTypeEnum[entryTypeEnum["Behandlung"] = 2] = "Behandlung";
-                entryTypeEnum[entryTypeEnum["Fuetterung"] = 3] = "Fuetterung";
-                entryTypeEnum[entryTypeEnum["Honigentnahme"] = 4] = "Honigentnahme";
-                entryTypeEnum[entryTypeEnum["Verlust"] = 5] = "Verlust";
-                entryTypeEnum[entryTypeEnum["Drohnenbrutausschnitt"] = 6] = "Drohnenbrutausschnitt";
-                entryTypeEnum[entryTypeEnum["Anderes"] = 7] = "Anderes";
-            })(entryTypeEnum || (entryTypeEnum = {}));
-            exports_1("entryTypeEnum", entryTypeEnum);
+            exports_1("treatmentTypes", treatmentTypes = ["Hitze", "Säure", "Anderes"]);
+            exports_1("foodTypes", foodTypes = ["Zucker", "Anderes"]);
+            exports_1("entryTypes", entryTypes = ["Milbenkontrolle", "Errichtung", "Behandlung", "Fütterung", "Honigentnahme", "Verlust", "Drohnenbrutausschnitt", "Anderes"]);
         }
     }
 });
+/*
+export enum treatmentTypeEnum {
+    Hitze,
+    Säure,
+    Anderes
+}
+
+export enum foodTypeEnum {
+    Zucker,
+    Anderes
+}
+
+export enum entryTypeEnum {
+    Milbenkontrolle,
+    Errichtung,
+    Behandlung,
+    Fuetterung,
+    Honigentnahme,
+    Verlust,
+    Drohnenbrutausschnitt,
+    Anderes
+}
+*/ 

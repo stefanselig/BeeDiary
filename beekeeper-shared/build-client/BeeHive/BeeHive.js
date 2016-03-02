@@ -1,5 +1,5 @@
 System.register([], function(exports_1) {
-    var BeeHive, HiveLocation, Source, Lost, sourceEnum, frameSizeEnum, frameMaterialEnum, combConstructionEnum;
+    var BeeHive, HiveLocation, Source, Lost, sources, frameSizes, frameMaterials, combConstructions;
     return {
         setters:[],
         execute: function() {
@@ -55,38 +55,38 @@ System.register([], function(exports_1) {
                 return Lost;
             })();
             exports_1("Lost", Lost);
-            (function (sourceEnum) {
-                sourceEnum[sourceEnum["Schwarm"] = 0] = "Schwarm";
-                sourceEnum[sourceEnum["Ableger"] = 1] = "Ableger";
-                sourceEnum[sourceEnum["Gekauft"] = 2] = "Gekauft";
-                sourceEnum[sourceEnum["Anderes"] = 3] = "Anderes";
-            })(sourceEnum || (sourceEnum = {}));
-            exports_1("sourceEnum", sourceEnum);
-            (function (frameSizeEnum) {
-                frameSizeEnum[frameSizeEnum["Zander"] = 0] = "Zander";
-                frameSizeEnum[frameSizeEnum["Deutschnormal"] = 1] = "Deutschnormal";
-                frameSizeEnum[frameSizeEnum["Atbreitwabe"] = 2] = "Atbreitwabe";
-                frameSizeEnum[frameSizeEnum["Einheitsmas"] = 3] = "Einheitsmas";
-                frameSizeEnum[frameSizeEnum["Langstrothmas"] = 4] = "Langstrothmas";
-                frameSizeEnum[frameSizeEnum["Dadantoriginal"] = 5] = "Dadantoriginal";
-                frameSizeEnum[frameSizeEnum["Dadantmodifiziert"] = 6] = "Dadantmodifiziert";
-                frameSizeEnum[frameSizeEnum["Kuntzsch"] = 7] = "Kuntzsch";
-                frameSizeEnum[frameSizeEnum["Schweitzermas"] = 8] = "Schweitzermas";
-                frameSizeEnum[frameSizeEnum["Anderes"] = 9] = "Anderes";
-            })(frameSizeEnum || (frameSizeEnum = {}));
-            exports_1("frameSizeEnum", frameSizeEnum);
-            (function (frameMaterialEnum) {
-                frameMaterialEnum[frameMaterialEnum["Holz"] = 0] = "Holz";
-                frameMaterialEnum[frameMaterialEnum["Styropor"] = 1] = "Styropor";
-                frameMaterialEnum[frameMaterialEnum["Anderes"] = 2] = "Anderes";
-            })(frameMaterialEnum || (frameMaterialEnum = {}));
-            exports_1("frameMaterialEnum", frameMaterialEnum);
-            (function (combConstructionEnum) {
-                combConstructionEnum[combConstructionEnum["Naturbau"] = 0] = "Naturbau";
-                combConstructionEnum[combConstructionEnum["Mittelwaende"] = 1] = "Mittelwaende";
-                combConstructionEnum[combConstructionEnum["Anderes"] = 2] = "Anderes";
-            })(combConstructionEnum || (combConstructionEnum = {}));
-            exports_1("combConstructionEnum", combConstructionEnum);
+            exports_1("sources", sources = ["Schwarm", "Ableger", "Gekauft", "Anderes"]);
+            exports_1("frameSizes", frameSizes = ["Zandermaß", "Deutschnormalmaß", "Österreichische Breitwabe", "Einheitsmaß", "Langstrothmaß", "Dadant original", "Dadant modifiziert", "Kuntzsch", "Schweitzermaß", "Anderes"]);
+            exports_1("frameMaterials", frameMaterials = ["Holz", "Styropor", "Anderes"]);
+            exports_1("combConstructions", combConstructions = ["Naturbau", "Mittelwände", "Anderes"]);
         }
     }
 });
+/*export enum sourceEnum {
+     Schwarm,
+     Ableger,
+     Gekauft,
+     Anderes
+}*/
+/*export enum frameSizeEnum {
+    Zander,
+    Deutschnormal,
+    Atbreitwabe,
+    Einheitsmas,
+    Langstrothmas,
+    Dadantoriginal,
+    Dadantmodifiziert,
+    Kuntzsch,
+    Schweitzermas,
+    Anderes
+}*/
+/*export enum frameMaterialEnum {
+    Holz,
+    Styropor,
+    Anderes
+}*/
+/*export enum combConstructionEnum {
+    Naturbau,
+    Mittelwaende,
+    Anderes
+}*/ 
