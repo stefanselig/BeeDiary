@@ -5,7 +5,7 @@ import {BeeHiveService}	from '../../../services/beehive.service';
 import {MapsService}	from '../../../services/maps.service';
 import {Utilities}		from '../../../services/utilities.service';
 
-import {BeeHive}		from '../../../model/BeeHive/BeeHive';
+import {BeeHive}		from '../../../model/model/BeeHive/BeeHive';
 
 @Component({
 	selector: 'viewbeehive',

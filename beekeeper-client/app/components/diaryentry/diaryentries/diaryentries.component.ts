@@ -7,7 +7,7 @@ import {Utilities} from '../../../services/utilities.service';
 import {DisplayDiaryEntryComponent} from '../displaydiaryentry/displaydiaryentry.component';
 import {SearchComponent}	from '../../search/search.component';
 
-import {DiaryEntry} from '../../../model/DiaryEntry/DiaryEntry';
+import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 import {SearchService} from '../../../services/search.service';
 // Overally refactor code
 @Component({

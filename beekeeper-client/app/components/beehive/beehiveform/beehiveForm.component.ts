@@ -5,8 +5,8 @@ import {Observable} from 'rxjs/Observable';
 import {BeeHiveService} from '../../../services/beehive.service';
 import {MapsService} from '../../../services/maps.service';
 
-import * as BeeHiveModel from '../../../model/BeeHive/BeeHive';
-import {Photo} from '../../../model/DiaryEntry/DiaryEntry';
+import * as BeeHiveModel from '../../../model/model/BeeHive/BeeHive';
+import {Photo} from '../../../model/model/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'beehiveform',

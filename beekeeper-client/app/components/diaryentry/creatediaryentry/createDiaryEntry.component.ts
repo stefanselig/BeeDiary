@@ -5,7 +5,7 @@ import {DiaryEntryService}	from '../../../services/diaryentry.service';
 
 import {DiaryEntryComponent} from '../diaryentry/diaryentry.component';
 
-import {DiaryEntry} from '../../../model/DiaryEntry/DiaryEntry';
+import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'creatediaryentry',

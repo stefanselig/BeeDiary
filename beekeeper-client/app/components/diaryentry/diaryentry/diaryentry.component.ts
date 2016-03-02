@@ -2,7 +2,7 @@ import {Component,Input, AfterViewInit}	from 'angular2/core';
 
 import {DiaryEntryService} from '../../../services/diaryentry.service';
 
-import * as DiaryEntryModel from '../../../model/DiaryEntry/DiaryEntry';
+import * as DiaryEntryModel from '../../../model/model/DiaryEntry/DiaryEntry';
 
 @Component({
 	selector: 'diaryentry',
