@@ -2,8 +2,8 @@
 ///<reference path='../../typings/express/express.d.ts'/>
 ///<reference path='../../typings/mongodb/mongodb.d.ts'/>
 
-import DiaryEntry = require('./../../../beekeeper-shared/build-server/DiaryEntry/DiaryEntry');
-import Utilities = require('./../../../beekeeper-shared/build-server/Utilities');
+import DiaryEntry = require('./../model/model/DiaryEntry/DiaryEntry');
+import Utilities = require('./../model/utilities/Utilities');
 import mongodb = require('mongodb');
 
 var express = require('express');
