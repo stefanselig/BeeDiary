@@ -33,7 +33,7 @@ gulp.task('build-server', function () {
 // Don't use this one
 gulp.task('build-shared', function () {
 	tsShared.src()
-		.pipe(ts(tsServer))
+		.pipe(ts(tsShared))
 		.js.pipe(gulp.dest(PATH_SHARED));
 });
 
