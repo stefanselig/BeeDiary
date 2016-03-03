@@ -3,7 +3,7 @@ import {Http, Headers}	from 'angular2/http';
 import {Observable}		from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import * as BeeHiveModule from '../model/BeeHive/BeeHive';
+import * as BeeHiveModule from '../model/model/BeeHive/BeeHive';
 
 import {DataService} from './dataservice';
 

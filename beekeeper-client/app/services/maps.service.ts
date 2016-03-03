@@ -5,7 +5,7 @@ import {Observable}			from 'rxjs/Observable';
 import {Observer}			from 'rxjs/Observer';
 import 'rxjs/add/operator/map';
 
-import * as BeeHiveModel from '../model/BeeHive/BeeHive';
+import * as BeeHiveModel from '../model/model/BeeHive/BeeHive';
 
 @Injectable()
 export class MapsService {

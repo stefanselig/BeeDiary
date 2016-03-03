@@ -3,7 +3,7 @@ import {Http, Headers} from 'angular2/http';
 import 'rxjs/add/operator/map';
 import {Observable}	from 'rxjs/Observable';
 
-import * as DiaryEntryModule from '../model/DiaryEntry/DiaryEntry';
+import * as DiaryEntryModule from '../model/model/DiaryEntry/DiaryEntry';
 
 import {DataService} from './dataservice';
 
