@@ -18,14 +18,15 @@ database.open(function () { });
 router.use(function (req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-    var valid = Auth.isTokenValid(req.body.token);
-    if (valid != 'Error') {
+    /*var valid = Auth.isTokenValid(req.body.token);
+    console.log('Valid: ' + valid);
+    if(valid != 'Error') {
         req.body.googleUserId = valid;
-        next(); // make sure we go to the next routes and don't stop here   
-    }
-    else {
-        res.json({ message: 'Authentication failed. Token invalid or Access denied.' });
-    }
+        next(); // make sure we go to the next routes and don't stop here
+    } else {
+        res.json({message: 'Authentication failed. Token invalid or Access denied.' });
+    }*/
+    next();
 });
 //Callable with GET on http://localhost:8080/api/BeeHives/
 router.get('/', function (req, res) {
@@ -212,3 +213,4 @@ router.route('/BeeHiveNames').get(function (req, res) {
     });
 });
 module.exports = router;
+//# sourceMappingURL=BeeHivesRoute.js.map
