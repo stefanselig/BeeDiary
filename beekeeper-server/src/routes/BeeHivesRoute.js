@@ -215,4 +215,3 @@ router.route('/BeeHiveNames').get(function (req, res) {
     });
 });
 module.exports = router;
-//# sourceMappingURL=BeeHivesRoute.js.map
