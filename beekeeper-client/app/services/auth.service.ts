@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 	googleAuth: gapi.auth2.GoogleAuth;
 	googleUser: gapi.auth2.GoogleUser;
+	token: string;
 	
 	constructor(public http: Http, public router: Router) {
 		this.init();
@@ -33,6 +34,7 @@ export class AuthService {
 		this.googleAuth.attachClickHandler(document.getElementById(id), {}, (user) => {
 				this.googleUser = <gapi.auth2.GoogleUser> user;
 				console.log(this.googleUser.getAuthResponse().id_token);
+				this.token = this.googleUser.getAuthResponse().id_token;
 				//this.router.navigate(['BeeHives']);
 		}, err => console.log(err));
 	}

@@ -22,7 +22,8 @@ database.open(function() {});
 router.use(function(req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-    Auth.isTokenValid(req.body.token, (id: string, err: any) => {
+	console.log(req.headers.token);
+    Auth.isTokenValid(req.headers.token, (id: string, err: any) => {
         console.log('Valid: ' + id);
         console.log(err);
         if(err == "") {

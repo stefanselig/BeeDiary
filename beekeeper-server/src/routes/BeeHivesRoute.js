@@ -18,7 +18,8 @@ database.open(function () { });
 router.use(function (req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-    Auth.isTokenValid(req.body.token, function (id, err) {
+    console.log(req.headers.token);
+    Auth.isTokenValid(req.headers.token, function (id, err) {
         console.log('Valid: ' + id);
         console.log(err);
         if (err == "") {
@@ -215,3 +216,4 @@ router.route('/BeeHiveNames').get(function (req, res) {
     });
 });
 module.exports = router;
+//# sourceMappingURL=BeeHivesRoute.js.map

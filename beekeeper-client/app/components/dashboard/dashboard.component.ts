@@ -115,6 +115,7 @@ export class Dashboard implements AfterViewInit {
 		this.dashBoardService.honeyForAll.subscribe(
 			res => {
 				const data = res.slice();
+				console.log(`Data is: `);
 				console.log(data);
 				/*this.data.addRows([
 					[data],

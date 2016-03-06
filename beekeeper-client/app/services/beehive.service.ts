@@ -6,11 +6,12 @@ import 'rxjs/add/operator/map';
 import * as BeeHiveModule from '../model/model/BeeHive/BeeHive';
 
 import {DataService} from './dataservice';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class BeeHiveService extends DataService<BeeHiveModule.BeeHive>{
-	constructor(http: Http) {
-		super(http,'BeeHives/beeHives/');
+	constructor(http: Http, public auth: AuthService) {
+		super(http,'BeeHives/beeHives/', auth);
 	}
 }
 

@@ -60,7 +60,7 @@ import {SignInHeader} from './signinheader.component';
 		<router-outlet></router-outlet>
 	`,
 	directives: [ROUTER_DIRECTIVES, SignInHeader],
-	providers: [BeeHiveService, MapsService, DiaryEntryService, Utilities, AuthService]
+	providers: [AuthService, BeeHiveService, MapsService, DiaryEntryService, Utilities]
 })
 @RouteConfig([
 	{path: "/", redirectTo: ['LogIn', {logOut: 'false'}]},
