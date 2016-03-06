@@ -22,14 +22,12 @@ database.open(function() {});
 router.use(function(req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-	console.log(req.headers.token);
     Auth.isTokenValid(req.headers.token, (id: string, err: any) => {
-        console.log('Valid: ' + id);
-        console.log(err);
         if(err == "") {
             req.body.googleUserId = id;
             next(); // make sure we go to the next routes and don't stop here   
         } else {
+            console.error(err);
             res.json({message: 'Authentication failed. Token invalid or Access denied.' });
         }
     });
