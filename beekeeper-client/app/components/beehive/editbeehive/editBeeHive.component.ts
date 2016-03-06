@@ -41,7 +41,7 @@ export class EditBeeHiveComponent implements OnInit {
 	
 	ngOnInit(): void {
 		this.loadSelectedBeeHive(this.params.get('id'));
-	}	
+	}
 	
 	public loadSelectedBeeHive(id: string): void {
 		this.beehiveService
@@ -51,15 +51,18 @@ export class EditBeeHiveComponent implements OnInit {
 				this.beehive = res;
 				this.isBeehiveLoaded = true;
 				if (this.isMapLoaded) {
-					console.log(this.beehive);
-					const marker = this.mapsService.createMarker(this.beehive.hiveLocation);
-					this.mapsService.assignMarkerToMap(this.beehive._id, marker);
-					//const position = this.beehive.hiveLocation.position;
-					this.mapsService.centerMap(marker);
+					this.initMap();
 				}
 			},
 			err => console.error(err)
 		);
+	}
+	
+	initMap(): void {
+		console.log(this.beehive);
+		const marker = this.mapsService.createMarker(this.beehive.hiveLocation);
+		this.mapsService.assignMarkerToMap(this.beehive._id, marker);
+		this.mapsService.centerMap(marker);
 	}
 	
 	public updateBeeHive(): void {
@@ -90,10 +93,7 @@ export class EditBeeHiveComponent implements OnInit {
 	public callCenterMap(eventArgs: string): void {
 		this.isMapLoaded = true;
 		if (this.isBeehiveLoaded) {
-			console.log(this.beehive);
-			const marker = this.mapsService.createMarker(this.beehive.hiveLocation);
-			this.mapsService.assignMarkerToMap(this.beehive._id, marker);
-			this.mapsService.centerMap(marker);
+			this.initMap();
 		}
 	}
 }
