@@ -18,15 +18,17 @@ database.open(function () { });
 router.use(function (req, res, next) {
     // do logging
     console.log('Incoming request. - BeeHive');
-    /*var valid = Auth.isTokenValid(req.body.token);
-    console.log('Valid: ' + valid);
-    if(valid != 'Error') {
-        req.body.googleUserId = valid;
-        next(); // make sure we go to the next routes and don't stop here
-    } else {
-        res.json({message: 'Authentication failed. Token invalid or Access denied.' });
-    }*/
-    next();
+    Auth.isTokenValid(req.body.token, function (id, err) {
+        console.log('Valid: ' + id);
+        console.log(err);
+        if (err == "") {
+            req.body.googleUserId = id;
+            next(); // make sure we go to the next routes and don't stop here   
+        }
+        else {
+            res.json({ message: 'Authentication failed. Token invalid or Access denied.' });
+        }
+    });
 });
 //Callable with GET on http://localhost:8080/api/BeeHives/
 router.get('/', function (req, res) {

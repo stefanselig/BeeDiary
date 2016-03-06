@@ -18,43 +18,35 @@ database.open(function() {});
 
 
 export class Authentication {
-    public isTokenValid (token : string) : string {
-        var valid = false;
+    public isTokenValid (token : string, callback: (value: string, err: any) => void) : void {
         var newUser;
-        request.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token, function(error, response, body) {
+        request.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token, (error, response, body) => {
            console.log('AUTHENTICATE USER');
            if(error == null && response.statusCode == 200) {
+               console.log(JSON.stringify(response.body));
                console.log('Geht ins IF!');
-               database.collection('Users', function(error, users) {
-                if(error) {
-                    console.log('Fehler beim finden der Collection User.')
-                    console.error(error);
-                    return 'Error';
-                } else {
-                    console.log('BEGINNE NUN AUTH-Datenbankhandling!');
-                    newUser = new User.User(response.body.sub, response.body.email, token, response.body.name);
-                    console.log('Neuer User: ' + newUser);
-                    users.update({"googleId" : response.body.sub}, {"googleId" : response.body.sub, "email" : response.body.email, "token" : token, "name" : response.body.name}, {upsert : true}, function(error, user){
-                       if(error) {
-                           console.log('Error at Upserting a specific User by GoogleID.');
-                           console.log(error);
-                           return false;
-                       } else {
-                           console.log('IM LETZTEN ELSE.');
-                           valid = true;
-                           return true;
-                       }
-                    });
-                }
+               database.collection('Users', (error, users) => {
+                    if (error) {
+                        console.log('Fehler beim finden der Collection User.');
+                        console.error(error);
+                        callback("", error);
+                    } else {
+                        console.log('BEGINNE NUN AUTH-Datenbankhandling!');
+                        newUser = new User.User(response.body.sub, response.body.email, token, response.body.name);
+                        console.log('Neuer User: ' + newUser);
+                        users.update({"googleId" : response.body.sub}, {"googleId" : response.body.sub, "email" : response.body.email, "token" : token, "name" : response.body.name}, {upsert : true}, (error, user) => {
+                            if (error) {
+                                console.log('Error at Upserting a specific User by GoogleID.');
+                                console.log(error);
+                                callback("", error);
+                            } else {
+                                console.log('IM LETZTEN ELSE.');
+                                callback(newUser.googleId, "");
+                            }
+                        });
+                    }
                 });
            }
         });
-        if(valid) {
-            console.log('USERID WIRD RETURNT!');
-            return newUser.googleId;
-        } else {
-            console.log('ERROR WIRD RETURNT');
-            return 'Error';
-        }
-	}  
+	}
 }
