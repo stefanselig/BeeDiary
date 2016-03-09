@@ -6,14 +6,15 @@ import {Observable}	from 'rxjs/Observable';
 import * as DiaryEntryModule from '../model/model/DiaryEntry/DiaryEntry';
 
 import {DataService} from './dataservice';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class DiaryEntryService extends DataService<DiaryEntryModule.DiaryEntry> {
 	// Find a better solution for this:
 	beehiveNamesAndIdsMap: Observable<any[]>;
 	
-	constructor(http:Http) {
-		super(http, 'DiaryEntries/diaryEntries/');
+	constructor(http:Http, public auth:AuthService) {
+		super(http, 'DiaryEntries/diaryEntries/', auth);
 		this.getBeeHiveNamesAndIds();
 	}
 	

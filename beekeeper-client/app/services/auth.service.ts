@@ -45,6 +45,7 @@ export class AuthService {
 			.then(() => {
 				console.log("Logged out.");
 				this.googleUser = undefined;
+				this.token = undefined;
 			});
 	}
 }
