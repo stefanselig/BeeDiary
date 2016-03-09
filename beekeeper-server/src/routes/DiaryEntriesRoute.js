@@ -4,8 +4,10 @@
 "use strict";
 var DiaryEntry = require('./../model/model/DiaryEntry/DiaryEntry');
 var mongodb = require('mongodb');
+var Authentication = require('./../Authentication');
 var express = require('express');
 var router = express.Router();
+var Auth = new Authentication.Authentication();
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
 var databaseServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
@@ -14,8 +16,17 @@ database.open(function () { });
 // middleware to use for all requests
 router.use(function (req, res, next) {
     // do logging
-    console.log('Incoming request. - DiaryEntry');
-    next(); // make sure we go to the next routes and don't stop here
+    console.log('Incoming request. - Diagram');
+    Auth.isTokenValid(req.headers.token, function (id, err) {
+        if (err == "") {
+            req.body.googleUserId = id;
+            next(); // make sure we go to the next routes and don't stop here   
+        }
+        else {
+            console.error(err);
+            res.json({ message: 'Authentication failed. Token invalid or Access denied.' });
+        }
+    });
 });
 //Callable with GET on http://localhost:8080/api/DiaryEntries/
 router.get('/', function (req, res) {
@@ -530,4 +541,3 @@ router.route('/treatmentEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(DiaryEntry.treatmentTypeEnum));
 });*/
 module.exports = router;
-//# sourceMappingURL=DiaryEntriesRoute.js.map
