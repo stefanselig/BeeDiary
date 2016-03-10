@@ -3,7 +3,7 @@ import {Component, AfterViewInit} from 'angular2/core';
 import {Diagram} from './diagram.component';
 
 import {DashBoardService} from '../../services/dashboard.service';
-
+import {DiaryEntryService} from '../../services/diaryentry.service';
 @Component({
 	selector: 'dashboard',
 	template: `
@@ -15,34 +15,47 @@ import {DashBoardService} from '../../services/dashboard.service';
 						{{chartContent}}
 					</option>
 				</select>
-				<div *ngIf="selectedChartContent != 'Honigernte gesamt' && selectedChartContent != '' && selectedChartContent != undefined">
+				<div 
+					*ngIf="selectedChartContent != 'Honigernte gesamt' 
+					&& selectedChartContent != '' 
+					&& selectedChartContent != undefined">
 					Bienenvolk auswählen:
 					<select [(ngModel)]="selectedBeeHive">
 						<option *ngFor="#beehive of beeHives" [value]="beehive._id">
-							{{beehive.name}}
+							{{beehive.hiveName}}
 						</option>
 					</select>
 				</div>
-				<!--Diagrammtyp wählen:
-				<select [(ngModel)]="selectedChartType">
-					<option *ngFor="#chart of chartTypes" [value]="chart">
-						{{chart}}
-					</option>
-				</select>-->
-				<button (click)="createChart()" (click)="clickCounter = clickCounter + 1" class="btn btn-default" style="display: block">Diagramm generieren</button>
+				<button
+					*ngIf="beehivesLoaded" 
+					(click)="createChart()"
+					class="btn btn-default" style="display: block">
+					Diagramm generieren
+				</button>
 			</div>
-			<diagram *ngIf="clickCounter > 0" [data]="data" [type]="selectedChartType" [content]="selectedChartContent" [dataId]="selectedBeeHive" [libLoaded]="libLoaded" [buttonClicked]="clickCounter"></diagram>
+			<diagram 
+				*ngIf="showDiagram" 
+				[data]="data" 
+				[type]="selectedChartType" 
+				[content]="selectedChartContent" 
+				[dataId]="selectedBeeHive" 
+				[libLoaded]="libLoaded" 
+				[buttonClicked]="clickCounter" 
+				[dataLoaded]="dataLoaded">
+			</diagram>
 		</div>
 	`,
 	directives: [Diagram],
 	providers: [DashBoardService]
 })
 export class Dashboard implements AfterViewInit {
-	// Test data
 	chartTypes = ["Linien", "Torte", "Balken"];
-	chartContents = ["Milbenabfall für ein Bienenvolk", "Honigernte für ein Bienenvolk", "Honigernte gesamt"];
-	beeHives = [{_id: 123, name: "Bienenstock Rufling"}, {_id: 234, name: "Bienenstock Pasching"}, {_id: 345, name: "Bienenstock Hörsching"}];
-	
+	chartContents = [
+		"Milbenabfall für ein Bienenvolk", 
+		"Honigernte für ein Bienenvolk", 
+		"Honigernte gesamt"];
+	beeHives: Array<any> = new Array<any>();
+		
 	selectedChartType: string;
 	selectedChartContent: string;
 	selectedBeeHive: string;
@@ -51,12 +64,25 @@ export class Dashboard implements AfterViewInit {
 	libLoaded: boolean = false;
 	clickCounter: number = 0;
 	
-	constructor(public dashBoardService: DashBoardService) {}
+	beehivesLoaded: boolean = false;
+	dataLoaded: boolean = false;
+	showDiagram: boolean = false;
+	
+	constructor(public dashBoardService: DashBoardService, public diaryEntryService: DiaryEntryService) {
+		this.diaryEntryService
+			.beehiveNamesAndIdsMap
+			.subscribe(res => {
+				this.beeHives = res.slice();
+				console.log(res);
+				this.beehivesLoaded = true;
+				//this.dataLoaded = true;
+			});
+	}
 	
 	ngAfterViewInit(): void {
     	google.charts.setOnLoadCallback(() => {
 			this.libLoaded = true;
-			this.data = new google.visualization.DataTable();
+			//this.data = new google.visualization.DataTable();
 		});
 	}
 	
@@ -81,29 +107,43 @@ export class Dashboard implements AfterViewInit {
 	public createBarChart(): void {
 		this.selectedChartType = "Balken";
 		
-		this.data.addColumn('string', "Honigernte [kg]");
-     	this.data.addColumn('date', 'Zeitverlauf');
-		 
+		this.data.addColumn(`date`, `Zeitverlauf`);
+		this.data.addColumn(`number`, ``);
 		
-		 
-		/*this.data.addRows([
-			['Baltimore Ravens', new Date(2000, 8, 5)],
-			['abc', new Date(2001, 10,10)],
-			['xyz', new Date(2010, 4, 4)]
-		]);*/
+		this.dashBoardService
+			.getHoneyForOne(this.selectedBeeHive)
+			.subscribe(res => {
+				const dataArray = new Array<Array<any>>();
+				for (const i in res) {
+					dataArray.push([new Date(res[i].date), res[i].amount]);
+				}
+				this.data.addRows(dataArray);
+				console.log(dataArray);
+				this.dataLoaded = true;
+				this.showDiagram = true;
+				this.clickCounter++;
+			});
 	}
 	
 	public createLineChart(): void {
 		this.selectedChartType = "Linien";
 		
-		this.data.addColumn('date', 'Zeitverlauf');
-		this.data.addColumn('number', 'Gestorbene Milben');
+		this.data.addColumn('date', ``);
+		this.data.addColumn('number', ``);
 		
-		this.data.addRows([
-			[new Date(2013, 3, 3), 10],
-			[new Date(2013, 4, 4), 20],
-			[new Date(2013, 5, 5), 30]
-		]);
+		this.dashBoardService
+			.getAcarianData(this.selectedBeeHive)
+			.subscribe(res => {
+				const dataContent = res;
+				const dataArray = new Array<Array<any>>();
+				for (const i in dataContent) {
+					dataArray.push([new Date(dataContent[i].date), dataContent[i].acarianDeathValue]);
+				}
+				this.data.addRows(dataArray);
+				this.dataLoaded = true;
+				this.showDiagram = true;
+				this.clickCounter++;
+			});
 	}
 	
 	public createPieChart(): void {
@@ -112,24 +152,21 @@ export class Dashboard implements AfterViewInit {
 		this.data.addColumn("string", "Bienenvolk");
 		this.data.addColumn("number", "Honigernte [kg]");
 		
-		this.dashBoardService.honeyForAll.subscribe(
-			res => {
-				const data = res.slice();
-				console.log(`Data is: `);
-				console.log(data);
-				/*this.data.addRows([
-					[data],
-					[],
-					[]
-				]);	*/
-			},
-			err => console.log(err)
-		);
-		
-		this.data.addRows([
-			[this.beeHives[0].name, 10],
-			[this.beeHives[1].name, 20],
-			[this.beeHives[2].name, 30]
-		]);
+		this.dashBoardService
+			.honeyForAll
+			.subscribe(
+				res => {
+					const dataContent = res.slice();
+					const dataArray = new Array<Array<any>>();
+					for (const i in dataContent) {
+						dataArray.push([dataContent[i].beeHiveName, dataContent[i].amount]);
+					}
+					this.data.addRows(dataArray);
+					this.dataLoaded = true;
+					this.showDiagram = true;
+					this.clickCounter++;
+				},
+				err => console.log(err)
+			);
 	}
 }

@@ -5,7 +5,7 @@ import {Component, AfterViewInit, OnChanges, SimpleChange} from 'angular2/core';
 	template: `
 		<div [id]="id"></div>
 	`,
-	inputs: ["data", "type", "content", "libLoaded", "dataId", "buttonClicked"]
+	inputs: ["data", "type", "content", "libLoaded", "dataId", "buttonClicked", "dataLoaded"]
 })
 export class Diagram implements AfterViewInit, OnChanges  {
 	height: number = 0;
@@ -15,6 +15,7 @@ export class Diagram implements AfterViewInit, OnChanges  {
 	type: any;
 	content: any;
 	libLoaded: boolean;
+	dataLoaded: boolean = false;
 	dataId: any;
 	buttonClicked: any;
 	
@@ -32,13 +33,17 @@ export class Diagram implements AfterViewInit, OnChanges  {
 	public scale(): void {
 		this.height = document.getElementById(this.id).parentElement.clientHeight / 2;
 		this.width = document.getElementById(this.id).parentElement.clientWidth;
-		//console.log(`width is: ${this.width} and height is: ${this.height}`);
 		this.drawChart();
 	}
 	
 	ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
 		//console.log(changes);
-		if (changes["buttonClicked"] != undefined && changes["buttonClicked"].currentValue != changes["buttonClicked"].previousValue && this.libLoaded && this.viewLoaded) {
+		if (changes["buttonClicked"] != undefined 
+			&& changes["buttonClicked"].currentValue != changes["buttonClicked"].previousValue
+			&& this.libLoaded 
+			&& this.viewLoaded 
+			&& this.dataLoaded ) {
+			console.log(changes);
 			this.drawChart();
 		}
 	}
@@ -64,12 +69,12 @@ export class Diagram implements AfterViewInit, OnChanges  {
     }
 	 
 	public generateBarChart(): void {
-		this.chart = new google.visualization.BarChart(document.getElementById(this.id));
+		this.chart = new google.visualization.ColumnChart(document.getElementById(this.id));
 		this.chart.draw(this.data, this.options);
 	}
 	
 	public generateLineChart(): void {
-		this.chart = new google.visualization.LineChart(document.getElementById(this.id));
+		this.chart = new google.visualization.ColumnChart(document.getElementById(this.id));
 		this.chart.draw(this.data, this.options);
 	}
 	

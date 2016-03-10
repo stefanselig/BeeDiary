@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 });
 
 // gets Time-AcarianDeath (accessed at GET http://localhost:8080/api/Diagrams/acarianTime/:hive_id)
-router.route('/acarianTime/:hiveId').get(function(req, res) {
+router.route('/acarianTime/:hive_id').get(function(req, res) {
        database.collection('DiaryEntries', function(error, diaryEntries) {
        if(error) {
            console.error(error);

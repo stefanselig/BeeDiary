@@ -35,6 +35,7 @@ export class LogInComponent implements AfterViewInit {
 	}
 	
 	ngAfterViewInit() {
+		// Im Dokument vermerken:
 		setTimeout(() => {
 			this.authService.registerClickHandler(this.id);
 		}, 500);
