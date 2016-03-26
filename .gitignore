@@ -8,6 +8,7 @@ beekeeper-client/app/**/*.js
 beekeeper-client/app/**/*.js.map
 beekeeper-client/typings
 beekeeper-client/app/boot/config.js
+beekeeper-client/dist
 
 beekeeper-server/routes/config.js
 beekeeper-server/node_modules

@@ -5,6 +5,7 @@
 var gulp = require('gulp');
 var gulp_install = require('gulp-install');
 var ts = require('gulp-typescript');
+var source_maps = require('gulp-sourcemaps');
 var child_process = require('child_process');
 var exec = require('child_process').exec;
 
@@ -19,9 +20,18 @@ var tsShared = ts.createProject(PATH_SHARED + 'tsconfig.json');
 // Setting up:
 
 gulp.task('build-client', function () {
-	tsClient.src()
+	tsClient.src(PATH_CLIENT + 'app/**/*.ts')
+		.pipe(source_maps.init())
 		.pipe(ts(tsClient))
-		.js.pipe(gulp.dest(PATH_CLIENT + 'app/'));
+		.pipe(source_maps.write('./'))
+		.pipe(gulp.dest(PATH_CLIENT + 'dist/'));
+	gulp.src(PATH_CLIENT + 'app/boot/config.js')
+		.pipe(gulp.dest(PATH_CLIENT + 'dist/boot/'));
+	gulp.src(PATH_CLIENT + 'app/beediary_logo.svg')
+		.pipe(gulp.dest(PATH_CLIENT + 'dist/'));
+	//.js.pipe(gulp.dest(PATH_CLIENT + 'app/'));
+	//.js.pipe(gulp.dest(PATH_CLIENT + 'dist/'));
+	//gulp.src(PATH_CLIENT + 'dist/**/*.js')
 });
 
 gulp.task('build-server', function () {
@@ -73,7 +83,7 @@ gulp.task('cd-client', function() {
 // child_process.spawn('npm', ['start']); for executing
 
 gulp.task('spawn-client', function () {
-	child_process.spawn('lite-server');
+	child_process.spawn('lite-server', ["--verbose"]);
 });
 
 // Combination tasks:

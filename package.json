@@ -7,6 +7,7 @@
     "gulp": "^3.9.1",
     "gulp-install": "latest",
     "gulp-typescript": "latest",
+	"gulp-sourcemaps": "latest",
     "typescript": "^1.8.2"
   }
 }
