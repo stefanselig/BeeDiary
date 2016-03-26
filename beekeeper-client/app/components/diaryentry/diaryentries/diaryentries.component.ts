@@ -2,13 +2,14 @@ import {Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked} from 'ang
 import {Router, RouteParams} from 'angular2/router';
 
 import {DiaryEntryService}	from '../../../services/diaryentry.service';
+import {SearchService} from '../../../services/search.service';
 import {Utilities} from '../../../services/utilities.service';
 
 import {DisplayDiaryEntryComponent} from '../displaydiaryentry/displaydiaryentry.component';
 import {SearchComponent}	from '../../search/search.component';
 
 import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
-import {SearchService} from '../../../services/search.service';
+
 // Overally refactor code
 @Component({
 	selector: 'DiaryEntries',
@@ -23,12 +24,12 @@ import {SearchService} from '../../../services/search.service';
 				</button>
 				<button (click)="toggleSearchResults()" *ngIf="showSearchResults" class="btn btn-default form-control">Zurück zu den gruppierten Einträgen</button>
 			</div>
-			<div *ngFor="#date of entryDates" [id]="date">
+			<div *ngFor="#date of entryDates" [id]="date" class="col-sm-12 col-xs-12">
 				<h1 *ngIf="diaryEntriesPerDate[date.toDateString()].length > 0">
 					{{diaryEntriesPerDate[date.toDateString()].length == 0 ? "" : utils.formatDate(date, "fullmonths")}}
 				</h1>
 				<div *ngIf="diaryEntriesPerDate[date.toDateString()].length > 0" class="row">
-					<displaydiaryentry *ngFor="#diaryentry of diaryEntriesPerDate[date.toDateString()]" (onDiaryEntryDeleted)="deleteDiaryEntry($event)" [diaryentry]="diaryentry" class="col-sm-4"></displaydiaryentry>
+					<displaydiaryentry *ngFor="#diaryentry of diaryEntriesPerDate[date.toDateString()]" (onDiaryEntryDeleted)="deleteDiaryEntry($event)" [diaryentry]="diaryentry" class="col-sm-4 col-xs-12"></displaydiaryentry>
 				</div>
 			</div>
 		</div>

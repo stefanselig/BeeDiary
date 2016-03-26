@@ -17,10 +17,10 @@ import {Photo} from '../../../model/model/DiaryEntry/DiaryEntry';
 			overflow: auto;
 		}
 		.ng-valid[required] {
-			border-left: 5px solid #42A948; /* green */
+			border-left: 5px solid green;
 		}
 		.ng-invalid {
-			border-left: 5px solid #a94442; /* red */
+			border-left: 5px solid red;
 		}
 	`],
 	inputs: ['beehive']

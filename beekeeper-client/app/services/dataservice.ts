@@ -11,14 +11,14 @@ export interface IDataService<T> {
 	elements: Observable<Array<T>>;
 	generalHeaders: Headers;
 	
-	getElements(path:string): Observable<Array<T>>;
-	getElementsForSaving(path:string): void;
+	getElements: (path:string) => Observable<Array<T>>;
+	getElementsForSaving: (path:string) => void;
 	
-	getElementById(path: string): Observable<T>;
-	deleteElementById(path: string): Observable<string>;
+	getElementById: (path: string) => Observable<T>;
+	deleteElementById: (path: string) => Observable<string>;
 	
-	createElement(path: string, element: string): Observable<string>;
-	updateElement(path: string, element: string): Observable<string>;
+	createElement: (path: string, element: string) => Observable<string>;
+	updateElement: (path: string, element: string) => Observable<string>;
 }
 
 @Injectable()

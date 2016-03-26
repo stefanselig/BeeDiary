@@ -38,6 +38,7 @@ export class BeeHiveComponent implements OnInit {
 	
 	public toggleMapText: string = "Karte verbergen";
 	public isMapHidden: boolean = false;
+	public isMapLoaded: boolean = false;
 	
 	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService, public router: Router, public utils: Utilities, public searchService: SearchService<BeeHive>) {}
 	
@@ -90,6 +91,9 @@ export class BeeHiveComponent implements OnInit {
 				this.beehives = res.slice();
 				this.beehives = this.utils.mapDateStringsToDates('startDate', this.beehives);
 				this.beehives = this.utils.mapDateStringsToDates('lastDiaryEntryDate', this.beehives);
+				if (this.isMapLoaded) {
+					this.initMarkers("");
+				}
 			},
 			err => console.log(err),
 			() => console.log("Load completed")
@@ -100,6 +104,7 @@ export class BeeHiveComponent implements OnInit {
 	 * Loads a marker for each beehive
 	 */
 	public initMarkers(eventArgs: string): void {
+		this.isMapLoaded = true;
 		this.beehives.forEach((e: BeeHive) => {
 			if(e.hiveLocation.lat != null && e.hiveLocation.lng != null && e.hiveLocation.lat != undefined && e.hiveLocation.lng != undefined) {
 				/*const hiveLocation = {
