@@ -1,43 +1,51 @@
 import {Component, AfterViewInit, EventEmitter} from 'angular2/core';
-import {Router, RouteParams} from 'angular2/router';
+import {Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {AuthService} from '../../services/auth.service';
-// Refactor overall design and markup
-// Angular 2 way to handle library loading
+
 @Component({
 	selector: 'login',
 	template: `
-		<div>
-			<h1>BeeDiary</h1>
-			<label>Via Google einloggen:</label>
-			<button [id]="id" class="btn btn-default">Sign in via Google</button>
-			<!--<div id="gSignInWrapper">
-				<span class="label">Sign in with:</span>
-				<div id="customBtn" class="customGPlusSignIn">
-				<span class="icon"></span>
-				<span class="buttonText">Google</span>
-				</div>
-			</div>-->
-  			<!--<button [id]="id">signin button</button>-->
-			<!--<button [id]="id" (click)="signupService.init()">Sign In</button>-->
-			<!--<div class="g-signin2" data-onsuccess="onSignIn" *ngIf="showsignin"></div>-->
+		<div *ngIf="!loginSuccessful">
+			<img src="beediary_logo.svg" />
+			<div style="margin-left:auto; margin-right: auto; width:50%;">
+				<label style="text-align:center;">Google Login</label>
+				<div [id]="id">Sign in via Google</div>
+			</div>
 		</div>
-	`
+		<div *ngIf="!showLogin">
+			<h2>Eingeloggt als {{authService.getUserName()}}</h2>
+			<button [routerLink]="['BeeHives']" class="btn btn-default">Bienenstöcke</button>
+			<button [routerLink]="['DiaryEntries']" class="btn btn-default">Tagebucheinträge</button>
+			<button [routerLink]="['DashBoard']" class="btn btn-default">Dashboard</button>
+		</div>
+	`,
+	directives: [ROUTER_DIRECTIVES]
 })
 export class LogInComponent implements AfterViewInit {
 	id: string = "signInButton";
 	test: any;
+	public showLogin: boolean = true;
+	public loginSuccessful: boolean = false;
 	
-	constructor(public authService: AuthService, params: RouteParams) {
+	constructor(public authService: AuthService, params: RouteParams, public router: Router) {
 		if (params.get('logOut') == "true") {
 			this.authService.signOut();
 		}
 	}
 	
 	ngAfterViewInit() {
-		// Im Dokument vermerken:
 		setTimeout(() => {
-			this.authService.registerClickHandler(this.id);
+			this.authService.registerClickHandler(this.id, (message: string) => {
+				if (message == "success") {
+					this.showLogin = false;
+					this.loginSuccessful = true;
+				}
+				else {
+					this.showLogin = true;
+					this.loginSuccessful = false;
+				}
+			});
 		}, 500);
 	}
 }

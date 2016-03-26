@@ -28,7 +28,7 @@ import {SignInHeader} from './signinheader.component';
 	template: `
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-header">
-				<a class="navbar-brand">BeeKeeper</a>
+				<a class="navbar-brand">BeeDiary</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>

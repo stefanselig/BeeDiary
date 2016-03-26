@@ -30,13 +30,25 @@ export class AuthService {
 		});
 	}
 	
-	registerClickHandler(id): void {
-		this.googleAuth.attachClickHandler(document.getElementById(id), {}, (user) => {
+	registerClickHandler(id, callback: (message: string) => void): void {
+		/*this.googleAuth.attachClickHandler(document.getElementById(id), {}, (user) => {
 				this.googleUser = <gapi.auth2.GoogleUser> user;
 				console.log(this.googleUser.getAuthResponse().id_token);
 				this.token = this.googleUser.getAuthResponse().id_token;
 				//this.router.navigate(['BeeHives']);
-		}, err => console.log(err));
+		}, err => console.log(err));*/
+		gapi.signin2.render(id,{
+			onsuccess: (user) => {
+				this.googleUser = <gapi.auth2.GoogleUser> user;
+				console.log(this.googleUser.getAuthResponse().id_token);
+				this.token = this.googleUser.getAuthResponse().id_token;
+				callback("success");
+			},
+			onfailure: (err) => {
+				console.log(err);
+				callback("failure");
+			}
+		});
 	}
 	
 	signOut(): void {
@@ -49,40 +61,3 @@ export class AuthService {
 			});
 	}
 }
-
-//export var oauthObject;
-			//window.alert("hi");
-		/*setTimeout(() => {
-			const options = {
-				client_id:'766450771509-6udg4kpcrarlvq9rm9tqskn3epmv94f4.apps.googleusercontent.com'
-			};
-			this.googleAuth = gapi.auth2.init(options);
-			console.log(this.googleAuth.isSignedIn.get());
-			window.alert("hi");
-			this.googleAuth.isSignedIn.listen((signedIn: boolean) => {
-				console.log(signedIn);
-			});
-		}, 10000);*/
-		//window.setTimeout();
-				/*this.http.get(`https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&redirect_uri=localhost:3000/beehives%2Foauthcallback&response_type=token&client_id=766450771509-6udg4kpcrarlvq9rm9tqskn3epmv94f4.apps.googleusercontent.com&nonce=abc`)
-			.map(res => res.json())
-			.subscribe(res => console.log(res));*/
-			
-					/*console.log("hi");
-			const options = {
-				client_id:'766450771509-6udg4kpcrarlvq9rm9tqskn3epmv94f4.apps.googleusercontent.com'
-			};
-			this.googleAuth = gapi.auth2.init(options);
-			console.log(this.googleAuth.isSignedIn.get());*/
-		/*const options = {
-			client_id:'766450771509-6udg4kpcrarlvq9rm9tqskn3epmv94f4.apps.googleusercontent.com'
-		};
-		this.googleAuth = gapi.auth2.init(options);
-		console.log(this.googleAuth.isSignedIn.get());
-		this.googleAuth.isSignedIn.listen((signedIn: boolean) => {
-			console.log(signedIn);
-		});*/
-		
-		//this.userName = user.getBasicProfile().getName();
-		//console.log(this.userName);
-		//console.log(this.googleUser.getBasicProfile().getName());
