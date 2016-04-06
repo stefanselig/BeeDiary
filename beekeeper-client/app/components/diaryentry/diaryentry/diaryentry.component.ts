@@ -21,10 +21,7 @@ export class DiaryEntryComponent implements AfterViewInit {
 	public diaryentry: DiaryEntryModel.DiaryEntry;
 	public beehiveMap: any[];
 	public beehiveMapSelection: BeeHiveMapSelection;
-	
-	/*public typeEnum: entryTypeEnum[];
-	public treatmentTypes: treatmentTypeEnum[];
-	public feedingTypes: foodTypeEnum[];*/
+
 	entryTypes: string[] = DiaryEntryModel.entryTypes;
 	treatmentTypes: string[] = DiaryEntryModel.treatmentTypes;
 	foodTypes: string[] = DiaryEntryModel.foodTypes;
@@ -32,37 +29,23 @@ export class DiaryEntryComponent implements AfterViewInit {
 	public isSelectionLoaded: boolean = false;
 	public isViewLoaded: boolean = false;
 	public mood: boolean = true;
-	
+	/** Loads BeeHives' names and ids */
 	constructor(public diaryEntryService: DiaryEntryService) {
-		//this.loadEnums();
 		this.getBeeHiveNamesAndIds();
 	}
-	
+	/** Toggles the mood buttons */
 	public toggleMood(): boolean {
-		this.mood = !this.mood;
+		if (this.diaryentry.mood == undefined)
+			this.diaryentry.mood = false;
+		this.diaryentry.mood = !this.diaryentry.mood;
 		return false;
 	}
-	
+	/** Select BeeHiveValue */
 	public selectBeeHiveValue(event: any): void {
 		this.diaryentry.beeHiveId = event.target.value;
 		this.diaryentry.beeHiveName = this.beehiveMap.find(el => el._id == event.target.value).hiveName;
 	}
-	
-	/*public loadEnums(): void {
-		this.diaryEntryService.typeEnum.subscribe(
-			(res: entryTypeEnum[]) => this.typeEnum = res.slice(),
-			err => console.log(err)
-		);
-		this.diaryEntryService.treatmentTypes.subscribe(
-			(res: treatmentTypeEnum[]) => this.treatmentTypes = res.slice(),
-			err => console.log(err)
-		);
-		this.diaryEntryService.feedingTypes.subscribe(
-			(res: foodTypeEnum[]) => this.feedingTypes = res.slice(),
-			err => console.log(err)
-		);
-	}*/
-	
+	/** Gets BeeHives' names and ids */
 	public getBeeHiveNamesAndIds(): void {
 		this.diaryEntryService
 			.beehiveNamesAndIdsMap
@@ -79,22 +62,18 @@ export class DiaryEntryComponent implements AfterViewInit {
 				err => console.log(err)
 			);
 	}
-	
+	/** Loads BeeHiveName after view is initialized */
 	public ngAfterViewInit(): void {
 		this.isViewLoaded = true;
 		if (this.isSelectionLoaded) {
 			this.diaryentry.beeHiveName = this.beehiveMap.find(el => el._id == this.diaryentry.beeHiveId).hiveName;
 		}
 	}
-	
-	
+	/** Parses the markdown text to html */
 	public parseMd(): string {
-		if (this.diaryentry.description == null) 
-			return "";
-		else 
-			return marked(this.diaryentry.description);
+		return this.diaryentry.description == null ? "" : marked(this.diaryentry.description);
 	}
-	
+	/** Loads photos from HTML Filepicker */
 	public handlePhotos(pictures): void {
 		const readers = new Array<FileReader>();
 		for (let i = 0; i < pictures.length; i++) {
@@ -109,14 +88,14 @@ export class DiaryEntryComponent implements AfterViewInit {
 			});
 		});
 	}
-	
+	/** Deletes a photo */
 	public deletePhoto(photo: DiaryEntryModel.Photo, fileInputPhotos: any): void {
 		fileInputPhotos.value = "";
 		const index = this.diaryentry.photos.indexOf(this.diaryentry.photos.find(p => p == photo));
 		this.diaryentry.photos.splice(index, 1);
 	}
 }
-
+/** Interface for a BeeHiveMap */
 export interface BeeHiveMapSelection {
 	beeHiveId: string;
 	beeHiveName: string;

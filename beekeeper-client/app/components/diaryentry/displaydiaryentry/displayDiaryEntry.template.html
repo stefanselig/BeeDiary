@@ -3,6 +3,7 @@
 		<th colspan="2">
 			<h3 style="display:inline">Tagebucheintrag</h3>
 			<h6 style="display:inline"><small>Für Details klicken</small></h6>
+			<br />
 			<button (click)="editDiaryEntry(diaryentry._id)" class="btn btn-default" style="float: right;">
 				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 			</button>
@@ -19,6 +20,10 @@
 	<tr>
 		<td>Datum: </td>
 		<td>{{utils.formatDate(diaryentry.date)}}</td>
+	</tr>
+	<tr *ngIf="viewDetails">
+		<td>Allgemeines Befinden:</td>
+		<td>{{convertMoodValue(diaryentry.mood)}}</td>
 	</tr>
 	<tr *ngIf="viewDetails">
 		<td>Zugeordneter Bienenstock:</td>
@@ -78,7 +83,7 @@
 	<tr *ngIf="diaryentry.type == 'Errichtung' && viewDetails"></tr>
 	<tr *ngIf="diaryentry.type == 'Anderes' && viewDetails"></tr>	
 	<tr *ngIf="viewDetails">
-			<td colspan="2">
+		<td colspan="2">
 			Beschreibung: <br />
 			<div *ngIf="diaryentry.isMarkdownEnabled" [innerHTML]="parseMd()"></div>
 			<div *ngIf="!diaryentry.isMarkdownEnabled">{{diaryentry.description}}</div>

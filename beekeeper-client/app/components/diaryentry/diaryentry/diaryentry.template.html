@@ -99,10 +99,10 @@
 
 <div class="form-group">
 	<label>Allgemeines Empfinden:</label>
-	<button (click)="toggleMood()" [class]="mood ? 'btn btn-default active' : 'btn btn-default'">
+	<button (click)="toggleMood()" [class]="diaryentry.mood ? 'btn btn-default active' : 'btn btn-default'">
 		<span class="glyphicon glyphicon-thumbs-up"></span>
 	</button>
-	<button (click)="toggleMood()" [class]="mood ? 'btn btn-default' : 'btn btn-default active'">
+	<button (click)="toggleMood()" [class]="diaryentry.mood ? 'btn btn-default' : 'btn btn-default active'">
 		<span class="glyphicon glyphicon-thumbs-down"></span>
 	</button>
 </div>

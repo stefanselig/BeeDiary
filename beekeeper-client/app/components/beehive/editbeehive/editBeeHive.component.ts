@@ -1,6 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
+import {Utilities} from '../../../services/utilities.service';
 import {BeeHiveService}	from '../../../services/beehive.service';
 import {MapsService, MarkerObject}	from '../../../services/maps.service';
 
@@ -37,12 +38,12 @@ export class EditBeeHiveComponent implements OnInit {
 	public isMapLoaded: boolean = false;
 	public isBeehiveLoaded: boolean = false;
 	
-	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService, public router: Router, public params: RouteParams) {}
+	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService, public router: Router, public params: RouteParams, public utils: Utilities) {}
 	
 	ngOnInit(): void {
 		this.loadSelectedBeeHive(this.params.get('id'));
 	}
-	
+	/** Loads the selected BeeHive from Service */
 	public loadSelectedBeeHive(id: string): void {
 		this.beehiveService
 		.getElementById(id)
@@ -54,42 +55,41 @@ export class EditBeeHiveComponent implements OnInit {
 					this.initMap();
 				}
 			},
-			err => console.error(err)
+			err => this.utils.errCallback(err)
 		);
 	}
-	
+	/** Initializes a google map */
 	initMap(): void {
-		console.log(this.beehive);
 		const marker = this.mapsService.createMarker(this.beehive.hiveLocation);
 		this.mapsService.assignMarkerToMap(this.beehive._id, marker);
 		this.mapsService.centerMap(marker);
 	}
-	
+	/** Updates the selected BeeHive */
 	public updateBeeHive(): void {
 		this.beehiveService
 		.updateElement(JSON.stringify(this.beehive), this.beehive._id)
 		.subscribe(
 			res => console.log(res),
-			err => console.log(err),
+			err => this.utils.errCallback(err),
 			()  => this.router.navigate(['BeeHives'])
 		);
 	}
-	
+	/** Deletes the selected BeeHive */
 	public deleteBeeHive(): void {
 		this.beehiveService
 			.deleteElementById(this.beehive._id)
 			.subscribe(
 				res => console.log(res),
-				err => console.log(err),
+				err => this.utils.errCallback(err),
 				()  => this.router.navigate(['BeeHives'])
 			);
 	}
-	
+	/** Cancels the current action and navigates back to BeeHiveMainView */
 	public cancel(): boolean {
 		this.router.navigate(['BeeHives']);
 		return false;
 	}
-	
+	/** Event callback that is fired when map is ready */
 	public callCenterMap(eventArgs: string): void {
 		this.isMapLoaded = true;
 		if (this.isBeehiveLoaded) {

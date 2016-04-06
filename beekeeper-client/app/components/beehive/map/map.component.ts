@@ -19,7 +19,7 @@ export class MapComponent implements AfterViewInit {
 	public afterMapInit: EventEmitter<string> = new EventEmitter<string>();
 	
 	constructor(public mapsService: MapsService) {}
-	
+	/** Fires an event when map is ready */
 	ngAfterViewInit(): void {
 		this.mapsService
 			.initMap(this.latitude, this.longitude)

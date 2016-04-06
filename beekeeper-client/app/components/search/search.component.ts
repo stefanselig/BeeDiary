@@ -16,6 +16,7 @@ import {Component, EventEmitter} from 'angular2/core';
 	outputs: ['onSearch']
 })
 export class SearchComponent {
+	/** Purpose is displaying a search form */
 	public name: string = "";
 	public onSearch: EventEmitter<string> = new EventEmitter<string>();
 }

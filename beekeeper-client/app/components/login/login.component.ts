@@ -8,8 +8,8 @@ import {AuthService} from '../../services/auth.service';
 	template: `
 		<div *ngIf="!loginSuccessful">
 			<img src="beediary_logo.svg" />
-			<div style="margin-left:auto; margin-right: auto; width:50%;">
-				<label style="text-align:center;">Google Login</label>
+			<div style="margin-left:auto; margin-right: auto; width:120px;">
+				<label>Google Login</label>
 				<div [id]="id">Sign in via Google</div>
 			</div>
 		</div>
@@ -27,13 +27,17 @@ export class LogInComponent implements AfterViewInit {
 	test: any;
 	public showLogin: boolean = true;
 	public loginSuccessful: boolean = false;
-	
+	/** Signs user out if passed logOut param was true */
 	constructor(public authService: AuthService, params: RouteParams, public router: Router) {
 		if (params.get('logOut') == "true") {
 			this.authService.signOut();
 		}
+		if (params.get('showLogin') == "true") {
+			this.showLogin = true;
+			this.loginSuccessful = false;	
+		}
 	}
-	
+	/** Registers a click handler for the sign in button after view is initialized */
 	ngAfterViewInit() {
 		setTimeout(() => {
 			this.authService.registerClickHandler(this.id, (message: string) => {

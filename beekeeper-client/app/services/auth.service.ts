@@ -15,11 +15,11 @@ export class AuthService {
 	constructor(public http: Http, public router: Router) {
 		this.init();
 	}
-	
+	/** Gets username of currently loggin in user */
 	getUserName(): string {
 		return this.googleUser == undefined ? "" : this.googleUser.getBasicProfile().getName();
 	}
-	
+	/** Loads Google Auth Library */
 	init(): void {
 		gapi.load("auth2", () => {
 			const options = {
@@ -29,18 +29,11 @@ export class AuthService {
 			this.googleAuth = gapi.auth2.init(options);
 		});
 	}
-	
+	/** Adds google signin functionality to a button */
 	registerClickHandler(id, callback: (message: string) => void): void {
-		/*this.googleAuth.attachClickHandler(document.getElementById(id), {}, (user) => {
-				this.googleUser = <gapi.auth2.GoogleUser> user;
-				console.log(this.googleUser.getAuthResponse().id_token);
-				this.token = this.googleUser.getAuthResponse().id_token;
-				//this.router.navigate(['BeeHives']);
-		}, err => console.log(err));*/
 		gapi.signin2.render(id,{
 			onsuccess: (user) => {
 				this.googleUser = <gapi.auth2.GoogleUser> user;
-				console.log(this.googleUser.getAuthResponse().id_token);
 				this.token = this.googleUser.getAuthResponse().id_token;
 				callback("success");
 			},
@@ -50,7 +43,7 @@ export class AuthService {
 			}
 		});
 	}
-	
+	/** Signs out a google user */
 	signOut(): void {
 		this.googleAuth
 			.signOut()

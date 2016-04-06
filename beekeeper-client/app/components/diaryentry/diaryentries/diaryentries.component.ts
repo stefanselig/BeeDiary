@@ -10,7 +10,6 @@ import {SearchComponent}	from '../../search/search.component';
 
 import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 
-// Overally refactor code
 @Component({
 	selector: 'DiaryEntries',
 	directives: [DisplayDiaryEntryComponent, SearchComponent],
@@ -22,14 +21,18 @@ import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 				<button (click)="createDiaryEntry()" class="btn btn-default form-control">
 					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
 				</button>
-				<button (click)="toggleSearchResults()" *ngIf="showSearchResults" class="btn btn-default form-control">Zurück zu den gruppierten Einträgen</button>
+				<button (click)="toggleSearchResults()" *ngIf="showSearchResults" class="btn btn-default form-control">
+					Zurück zu den gruppierten Einträgen
+				</button>
 			</div>
 			<div *ngFor="#date of entryDates" [id]="date" class="col-sm-12 col-xs-12">
 				<h1 *ngIf="diaryEntriesPerDate[date.toDateString()].length > 0">
 					{{diaryEntriesPerDate[date.toDateString()].length == 0 ? "" : utils.formatDate(date, "fullmonths")}}
 				</h1>
 				<div *ngIf="diaryEntriesPerDate[date.toDateString()].length > 0" class="row">
-					<displaydiaryentry *ngFor="#diaryentry of diaryEntriesPerDate[date.toDateString()]" (onDiaryEntryDeleted)="deleteDiaryEntry($event)" [diaryentry]="diaryentry" class="col-sm-4 col-xs-12"></displaydiaryentry>
+					<displaydiaryentry *ngFor="#diaryentry of diaryEntriesPerDate[date.toDateString()]" 
+						(onDiaryEntryDeleted)="deleteDiaryEntry($event)" [diaryentry]="diaryentry" class="col-sm-4">
+					</displaydiaryentry>
 				</div>
 			</div>
 		</div>
@@ -37,15 +40,13 @@ import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 	providers: [SearchService]
 })
 export class DiaryEntriesComponent implements OnInit {
-	//public allDiaryEntries: DiaryEntry[] = [];
-	//public searchStrings: string[] = [];
 	public diaryEntries: DiaryEntry[] = [];
 	public entryDates: Date[] = [];
 	public diaryEntriesPerDate: any[][] = [];
 	public showSearchResults: boolean = false;
 
 	constructor(public diaryEntryService: DiaryEntryService, public router: Router, public utils: Utilities, public params: RouteParams, public searchService: SearchService<DiaryEntry>) {}
-	
+	/** Initializes search service and loads DiaryEntries */
 	ngOnInit(): void {
 		this.searchService.initSearch(this.diaryEntryService);
 		this.loadDiaryEntries();
@@ -83,23 +84,15 @@ export class DiaryEntriesComponent implements OnInit {
 		.elements
 		.subscribe(
 			(res: DiaryEntry[]) => this.initDiaryEntries(res),
-			err => console.error(err),
+			err => this.utils.errCallback(err),
 			()  => console.log("Load completed.")
 		);
 	}
-	
-	/*public search(eventArgs: string) {
-		this.diaryEntriesPerDate.length = 0;
-		this.sear
-	}*/
 	
 	/**
 	 * Initializes all necessary data
 	 */
 	public initDiaryEntries(res: DiaryEntry[]): void {
-		//this.allDiaryEntries = res.slice();
-		//console.log(this.allDiaryEntries);
-		//this.getStringsForSearch();
 		this.diaryEntries = res.slice();
 		this.convertDatesOfDiaryEntries();
 		this.getDates();
@@ -126,7 +119,6 @@ export class DiaryEntriesComponent implements OnInit {
 	 * Gets fired when search results are available.
 	 */
 	public search(eventArgs: string): void {
-		//this.getDiaryEntriesForDates(eventArgs);
 		let tempEntries = new Array<DiaryEntry>();
 		this.searchService.search(eventArgs).subscribe(
 			res => {
@@ -150,32 +142,6 @@ export class DiaryEntriesComponent implements OnInit {
 		this.getDiaryEntriesForDates();
 		this.showSearchResults = false;
 	}
-	
-	/**
-	 * Maps dates that are strings to Dates
-	 */
-	/*public mapDateStringsToDates(propertyName: string, option?: string): void {
-		if (option == undefined) {
-			this.allDiaryEntries
-				.filter(e => e[propertyName] != undefined && e[propertyName] != null && e[propertyName] != NaN)
-				.forEach(e => e[propertyName] = new Date(e[propertyName]));
-		}
-		else {
-			this.allDiaryEntries
-				.filter(e => entryTypeEnum[entryTypeEnum[e.type]] == option)
-				.filter(e => e[propertyName] != undefined && e[propertyName] != null && e[propertyName] != NaN)
-				.forEach(e => e[propertyName] = new Date(e[propertyName]));
-		}
-	}*/
-	
-	/**
-	 * Gets a string array of
-	 * all diaryEntries for search.
-	 */
-	/*public getStringsForSearch(): void {
-		this.allDiaryEntries
-		.forEach(e => this.searchStrings.push(JSON.stringify(e)));
-	}*/
 	
 	/**
 	 * Fills an Array with diary entries data.
@@ -204,7 +170,7 @@ export class DiaryEntriesComponent implements OnInit {
 			}
 		}
 	}
-	
+	/** Deletes a specific DiaryEntry */
 	public deleteDiaryEntry(id: string): void {
 		let diaryentryToDelete: DiaryEntry;
 		let index: number;

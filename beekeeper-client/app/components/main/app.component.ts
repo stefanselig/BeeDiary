@@ -21,8 +21,6 @@ import {AuthService} from '../../services/auth.service';
 
 import {SignInHeader} from './signinheader.component';
 
-// Refactor navbar so it works on mobile without jquery.
-
 @Component({
 	selector: 'beekeeper',
 	template: `
@@ -38,9 +36,6 @@ import {SignInHeader} from './signinheader.component';
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<!--<li>
-						<a [routerLink]="['LogIn']">Login</a>
-					</li>-->
 					<li>
 						<a [routerLink]="['BeeHives']">Bienenstöcke</a>
 					</li>
@@ -73,5 +68,5 @@ import {SignInHeader} from './signinheader.component';
 	{path: '/editdiaryentry/:id', name: 'EditDiaryEntry', component: EditDiaryEntryComponent},
 	{path: '/dashboard', name: 'DashBoard', component: Dashboard}
 ])
-
+/** No logic, unique purpose is delivering routing throughout the application */
 export class AppComponent {}

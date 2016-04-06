@@ -30,15 +30,15 @@ export class ViewBeeHiveComponent {
 	public onBeeHiveDeleted: EventEmitter<string> = new EventEmitter<string>();
 	
 	constructor(public beeHiveService: BeeHiveService, public mapsService: MapsService, public router: Router, params: RouteParams, public utils: Utilities) {}
-	
+	/** Shows the BeeHive's details */
 	public showDetails(): void {
 		this.viewDetails = !this.viewDetails;
 	}
-	
+	/** Button callback that navigates to EditBeeHive on click */
 	public editBeeHive(id: string): void {
 		this.router.navigate(['EditBeeHive', { id: id }]);
 	}
-	
+	/** Button callback that removes the selected BeeHive */
 	public removeBeeHive(id: string): void {
 		this.onBeeHiveDeleted.emit(id);
 	}

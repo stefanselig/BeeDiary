@@ -3,6 +3,7 @@ import {Router}			from 'angular2/router';
 
 import {BeeHiveService}	from '../../../services/beehive.service';
 import {MapsService, MarkerObject}	from '../../../services/maps.service';
+import {Utilities} from '../../../services/utilities.service';
 
 import {BeeHiveForm}	from '../beehiveform/beehiveForm.component';
 import {MapComponent}	from '../map/map.component';
@@ -31,12 +32,12 @@ import * as BeeHiveModule	from '../../../model/model/BeeHive/BeeHive';
 export class CreateBeeHiveComponent {
 	public beehive: BeeHiveModule.BeeHive = new BeeHiveModule.BeeHive();
 	
-	constructor(public mapsService: MapsService, public beehiveService: BeeHiveService, public router: Router) {
+	constructor(public mapsService: MapsService, public beehiveService: BeeHiveService, public router: Router, public utils: Utilities) {
 		this.beehive.lost = new BeeHiveModule.Lost();
 		this.beehive.source = new BeeHiveModule.Source();
 		this.beehive.hiveLocation = new BeeHiveModule.HiveLocation();
 	}
-	
+	/** Creates a new BeeHive */
 	public createNewBeeHive(): void {
 		console.log(this.beehive);
 		this.beehiveService
@@ -46,10 +47,10 @@ export class CreateBeeHiveComponent {
 				console.log(res);
 				this.router.navigate(['BeeHives']);
 			},
-			err => console.log(err)
+			err => this.utils.errCallback(err)
 		);
 	}
-	
+	/** Cancels action and returns to BeeHivesMainView */
 	public cancel(): boolean {
 		this.router.navigate(['BeeHives']);
 		return false;

@@ -15,5 +15,6 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 	directives: [ROUTER_DIRECTIVES]
 })
 export class SignInHeader {
+	/** No logic, unique purpose is displaying the username and a logout button if user is signed in */
 	constructor(public authService: AuthService, router: Router) {}
 }

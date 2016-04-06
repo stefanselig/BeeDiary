@@ -11,7 +11,7 @@ import {MapComponent} from '../map/map.component';
 import {SearchComponent} from '../../search/search.component';
 
 import {BeeHive} from '../../../model/model/BeeHive/BeeHive';
-// Somehow include _id in model
+
 @Component({
 	selector: 'BeeHive',
 	template: `
@@ -70,7 +70,7 @@ export class BeeHiveComponent implements OnInit {
 				}
 				this.beehives.push(res);
 			},
-			err => console.error(err),
+			err => this.utils.errCallback(err),
 			() => console.log("Completed.")
 		);
 	}
@@ -95,7 +95,7 @@ export class BeeHiveComponent implements OnInit {
 					this.initMarkers("");
 				}
 			},
-			err => console.log(err),
+			err => this.utils.errCallback(err),
 			() => console.log("Load completed")
 		);
 	}
@@ -105,31 +105,24 @@ export class BeeHiveComponent implements OnInit {
 	 */
 	public initMarkers(eventArgs: string): void {
 		this.isMapLoaded = true;
+		this.mapsService.deleteAllMarkers();
 		this.beehives.forEach((e: BeeHive) => {
 			if(e.hiveLocation.lat != null && e.hiveLocation.lng != null && e.hiveLocation.lat != undefined && e.hiveLocation.lng != undefined) {
-				/*const hiveLocation = {
-					lat: e.hiveLocation.lat,
-					lng: e.hiveLocation.lng,
-					position: new google.maps.LatLng(e.hiveLocation.lat, e.hiveLocation.lng)
-				};*/
 				e.hiveLocation.position = new google.maps.LatLng(e.hiveLocation.lat, e.hiveLocation.lng); 
 				const marker = this.mapsService.createMarker(e.hiveLocation);
 				this.mapsService.assignMarkerToMap(e._id, marker);
 				this.mapsService.setInfoWindowText(e.hiveName, e._id);
 			}
 		});
-		/*this.beehives
-			.filter(beehive => beehive.hiveLocation.markerId != undefined)
-			.forEach(beehive => this.mapsService.setInfoWindowText(beehive.hiveName, beehive.hiveLocation.markerId));*/
 		this.mapsService.centerMap();
 	}
-	
+	/** Removes a Beehive */
 	public removeBeeHive(id: string): void {
 		this.beehiveService.deleteElementById(id).subscribe(
 			res => console.log(res),
-			err => console.error(err)
+			err => this.utils.errCallback(err)
 		);
-		// ?
+
 		const beehiveToDelete = this.beehives.find(beehive => beehive._id == id);
 		
 		for (var key in this.mapsService.markers) {
@@ -142,5 +135,6 @@ export class BeeHiveComponent implements OnInit {
 		}
 		
 		this.beehives.splice(this.beehives.indexOf(beehiveToDelete), 1);
+		this.initMarkers("");
 	}
 }

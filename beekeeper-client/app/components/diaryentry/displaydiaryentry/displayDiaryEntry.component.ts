@@ -18,30 +18,27 @@ export class DisplayDiaryEntryComponent  {
 	public beehiveMap: any[];
 	
 	public viewDetails: boolean = false;
-	
+	/** Loads BeeHiveNamesAndIds */
 	constructor(public diaryEntryService: DiaryEntryService, public router: Router, public utils: Utilities) {
 		this.getBeeHiveNamesAndIds();
 	}
-	
+	/** Shows the DiaryEntries details */
 	public showDetails(): void {
 		this.viewDetails = !this.viewDetails;
 	}
-	
+	/** Parses markdown text to HTML */
 	public parseMd(): string {
-		if (this.diaryentry.description == null) 
-			return "";
-		else 
-			return marked(this.diaryentry.description);
+		return this.diaryentry.description == null ? "" : marked(this.diaryentry.description);
 	}
-	
+	/** Navigates to EditDiaryEntryView with the selected BeeHive's id as parameter */
 	public editDiaryEntry(id: number): void {
 		this.router.navigate(['EditDiaryEntry', { id: id }]);
 	}
-	
+	/** Removes DiaryEntry by id */
 	public removeDiaryEntry(id: string): void {
 		this.onDiaryEntryDeleted.emit(id);
 	}
-	
+	/** Loads BeeHiveNamesAndIdsMap from Service */
 	public getBeeHiveNamesAndIds(): void {
 		this.diaryEntryService
 			.beehiveNamesAndIdsMap
@@ -52,7 +49,7 @@ export class DisplayDiaryEntryComponent  {
 				err => console.log(err)
 			);
 	}
-	
+	/** Gets the BeeHive's name depending on id value */
 	public getBeeHiveName(beeHiveId: string): string {
 		if (this.beehiveMap != undefined) {
 			const hive = this.beehiveMap.find(beehive => beehive._id == beeHiveId);
@@ -60,5 +57,9 @@ export class DisplayDiaryEntryComponent  {
 		}
 		else
 			return "";
+	}
+	/** Returns either "Gut" or "Schlecht" depending on mood value */
+	public convertMoodValue(mood: boolean): string {
+		return mood == true ? "Gut" : "Schlecht";
 	}
 }

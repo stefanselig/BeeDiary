@@ -48,10 +48,6 @@
 		<td *ngIf="beehive.source.type == 'Anderes'">{{beehive.source.otherSource}}</td>
 		<td *ngIf="beehive.source.type == 'Gekauft'">Gekauft von {{beehive.trader}}</td>
 	</tr>
-	<!--<tr *ngIf="viewDetails" class="ng-animate box">
-		<td>Quellursprung: </td>
-		<td>{{beehive.source.origin}}</td>
-	</tr>-->
 	<tr *ngIf="viewDetails" class="ng-animate box">
 		<td>Startdatum:</td>
 		<td>{{utils.formatDate(beehive.startDate)}}</td>

@@ -3,6 +3,7 @@ import {Router, RouteParams} from 'angular2/router';
 
 import {DiaryEntryComponent} from '../diaryentry/diaryentry.component';
 import {DiaryEntryService}	from '../../../services/diaryentry.service';
+import {Utilities} from '../../../services/utilities.service';
 
 import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 
@@ -29,21 +30,21 @@ import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 })
 export class EditDiaryEntryComponent {
 	public diaryentry: DiaryEntry = new DiaryEntry();
-	
-	constructor(public diaryEntryService: DiaryEntryService, public router: Router, params: RouteParams) {
+	/** Loads selected DiaryEntry */
+	constructor(public diaryEntryService: DiaryEntryService, public router: Router, params: RouteParams, public utils: Utilities) {
 		this.loadSelectedDiaryEntry(params.get('id'));
 	}
-	
+	/** Loads the DiaryEntry with the passed id from the service */
 	public loadSelectedDiaryEntry(id: string): void {
 		this.diaryEntryService
 		.getElementById(id)
 		.subscribe(
 			(res: DiaryEntry) => {this.diaryentry = res;console.log(this.diaryentry);},
-			err => console.log(err),
+			err => this.utils.errCallback(err),
 			()  => console.log("Load completed.") 
 		);
 	}
-	
+	/** Updates selected DiaryEntry */
 	public updateDiaryEntry(): void {
 		this.diaryEntryService
 		.updateElement(JSON.stringify(this.diaryentry), this.diaryentry._id)
@@ -56,7 +57,7 @@ export class EditDiaryEntryComponent {
 			}
 		);
 	}
-	
+	/** Deletes selected DiaryEntry */
 	public deleteDiaryEntry(): void {
 		this.diaryEntryService
 			.deleteElementById(this.diaryentry._id)
@@ -66,7 +67,7 @@ export class EditDiaryEntryComponent {
 				()  => this.router.navigate(['DiaryEntries'])
 			);
 	}
-	
+	/** Cancels current action and returns back to DiaryEntriesMainView */
 	public cancel(): boolean {
 		this.router.navigate(['DiaryEntries']);
 		return false;

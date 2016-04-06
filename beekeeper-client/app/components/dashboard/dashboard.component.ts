@@ -4,6 +4,8 @@ import {Diagram} from './diagram.component';
 
 import {DashBoardService} from '../../services/dashboard.service';
 import {DiaryEntryService} from '../../services/diaryentry.service';
+import {Utilities} from '../../services/utilities.service';
+
 @Component({
 	selector: 'dashboard',
 	template: `
@@ -67,25 +69,23 @@ export class Dashboard implements AfterViewInit {
 	beehivesLoaded: boolean = false;
 	dataLoaded: boolean = false;
 	showDiagram: boolean = false;
-	
-	constructor(public dashBoardService: DashBoardService, public diaryEntryService: DiaryEntryService) {
+	/** Loads BeeHives names and ids for user selection */
+	constructor(public dashBoardService: DashBoardService, public diaryEntryService: DiaryEntryService, public utils: Utilities) {
 		this.diaryEntryService
 			.beehiveNamesAndIdsMap
 			.subscribe(res => {
 				this.beeHives = res.slice();
 				console.log(res);
 				this.beehivesLoaded = true;
-				//this.dataLoaded = true;
-			});
+			}, err => this.utils.errCallback(err));
 	}
-	
+	/** Sets a boolean when google charts library is ready */
 	ngAfterViewInit(): void {
     	google.charts.setOnLoadCallback(() => {
 			this.libLoaded = true;
-			//this.data = new google.visualization.DataTable();
 		});
 	}
-	
+	/** Creates a new chart, type depends on user selection */
 	public createChart(): void {
 		this.data = new google.visualization.DataTable();
 		if (this.selectedChartContent == undefined) {
@@ -103,13 +103,16 @@ export class Dashboard implements AfterViewInit {
 				break;
 		}
 	}
-	
+	/** 
+	 * Creates a bar chart
+	 * Loads honey for one data for the selected BeeHive
+	 */
 	public createBarChart(): void {
 		this.selectedChartType = "Balken";
 		
 		this.data.addColumn(`date`, `Zeitverlauf`);
 		this.data.addColumn(`number`, ``);
-		
+
 		this.dashBoardService
 			.getHoneyForOne(this.selectedBeeHive)
 			.subscribe(res => {
@@ -124,7 +127,10 @@ export class Dashboard implements AfterViewInit {
 				this.clickCounter++;
 			});
 	}
-	
+	/**
+	 * Creates a line chart
+	 * Loads acarian data for the selected BeeHive
+	 */
 	public createLineChart(): void {
 		this.selectedChartType = "Linien";
 		
@@ -145,7 +151,10 @@ export class Dashboard implements AfterViewInit {
 				this.clickCounter++;
 			});
 	}
-	
+	/**
+	 * Creates a pie chart
+	 * Loads honey data for all BeeHives
+	 */
 	public createPieChart(): void {
 		this.selectedChartType = "Torte";
 		
@@ -166,7 +175,7 @@ export class Dashboard implements AfterViewInit {
 					this.showDiagram = true;
 					this.clickCounter++;
 				},
-				err => console.log(err)
+				err => this.utils.errCallback(err)
 			);
 	}
 }

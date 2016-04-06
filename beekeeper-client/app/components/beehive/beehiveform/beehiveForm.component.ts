@@ -34,14 +34,19 @@ export class BeeHiveForm {
 	combConstructions: string[] = BeeHiveModel.combConstructions;
 	
 	constructor(public beehiveService: BeeHiveService, public mapsService: MapsService) {}
-	
+	/** 
+	 * Loads current coordinates
+	 * Loads current address based on coordinates data
+	 * Creates Marker
+	 * Marker-Map-Assignment
+	 * Sets Marker Infowindow
+	 * Centers map
+	 * */
 	public callGetCoordinates(): void {
 		let marker: google.maps.Marker;
 			this.mapsService.getCoordinates()
 			.then(
 				(res: BeeHiveModel.HiveLocation) => {
-					// this.beehive.hiveLocation.lat = +res.lat.toFixed(2);
-					// this.beehive.hiveLocation.lng = +res.lng.toFixed(2);
 					this.beehive.hiveLocation.lat = res.lat;
 					this.beehive.hiveLocation.lng = res.lng;
 					this.beehive.hiveLocation.position = new google.maps.LatLng(res.lat, res.lng);
@@ -61,7 +66,7 @@ export class BeeHiveForm {
 				  }
 			  });
 	}
-	
+	/** Loads photo from HTML Filepicker */
 	public handlePhoto(photo): void {
 		const reader = new FileReader();
 		if (photo[0]) {
@@ -71,7 +76,7 @@ export class BeeHiveForm {
 			});
 		}
 	}
-	
+	/** Deletes a photo */
 	public deletePhoto(filePicker: HTMLInputElement): void {
 		filePicker.value = "";
 		this.beehive.photo = undefined;

@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {Router}	from 'angular2/router';
 
 import {DiaryEntryService}	from '../../../services/diaryentry.service';
+import {Utilities} from '../../../services/utilities.service';
 
 import {DiaryEntryComponent} from '../diaryentry/diaryentry.component';
 
@@ -25,7 +26,7 @@ import {DiaryEntry} from '../../../model/model/DiaryEntry/DiaryEntry';
 export class CreateDiaryEntryComponent {
 	public diaryentry: DiaryEntry = new DiaryEntry();
 	
-	constructor(public diaryEntryService: DiaryEntryService, public router: Router) {
+	constructor(public diaryEntryService: DiaryEntryService, public router: Router, public utils: Utilities) {
 		this.diaryentry.photos = [];
 	}
 	
@@ -41,7 +42,7 @@ export class CreateDiaryEntryComponent {
 					console.log(res);
 					this.router.navigate(['DiaryEntries']);
 				},
-				err => console.log(err)
+				err => this.utils.errCallback(err)
 			);
 	}
 	

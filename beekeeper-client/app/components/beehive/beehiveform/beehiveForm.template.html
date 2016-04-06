@@ -40,15 +40,6 @@
 				<label>Händler: </label>
 				<input type="text" [ngModel]="beehive.trader" (ngModelChange)="beehive.trader = $event" placeholder="Händler" class="form-control" />
 			</div>
-			<!--<div *ngIf="beehive.source?.type == 'Ableger'">
-				<label> Quellursprung: </label>-->
-				<!--<input type="number" [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event" placeholder="Quellursprung" class="form-control" />-->
-				<!--<select [ngModel]="beehive.source?.origin" (ngModelChange)="beehive.source.origin = $event">
-					<option *ngFor="#beehive of allBeeHives" [value]="beehive._id">
-						{{beehive.hiveName}}
-					</option>
-				</select>-->
-			<!--</div>-->
 		</div>
 		
 		<div class="form-group">
