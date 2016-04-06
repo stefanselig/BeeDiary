@@ -1,5 +1,5 @@
 {
   "port": 3000,
-  "files": ["./beekeeper-client/**/*.{html,htm,css,js,map,svg}"],
-  "server": { "baseDir": "./beekeeper-client/" }
+  "files": ["./beediary-client/**/*.{html,htm,css,js,map,svg}"],
+  "server": { "baseDir": "./beediary-client/" }
 }

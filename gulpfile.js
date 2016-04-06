@@ -9,9 +9,9 @@ var source_maps = require('gulp-sourcemaps');
 var child_process = require('child_process');
 var exec = require('child_process').exec;
 
-var PATH_CLIENT = './beekeeper-client/';
-var PATH_SERVER = './beekeeper-server/';
-var PATH_SHARED = './beekeeper-shared/';
+var PATH_CLIENT = './beediary-client/';
+var PATH_SERVER = './beediary-server/';
+var PATH_SHARED = './beediary-shared/';
 
 var tsClient = ts.createProject(PATH_CLIENT + 'tsconfig.json');
 var tsServer = ts.createProject(PATH_SERVER + 'src/tsconfig.json');

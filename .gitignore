@@ -2,25 +2,25 @@
 .vscode/launch.json
 node_modules
 
-beekeeper-client/node_modules
-beekeeper-client/npm-debug.log
-beekeeper-client/app/**/*.js
-beekeeper-client/app/**/*.js.map
-beekeeper-client/typings
-beekeeper-client/app/boot/config.js
-beekeeper-client/dist
+beediary-client/node_modules
+beediary-client/npm-debug.log
+beediary-client/app/**/*.js
+beediary-client/app/**/*.js.map
+beediary-client/typings
+beediary-client/app/boot/config.js
+beediary-client/dist
 
-beekeeper-server/routes/config.js
-beekeeper-server/node_modules
-beekeeper-server/npm-debug.log
-beekeeper-server/typings
-beekeeper-server/src/*.js
-beekeeper-server/src/*.js.map
-beekeeper-server/src/**/*.js
-beekeeper-server/src/**/*.js.map
-beekeeper-server/src/**/**/*.js
-beekeeper-server/src/**/**/*.js.map
+beediary-server/routes/config.js
+beediary-server/node_modules
+beediary-server/npm-debug.log
+beediary-server/typings
+beediary-server/src/*.js
+beediary-server/src/*.js.map
+beediary-server/src/**/*.js
+beediary-server/src/**/*.js.map
+beediary-server/src/**/**/*.js
+beediary-server/src/**/**/*.js.map
 
-beekeeper-shared/node_modules
-beekeeper-shared/**/*.js
-beekeeper-shared/**/*.js.map
+beediary-shared/node_modules
+beediary-shared/**/*.js
+beediary-shared/**/*.js.map

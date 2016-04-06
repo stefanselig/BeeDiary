@@ -1,6 +1,6 @@
 {
-    "name": "beekeeper-server",
-    "description": "The beekeeper-server",
+    "name": "beediary-server",
+    "description": "The beediary-server",
     "scripts": {
         "tsc":"tsc -p src -w"
     },

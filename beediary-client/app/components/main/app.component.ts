@@ -22,7 +22,7 @@ import {AuthService} from '../../services/auth.service';
 import {SignInHeader} from './signinheader.component';
 
 @Component({
-	selector: 'beekeeper',
+	selector: 'beediary',
 	template: `
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-header">
