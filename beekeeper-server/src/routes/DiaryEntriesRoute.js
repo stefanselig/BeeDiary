@@ -13,17 +13,16 @@ var ObjectId = mongodb.ObjectID;
 var databaseServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
 var database = new mongodb.Db('beesaver-db', databaseServer, { w: 1 });
 database.open(function () { });
-// middleware to use for all requests
 router.use(function (req, res, next) {
-    // do logging
     console.log('Incoming request. - Diagram');
     Auth.isTokenValid(req.headers.token, function (id, err) {
         if (err == "") {
             req.body.googleUserId = id;
-            next(); // make sure we go to the next routes and don't stop here   
+            next();
         }
         else {
             console.error(err);
+            res.statusCode = 401;
             res.json({ message: 'Authentication failed. Token invalid or Access denied.' });
         }
     });

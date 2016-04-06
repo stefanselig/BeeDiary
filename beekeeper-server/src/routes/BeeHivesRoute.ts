@@ -8,9 +8,9 @@ import Utilities = require('./../model/utilities/Utilities');
 import Authentication = require('./../Authentication');
 import mongodb = require('mongodb');
 
-var express = require('express');
-var router = express.Router();
-var Auth = new Authentication.Authentication();
+const express = require('express');
+const router = express.Router();
+const Auth = new Authentication.Authentication();
 
 //Database handeling (MongoDB)
 var ObjectId = mongodb.ObjectID;
@@ -18,16 +18,15 @@ var databaseServer =  new mongodb.Server('localhost', 27017, {auto_reconnect: tr
 var database = new mongodb.Db('beesaver-db', databaseServer, {w: 1});
 database.open(function() {});
 
-// middleware to use for all requests
 router.use(function(req, res, next) {
-    // do logging
     console.log('Incoming request. - BeeHive');
     Auth.isTokenValid(req.headers.token, (id: string, err: any) => {
         if(err == "") {
             req.body.googleUserId = id;
-            next(); // make sure we go to the next routes and don't stop here   
+            next(); 
         } else {
             console.error(err);
+			res.statusCode = 401;
             res.json({message: 'Authentication failed. Token invalid or Access denied.' });
         }
     });
@@ -37,7 +36,6 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res) {
     res.json({ message: 'API is online and ready to receive requests! - BeeHive' });   
 });
-
 
 // create a new BeeHive (accessed at POST http://localhost:8080/api/BeeHives/beeHives)
 router.route('/beeHives').post(function(req, res) {
@@ -54,9 +52,8 @@ router.route('/beeHives').post(function(req, res) {
             }
             var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
             
-        
             var newHive = new BeeHive.BeeHive(req.body.googleUserId,req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, undefined,
-            hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, ''); //create a new instance of the BeeHive-model
+            hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, '');
             
             database.collection('BeeHives', function(error, beeHives) {
                 if(error) {
@@ -76,7 +73,7 @@ router.route('/beeHives').post(function(req, res) {
                 })
             });
         } else {
-            res.json({message: 'Nested objects can not be null! (hiveLocation, lost, source)'})
+            res.json({message: 'Nested objects cannot be null! (hiveLocation, lost, source)'})
         }
     });
     
@@ -98,7 +95,6 @@ router.route('/beeHives').get(function(req, res) {
        });
     });
 });
-    
     
 // get exactly one BeeHive by id(accessed at GET http://localhost:8080/api/BeeHives/beeHives/:hive_id)
 router.route('/beeHives/:hive_id').get(function(req, res) { 
@@ -224,5 +220,5 @@ router.route('/BeeHiveNames').get(function(req, res) {
        });
     });
 });
-    
+
 module.exports = router;

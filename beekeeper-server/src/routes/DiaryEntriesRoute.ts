@@ -17,16 +17,15 @@ var databaseServer =  new mongodb.Server('localhost', 27017, {auto_reconnect: tr
 var database = new mongodb.Db('beesaver-db', databaseServer, {w: 1});
 database.open(function() {});
 
-// middleware to use for all requests
 router.use(function(req, res, next) {
-    // do logging
     console.log('Incoming request. - Diagram');
     Auth.isTokenValid(req.headers.token, (id: string, err: any) => {
         if(err == "") {
             req.body.googleUserId = id;
-            next(); // make sure we go to the next routes and don't stop here   
+            next();   
         } else {
             console.error(err);
+			res.statusCode = 401;
             res.json({message: 'Authentication failed. Token invalid or Access denied.' });
         }
     });
@@ -36,7 +35,6 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res) {
     res.json({ message: 'API is online and ready to receive requests! - DiaryEntry' });   
 });
-
 
 // create a new DiaryEntry (accessed at POST http://localhost:8080/api/DiaryEntries/diaryEntries)
 router.route('/diaryEntries').post(function(req, res) {
@@ -191,7 +189,6 @@ function addNewEntry(newEntry) {
         return 'OK';
 }
 
- 
 // gets all DiaryEntries (accessed at GET http://localhost:8080/api/DiaryEntries/diaryEntries)    
 router.route('/diaryEntries').get(function(req, res) {
         database.collection('DiaryEntries', function(error, diaryEntries) {
@@ -210,8 +207,7 @@ router.route('/diaryEntries').get(function(req, res) {
        });
     });
 });
-    
-  
+     
 // get exactly one DiaryEntry by id(accessed at GET http://localhost:8080/api/DiaryEntries/diaryEntries/:entry_id)
 router.route('/diaryEntries/:entry_id').get(function(req, res) { 
     database.collection('DiaryEntries', function(error, diaryEntries) {
@@ -532,8 +528,7 @@ router.route('/addOnePhoto').get(function(req, res) {
        });
     });
 });
-
-    
+ 
 /*// gets all Members of the DiaryEntry-EntryTypeENUM (accessed at GET http://localhost:8080/api/DiaryEntries/typeEnum)    
 router.route('/typeEnum').get(function(req, res) {
         res.json(Utilities.getArrayOfEnum(DiaryEntry.entryTypeEnum));

@@ -14,17 +14,16 @@ var ObjectId = mongodb.ObjectID;
 var databaseServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
 var database = new mongodb.Db('beesaver-db', databaseServer, { w: 1 });
 database.open(function () { });
-// middleware to use for all requests
 router.use(function (req, res, next) {
-    // do logging
     console.log('Incoming request. - BeeHive');
     Auth.isTokenValid(req.headers.token, function (id, err) {
         if (err == "") {
             req.body.googleUserId = id;
-            next(); // make sure we go to the next routes and don't stop here   
+            next();
         }
         else {
             console.error(err);
+            res.statusCode = 401;
             res.json({ message: 'Authentication failed. Token invalid or Access denied.' });
         }
     });
@@ -47,7 +46,7 @@ router.route('/beeHives').post(function (req, res) {
             req.body.photo.id = new ObjectId();
         }
         var photo = new DiaryEntry.Photo(req.body.photo.id, req.body.photo.content);
-        var newHive = new BeeHive.BeeHive(req.body.googleUserId, req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, undefined, hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, ''); //create a new instance of the BeeHive-model
+        var newHive = new BeeHive.BeeHive(req.body.googleUserId, req.body.hiveNumber, req.body.hiveName, req.body.startDate, req.body.description, photo, undefined, hiveLocation, source, lost, req.body.frameSize, req.body.otherFrameSize, req.body.frameMaterial, req.body.otherFrameMaterial, req.body.combConstruction, req.body.otherCombConstruction, req.body.trader, '');
         database.collection('BeeHives', function (error, beeHives) {
             if (error) {
                 console.error(error);
@@ -68,7 +67,7 @@ router.route('/beeHives').post(function (req, res) {
         });
     }
     else {
-        res.json({ message: 'Nested objects can not be null! (hiveLocation, lost, source)' });
+        res.json({ message: 'Nested objects cannot be null! (hiveLocation, lost, source)' });
     }
 });
 // gets all BeeHives (accessed at GET http://localhost:8080/api/BeeHives/beeHives)    
