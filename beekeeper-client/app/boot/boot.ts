@@ -6,10 +6,8 @@ import {HTTP_BINDINGS} from 'angular2/http';
 
 import {AppComponent} from '../components/main/app.component';
 
+/** Loads application as well as Services for Routing and Webrequests */
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
   HTTP_BINDINGS
 ]);
-
-//import {provide} from 'angular2/core';
-//class RouterComponent {}

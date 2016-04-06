@@ -8,6 +8,6 @@
     "gulp-install": "latest",
     "gulp-typescript": "latest",
 	"gulp-sourcemaps": "latest",
-    "typescript": "^1.8.2"
+    "typescript": "latest"
   }
 }

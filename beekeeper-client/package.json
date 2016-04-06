@@ -1,35 +1,26 @@
 {
-  "name": "beekeeper",
+  "name": "beediary",
   "version": "1.0.0",
   "description": "Diploma thesis, 5BHIF",
   "scripts": {
     "tsc": "tsc -p app -w",
-    "start": "lite-server",
-    "lite": "lite-server --verbose",
-	"live": "live-server",
-	"babel": "babel gulpfile.js --out-file gulpfile.js"
+    "start": "lite-server --verbose"
   },
   "author": "Stefan Selig and Valentin Hengstschläger",
   "dependencies": {
-    "angular2": "2.0.0-beta.12",
+    "angular2": "2.0.0-beta.7",
     "systemjs": "0.19.6",
-    "es6-shim": "^0.35.0",
+	"es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.6.6",
+    "zone.js": "0.5.15",
 	"jquery": "latest",
 	"bootstrap": "latest",
 	"marked": "latest"
   },
   "devDependencies": {
     "typescript": "latest",
-    "live-server": "^0.8.1",
-    "lite-server": "^1.3.1",
-    "gulp": "latest",
-	"gulp-typescript": "latest",
-	"gulp-install": "latest",
-	"gulp-exec": "latest",
-	"babel-cli": "latest",
-	"babel-preset-es2015":"latest"
+    "lite-server": "^1.3.1"
   }
 }

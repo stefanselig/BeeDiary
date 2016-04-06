@@ -15,7 +15,6 @@ var PATH_SHARED = './beekeeper-shared/';
 
 var tsClient = ts.createProject(PATH_CLIENT + 'tsconfig.json');
 var tsServer = ts.createProject(PATH_SERVER + 'src/tsconfig.json');
-var tsShared = ts.createProject(PATH_SHARED + 'tsconfig.json');
 
 // Setting up:
 
@@ -26,13 +25,14 @@ gulp.task('build-client', function () {
 		.pipe(source_maps.write('./'))
 		.pipe(gulp.dest(PATH_CLIENT + 'dist/'));
 	gulp.src(PATH_CLIENT + 'app/boot/config.js')
-		.pipe(gulp.dest(PATH_CLIENT + 'dist/boot/'));
+		.pipe(gulp.dest(PATH_CLIENT + 'dist/app/boot/'));
 	gulp.src(PATH_CLIENT + 'app/beediary_logo.svg')
 		.pipe(gulp.dest(PATH_CLIENT + 'dist/'));
-	//.js.pipe(gulp.dest(PATH_CLIENT + 'app/'));
-	//.js.pipe(gulp.dest(PATH_CLIENT + 'dist/'));
-	//gulp.src(PATH_CLIENT + 'dist/**/*.js')
 });
+
+gulp.task('watch-build-client', function () {
+	gulp.watch(PATH_CLIENT + 'app/**/*.ts', ['build-client']);
+})
 
 gulp.task('build-server', function () {
 	tsServer.src()
