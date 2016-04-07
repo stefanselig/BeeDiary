@@ -6,14 +6,12 @@ beediary-client/node_modules
 beediary-client/npm-debug.log
 beediary-client/app/**/*.js
 beediary-client/app/**/*.js.map
-beediary-client/typings
 beediary-client/app/boot/config.js
 beediary-client/dist
 
 beediary-server/routes/config.js
 beediary-server/node_modules
 beediary-server/npm-debug.log
-beediary-server/typings
 beediary-server/src/*.js
 beediary-server/src/*.js.map
 beediary-server/src/**/*.js
