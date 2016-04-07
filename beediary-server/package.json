@@ -5,7 +5,7 @@
         "tsc":"tsc -p src -w"
     },
     "main": "server.js",
-    "author": "Valentin Hengstschläger",
+    "author": "Valentin Kronreif",
     "dependencies": {
         "express": "~4.0.0",
         "body-parser": "~1.0.1",

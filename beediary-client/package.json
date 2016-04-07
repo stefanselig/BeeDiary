@@ -1,12 +1,12 @@
 {
   "name": "beediary",
   "version": "1.0.0",
-  "description": "Diploma thesis, 5BHIF",
+  "description": "BeeDiary client",
   "scripts": {
     "tsc": "tsc -p app -w",
     "start": "lite-server --verbose"
   },
-  "author": "Stefan Selig and Valentin Hengstschläger",
+  "author": "Stefan Selig",
   "dependencies": {
     "angular2": "2.0.0-beta.7",
     "systemjs": "0.19.6",
